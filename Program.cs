@@ -13,6 +13,10 @@ namespace HospitalSystemTeamTask
         {
             var builder = WebApplication.CreateBuilder(args);
             // Add services to the container.
+            builder.Services.AddRazorPages();
+            builder.Services.AddServerSideBlazor();
+
+            // Add services to the container.
 
             builder.Services.AddScoped<IBookingRepo, BookingRepo>();
             builder.Services.AddScoped<IBookingService, BookingService>();
@@ -42,6 +46,7 @@ namespace HospitalSystemTeamTask
 
             builder.Services.AddScoped<IUserRepo, UserRepo>();
             builder.Services.AddScoped<IUserService, UserService>();
+
 
             builder.Services.AddScoped<ISendEmail, SendEmail>();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
