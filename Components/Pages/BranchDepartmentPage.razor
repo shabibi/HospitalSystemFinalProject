@@ -1,0 +1,16 @@
+﻿@page "/BranchDepartmentPage/{branchId}"
+
+<h3>Branch Department Page</h3>
+
+<p>Branch ID: @branchId</p>
+
+@code {
+    [Parameter]
+    public int branchId { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // Use the branchId to fetch the data or display relevant information
+        Console.WriteLine($"Branch ID: {branchId}");
+    }
+}
