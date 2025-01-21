@@ -1,7 +1,70 @@
 ﻿@page "/"
+@inject NavigationManager NavigationManager
+
+
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<MudText Typo="Typo.h2" Style="color: #33BEC8; text-align: center; font-family: 'Times New Roman', Times, serif;">
+    Codeline Hospital
+</MudText>
+<div>
+    <MudSelect T="string" Label="Search" AnchorOrigin="Origin.CenterLeft" TransformOrigin="Origin.CenterRight" Variant="Variant.Outlined" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Tertiary">
+        <MudSelectItem Value="@("foo")">Foo</MudSelectItem>
+        <MudSelectItem Value="@("bar")">Bar</MudSelectItem>
+    </MudSelect>
+</div>
 
-Welcome to your new app.
+<div class="text-center p-4 bg-light rounded shadow-lg">
+    <MudImage Fluid="true"
+              Src="favicon.png"
+              Width="332"
+              Height="250"
+              Alt="Swedish Farm House"
+              Class="rounded-lg mb-3 shadow-sm" />
+
+  
+    <MudText Typo="Typo.h3" Style="color: #33BEC8; font-family: 'Times New Roman', Times, serif;">
+        Welcome to Codeline Hospital
+    </MudText>
+
+    <p class="text-secondary fs-5" >
+        We are a locally owned and operated medical centre that has been serving the community since 2025.
+        Over the years, we’ve grown from a single-doctor cardiology practice to a multi-speciality hospital offering comprehensive healthcare services for the entire family.
+    </p>
+    <p class="text-secondary fs-5">
+        From the very beginning, our mission has been to bring the most qualified and accomplished doctors to Oman.
+        Today, we are proud to be home to numerous internationally qualified senior consultants, providing expertise across almost every branch of medicine.
+    </p>
+</div>
+<div class="container mt-5">
+    <div class="rounded p-4 shadow-lg" style="background-color: #33BEC8; color: white;">
+        <h5 class="mb-3 text-center">Contact Us</h5>
+        <div class="d-flex justify-content-around flex-wrap">
+            <div>
+                <MudIconButton Icon="@Icons.Material.Filled.Email" Color="Color.Surface" aria-label="email" />
+                <strong>Email:</strong> contact@codelinehospital.com
+            </div>
+            <div>
+                <MudIconButton Icon="@Icons.Material.Filled.LocationOn" Color="Color.Surface" aria-label="location" />
+                <strong>Location:</strong> Al Khuwair, Muscat, Oman
+            </div>
+            <div>
+                <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Surface" aria-label="github" OnClick="NavigateToGitHub" />
+                <strong>Git Hub:</strong> Project Link 
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private void NavigateToGitHub()
+    {
+        // Navigate to GitHub URL
+        NavigationManager.NavigateTo("https://github.com/shabibi/HospitalSystemFinalProject", true);
+
+
+    }
+  
+}
+
