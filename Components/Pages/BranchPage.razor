@@ -1,0 +1,90 @@
+﻿@page "/BranchPage"
+@inject IBranchService branchService
+@inject NavigationManager Navigation
+
+<h3>Branches</h3>
+
+<MudSelect T="Branch" @bind-Value="selectedBranch" ToStringFunc="@converter" Variant="Variant.Outlined" Clearable>
+    @if (branches != null)
+    {
+        @foreach (var branch in branches)
+        {
+            <MudSelectItem Value="branch">
+                @branch.BranchName.ToUpper()
+            </MudSelectItem>
+        }
+    }
+</MudSelect>
+
+<MudGrid Spacing="3" Justify="Justify.Center">
+    @if (branches != null && branches.Any())
+    {
+        @foreach (var branch in branches)
+        {
+            <MudItem xs="12" sm="6">
+                <MudCard Elevation="3" Class="ma-3" Style="width: 100%; height: 500px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <MudCardMedia Image="@GetBranchImage(branch.BranchName)" Alt="@branch.BranchName" Style="height: 300px; width: 100%; object-fit: contain;" />
+                    <MudCardContent>
+                        <MudText Typo="Typo.h6" Class="text-center">@branch.BranchName.ToUpper()</MudText>
+                        <MudText Typo="Typo.body2" Class="text-center">@branch.Location</MudText>
+                    </MudCardContent>
+                    <MudCardActions Class="justify-center">
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => ShowDetails(branch.BID)">
+                            View Details
+                        </MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+        }
+    }
+    else
+    {
+        <MudText Typo="Typo.body1">No branches available.</MudText>
+    }
+</MudGrid>
+
+@code {
+    private Branch selectedBranch;
+    private List<Branch> branches;
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            branches = branchService.GetAllBranches().ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching branches: {ex.Message}");
+        }
+    }
+
+    private void ShowDetails(int branchId)
+    {
+        // Navigate to the BranchDepartmentPage with the branch ID
+        Navigation.NavigateTo($"/BranchDepartmentPage/{branchId}");
+    }
+
+    private string GetBranchImage(string branchName)
+    {
+        string imagesFolder = Path.Combine("wwwroot", "images");
+        string[] availableImages = Directory.GetFiles(imagesFolder, "*.png"); // Get all PNG images
+
+        // Look for an image whose name matches part of the branch name
+        foreach (var imagePath in availableImages)
+        {
+            string imageName = Path.GetFileNameWithoutExtension(imagePath).ToLower(); // Extract image name without extension
+            if (branchName.ToLower().Contains(imageName)) // Check if branch name contains the image name
+            {
+                return $"images/{Path.GetFileName(imagePath)}"; // Return relative path to the image
+            }
+        }
+
+        // Fallback to default image if no match is found
+        return "images/default.png";
+    }
+
+    Func<Branch, string> converter = branch => branch?.BranchName ?? "Find Branch";
+}
+
+
