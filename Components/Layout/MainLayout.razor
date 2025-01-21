@@ -1,19 +1,57 @@
 ﻿@inherits LayoutComponentBase
+@* Required *@
+<MudThemeProvider />
+<MudPopoverProvider />
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+
+<div class="page d-flex flex-column" style="min-height: 100vh;">
+
+    <!-- Carousel Section -->
+  <div class="carousel-container" style="width: 100%; height: 500px;">
+    <MudCarousel Class="mud-width-full" Style="height: 100%;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+            <MudCarouselItem Transition="transition" Color="@Color.Primary">
+                <div class="d-flex" style="height: 100%;">
+                    <MudImage Src="/Images/Carousel4.jpg" Alt="Carousel Image" Style="width: 100%; height: 100%; object-fit: cover; margin: auto;" />
+                </div>
+            </MudCarouselItem>
+            <MudCarouselItem Transition="transition" Color="@Color.Primary">
+                <div class="d-flex" style="height: 100%;">
+                    <MudImage Src="/Images/Carousel1.jpg" Alt="Carousel Image" Style="width: 100%; height: 100%; object-fit: cover; margin: auto;" />
+                </div>
+            </MudCarouselItem>
+            <MudCarouselItem Transition="transition" Color="@Color.Primary">
+                <div class="d-flex" style="height: 100%;">
+                    <MudImage Src="/Images/Carousel3.jpg" Alt="Carousel Image" Style="width: 100%; height: 100%; object-fit: cover; margin: auto;" />
+                </div>
+            </MudCarouselItem>
+        </MudCarousel>
     </div>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+    <!-- Main Content Section -->
+    <div class="content-container d-flex">
+        <!-- Sidebar with NavMenu -->
+        <div >
+            <NavMenu />
         </div>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+        <!-- Main Content Area -->
+        <div class="main-content" style="flex: 1; padding: 1rem;">
+            <!-- Right-Aligned Button -->
+            <MudButton Variant="Variant.Outlined" Style="float: right; margin: 1rem; border-color: #1B7D84; color: #1B7D84;">Sign in</MudButton>
+           
+            <!-- Main Article Section -->
+            <main>
+                <article class="content px-4">
+                    @Body
+                </article>
+            </main>
+        </div>
+    </div>
 </div>
 
 <div id="blazor-error-ui">
@@ -21,3 +59,13 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+
+
+@code {
+    private bool arrows = true;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Slide;
+}
