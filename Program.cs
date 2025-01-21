@@ -3,6 +3,7 @@ using HospitalSystemTeamTask.Helper;
 using HospitalSystemTeamTask.Repositories;
 using HospitalSystemTeamTask.Services;
 using Microsoft.EntityFrameworkCore;
+using MudBlazor.Services;
 
 namespace HospitalSystemTeamTask
 {
@@ -47,6 +48,9 @@ namespace HospitalSystemTeamTask
                  options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddControllers();
+        
+
+            builder.Services.AddMudServices();
 
 
             // Add services to the container.
