@@ -1,0 +1,97 @@
+﻿@layout StaffLayout
+
+@page "/AllClinicsPage/{bid:int}/{depId:int}"
+@inject IClinicService clinicService
+@inject NavigationManager NavigationManager
+
+<h3 class="text-center my-4">All Clinics</h3>
+
+<!-- Clinics Table -->
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div style="display: flex; justify-content: flex-start; width: 100%; height: 100%; padding: 0;">
+            <table class="table table-striped table-responsive" style="width: 100%; table-layout: fixed;">
+                <thead>
+                    <tr>
+                        <th>Clinic ID</th>
+                        <th>Clinic Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (clinics != null && clinics.Any())
+                    {
+                        @foreach (var clinic in clinics)
+                        {
+                            <tr>
+                                <td>@clinic.CID</td>
+                                <td>@clinic.ClincName</td>
+                                <td>
+                                    <MudButton Color="Color.Primary" OnClick="() => ViewClinic(clinic.CID)">
+                                        View
+                                    </MudButton>
+                                    <MudButton Color="Color.Info" OnClick="() => ScheduleClinic(clinic.CID)">
+                                        Schedule
+                                    </MudButton>
+                                    <MudButton Color="Color.Warning" OnClick="() => EditClinic(clinic.CID)">
+                                        Edit
+                                    </MudButton>
+                                    <MudButton Color="Color.Error" OnClick="() => DeleteClinic(clinic.CID)">
+                                        Delete
+                                    </MudButton>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3">No clinics found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@code {
+    private List<Clinic> clinics = new List<Clinic>();
+
+    // Clinic ID and Department ID from URL
+    [Parameter] public int bid { get; set; }
+    [Parameter] public int depId { get; set; }
+
+    // Fetch clinics based on BID and DepId without using async/await
+    protected override void OnInitialized()
+    {
+        // Fetch the clinics synchronously from the service
+        clinics = clinicService.GetClinicByBranchDep(bid, depId).ToList();
+    }
+
+    // Handle actions
+    private void ViewClinic(int clinicId)
+    {
+        // Redirect to view clinic page or show details in a modal
+        NavigationManager.NavigateTo($"/ViewClinicPage/{clinicId}");
+    }
+
+    private void ScheduleClinic(int clinicId)
+    {
+        // Redirect to the schedule page for the clinic
+        NavigationManager.NavigateTo($"/ScheduleClinicPage/{clinicId}");
+    }
+
+    private void EditClinic(int clinicId)
+    {
+        // Redirect to edit clinic page
+        NavigationManager.NavigateTo($"/EditClinicPage/{clinicId}");
+    }
+
+    private void DeleteClinic(int clinicId)
+    {
+        // Handle clinic deletion logic here
+        Console.WriteLine($"Delete clinic with ID: {clinicId}");
+    }
+}
