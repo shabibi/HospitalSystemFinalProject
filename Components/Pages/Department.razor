@@ -1,0 +1,50 @@
+﻿@page "/Department"
+@inject NavigationManager NavigationManager
+@inject IDepartmentService DepartmentService
+
+<PageTitle>Departments</PageTitle>
+
+<MudText Typo="Typo.h2" Style="color: #33BEC8; text-align: center; font-family: 'Times New Roman', Times, serif;">
+    ATA Hospital Departments
+</MudText>
+<div Style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px;">
+    @foreach (var department in departments)
+    {
+        <MudCard Style="width: 250px; height: 350px; display: flex; flex-direction: column; justify-content: space-between;">
+            <MudCardMedia Image="@department.Image" Height="150" />
+            <MudCardContent>
+                <MudText Typo="Typo.h5" Style="font-size: 1.2rem; text-align: center;">@department.DepartmentName</MudText>
+                <MudText Typo="Typo.body2" Style="text-align: center; font-size: 0.9rem;">@department.Description</MudText>
+            </MudCardContent>
+            <MudCardActions Style="display: flex; justify-content: center;">
+                <MudButton Variant="Variant.Text" Color="Color.Primary" Style="margin: auto;">Learn More</MudButton>
+            </MudCardActions>
+        </MudCard>
+    }
+</div>
+
+
+@code {
+    private List<DepartmentViewModel> departments = new();
+
+    protected override void OnInitialized()
+    {
+        // Fetch all departments from the service
+        var departmentDtos = DepartmentService.GetAllDepartments().ToList();
+
+        // Map to the DepartmentViewModel
+        departments = departmentDtos.Select(dept => new DepartmentViewModel
+            {
+                DepartmentName = dept.DepartmentName,
+                Description = dept.Description,
+                Image = $"Images/IconDep/{dept.DepartmentName.ToLower().Replace(" ", "")}.png"
+            }).ToList();
+    }
+
+    private class DepartmentViewModel
+    {
+        public string DepartmentName { get; set; }
+        public string Description { get; set; }
+        public string Image { get; set; }
+    }
+}
