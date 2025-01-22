@@ -68,13 +68,13 @@ namespace HospitalSystemTeamTask.Services
             return result;
         }
 
-        public IEnumerable<Branch> GetBranchsByDepartment(string DepartmentName)
+        public IEnumerable<Branch> GetBranchsByDepartment(int did)
         {
-            var department = _departmentService.GetDepartmentByName(DepartmentName);
+            var department = _departmentService.GetDepartmentByid(did);
             if (department == null || !department.IsActive)
-                throw new Exception($"{DepartmentName} Not Found");
+                throw new Exception($"{department.DepartmentName} Not Found");
 
-            return _branchDepartmentRepo.GetBranchByDepartments(department.DepID);
+            return _branchDepartmentRepo.GetBranchByDepartments(did);
        
              
         }

@@ -1,0 +1,101 @@
+﻿@page "/DepartmentBranch/{departmentId:int}"
+@inject NavigationManager NavigationManager
+@inject IBranchDepartmentService BranchDepartmentService
+@inject IDepartmentService DepartmentService
+
+<PageTitle>@departmentName Branches</PageTitle>
+
+<MudText Typo="Typo.h4" Style="color: #33BEC8; text-align: center; margin-top: 16px;">
+    @departmentName Branches
+</MudText>
+
+@if (branches == null)
+{
+    <MudText Typo="Typo.body1" Style="text-align: center; margin-top: 16px;">Loading branches...</MudText>
+}
+else if (!branches.Any())
+{
+    <MudText Typo="Typo.body1" Style="text-align: center; margin-top: 16px;">No branches available for this department.</MudText>
+}
+else
+{
+    <div Style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 16px;">
+        @foreach (var branch in branches)
+        {
+            <MudCard Style="width: 250px; height: 300px; display: flex; flex-direction: column; justify-content: space-between;">
+                <MudCardMedia Image="@GetBranchImage(branch.BranchName)" Height="150" />
+                <MudCardContent>
+                    <MudText Typo="Typo.h6" Style="text-align: center;">@branch.BranchName</MudText>
+                    <MudText Typo="Typo.body2" Style="text-align: center;">@branch.Location</MudText>
+                </MudCardContent>
+            </MudCard>
+        }
+    </div>
+}
+
+<MudButton OnClick="@GoBack" Color="Color.Secondary" Style="margin-top: 16px;">Back to Departments</MudButton>
+
+@code {
+    [Parameter] public int DepartmentId { get; set; }
+
+    private List<BranchViewModel> branches;
+    private string departmentName;
+
+    protected override void OnInitialized()
+    {
+        // Fetch branches for the given department ID
+        var branchDtos = BranchDepartmentService.GetBranchsByDepartment(DepartmentId);
+
+        branches = branchDtos.Select(branch => new BranchViewModel
+            {
+                BranchName = branch.BranchName,
+                Location = branch.Location,
+                BranchImage = branch.BranchName // Store the branch name to check later
+            }).ToList();
+
+        // Fetch the department name using ID
+        var department = DepartmentService.GetDepartmentByid(DepartmentId);
+        if (department != null)
+        {
+            departmentName = department.DepartmentName;
+        }
+        else
+        {
+            departmentName = "Unknown Department";
+        }
+    }
+
+   
+    private string GetBranchImage(string branchName)
+    {
+        string imagesFolder = Path.Combine("wwwroot", "images");
+        string[] availableImages = Directory.GetFiles(imagesFolder, "*.png"); // Get all PNG images
+
+        // Look for an image whose name matches part of the branch name
+        foreach (var imagePath in availableImages)
+        {
+            string imageName = Path.GetFileNameWithoutExtension(imagePath).ToLower(); // Extract image name without extension
+            if (branchName.ToLower().Contains(imageName)) // Check if branch name contains the image name
+            {
+                return $"images/{Path.GetFileName(imagePath)}"; // Return relative path to the image
+            }
+        }
+
+        // Fallback to default image if no match is found
+        return "images/default.png";
+    }
+
+
+    private void GoBack()
+    {
+        NavigationManager.NavigateTo("/Department");
+    }
+
+    private class BranchViewModel
+    {
+        public string BranchName { get; set; }
+        public string Location { get; set; }
+        public string BranchImage { get; set; }
+    }
+}
+
