@@ -8,18 +8,29 @@
 <MudSnackbarProvider />
 
 <div class="page d-flex flex-column" style="min-height: 100vh;">
-
-
     <MudAppBar Color="Color.Default" Fixed="false" Style="background-color: #1B7D84;">
         <MudSpacer />
-        <!-- Change the icon to a user icon (e.g., Person) -->
-        <MudIconButton Icon="@Icons.Material.Filled.Person" Color="Color.Inherit" />
+
+        <!-- MudMenu with Activator -->
+        <MudMenu>
+            <ActivatorContent>
+                <MudChip T="string" Icon="@Icons.Material.Filled.Person" Style="color: #ffffff;"></MudChip>
+
+            </ActivatorContent>
+
+            <!-- Menu Items -->
+            <ChildContent>
+                <MudMenuItem OnClick="NavigateToProfile">Profile</MudMenuItem>
+                <MudMenuItem OnClick="NavigateToSettings">Settings</MudMenuItem>
+                <MudMenuItem OnClick="Logout">Logout</MudMenuItem>
+            </ChildContent>
+        </MudMenu>
     </MudAppBar>
+
 
     <div class="page d-flex">
         <div class="sidebar" style="width: 250px; background-color: #f4f4f4;">
             <div style="background: linear-gradient(to bottom, #1B7D84, #33BEC8); color: white; width: 250px; height: 100vh; padding: 0; display: flex; flex-direction: column; justify-content: space-between;">
-
                 <!-- Centered Logo Image -->
                 <div style="display: flex; justify-content: center; padding: 1rem;">
                     <img src="/Images/logo.png" alt="Logo" style="max-width: 150px; max-height: 100px; object-fit: contain;" />
@@ -52,7 +63,7 @@
                             </NavLink>
                         </div>
 
-                        <!-- Clinic NavLink (Updated Icon) -->
+                        <!-- Clinic NavLink -->
                         <div class="nav-item px-3" style="margin-bottom: 15px;">
                             <NavLink class="nav-link d-flex align-items-center" href="" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem 1rem;">
                                 <span class="bi bi-hospital-fill" aria-hidden="true" style="margin-right: 15px; font-size: 1.4rem; line-height: 1;"></span>
@@ -60,7 +71,7 @@
                             </NavLink>
                         </div>
 
-                        <!-- Staff NavLink (Updated Icon) -->
+                        <!-- Staff NavLink -->
                         <div class="nav-item px-3" style="margin-bottom: 15px;">
                             <NavLink class="nav-link d-flex align-items-center" href="" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem 1rem;">
                                 <span class="bi bi-person-fill" aria-hidden="true" style="margin-right: 15px; font-size: 1.4rem; line-height: 1;"></span>
@@ -71,23 +82,18 @@
                 </div>
             </div>
         </div>
-    </div>
-
 
         <!-- Main Content Area -->
-        <div class="main-content" style="flex: 1; padding: 1rem;">
-            <!-- Right-Aligned Button -->
-            <MudButton Variant="Variant.Outlined" Style="float: right; margin: 1rem; border-color: #1B7D84; color: #1B7D84;">Sign in</MudButton>
-
+        <div class="main-content" style="flex: 1; padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <!-- Main Article Section -->
-            <main>
+            <main style="width: 100%; max-width: 800px; text-align: center;">
                 <article class="content px-4">
                     @Body  <!-- Injected page content -->
                 </article>
             </main>
         </div>
     </div>
-
+</div>
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.
@@ -96,9 +102,24 @@
 </div>
 
 @code {
-    private bool arrows = true;
-    private bool bullets = true;
-    private bool enableSwipeGesture = true;
-    private bool autocycle = true;
-    private Transition transition = Transition.Slide;
+    private void NavigateToProfile()
+    {
+        // Navigate to the Profile page
+        Console.WriteLine("Profile clicked");
+        // Redirect to profile page or logic here
+    }
+
+    private void NavigateToSettings()
+    {
+        // Navigate to the Settings page
+        Console.WriteLine("Settings clicked");
+        // Redirect to settings page or logic here
+    }
+
+    private void Logout()
+    {
+        // Handle logout logic
+        Console.WriteLine("Logout clicked");
+        // Add your logout logic here (e.g., clearing authentication)
+    }
 }
