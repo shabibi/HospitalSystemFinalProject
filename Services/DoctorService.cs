@@ -29,7 +29,7 @@ namespace HospitalSystemTeamTask.Services
         {
             var doctor = _DoctorRepo.GetDoctorById(uid);
             if (doctor == null)
-                throw new KeyNotFoundException($"User with ID {uid} not found.");
+                throw new KeyNotFoundException($"Doctor with ID {uid} not found.");
             return doctor;
         }
 
@@ -78,18 +78,20 @@ namespace HospitalSystemTeamTask.Services
             if (doctor == null)
                 throw new KeyNotFoundException($"doctor not found.");
 
-            var outputData = new DoctorOutPutDTO
+            var user = _UserService.GetUserById(doctor.DID);
+            return new DoctorOutPutDTO
             {
                 UID = doctor.DID,
+                UserName = user?.UserName,
+                Email = user?.Email,
+                Phone = user?.Phone,
                 CurrentBrunch = doctor.CurrentBrunch,
                 Level = doctor.Level,
                 Degree = doctor.Degree,
                 WorkingYear = doctor.WorkingYear,
-                JoiningDate = doctor.JoiningDate // Get the current date
-
+                JoiningDate = doctor.JoiningDate,
+                DepId = doctor.DepId
             };
-
-            return (outputData);
         }
 
         public void AddDoctor(DoctorOutPutDTO input)
@@ -189,7 +191,7 @@ namespace HospitalSystemTeamTask.Services
                 throw new ArgumentException("Doctor ID is required.");
             }
             var branchDep = _branchDepartment.GetBranchDep(input.DepId, input.CurrentBrunch);
-            if(branchDep == null)
+            if (branchDep == null)
                 throw new ArgumentException("The department is not assigned to the given branch.");
 
             // Get doctor and user entities
@@ -230,7 +232,7 @@ namespace HospitalSystemTeamTask.Services
             catch (Exception ex)
             {
                 throw new Exception($"Failed to update doctor details for ID: {input.DID}. Error: {ex.Message}");
-               
+
             }
         }
 
@@ -248,8 +250,38 @@ namespace HospitalSystemTeamTask.Services
 
         public IEnumerable<Doctor> GetDoctorByBrancDep(int bid, int depid)
         {
-            return _DoctorRepo.GetDoctorByBrancDep(bid, depid).ToList();
+            // Call the repository method and convert IQueryable to List
+            var doctors = _DoctorRepo.GetDoctorByBrancDep(bid, depid).ToList();
+
+            if (!doctors.Any())
+                throw new KeyNotFoundException($"No doctors found for Branch ID {bid} and Department ID {depid}.");
+
+            return doctors;
         }
+        public DoctorOutPutDTO GetDoctorDetailsById(int uid)
+        {
+            var doctor = GetDoctorById(uid);
+            var user = _UserService.GetUserById(uid);
+
+            if (doctor == null || user == null)
+                throw new KeyNotFoundException($"Doctor or user with ID {uid} not found.");
+
+            return new DoctorOutPutDTO
+            {
+                UID = doctor.DID,
+                UserName = user?.UserName,
+                Email = user?.Email,
+                Phone = user?.Phone,
+                CurrentBrunch = doctor.CurrentBrunch,
+                Level = doctor.Level,
+                Degree = doctor.Degree,
+                WorkingYear = doctor.WorkingYear,
+                JoiningDate = doctor.JoiningDate,
+                DepId = doctor.DepId
+            };
+        }
+
+
     }
 }
 

@@ -11,5 +11,7 @@ namespace HospitalSystemTeamTask.Services
         void SetDepartmentActiveStatus(int departmentId, bool isActive);
         Department GetDepartmentByName(string department);
         Department GetDepartmentByid(int did);
+        string GetDepartmentName(int depId);
+
     }
 }

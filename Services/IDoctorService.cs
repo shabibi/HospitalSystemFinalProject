@@ -5,18 +5,19 @@ namespace HospitalSystemTeamTask.Services
 {
     public interface IDoctorService
     {
-        IEnumerable<Doctor> GetAllDoctors();
-        Doctor GetDoctorById(int uid);
-        Doctor GetDoctorByEmail(string email);
+        void AddDoctor(DoctorOutPutDTO input);
         bool EmailExists(string email);
+        IEnumerable<Doctor> GetAllDoctors();
+        IEnumerable<Doctor> GetDoctorByBrancDep(int bid, int depid);
+        Doctor GetDoctorByEmail(string email);
+        Doctor GetDoctorById(int uid);
         Doctor GetDoctorByName(string docName);
         DoctorOutPutDTO GetDoctorData(string? docName, int? Did);
-        void AddDoctor(DoctorOutPutDTO input);
         IEnumerable<DoctorOutPutDTO> GetDoctorsByBranchName(string branchName);
         IEnumerable<DoctorOutPutDTO> GetDoctorsByDepartmentName(string departmentName);
-        public void UpdateDoctorDetails( DoctorUpdateDTO input);
         void UpdateDoctor(Doctor doctor);
-        IEnumerable<Doctor> GetDoctorByBrancDep(int bid, int depid);
+        void UpdateDoctorDetails(DoctorUpdateDTO input);
+        DoctorOutPutDTO GetDoctorDetailsById(int uid);
 
     }
 }

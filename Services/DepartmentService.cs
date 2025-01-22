@@ -62,6 +62,14 @@ namespace HospitalSystemTeamTask.Services
         {
             return _departmentRepository.GetDepartmentById(did);
         }
+        public string GetDepartmentName(int depId)
+        {
+            var department = _departmentRepository.GetDepartmentById(depId); // Adjust repository method as needed
+            if (department == null)
+                throw new KeyNotFoundException($"Department with ID {depId} not found.");
+            return department.DepartmentName;
+        }
+
 
     }
 }
