@@ -58,7 +58,10 @@ namespace HospitalSystemTeamTask.Services
         {
            return _departmentRepository.GetDepartmentByName(department);
         }
-
+        public Department GetDepartmentByid(int did)
+        {
+            return _departmentRepository.GetDepartmentById(did);
+        }
 
     }
 }
