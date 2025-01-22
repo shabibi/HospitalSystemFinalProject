@@ -8,5 +8,6 @@
         public string Phone { get; set; }
         public string Role { get; set; }
         public bool IsActive { get; set; }
+        public string Image {  get; set; }
     }
 }

@@ -1,0 +1,81 @@
+﻿@page "/BranchDepartmentPage/{branchId:int}"
+@inject IBranchDepartmentService BranchDepartmentService
+@inject IBranchService BranchService // Inject the service to get branch details
+@inject NavigationManager NavigationManager
+
+<h3>@branchName.ToUpper()</h3>
+
+@if (departments == null)
+{
+    <p>Loading departments...</p>
+}
+else if (!departments.Any())
+{
+    <p>No departments found for this branch.</p>
+}
+else
+{
+    <MudGrid Spacing="3" Justify="Justify.Center">
+        @foreach (var department in departments)
+        {
+            <MudItem xs="12" sm="4" md="4">
+                <MudCard Elevation="3" Class="ma-3" Style="width: 90%; height: 400px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <MudCardMedia Image="@GetDepartmentImage(department.DepartmentName)"
+                                  Alt="@department.DepartmentName"
+                                  Style="height: 80%; width: 100%; object-fit: contain;" />
+
+                    <MudCardContent>
+                        <MudText Typo="Typo.h6" Class="text-center">@department.DepartmentName.ToUpper()</MudText>
+                        <MudText Class="text-center" Style="font-size: 0.9rem;">
+                            @(!string.IsNullOrEmpty(department.Description) ? department.Description : "No description available.")
+                        </MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
+}
+
+@code {
+    [Parameter]
+    public int branchId { get; set; }
+
+    private List<DepDTO> departments;
+    private string branchName = "Loading..."; // Property to store the branch name with a default value
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // Fetch the branch details and get the branch name
+            var branch =  BranchService.GetBranchById(branchId);
+            branchName = branch?.BranchName ?? "Unknown Branch";
+
+            // Fetch departments associated with the branch
+            departments = ( BranchDepartmentService.GetDepartmentsByBranch(branchId)).ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching departments or branch: {ex.Message}");
+            branchName = "Error Loading Branch";
+            departments = new List<DepDTO>();
+        }
+    }
+
+    private string GetDepartmentImage(string departmentName)
+    {
+        string imagesFolder = Path.Combine("wwwroot", "images");
+        string[] availableImages = Directory.GetFiles(imagesFolder, "*.png");
+
+        foreach (var imagePath in availableImages)
+        {
+            string imageName = Path.GetFileNameWithoutExtension(imagePath).ToLower();
+            if (departmentName.ToLower().Contains(imageName))
+            {
+                return $"images/{Path.GetFileName(imagePath)}";
+            }
+        }
+
+        return "images/defultDep.png"; // Fallback image
+    }
+}

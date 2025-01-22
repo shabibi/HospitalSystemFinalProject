@@ -47,13 +47,13 @@ namespace HospitalSystemTeamTask.Services
             _branchDepartmentRepo.AddDepartmentToBranch(newBranchDep);
         }
 
-        public IEnumerable<DepDTO>GetDepartmentsByBranch(string BranchName)
+        public IEnumerable<DepDTO>GetDepartmentsByBranch(int bid)
         {
-            var branch = _branchService.GetBranchDetailsByBranchName(BranchName);
-            if (branch == null || !branch.IsActive)
-                throw new Exception($"{BranchName} Not Found");
+            var branch = _branchService.GetBranchById(bid);
+            if (branch == null || !branch.BranchStatus)
+                throw new Exception($"{branch.BranchName} Not Found");
 
-           var departments = _branchDepartmentRepo.GetDepartmentsByBranch(branch.BID);
+           var departments = _branchDepartmentRepo.GetDepartmentsByBranch(bid);
             List<DepDTO> result = new List<DepDTO>();
             foreach (var department in departments)
             {
@@ -61,8 +61,8 @@ namespace HospitalSystemTeamTask.Services
                 {
                     DepartmentName = department.DepartmentName,
                     DepartmentStatus = department.IsActive,
-                    DepId = department.DepID 
-                    
+                    DepId = department.DepID ,
+                    Description = department.Description
                 });
             }
             return result;

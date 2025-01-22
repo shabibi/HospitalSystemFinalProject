@@ -6,7 +6,7 @@ namespace HospitalSystemTeamTask.Services
     public interface IBranchDepartmentService
     {
         void AddDepartmentToBranch(BranchDepDTO department);
-        IEnumerable<DepDTO> GetDepartmentsByBranch(string BranchName);
+        IEnumerable<DepDTO> GetDepartmentsByBranch(int bid);
         IEnumerable<Branch> GetBranchsByDepartment(string DepartmentName);
         void UpdateBranchDepartment(BranchDepartment branchDepartment);
         BranchDepartment GetBranchDep(int departmentId, int branchId);
