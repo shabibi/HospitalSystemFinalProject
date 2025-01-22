@@ -203,7 +203,7 @@ namespace HospitalSystemTeamTask.Services
             _clinicRepo.UpdateClinic(existingClinic);
         }
 
-        public void SetClinicStatus(int clinicId, bool isActive)
+        public void SetClinicStatus(int clinicId)
         {
             if (clinicId <= 0)
             {
@@ -218,7 +218,7 @@ namespace HospitalSystemTeamTask.Services
             }
 
             // Update the IsActive flag
-            clinic.IsActive = isActive;
+            clinic.IsActive = false;
 
             // Persist changes
             _clinicRepo.UpdateClinic(clinic);
