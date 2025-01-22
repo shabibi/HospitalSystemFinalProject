@@ -15,5 +15,6 @@ namespace HospitalSystemTeamTask.Services
         void SetClinicStatus(int clinicId, bool isActive);
         decimal GetPrice(int clinicId);
         string GetClinicName(int cid);
+        IEnumerable<Clinic> GetClinicByBranchDep(int bid, int depid);
     }
 }

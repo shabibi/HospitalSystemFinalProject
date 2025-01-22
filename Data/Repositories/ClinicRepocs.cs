@@ -112,6 +112,11 @@ namespace HospitalSystemTeamTask.Repositories
                 throw new InvalidOperationException($"Database error: {ex.Message}");
             }
         }
+        public IQueryable<Clinic> GetClinicByBranchDep(int bid,int depid)
+        {
+            return _context.Clinics
+                .Where(c => c.BID == bid && c.DepID == depid && c.IsActive);
+        }
 
     }
 }

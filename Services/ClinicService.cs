@@ -228,6 +228,11 @@ namespace HospitalSystemTeamTask.Services
         {
             return _clinicRepo.GetClinicName(cid);
         }
+
+        public IEnumerable<Clinic> GetClinicByBranchDep(int bid,int depid)
+        {
+           return _clinicRepo.GetClinicByBranchDep(bid, depid);
+        }
     }
 
 }
