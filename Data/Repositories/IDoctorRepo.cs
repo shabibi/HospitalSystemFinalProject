@@ -14,6 +14,7 @@ namespace HospitalSystemTeamTask.Repositories
         IEnumerable<Doctor> GetDoctorByBranchName(string branchName);
         IEnumerable<Doctor> GetDoctorsByDepartmentName(string departmentName);
         void UpdateDoctor(Doctor doctor);
+        IQueryable<Doctor> GetDoctorByBrancDep(int bid, int depid);
 
     }
 }

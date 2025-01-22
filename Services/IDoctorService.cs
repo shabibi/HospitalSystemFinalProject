@@ -16,6 +16,7 @@ namespace HospitalSystemTeamTask.Services
         IEnumerable<DoctorOutPutDTO> GetDoctorsByDepartmentName(string departmentName);
         public void UpdateDoctorDetails( DoctorUpdateDTO input);
         void UpdateDoctor(Doctor doctor);
+        IEnumerable<Doctor> GetDoctorByBrancDep(int bid, int depid);
 
     }
 }
