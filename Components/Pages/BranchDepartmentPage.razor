@@ -1,6 +1,6 @@
 ﻿@page "/BranchDepartmentPage/{branchId:int}"
 @inject IBranchDepartmentService BranchDepartmentService
-@inject IBranchService BranchService // Inject the service to get branch details
+@inject IBranchService BranchService
 @inject NavigationManager NavigationManager
 
 <h3>@branchName.ToUpper()</h3>
@@ -18,22 +18,36 @@ else
     <MudGrid Spacing="3" Justify="Justify.Center">
         @foreach (var department in departments)
         {
-            <MudItem xs="12" sm="4" md="4">
-                <MudCard Elevation="3" Class="ma-3" Style="width: 90%; height: 400px; display: flex; flex-direction: column; justify-content: space-between;">
-                    <MudCardMedia Image="@GetDepartmentImage(department.DepartmentName)"
-                                  Alt="@department.DepartmentName"
-                                  Style="height: 80%; width: 100%; object-fit: contain;" />
+            <MudItem xs="12" sm="6" md="4">
+                <MudCard Elevation="3" Class="ma-3" Style="width: 70%; height: 320px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                    <!-- Circular Image Container at the top -->
+                    <div style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 50%; border: 2px solid #ccc; margin-top: 1rem;">
+                        <MudCardMedia Image="@GetDepartmentImage(department.DepartmentName)"
+                                      Alt="@department.DepartmentName"
+                                      Style="width: 100%; height: 100%; object-fit: cover;" />
+                    </div>
 
-                    <MudCardContent>
-                        <MudText Typo="Typo.h6" Class="text-center">@department.DepartmentName.ToUpper()</MudText>
-                        <MudText Class="text-center" Style="font-size: 0.9rem;">
+                    <!-- Department Name and Description, moved up slightly -->
+                    <MudCardContent Style="text-align: center; margin-top: 0.5rem;">
+                        <MudText Typo="Typo.h6">@department.DepartmentName.ToUpper()</MudText>
+                        <MudText Style="font-size: 0.85rem; margin-top: 0.5rem;">
                             @(!string.IsNullOrEmpty(department.Description) ? department.Description : "No description available.")
                         </MudText>
                     </MudCardContent>
+
+                    <!-- Find Doctor Button, placed at the bottom -->
+                    <MudCardActions Style="margin-top: auto; padding-bottom: 1rem;">
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="() => NavigateToFindDoctor(department.DepId, branchId)">
+                            Find Doctor
+                        </MudButton>
+                    </MudCardActions>
                 </MudCard>
             </MudItem>
         }
     </MudGrid>
+
+
+
 }
 
 @code {
@@ -41,18 +55,18 @@ else
     public int branchId { get; set; }
 
     private List<DepDTO> departments;
-    private string branchName = "Loading..."; // Property to store the branch name with a default value
+    private string branchName = "Loading...";
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
             // Fetch the branch details and get the branch name
-            var branch =  BranchService.GetBranchById(branchId);
+            var branch = BranchService.GetBranchById(branchId);
             branchName = branch?.BranchName ?? "Unknown Branch";
 
             // Fetch departments associated with the branch
-            departments = ( BranchDepartmentService.GetDepartmentsByBranch(branchId)).ToList();
+            departments = (BranchDepartmentService.GetDepartmentsByBranch(branchId)).ToList();
         }
         catch (Exception ex)
         {
@@ -64,18 +78,35 @@ else
 
     private string GetDepartmentImage(string departmentName)
     {
-        string imagesFolder = Path.Combine("wwwroot", "images");
-        string[] availableImages = Directory.GetFiles(imagesFolder, "*.png");
-
-        foreach (var imagePath in availableImages)
+        try
         {
-            string imageName = Path.GetFileNameWithoutExtension(imagePath).ToLower();
-            if (departmentName.ToLower().Contains(imageName))
+            string imagesFolder = Path.Combine("wwwroot", "images", "IconDep");
+            if (!Directory.Exists(imagesFolder))
             {
-                return $"images/{Path.GetFileName(imagePath)}";
+                Console.WriteLine("Error: IconDep folder does not exist.");
+                return "images/IconDep/defultDep.png";
+            }
+
+            string[] availableImages = Directory.GetFiles(imagesFolder, "*.png");
+            foreach (var imagePath in availableImages)
+            {
+                string imageName = Path.GetFileNameWithoutExtension(imagePath).ToLower();
+                if (departmentName.ToLower().Contains(imageName))
+                {
+                    return $"images/IconDep/{Path.GetFileName(imagePath)}";
+                }
             }
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error accessing images: {ex.Message}");
+        }
 
-        return "images/defultDep.png"; // Fallback image
+        return "images/IconDep/defultDep.png"; // Fallback image
+    }
+
+    private void NavigateToFindDoctor(int departmentId, int branchId)
+    {
+        NavigationManager.NavigateTo($"/FindDoctor/{branchId}/{departmentId}");
     }
 }
