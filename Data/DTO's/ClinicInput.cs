@@ -26,6 +26,5 @@ namespace HospitalSystemTeamTask.DTO_s
         [Range(0.01, double.MaxValue, ErrorMessage = "Cost must be greater than 0.")]
         public decimal Cost { get; set; } 
 
-        public bool IsActive { get; set; }
     }
 }

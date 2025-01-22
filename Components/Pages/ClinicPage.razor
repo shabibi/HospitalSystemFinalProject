@@ -67,7 +67,6 @@
 @code {
     private List<Branch> branches = new List<Branch>();
     private List<DepDTO> departments = new List<DepDTO>();
-    private List<Clinic> clinics = new List<Clinic>();
     private Branch selectedBranch;
     private DepDTO selectedDepartment;
 
@@ -80,7 +79,8 @@
 
     private void AddClinic()
     {
-        Console.WriteLine("Add Clinic clicked");
+        // Navigate to the AddClinic page
+        NavigationManager.NavigateTo("/AddClinic");
     }
 
     private void FindClinic()
@@ -88,12 +88,10 @@
         // Only navigate to the AllClinicsPage if both Branch and Department are selected
         if (selectedBranch != null && selectedDepartment != null)
         {
-            // This line will navigate to the AllClinicsPage with the selected branch and department IDs
             NavigationManager.NavigateTo($"/AllClinicsPage/{selectedBranch.BID}/{selectedDepartment.DepId}");
         }
         else
         {
-            // Optionally show a message if branch or department is not selected
             Console.WriteLine("Please select both branch and department.");
         }
     }
