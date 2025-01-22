@@ -1,18 +1,19 @@
 ﻿@page "/our_doctors"
+@inject NavigationManager NavigationManager
 @inject IUserService UserService
 @inject IDoctorService DoctorService
 @inject IDepartmentService DepartmentService
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="my-5">
-    <!-- Title -->
-    <MudText Typo="Typo.h3" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">
-        Our Doctors
-    </MudText>
+    <MudText Typo="Typo.h3" Align="Align.Center" Style="color: #1B7D84;">Our Doctors</MudText>
 
-    <!-- Search Box -->
-    <MudTextField T="string" Placeholder="Search for Doctor" @bind-Value="SearchQuery" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" Class="mb-5" Variant="Variant.Filled" />
+    <MudTextField T="string" Placeholder="Search for Doctor or Department"
+                  @bind-Value="SearchQuery"
+                  Adornment="Adornment.End"
+                  AdornmentIcon="@Icons.Material.Filled.Search"
+                  Immediate="true"
+                  Variant="Variant.Filled" />
 
-    <!-- Doctor Cards -->
     <MudGrid>
         @if (FilteredDoctors.Any())
         {
@@ -20,17 +21,17 @@
             {
                 <MudItem xs="12" sm="6" md="4" lg="3">
                     <MudCard Class="text-center">
-                        <!-- Doctor Image -->
                         <div style="width: 120px; height: 120px; object-fit: cover; border-radius: 50%; margin: auto; overflow: hidden;">
                             <img src="@(string.IsNullOrEmpty(doctor.Image) ? "/Images/Users/Doctors/maleDoctor.png" : doctor.Image)"
                                  alt="@doctor.UserName" style="width: 100%; height: 100%;" />
                         </div>
                         <MudCardContent>
                             <MudText Typo="Typo.subtitle1" Style="color: #1B7D84;">@doctor.UserName</MudText>
-                            <MudText Typo="Typo.body1" Style="color: #33BEC8;">
-                                @departmentNames[doctor.UID]
-                            </MudText>
+                            <MudText Typo="Typo.body1" Style="color: #33BEC8;">@departmentNames[doctor.UID]</MudText>
                         </MudCardContent>
+                        <MudCardActions>
+                            <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick="@(() => NavigateToDoctorInfo(doctor.UID))">Read More</MudButton>
+                        </MudCardActions>
                     </MudCard>
                 </MudItem>
             }
@@ -45,17 +46,16 @@
 @code {
     private string SearchQuery { get; set; } = string.Empty;
     private List<UserOutputDTO> Doctors { get; set; } = new();
+    private Dictionary<int, string> departmentNames = new();
     private List<UserOutputDTO> FilteredDoctors => string.IsNullOrWhiteSpace(SearchQuery)
         ? Doctors
         : Doctors.Where(d => d.UserName.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ||
                              departmentNames[d.UID].Contains(SearchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
-    private Dictionary<int, string> departmentNames = new();
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            // Fetch all doctors and departments
             var allDoctors = UserService.GetUserByRole("doctor");
             Doctors = allDoctors.Select(d => new UserOutputDTO
                 {
@@ -69,7 +69,7 @@
             foreach (var doctor in Doctors)
             {
                 var doctorEntity = DoctorService.GetDoctorById(doctor.UID);
-                if (doctorEntity != null && doctorEntity.DepId > 0)
+                if (doctorEntity != null)
                 {
                     departmentNames[doctor.UID] = departments.ContainsKey(doctorEntity.DepId)
                         ? departments[doctorEntity.DepId]
@@ -83,7 +83,12 @@
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error loading doctors or departments: {ex.Message}");
+            Console.WriteLine($"Error loading doctors: {ex.Message}");
         }
+    }
+
+    private void NavigateToDoctorInfo(int doctorId)
+    {
+        NavigationManager.NavigateTo($"/doctor_info/{doctorId}");
     }
 }

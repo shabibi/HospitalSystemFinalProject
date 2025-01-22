@@ -246,7 +246,10 @@ namespace HospitalSystemTeamTask.Services
 
         }
 
-
+        public IEnumerable<Doctor> GetDoctorByBrancDep(int bid, int depid)
+        {
+            return _DoctorRepo.GetDoctorByBrancDep(bid, depid).ToList();
+        }
     }
 }
 

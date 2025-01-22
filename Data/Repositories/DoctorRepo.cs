@@ -152,7 +152,11 @@ namespace HospitalSystemTeamTask.Repositories
 
 
 
-
+        public IQueryable<Doctor>GetDoctorByBrancDep(int bid, int depid)
+        {
+            return _context.Doctors
+                .Where(d => d.CurrentBrunch == bid && d.DepId == depid);
+        }
 
 
 
