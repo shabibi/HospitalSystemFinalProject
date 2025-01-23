@@ -6,9 +6,16 @@
 
 <PageTitle>Home</PageTitle>
 
-<MudText Typo="Typo.h2" Style="color: #33BEC8; text-align: center; font-family: 'Times New Roman', Times, serif;">
-    ATA Hospital
-</MudText>
+ <MudText Typo="Typo.h2"
+          Style="color: #33BEC8;
+                 text-align: center;
+                 font-family: 'Times New Roman', Times, serif;
+                 font-weight: bold;
+                 font-size: 36px;
+                 margin: 20px;">
+     ATA Hospital
+ </MudText>
+
 <div>
     <MudSelect T="string"
                Label="Find Branch"
@@ -25,10 +32,10 @@
         }
     </MudSelect>
 </div>
-<div class="text-center p-4 rounded shadow-lg" style="background-color: #E0F2F1;">
+<div class="text-center p-4 rounded shadow-lg" style="background-color: #1B7D84;">
     <!-- Hospital Logo -->
     <MudImage Fluid="true"
-              Src="Images/logo2.webp"
+              Src="Images/logo.png"
               Width="300"
               Height="200"
               Alt="Hospital Logo"
@@ -36,17 +43,17 @@
               Style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);" />
 
     <!-- Welcome Title -->
-    <MudText Typo="Typo.h3" Style="color: #004D40; font-family: 'Times New Roman', Times, serif;">
+    <MudText Typo="Typo.h3" Style="color: #E0F2F1; font-family: 'Times New Roman', Times, serif;">
         Welcome to ATA Hospital
     </MudText>
 
     <!-- Description Section -->
-    <MudText Typo="Typo.body1" Align="Align.Center" Style="color: #004D40; margin-top: 20px; line-height: 1.8;">
+    <MudText Typo="Typo.body1" Align="Align.Center" Style="color: #E0F2F1; margin-top: 20px; line-height: 1.8;">
         ATA Hospital is a locally owned and operated medical center, serving the community since 2025. Over the years,
         we have grown from a single-doctor cardiology practice to a multi-specialty hospital, offering comprehensive
         healthcare services for the entire family.
     </MudText>
-    <MudText Typo="Typo.body1" Align="Align.Center" Style="color: #004D40; margin-top: 10px; line-height: 1.8;">
+    <MudText Typo="Typo.body1" Align="Align.Center" Style="color: #E0F2F1; margin-top: 10px; line-height: 1.8;">
         From the very beginning, our mission has been to bring the most qualified and accomplished doctors to Oman.
         Today, we are proud to be home to numerous internationally qualified senior consultants, providing expertise
         across almost every branch of medicine.
@@ -55,8 +62,8 @@
 
 <!-- Contact Section -->
 <div class="container mt-5">
-    <MudPaper Class="rounded p-4 shadow-lg" Style="background-color: #E0F2F1;">
-        <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #004D40; margin-bottom: 20px;">
+    <MudPaper Class="rounded p-4 shadow-lg" Style="background-color: #1B7D84;">
+        <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #E0F2F1; margin-bottom: 20px;">
             Contact Us
         </MudText>
 
@@ -65,7 +72,7 @@
             <!-- Email -->
             <div class="text-center">
                 <MudIcon Icon="@Icons.Material.Filled.Email" Color="Color.Tertiary" Size="Size.Large" />
-                <MudText Typo="Typo.body2" Style="color: #004D40; margin-top: 5px;">
+                <MudText Typo="Typo.body2" Style="color: #E0F2F1; margin-top: 5px;">
                     <strong>Email:</strong> contact@ATAhospital.com
                 </MudText>
             </div>
@@ -73,24 +80,24 @@
             <!-- Location -->
             <div class="text-center">
                 <MudIcon Icon="@Icons.Material.Filled.LocationOn" Color="Color.Tertiary" Size="Size.Large" />
-                <MudText Typo="Typo.body2" Style="color: #004D40; margin-top: 5px;">
+                <MudText Typo="Typo.body2" Style="color: #E0F2F1; margin-top: 5px;">
                     <strong>Location:</strong> Al Khuwair, Muscat, Oman
                 </MudText>
             </div>
             <!-- Phone -->
             <div class="text-center">
                 <MudIcon Icon="@Icons.Material.Filled.Phone" Color="Color.Tertiary" Size="Size.Large" />
-                <MudText Typo="Typo.body2" Style="color: #004D40; margin-top: 5px;">
+                <MudText Typo="Typo.body2" Style="color: #E0F2F1; margin-top: 5px;">
                     <strong>Phone:</strong> +968-123-4567
                 </MudText>
             </div>
             <!-- GitHub -->
             <div class="text-center">
                 <MudIcon Icon="@Icons.Custom.Brands.GitHub" Color="Color.Tertiary" Size="Size.Large" />
-                <MudText Typo="Typo.body2" Style="color: #004D40; margin-top: 5px;">
+                <MudText Typo="Typo.body2" Style="color: #E0F2F1; margin-top: 5px;">
                     <strong>GitHub:</strong>
                     <MudLink Href="https://github.com/shabibi/HospitalSystemFinalProject" Target="_blank"
-                             Style="color: #004D40; text-decoration: none;">
+                             Style="color: #E0F2F1; text-decoration: none;">
                         Project Link
                     </MudLink>
                 </MudText>
@@ -121,17 +128,23 @@
 
     private void OnBranchSelected(string branchName)
     {
+        if (string.IsNullOrEmpty(branchName))
+        {
+            Console.WriteLine("Branch name is empty or null.");
+            return;
+        }
+
         try
         {
-            // Fetch branch details from the service
             branchDetails = BranchService.GetBranchDetailsByBranchName(branchName);
         }
         catch (KeyNotFoundException ex)
         {
-            // Handle the case where the branch is not found (e.g., show a message)
-            Console.WriteLine(ex.Message);
+            Console.WriteLine($"Branch not found: {ex.Message}");
+            branchDetails = null; // Reset branch details
         }
     }
+
   
 }
 
