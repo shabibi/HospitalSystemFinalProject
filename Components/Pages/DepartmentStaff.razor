@@ -1,0 +1,179 @@
+﻿@layout StaffLayout
+
+@page "/DepartmentPage"
+@inject IDepartmentService departmentService
+@inject NavigationManager NavigationManager
+
+<!-- Centered Header with Adjusted Spacing -->
+<div style="margin-top: 40px; margin-bottom: 20px; display: flex; justify-content: center;">
+    <MudText Typo="Typo.h4" Style="font-weight: bold; color: #1B7D84; text-align: center;">Add Department</MudText>
+</div>
+
+<!-- Input Fields Section -->
+<div style="margin: 0 auto; max-width: 600px;">
+    <div style="margin-bottom: 16px;">
+        <MudText Typo="Typo.h5" Style="font-weight: bold; color: #1B7D84; text-align: left;">Department Name</MudText>
+        <MudTextField T="string" @bind-Value="CurrentDepartment.DepartmentName" Variant="Variant.Outlined" Placeholder="Enter department name" />
+    </div>
+
+    <div style="margin-bottom: 16px;">
+        <MudText Typo="Typo.h5" Style="font-weight: bold; color: #1B7D84; text-align: left;">Description</MudText>
+        <MudTextField T="string" @bind-Value="CurrentDepartment.Description" Variant="Variant.Outlined" Placeholder="Enter department description" />
+    </div>
+
+    <div style="margin-bottom: 16px;">
+        <MudText Typo="Typo.h5" Style="font-weight: bold; color: #1B7D84; text-align: left;">Status</MudText>
+        <MudSelect T="bool" @bind-Value="CurrentDepartment.DepartmentStatus" Variant="Variant.Outlined" Clearable>
+            <MudSelectItem T="bool" Value="true">Active</MudSelectItem>
+            <MudSelectItem T="bool" Value="false">Inactive</MudSelectItem>
+        </MudSelect>
+    </div>
+
+    <!-- Save Button -->
+    <div style="margin-top: 20px; display: flex; justify-content: center;">
+        <MudButton Variant="Variant.Filled" DropShadow="false" Color="Color.Secondary" OnClick="SaveDepartment"
+                   Style="background-color: #1B7D84; color: white; font-size: 1.2rem; padding: 16px 32px;">
+            Save Department
+        </MudButton>
+    </div>
+</div>
+<!-- Display all Departments -->
+@if (departments.Any())
+{
+    <h4 style="margin-top: 50px; text-align: center;">Departments:</h4>
+    <div style="overflow-x: auto; width: 95%; margin: 0 auto;">
+        <table class="table table-striped" style="width: 100%; font-size: 1.2rem; border-collapse: collapse;">
+            <thead>
+                <tr style="background-color: #f4f4f4; text-align: left;">
+                    <th style="padding: 16px;">ID</th>
+                    <th style="padding: 16px;">Name</th>
+                    <th style="padding: 16px;">Description</th>
+                    <th style="padding: 16px;">Status</th>
+                    <th style="padding: 16px;">Actions</th>
+                    <th style="padding: 16px;">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var department in departments)
+                {
+                    <tr>
+                        <td style="padding: 16px;">@department.DepId</td>
+                        <td style="padding: 16px;">@department.DepartmentName</td>
+                        <td style="padding: 16px;">@department.Description</td>
+                        <td style="padding: 16px;">@(department.DepartmentStatus ? "Active" : "Inactive")</td>
+                        <td style="padding: 16px;">
+                            <MudStack Direction="Row" Spacing="1">
+                                <MudButton Variant="Variant.Outlined" Color="Color.Info" OnClick="@(() => EditDepartment(department))">
+                                    Edit
+                                </MudButton>
+                                <MudButton Variant="Variant.Outlined" Color="Color.Error" OnClick="@(() => DeleteDepartment(department.DepId))">
+                                    Delete
+                                </MudButton>
+                            </MudStack>
+                        </td>
+                        <td style="padding: 16px;">
+                            <MudButton Variant="Variant.Filled" Color="Color.Tertiary" OnClick="@(() => NavigateToDepartmentBranch(department.DepId))">
+                                View Details
+                            </MudButton>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
+else
+{
+    <div style="margin-top: 50px; text-align: center;">
+        <MudText Typo="Typo.h5" Color="Color.Secondary">No departments found.</MudText>
+    </div>
+}
+
+
+
+@code {
+    // Data
+    private List<DepDTO> departments = new List<DepDTO>();
+    private DepartmentDTO CurrentDepartment = new DepartmentDTO();
+    private string FormTitle = "Add Department"; // Form title changes dynamically
+    private void NavigateToDepartmentBranch(int departmentId)
+    {
+        NavigationManager.NavigateTo($"/DepartmentBranch/{departmentId}");
+    }
+    // Fetch departments on initialization
+    protected override void OnInitialized()
+    {
+        LoadDepartments();
+    }
+
+    private void LoadDepartments()
+    {
+        departments = departmentService.GetAllDepartments().ToList();
+    }
+
+    private void EditDepartment(DepDTO department)
+    {
+        // Populate the form with the selected department's data for editing
+        FormTitle = "Edit Department";
+        CurrentDepartment = new DepartmentDTO
+            {
+                DepartmentName = department.DepartmentName,
+                Description = department.Description,
+                DepartmentStatus = department.DepartmentStatus
+            };
+    }
+
+    private void SaveDepartment()
+    {
+        if (string.IsNullOrWhiteSpace(CurrentDepartment.DepartmentName))
+        {
+            // Validate: department name is required
+            Console.WriteLine("Error: Department name is required.");
+            return;
+        }
+
+        if (departments.Any(d => d.DepartmentName == CurrentDepartment.DepartmentName && FormTitle == "Add Department"))
+        {
+            // Avoid duplicate departments while adding a new one
+            Console.WriteLine("Error: Department already exists.");
+            return;
+        }
+
+        if (FormTitle == "Edit Department")
+        {
+            // Update existing department
+            var departmentToUpdate = departments.FirstOrDefault(d => d.DepartmentName == CurrentDepartment.DepartmentName);
+            if (departmentToUpdate != null)
+            {
+                departmentToUpdate.Description = CurrentDepartment.Description;
+                departmentToUpdate.DepartmentStatus = CurrentDepartment.DepartmentStatus;
+                departmentService.UpdateDepartment(departmentToUpdate);
+            }
+        }
+        else
+        {
+            // Add new department
+            departmentService.CreateDepartment(CurrentDepartment);
+        }
+
+        // Refresh the department list
+        LoadDepartments();
+
+        // Clear the form and reset the title
+        ResetForm();
+    }
+
+    private void DeleteDepartment(int departmentId)
+    {
+        // Delete department by ID
+        departmentService.SetDepartmentActiveStatus(departmentId, false); // Alternatively, a delete method if you implement it
+        departments = departments.Where(d => d.DepId != departmentId).ToList();
+    }
+
+    private void ResetForm()
+    {
+        CurrentDepartment = new DepartmentDTO();
+        FormTitle = "Add Department";
+    }
+}
