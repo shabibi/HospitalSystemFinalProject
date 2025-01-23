@@ -15,7 +15,10 @@
                     <tr>
                         <th>Clinic ID</th>
                         <th>Clinic Name</th>
-                        <th>Actions</th>
+                        <th>View</th>
+                        <th>Schedule</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,17 +30,27 @@
                                 <td>@clinic.CID</td>
                                 <td>@clinic.ClincName</td>
                                 <td>
-                                    <MudButton Color="Color.Primary" OnClick="() => ViewClinic(clinic.CID)">
-                                        View
+                                    <MudButton Color="Color.Primary" OnClick="() => ViewClinic(clinic.CID)"
+                                               Title="View Clinic" Style="margin-right: 5px;">
+                                        <MudIcon Icon="visibility" Style="color: black;" />
                                     </MudButton>
-                                    <MudButton Color="Color.Info" OnClick="() => ScheduleClinic(clinic.CID)">
-                                        Schedule
+                                </td>
+                                <td>
+                                    <MudButton Color="Color.Info" OnClick="() => ScheduleClinic(clinic.CID)"
+                                               Title="Schedule Clinic" Style="margin-right: 5px;">
+                                        <MudIcon Icon="schedule" Style="color: black;" />
                                     </MudButton>
-                                    <MudButton Color="Color.Warning" OnClick="() => EditClinic(clinic.CID)">
-                                        Edit
+                                </td>
+                                <td>
+                                    <MudButton Color="Color.Warning" OnClick="() => EditClinic(clinic.CID)"
+                                               Title="Edit Clinic" Style="margin-right: 5px;">
+                                        <MudIcon Icon="edit" Style="color: black;" />
                                     </MudButton>
-                                    <MudButton Color="Color.Error" OnClick="() => DeleteClinic(clinic.CID)">
-                                        Delete
+                                </td>
+                                <td>
+                                    <MudButton Color="Color.Error" OnClick="() => DeleteClinic(clinic.CID)"
+                                               Title="Delete Clinic">
+                                        <MudIcon Icon="delete" Style="color: black;" />
                                     </MudButton>
                                 </td>
                             </tr>
@@ -46,13 +59,12 @@
                     else
                     {
                         <tr>
-                            <td colspan="3">No clinics found.</td>
+                            <td colspan="6">No clinics found.</td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
-
     </div>
 </div>
 
