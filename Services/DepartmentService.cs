@@ -51,16 +51,32 @@ namespace HospitalSystemTeamTask.Services
 
         public void SetDepartmentActiveStatus(int departmentId, bool isActive)
         {
-            _departmentRepository.SetDepartmentActiveStatus(departmentId, isActive);
+            var department = _departmentRepository.GetDepartmentById(departmentId);
+            if (department != null)
+            {
+                department.IsActive = isActive;
+                _departmentRepository.UpdateDepartment(departmentId, department);
+            }
         }
 
         public Department GetDepartmentByName(string department)
         {
            return _departmentRepository.GetDepartmentByName(department);
         }
-        public Department GetDepartmentByid(int did)
+       
+        public DepDTO GetDepartmentByid(int departmentId)
         {
-            return _departmentRepository.GetDepartmentById(did);
+            var department = _departmentRepository.GetDepartmentById(departmentId);
+
+            if (department == null) return null;
+
+            return new DepDTO
+            {
+                DepId = department.DepID,
+                DepartmentName = department.DepartmentName,
+                Description = department.Description,
+                DepartmentStatus = department.IsActive
+            };
         }
         public string GetDepartmentName(int depId)
         {

@@ -2,6 +2,7 @@
 @inject NavigationManager NavigationManager
 @inject IBranchDepartmentService BranchDepartmentService
 @inject IDepartmentService DepartmentService
+@inject IDoctorService DoctorService
 
 <PageTitle>@departmentName Branches</PageTitle>
 
@@ -22,18 +23,33 @@ else
     <div Style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 16px;">
         @foreach (var branch in branches)
         {
-            <MudCard Style="width: 250px; height: 300px; display: flex; flex-direction: column; justify-content: space-between;">
+            <MudCard Style="width: 300px; height: auto; display: flex; flex-direction: column; justify-content: space-between;">
                 <MudCardMedia Image="@GetBranchImage(branch.BranchName)" Height="150" />
                 <MudCardContent>
                     <MudText Typo="Typo.h6" Style="text-align: center;">@branch.BranchName</MudText>
                     <MudText Typo="Typo.body2" Style="text-align: center;">@branch.Location</MudText>
+                    <MudDivider Style="margin: 8px 0;" />
+                    <MudText Typo="Typo.subtitle2" Style="text-align: center; color: #757575;">Doctors:</MudText>
+                    @if (branch.Doctors.Any())
+                    {
+                        <ul>
+                            @foreach (var doctor in branch.Doctors)
+                            {
+                                <li>@doctor.Level @doctor.Degree</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.body2" Style="text-align: center;">No doctors assigned.</MudText>
+                    }
                 </MudCardContent>
             </MudCard>
         }
     </div>
 }
 
-<MudButton OnClick="@GoBack" Color="Color.Secondary" Style="margin-top: 16px;">Back to Departments</MudButton>
+<MudButton OnClick="@GoBack" Color="Color.Primary" Style="margin-top: 16px;">Back to Departments</MudButton>
 
 @code {
     [Parameter] public int DepartmentId { get; set; }
@@ -50,7 +66,13 @@ else
             {
                 BranchName = branch.BranchName,
                 Location = branch.Location,
-                BranchImage = branch.BranchName // Store the branch name to check later
+                BranchImage = branch.BranchName, // Store the branch name to check later
+                Doctors = DoctorService.GetDoctorByBrancDep(branch.BID, DepartmentId)
+                                        .Select(doc => new DoctorViewModel
+                                        {
+                                            Level = doc.Level,
+                                            Degree = doc.Degree,
+                                        }).ToList()
             }).ToList();
 
         // Fetch the department name using ID
@@ -65,26 +87,22 @@ else
         }
     }
 
-   
     private string GetBranchImage(string branchName)
     {
         string imagesFolder = Path.Combine("wwwroot", "images");
         string[] availableImages = Directory.GetFiles(imagesFolder, "*.png"); // Get all PNG images
 
-        // Look for an image whose name matches part of the branch name
         foreach (var imagePath in availableImages)
         {
-            string imageName = Path.GetFileNameWithoutExtension(imagePath).ToLower(); // Extract image name without extension
-            if (branchName.ToLower().Contains(imageName)) // Check if branch name contains the image name
+            string imageName = Path.GetFileNameWithoutExtension(imagePath).ToLower();
+            if (branchName.ToLower().Contains(imageName))
             {
-                return $"images/{Path.GetFileName(imagePath)}"; // Return relative path to the image
+                return $"images/{Path.GetFileName(imagePath)}";
             }
         }
 
-        // Fallback to default image if no match is found
         return "images/default.png";
     }
-
 
     private void GoBack()
     {
@@ -96,6 +114,13 @@ else
         public string BranchName { get; set; }
         public string Location { get; set; }
         public string BranchImage { get; set; }
+        public List<DoctorViewModel> Doctors { get; set; } = new();
     }
-}
 
+    private class DoctorViewModel
+    {
+        public string Level { get; set; }
+        public string Degree { get; set; }
+    }
+   
+}
