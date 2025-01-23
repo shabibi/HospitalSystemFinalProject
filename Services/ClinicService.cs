@@ -28,6 +28,7 @@ namespace HospitalSystemTeamTask.Services
         }
 
 
+        // Method to add a new clinic
         public void AddClinic(ClinicInput input)
         {
             if (input == null)
@@ -35,67 +36,69 @@ namespace HospitalSystemTeamTask.Services
                 throw new ArgumentException("Clinic details are required.", nameof(input));
             }
 
+            // Validate the input (You can add custom validation logic here)
             ValidateClinicInput(input);
 
+            // Fetch and validate the doctor assigned to the clinic
             var doctor = GetAndValidateDoctor(input.AssignDoctor);
 
-            // Calculate slot time
+            // Calculate the capacity based on slot duration and start/end times
             TimeSpan totalDuration = input.EndTime - input.StartTime;
             int capacity = (int)(totalDuration.TotalMinutes / input.SlotDuration);
 
-            // Create and add the clinic
+            // Create the clinic object
             var clinic = new Clinic
             {
-                ClincName = input.ClincName.ToLower(),
+                ClincName = input.ClincName.ToLower(), // Clinic name in lowercase
                 Capacity = capacity,
                 StartTime = input.StartTime,
                 EndTime = input.EndTime,
                 SlotDuration = input.SlotDuration,
                 Cost = input.Cost,
-                IsActive = input.IsActive,
-                DepID = doctor.DepId,
-                BID = doctor.CurrentBrunch,
-                AssignDoctor = input.AssignDoctor
+                DepID = doctor.DepId, // Department ID from doctor info
+                BID = doctor.CurrentBrunch, // Branch ID from doctor info
+                AssignDoctor = input.AssignDoctor,
+                IsActive = true // Clinic is active by default
             };
 
+            // Save the clinic in the repository (database or in-memory storage)
             _clinicRepo.AddClinic(clinic);
 
+            // Update the branch and department capacity after clinic is added
             UpdateBranchDepartmentCapacity(doctor.DepId, doctor.CurrentBrunch, capacity);
 
-            // Assign clinic ID to the doctor
+            // Assign the clinic ID to the doctor
             doctor.CID = clinic.CID;
-            _doctorService.UpdateDoctor(doctor);
+            _doctorService.UpdateDoctor(doctor); // Update the doctor's record
         }
 
+        // Validation logic for clinic input
         private void ValidateClinicInput(ClinicInput input)
         {
+            // Implement any specific validation logic here, for example:
+            if (input.StartTime >= input.EndTime)
+            {
+                throw new ArgumentException("Start time cannot be later than End time.");
+            }
             if (input.SlotDuration <= 0)
             {
-                throw new ArgumentException("Capacity must be greater than 0.");
-            }
-
-            if (input.EndTime <= input.StartTime)
-            {
-                throw new ArgumentException("End time must be later than start time.");
+                throw new ArgumentException("Slot duration must be a positive number.");
             }
         }
 
+        // Fetch and validate the doctor assigned to the clinic
         private Doctor GetAndValidateDoctor(int doctorId)
         {
             var doctor = _doctorService.GetDoctorById(doctorId);
             if (doctor == null)
             {
-                throw new KeyNotFoundException($"Doctor with ID {doctorId} not found.");
+                throw new ArgumentException("Doctor not found.", nameof(doctorId));
             }
-
-            if (doctor.CID != null)
-            {
-                throw new InvalidOperationException($"Doctor with ID {doctorId} is already assigned to Clinic ID {doctor.CID}.");
-            }
-
             return doctor;
         }
 
+        // Update the capacity of the branch and department after a clinic is added
+      
         private void UpdateBranchDepartmentCapacity(int depId, int branchId, int capacity)
         {
             var branchDepartment = _branchDepartmentService.GetBranchDep(depId, branchId);
@@ -193,7 +196,7 @@ namespace HospitalSystemTeamTask.Services
             existingClinic.EndTime = input.EndTime;
             existingClinic.SlotDuration = input.SlotDuration;
             existingClinic.Cost = input.Cost;
-            existingClinic.IsActive = input.IsActive;
+            existingClinic.IsActive = true;
             existingClinic.DepID = doctor.DepId;
             existingClinic.BID = doctor.CurrentBrunch;
             existingClinic.AssignDoctor = input.AssignDoctor;
@@ -203,7 +206,7 @@ namespace HospitalSystemTeamTask.Services
             _clinicRepo.UpdateClinic(existingClinic);
         }
 
-        public void SetClinicStatus(int clinicId, bool isActive)
+        public void SetClinicStatus(int clinicId)
         {
             if (clinicId <= 0)
             {
@@ -218,7 +221,7 @@ namespace HospitalSystemTeamTask.Services
             }
 
             // Update the IsActive flag
-            clinic.IsActive = isActive;
+            clinic.IsActive = false;
 
             // Persist changes
             _clinicRepo.UpdateClinic(clinic);
