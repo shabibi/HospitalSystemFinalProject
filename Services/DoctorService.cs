@@ -254,8 +254,10 @@ namespace HospitalSystemTeamTask.Services
             var doctors = _DoctorRepo.GetDoctorByBrancDep(bid, depid).ToList();
 
             if (!doctors.Any())
-                throw new KeyNotFoundException($"No doctors found for Branch ID {bid} and Department ID {depid}.");
-
+            {
+                // You could return an empty list instead of throwing an exception
+                return Enumerable.Empty<Doctor>();
+            }
             return doctors;
         }
         public DoctorOutPutDTO GetDoctorDetailsById(int uid)
