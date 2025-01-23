@@ -1,80 +1,83 @@
-﻿@layout StaffLayout
-@page "/ManageBranch"
+﻿@page "/ManageBranch"
+@layout StaffLayout
+@inject NavigationManager NavigationManager
 @inject IBranchService BranchService
 
-<MudContainer MaxWidth="MaxWidth.Large" Class="my-5">
-    <!-- Title -->
-    <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84; margin-bottom: 20px;">
-        Manage Branches
+<MudContainer MaxWidth="MaxWidth.Medium" Class="my-5">
+    <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84;">
+        Branch Management
     </MudText>
-
-    <!-- Add Branch Button -->
-    <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddBranch"
-                   Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 8px 16px;">
-            Add Branch
-        </MudButton>
-    </div>
-
-    <!-- Branches Table -->
-    <MudTable Items="branches" Dense="true" Bordered="true" Hover="true" Class="mt-3">
-        <HeaderContent>
-            <MudTh>Branch ID</MudTh>
-            <MudTh>Branch Name</MudTh>
-            <MudTh>Location</MudTh>
-            <MudTh>Actions</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="Branch ID">@context.BID</MudTd>
-            <MudTd DataLabel="Branch Name">@context.BranchName</MudTd>
-            <MudTd DataLabel="Location">@context.Location</MudTd>
-            <MudTd DataLabel="Actions">
-                <!-- Edit Button -->
-                <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick="() => EditBranch(context.BID)"
-                           Style="margin-right: 10px;">
-                    <MudIcon Icon="edit" />
+    <MudCard Class="mt-4">
+        <MudCardContent>
+            <!-- Add Branch Button -->
+            <div class="d-flex justify-end mb-4">
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddBranch"
+                           Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 8px 16px;">
+                    Add Branch
                 </MudButton>
-                <!-- Inactivate Button -->
-                <MudButton Variant="Variant.Outlined" Color="Color.Error" OnClick="() => ToggleBranchStatus(context.BID, false)">
-                    <MudIcon Icon="delete" />
-                </MudButton>
-            </MudTd>
-        </RowTemplate>
-        <NoRecordsContent>
-            <MudText Typo="Typo.body1" Style="color: gray;">No branches found.</MudText>
-        </NoRecordsContent>
-    </MudTable>
+            </div>
+
+            <!-- Branch Table -->
+            <MudTable Items="branches" T="Branch" Hover="true" Bordered="true" Striped="true" Elevation="2">
+                <HeaderContent>
+                    <MudTh>Branch ID</MudTh>
+                    <MudTh>Branch Name</MudTh>
+                    <MudTh>Location</MudTh>
+                    <MudTh>Actions</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd>@context.BID</MudTd>
+                    <MudTd>@context.BranchName</MudTd>
+                    <MudTd>@context.Location</MudTd>
+                    <MudTd>
+                        <!-- View Button -->
+                        <MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Info" OnClick="() => ViewBranch(context.BID)" />
+                        <!-- Edit Button -->
+                        <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" OnClick="() => EditBranch(context.BID)" />
+                        <!-- Delete Button -->
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="() => DeleteBranch(context.BID)" />
+                    </MudTd>
+                </RowTemplate>
+                <NoRecordsContent>
+                    <MudText Typo="Typo.body1" Align="Align.Center" Style="color: gray;">
+                        No branches found.
+                    </MudText>
+                </NoRecordsContent>
+            </MudTable>
+        </MudCardContent>
+    </MudCard>
 </MudContainer>
 
 @code {
-    private List<Branch> branches = new();
+    private List<Branch> branches = new List<Branch>();
 
     protected override void OnInitialized()
     {
-        LoadBranches();
-    }
-
-    private void LoadBranches()
-    {
+        // Load branches on initialization
         branches = BranchService.GetAllBranches().ToList();
     }
 
     private void AddBranch()
     {
-        Console.WriteLine("Add Branch button clicked");
-        // Implement navigation or functionality to add a branch
+        // Navigate to the AddBranch page
+        NavigationManager.NavigateTo("/AddBranch");
     }
 
     private void EditBranch(int branchId)
     {
-        Console.WriteLine($"Edit Branch button clicked for Branch ID: {branchId}");
-        // Implement navigation or functionality to edit a branch
+        // Navigate to the EditBranch page with the branch ID
+        NavigationManager.NavigateTo($"/EditBranch/{branchId}");
     }
 
-    private void ToggleBranchStatus(int branchId, bool isActive)
+    private void DeleteBranch(int branchId)
     {
-        Console.WriteLine($"Toggle status for Branch ID: {branchId} to {(isActive ? "Active" : "Inactive")}");
-        BranchService.SetBranchStatus(branchId, isActive);
-        LoadBranches(); // Refresh branches after status update
+        // Implement the deletion logic
+        Console.WriteLine($"Branch with ID {branchId} deleted.");
+    }
+
+    private void ViewBranch(int branchId)
+    {
+        // Navigate to the ViewBranch page with the branch ID
+        NavigationManager.NavigateTo($"/ViewBranch/{branchId}");
     }
 }

@@ -7,11 +7,10 @@ namespace HospitalSystemTeamTask.Services
     {
         void CreateDepartment(DepartmentDTO departmentDto);
         IEnumerable<DepDTO> GetAllDepartments();
-        void UpdateDepartment(DepDTO departmentDto);
-        void SetDepartmentActiveStatus(int departmentId, bool isActive);
+        DepDTO GetDepartmentByid(int departmentId);
         Department GetDepartmentByName(string department);
-        Department GetDepartmentByid(int did);
         string GetDepartmentName(int depId);
-
+        void SetDepartmentActiveStatus(int departmentId, bool isActive);
+        void UpdateDepartment(DepDTO departmentDto);
     }
 }
