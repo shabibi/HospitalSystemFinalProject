@@ -27,11 +27,9 @@ namespace HospitalSystemTeamTask.Services
             _userService = userService;
             _email = email;
         }
-        public IEnumerable<BookingOutputDTO> GetAllBooking(int pageNumber, int pageSize)
+        public IEnumerable<BookingOutputDTO> GetAllBooking()
         {
-            // Validate pagination parameters
-            if (pageNumber <= 0 || pageSize <= 0)
-                throw new ArgumentException("Page number and page size must be greater than zero.");
+        
 
             // Get all bookings from the repository
             var appointments = _bookingRepo.GetAllBooking();
@@ -48,9 +46,7 @@ namespace HospitalSystemTeamTask.Services
             });
 
             // Apply pagination using Skip and Take
-            var pagedBookings = bookingList
-                .Skip((pageNumber - 1) * pageSize) // Skip records for previous pages
-                .Take(pageSize)                   // Take records for the current page
+            var pagedBookings = bookingList                 // Take records for the current page
                 .ToList();
 
             return pagedBookings;

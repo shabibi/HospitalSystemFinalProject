@@ -1,0 +1,105 @@
+﻿@layout StaffLayout
+
+@page "/ViewAllClinicAppointments/{clinicId:int}"
+
+@inject IBookingService bookingService
+
+<h3>Appointments for Clinic @clinicId</h3>
+<p>Appointments count: @appointments.Count()</p>
+
+@if (!appointments.Any())
+{
+    <MudTable T="BookingOutputDTO" Bordered="true" Striped="true" Hover="true" Style="width: 100%; margin-top: 20px;">
+        <HeaderContent>
+            <MudTh>Date</MudTh>
+            @foreach (var time in uniqueTimes)
+            {
+                <MudTh>@time.ToString("hh:mm tt")</MudTh>
+            }
+        </HeaderContent>
+
+        <RowTemplate>
+            <MudTd DataLabel="Date">No appointments available</MudTd> <!-- Displaying "No appointments available" for empty table -->
+            @foreach (var time in uniqueTimes)
+            {
+                <MudTd></MudTd> <!-- Empty cells -->
+            }
+        </RowTemplate>
+    </MudTable>
+}
+else
+{
+    <MudTable T="BookingOutputDTO" Bordered="true" Striped="true" Hover="true" Style="width: 100%; margin-top: 20px;">
+        <HeaderContent>
+            <MudTh>Date</MudTh>
+            @foreach (var time in uniqueTimes)
+            {
+                <MudTh>@time.ToString("hh:mm tt")</MudTh>
+            }
+        </HeaderContent>
+
+        <RowTemplate>
+            <MudTd DataLabel="Date">@context.BookingDate?.ToString("yyyy-MM-dd")</MudTd> <!-- Displaying the Date -->
+            @foreach (var time in uniqueTimes)
+            {
+                var appointment = appointments.FirstOrDefault(a => a.StartTime == time && a.BookingDate?.Date == context.BookingDate?.Date);
+                if (appointment == null)
+                {
+                    <MudTd></MudTd> <!-- Empty cell if no appointment exists -->
+                }
+                else if (appointment.Staus)
+                {
+                    <MudTd>Booked</MudTd> <!-- Mark as 'Booked' -->
+                }
+                else
+                {
+                    <MudTd>Available</MudTd> <!-- Mark as 'Available' -->
+                }
+            }
+        </RowTemplate>
+    </MudTable>
+}
+
+@code {
+    [Parameter]
+    public int clinicId { get; set; } // Clinic ID passed via URL
+
+    private IEnumerable<BookingOutputDTO> appointments = new List<BookingOutputDTO>(); // List of appointments
+    private List<TimeSpan> uniqueTimes = new List<TimeSpan>(); // List of unique time slots (columns)
+    private List<DateTime> uniqueDates = new List<DateTime>(); // List of unique dates (rows)
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAppointments(); // Load appointments on page initialization
+    }
+
+    private async Task LoadAppointments()
+    {
+        try
+        {
+            appointments = bookingService.GetAllBooking()
+                                         .Where(a => a.CID == clinicId)
+                                         .ToList();
+
+            // Group appointments by date
+            var groupedAppointments = appointments
+                .GroupBy(a => a.Date)
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            // Extract unique dates (rows)
+            uniqueDates = groupedAppointments.Keys.ToList();
+
+            // Extract unique times (columns)
+            uniqueTimes = appointments
+                .Select(a => a.StartTime)
+                .Distinct()
+                .OrderBy(t => t)
+                .ToList();
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading appointments: {ex.Message}");
+        }
+    }
+}
