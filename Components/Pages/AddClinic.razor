@@ -7,64 +7,111 @@
 @inject IDoctorService doctorService
 @inject ISnackbar Snackbar // Inject the ISnackbar service
 
-<h3>Add Clinic</h3>
 
-<MudPaper Elevation="4" Class="p-4">
-    <MudForm Model="clinicInput" @ref="form" Valid="isFormValid" OnValidSubmit="SubmitForm">
-        <!-- Clinic Name Input -->
-        <MudTextField Label="Clinic Name" @bind-Value="clinicInput.ClincName" Required="true" />
+<MudPaper Elevation="4" Class="form-container" Style="width: 250%; align-content:center;" Align="Align.Center">
+    <MudText Typo="Typo.h3" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">
+        Add Clinic
+    </MudText>
+    <MudForm Model="clinicInput" @ref="form" Valid="isFormValid" OnValidSubmit="SubmitForm"
+             Hover="true" SortLabel="Sort By" Style="width: 100%;">
+        <MudItem xs="12" Class="mb-4">
+            <!-- Clinic Name Input -->
+            <MudTextField Label="Clinic Name" @bind-Value="clinicInput.ClincName" Required="true" FullWidth="true" />
+        </MudItem>
 
-        <!-- Assign Doctor Dropdown -->
-        <MudSelect T="int" Label="Assign Doctor" @bind-Value="clinicInput.AssignDoctor" Required="true">
-            @foreach (var doctor in doctors)
-            {
-                var user = users.FirstOrDefault(u => u.UID == doctor.DID);
-                var userName = user?.UserName ?? "Unknown User";
+        <MudItem xs="12" Class="mb-4">
+            <!-- Assign Doctor Dropdown -->
+            <MudSelect T="int" Label="Assign Doctor" @bind-Value="clinicInput.AssignDoctor" Required="true" FullWidth="true">
+                @foreach (var doctor in doctors)
+                {
+                    var user = users.FirstOrDefault(u => u.UID == doctor.DID);
+                    var userName = user?.UserName ?? "Unknown User";
 
-                <MudSelectItem T="int" Value="user.UID">
-                    @userName
-                </MudSelectItem>
-            }
-        </MudSelect>
+                    <MudSelectItem T="int" Value="user.UID">
+                        @userName
+                    </MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
 
-        <!-- Slot Duration Input -->
-        <MudTextField Label="Slot Duration (in minutes)" @bind-Value="clinicInput.SlotDuration"
-                      Required="true" Type="number"
-                      Validation="(Func<int, string>)ValidatePositiveNumber" />
+        <MudItem xs="12" Class="mb-4">
+            <!-- Slot Duration Input -->
+            <MudTextField Label="Slot Duration (in minutes)" @bind-Value="clinicInput.SlotDuration"
+                          Required="true" Type="number"
+                          Validation="(Func<int, string>)ValidatePositiveNumber" FullWidth="true" />
+        </MudItem>
 
-        <!-- Start Time Dropdown -->
-        <MudSelect T="TimeSpan" Label="Start Time" @bind-Value="clinicInput.StartTime" Required="true">
-            @foreach (var time in availableTimes)
-            {
-                <MudSelectItem T="TimeSpan" Value="@time">
-                    @time.ToString(@"hh\:mm\:ss")
-                </MudSelectItem>
-            }
-        </MudSelect>
+        <MudItem xs="12" Class="mb-4">
+            <!-- Start Time Dropdown -->
+            <MudSelect T="TimeSpan" Label="Start Time" @bind-Value="clinicInput.StartTime" Required="true" FullWidth="true">
+                @foreach (var time in availableTimes)
+                {
+                    <MudSelectItem T="TimeSpan" Value="@time">
+                        @time.ToString(@"hh\:mm\:ss")
+                    </MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
 
-        <!-- End Time Dropdown -->
-        <MudSelect T="TimeSpan" Label="End Time" @bind-Value="clinicInput.EndTime" Required="true">
-            @foreach (var time in availableTimes)
-            {
-                <MudSelectItem T="TimeSpan" Value="@time">
-                    @time.ToString(@"hh\:mm\:ss")
-                </MudSelectItem>
-            }
-        </MudSelect>
+        <MudItem xs="12" Class="mb-4">
+            <!-- End Time Dropdown -->
+            <MudSelect T="TimeSpan" Label="End Time" @bind-Value="clinicInput.EndTime" Required="true" FullWidth="true">
+                @foreach (var time in availableTimes)
+                {
+                    <MudSelectItem T="TimeSpan" Value="@time">
+                        @time.ToString(@"hh\:mm\:ss")
+                    </MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
 
-        <!-- Cost Input -->
-        <MudTextField Label="Cost (in $)" @bind-Value="clinicInput.Cost" Required="true" Type="number" />
+        <MudItem xs="12" Class="mb-4">
+            <!-- Cost Input -->
+            <MudTextField Label="Cost (in $)" @bind-Value="clinicInput.Cost" Required="true" Type="number" FullWidth="true" />
+        </MudItem>
 
-        <!-- Submit and Cancel Buttons -->
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SubmitForm" Disabled="!form.IsValid">
-            Submit
-        </MudButton>
-        <MudButton Variant="Variant.Text" Color="Color.Default" OnClick="NavigateBack">
-            Cancel
-        </MudButton>
+        <MudItem xs="12" Class="d-flex justify-space-between mt-4">
+            <!-- Submit and Cancel Buttons -->
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SubmitForm" Disabled="!form.IsValid">
+                Submit
+            </MudButton>
+            <MudButton Variant="Variant.Text" Color="Color.Default" OnClick="NavigateBack">
+                Cancel
+            </MudButton>
+        </MudItem>
     </MudForm>
-
 </MudPaper>
+
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh; /* Center vertically */
+    }
+
+    .mb-4 {
+        margin-bottom: 16px;
+    }
+
+    .d-flex {
+        display: flex;
+    }
+
+    .justify-space-between {
+        justify-content: space-between;
+    }
+
+    .mt-4 {
+        margin-top: 16px;
+    }
+</style>
+
 
 @code {
     private ClinicInput clinicInput = new();
