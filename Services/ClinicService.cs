@@ -62,14 +62,16 @@ namespace HospitalSystemTeamTask.Services
             };
 
             // Save the clinic in the repository (database or in-memory storage)
-            _clinicRepo.AddClinic(clinic);
 
             // Update the branch and department capacity after clinic is added
             UpdateBranchDepartmentCapacity(doctor.DepId, doctor.CurrentBrunch, capacity);
-
-            // Assign the clinic ID to the doctor
+        
+            _clinicRepo.AddClinic(clinic);
             doctor.CID = clinic.CID;
+
             _doctorService.UpdateDoctor(doctor); // Update the doctor's record
+                                                 // Assign the clinic ID to the doctor
+
         }
 
         // Validation logic for clinic input

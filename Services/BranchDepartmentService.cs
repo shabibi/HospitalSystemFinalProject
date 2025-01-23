@@ -71,7 +71,7 @@ namespace HospitalSystemTeamTask.Services
         public IEnumerable<Branch> GetBranchsByDepartment(int did)
         {
             var department = _departmentService.GetDepartmentByid(did);
-            if (department == null || !department.IsActive)
+            if (department == null || !department.DepartmentStatus)
                 throw new Exception($"{department.DepartmentName} Not Found");
 
             return _branchDepartmentRepo.GetBranchByDepartments(did);

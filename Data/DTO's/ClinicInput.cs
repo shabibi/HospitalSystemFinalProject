@@ -13,7 +13,7 @@ namespace HospitalSystemTeamTask.DTO_s
         public string ClincName { get; set; }  
 
         [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "Capacity must be greater than 0.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Slot Duration must be greater than 0.")]
         public int SlotDuration { get; set; } 
 
         [Required]
