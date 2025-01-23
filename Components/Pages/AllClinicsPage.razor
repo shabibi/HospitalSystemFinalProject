@@ -1,80 +1,37 @@
 ﻿@layout StaffLayout
-
 @page "/AllClinicsPage/{bid:int}/{depId:int}"
 @inject IClinicService clinicService
 @inject NavigationManager NavigationManager
 @inject IDialogService DialogService // Inject the dialog service
-
-<h3 class="text-center my-4">All Clinics</h3>
-
-<!-- Clinics Table -->
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div style="display: flex; justify-content: flex-start; width: 100%; height: 100%; padding: 0;">
-            <table class="table table-striped table-responsive" style="width: 100%; table-layout: fixed;">
-                <thead>
-                    <tr>
-                        <th>Clinic ID</th>
-                        <th>Clinic Name</th>
-                        <th>View</th>
-                        <th>Schedule</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (clinics != null && clinics.Any())
-                    {
-                        @foreach (var clinic in clinics)
-                        {
-                            <tr>
-                                <td>@clinic.CID</td>
-                                <td>@clinic.ClincName</td>
-                                <td>
-                                    <MudButton Color="Color.Primary" OnClick="() => ViewClinic(clinic.CID)"
-                                               Title="View Clinic" Style="margin-right: 5px;">
-                                        <MudIcon Icon="visibility" Style="color: black;" />
-                                    </MudButton>
-                                </td>
-                                <td>
-                                    <MudButton Color="Color.Info" OnClick="() => ScheduleClinic(clinic.CID)"
-                                               Title="Schedule Clinic" Style="margin-right: 5px;">
-                                        <MudIcon Icon="schedule" Style="color: black;" />
-                                    </MudButton>
-                                </td>
-                                <td>
-                                    <MudButton Color="Color.Warning" OnClick="() => EditClinic(clinic.CID)"
-                                               Title="Edit Clinic" Style="margin-right: 5px;">
-                                        <MudIcon Icon="edit" Style="color: black;" />
-                                    </MudButton>
-                                </td>
-                                <td>
-                                    <MudButton Color="Color.Error" OnClick="() => DeleteClinic(clinic.CID)"
-                                               Title="Delete Clinic">
-                                        <MudIcon Icon="delete" Style="color: black;" />
-                                    </MudButton>
-                                </td>
-                            </tr>
-                        }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="6">No clinics found.</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-@code {
-    private List<Clinic> clinics = new List<Clinic>();
-
-    // Clinic ID and Department ID from URL
-    [Parameter] public int bid { get; set; }
-    [Parameter] public int depId { get; set; }
+<MudTable Items="@clinics" Hover="true" SortLabel="Sort By" Style="width: 180%;">
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortBy="new Func<Clinic, object>(x => x.CID)">Clinic ID</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Clinic, object>(x => x.ClincName)">Clinic Name</MudTableSortLabel></MudTh>
+        <MudTh>View</MudTh>
+        <MudTh>Schedule</MudTh>
+        <MudTh>Edit</MudTh>
+        <MudTh>Delete</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Clinic ID">@context.CID</MudTd>
+        <MudTd DataLabel="Clinic Name">@context.ClincName</MudTd>
+        <MudTd DataLabel="View">
+            <MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Primary" OnClick="() => NavigateToView(context.CID)" />
+        </MudTd>
+        <MudTd DataLabel="Schedule">
+            <MudIconButton Icon="@Icons.Material.Filled.Schedule" Color="Color.Info" OnClick="() => NavigateToSchedule(context.CID)" />
+        </MudTd>
+        <MudTd DataLabel="Edit">
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Warning" OnClick="() => NavigateToEdit(context.CID)" />
+        </MudTd>
+        <MudTd DataLabel="Delete">
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="() => ShowDeleteConfirmation(context.CID)" />
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100 }" />
+    </PagerContent>
+</MudTable>
 <MudDialog @bind-IsVisible="isDeleteDialogVisible" MaxWidth="MaxWidth.Small" CloseOnEscape="true" CloseOnOverlayClick="true">
     <DialogContent>
         <MudText Typo="Typo.h6" GutterBottom="true">
@@ -86,15 +43,12 @@
         <MudButton OnClick="CancelDelete" Color="Color.Default" Variant="Variant.Text">Cancel</MudButton>
     </DialogActions>
 </MudDialog>
-
 @code {
     [Parameter] public int bid { get; set; }
     [Parameter] public int depId { get; set; }
-
     private IEnumerable<Clinic> clinics = new List<Clinic>();
     private bool isDeleteDialogVisible = false;
     private int clinicToDelete;
-
     protected override void OnInitialized()
     {
         try
@@ -108,35 +62,29 @@
             clinics = new List<Clinic>(); // Ensure the table is empty on failure
         }
     }
-
     private void NavigateToView(int clinicId)
     {
         NavigationManager.NavigateTo($"/ClinicDetailsPage/{clinicId}");
     }
-
     private void NavigateToSchedule(int clinicId)
     {
         NavigationManager.NavigateTo($"/ClinicSchedulePage/{clinicId}");
     }
-
     private void NavigateToEdit(int clinicId)
     {
         NavigationManager.NavigateTo($"/EditClinicPage/{clinicId}");
     }
-
     private void ShowDeleteConfirmation(int clinicId)
     {
         clinicToDelete = clinicId;
         isDeleteDialogVisible = true; // Show dialog
     }
-
     private void ConfirmDelete()
     {
         try
         {
             // Call the service to delete the clinic
             clinicService.SetClinicStatus(clinicToDelete);
-
             // Refresh the clinic list after deletion
             clinics = clinics.Where(c => c.CID != clinicToDelete).ToList();
         }
@@ -149,10 +97,8 @@
             isDeleteDialogVisible = false; // Close the dialog
         }
     }
-
     private void CancelDelete()
     {
         isDeleteDialogVisible = false; // Close the dialog without taking action
     }
 }
-
