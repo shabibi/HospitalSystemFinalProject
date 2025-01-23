@@ -41,15 +41,16 @@ else
                     }
                     else
                     {
-                        <MudText Typo="Typo.body2" Style="text-align: center;">No doctors assigned.</MudText>
+                        <MudText Typo="Typo.body2" Style="text-align: center;">No doctors assigned to this branch.</MudText>
                     }
+
                 </MudCardContent>
             </MudCard>
         }
     </div>
 }
 
-<MudButton OnClick="@GoBack" Color="Color.Primary" Style="margin-top: 16px;">Back to Departments</MudButton>
+<MudButton Variant="Variant.Filled" OnClick="@GoBack" Color="Color.Transparent" Style="margin-top: 16px;">Back to Departments</MudButton>
 
 @code {
     [Parameter] public int DepartmentId { get; set; }
