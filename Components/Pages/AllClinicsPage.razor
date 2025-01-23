@@ -3,7 +3,7 @@
 @inject IClinicService clinicService
 @inject NavigationManager NavigationManager
 @inject IDialogService DialogService // Inject the dialog service
-<MudTable Items="@clinics" Hover="true" SortLabel="Sort By" Style="width: 180%;">
+<MudTable Items="@clinics" Hover="true" SortLabel="Sort By" Style="width: 100%; margin-top: 50px;">
     <HeaderContent>
         <MudTh><MudTableSortLabel SortBy="new Func<Clinic, object>(x => x.CID)">Clinic ID</MudTableSortLabel></MudTh>
         <MudTh><MudTableSortLabel SortBy="new Func<Clinic, object>(x => x.ClincName)">Clinic Name</MudTableSortLabel></MudTh>

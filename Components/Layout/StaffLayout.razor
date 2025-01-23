@@ -1,24 +1,19 @@
 ﻿@inherits LayoutComponentBase
 @namespace HospitalSystemTeamTask.Shared.Layouts
 
-@* Required MudBlazor Providers *@
 <MudThemeProvider />
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <div class="page d-flex flex-column" style="min-height: 100vh;">
-    <MudAppBar Color="Color.Default" Fixed="false" Style="background-color: #1B7D84;">
+    <!-- AppBar Section -->
+    <MudAppBar Color="Color.Default" Fixed="true" Style="background-color: #1B7D84;">
         <MudSpacer />
-
-        <!-- MudMenu with Activator -->
         <MudMenu>
             <ActivatorContent>
                 <MudChip T="string" Icon="@Icons.Material.Filled.Person" Style="color: #ffffff;"></MudChip>
-
             </ActivatorContent>
-
-            <!-- Menu Items -->
             <ChildContent>
                 <MudMenuItem OnClick="NavigateToProfile">Profile</MudMenuItem>
                 <MudMenuItem OnClick="NavigateToSettings">Settings</MudMenuItem>
@@ -27,70 +22,34 @@
         </MudMenu>
     </MudAppBar>
 
-
-    <div class="page d-flex">
-        <div class="sidebar" style="width: 250px; background-color: #f4f4f4;">
-            <div style="background: linear-gradient(to bottom, #1B7D84, #33BEC8); color: white; width: 250px; height: 100vh; padding: 0; display: flex; flex-direction: column; justify-content: space-between;">
-                <!-- Centered Logo Image -->
-                <div style="display: flex; justify-content: center; padding: 1rem;">
-                    <img src="/Images/logo.png" alt="Logo" style="max-width: 150px; max-height: 100px; object-fit: contain;" />
-                </div>
-
-                <!-- Navigation Menu Items -->
-                <div class="nav-scrollable" style="flex-grow: 1;">
-                    <nav class="d-flex flex-column" style="width: 100%; padding: 0;">
-                        <!-- Home NavLink -->
-                        <div class="nav-item px-3" style="margin-bottom: 15px;">
-                            <NavLink class="nav-link d-flex align-items-center" href="StaffPage" Match="NavLinkMatch.All" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem 1rem;">
-                                <span class="bi bi-house-door-fill" aria-hidden="true" style="margin-right: 15px; font-size: 1.4rem; line-height: 1;"></span>
-                                Home
-                            </NavLink>
-                        </div>
-
-                        <!-- Branch NavLink -->
-                        <div class="nav-item px-3" style="margin-bottom: 15px;">
-                            <NavLink class="nav-link d-flex align-items-center" href="ManageBranch" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem 1rem;">
-                                <span class="bi bi-building" aria-hidden="true" style="margin-right: 15px; font-size: 1.4rem; line-height: 1;"></span>
-                                Branch
-                            </NavLink>
-                        </div>
-
-                        <!-- Department NavLink -->
-                        <div class="nav-item px-3" style="margin-bottom: 15px;">
-                            <NavLink class="nav-link d-flex align-items-center" href="DepartmentPage" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem 1rem;">
-                                <span class="bi bi-journal-bookmark-fill" aria-hidden="true" style="margin-right: 15px; font-size: 1.4rem; line-height: 1;"></span>
-                                Department
-                            </NavLink>
-                        </div>
-
-                        <!-- Clinic NavLink -->
-                        <div class="nav-item px-3" style="margin-bottom: 15px;">
-                            <NavLink class="nav-link d-flex align-items-center" href="ClinicPage" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem 1rem;">
-                                <span class="bi bi-hospital-fill" aria-hidden="true" style="margin-right: 15px; font-size: 1.4rem; line-height: 1;"></span>
-                                Clinic
-                            </NavLink>
-                        </div>
-
-                        <!-- Staff NavLink -->
-                        <div class="nav-item px-3" style="margin-bottom: 15px;">
-                            <NavLink class="nav-link d-flex align-items-center" href="" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem 1rem;">
-                                <span class="bi bi-person-fill" aria-hidden="true" style="margin-right: 15px; font-size: 1.4rem; line-height: 1;"></span>
-                                Staff
-                            </NavLink>
-                        </div>
-                    </nav>
-                </div>
+    <!-- Main Content Section -->
+    <div class="d-flex" style="flex: 1; margin-top: 65px;">
+        <!-- Added margin-top to push content below the AppBar -->
+        <!-- Sidebar -->
+        <div style="background: linear-gradient(to bottom, #1B7D84, #33BEC8); color: white; width: 250px; height: calc(100vh - 65px); padding: 1rem;">
+            <div class="text-center">
+                <img src="/Images/logo.png" alt="Logo" style="max-width: 150px; object-fit: contain;" />
             </div>
+            <nav>
+                <NavLink class="nav-link d-flex align-items-center" href="/StaffPage" Match="NavLinkMatch.All" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem;">
+                    <span class="bi bi-house-door-fill" aria-hidden="true" style="margin-right: 15px;"></span> Home
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="/ManageBranch" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem;">
+                    <span class="bi bi-building" aria-hidden="true" style="margin-right: 15px;"></span> Branch
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="/DepartmentPage" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem;">
+                    <span class="bi bi-journal-bookmark-fill" aria-hidden="true" style="margin-right: 15px;"></span> Department
+                </NavLink>
+                <NavLink class="nav-link d-flex align-items-center" href="/ClinicPage" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem;">
+                    <span class="bi bi-hospital-fill" aria-hidden="true" style="margin-right: 15px;"></span> Clinic
+                </NavLink>
+            </nav>
         </div>
 
-        <!-- Main Content Area -->
-            <!-- Main Article Section -->
-            <main>
-                <article class="content px-4">
-                    @Body
-                </article>
-            </main>
-        
+        <!-- Main Content -->
+        <div style="flex: 1; padding: 1rem; overflow-y: auto; height: calc(100vh - 65px);">
+            @Body
+        </div>
     </div>
 </div>
 
@@ -103,22 +62,19 @@
 @code {
     private void NavigateToProfile()
     {
-        // Navigate to the Profile page
-        Console.WriteLine("Profile clicked");
-        // Redirect to profile page or logic here
+        Console.WriteLine("Navigating to profile...");
+        // Add navigation logic
     }
 
     private void NavigateToSettings()
     {
-        // Navigate to the Settings page
-        Console.WriteLine("Settings clicked");
-        // Redirect to settings page or logic here
+        Console.WriteLine("Navigating to settings...");
+        // Add navigation logic
     }
 
     private void Logout()
     {
-        // Handle logout logic
-        Console.WriteLine("Logout clicked");
-        // Add your logout logic here (e.g., clearing authentication)
+        Console.WriteLine("Logging out...");
+        // Add logout logic
     }
 }
