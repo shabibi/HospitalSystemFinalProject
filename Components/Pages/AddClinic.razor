@@ -12,15 +12,14 @@
 <MudPaper Elevation="4" Class="p-4">
     <MudForm Model="clinicInput" @ref="form" Valid="isFormValid" OnValidSubmit="SubmitForm">
         <!-- Clinic Name Input -->
-        <MudTextField Label="Clinic Name" For="() => clinicInput.ClincName" Required="true" />
+        <MudTextField Label="Clinic Name" @bind-Value="clinicInput.ClincName" Required="true" />
 
         <!-- Assign Doctor Dropdown -->
         <MudSelect T="int" Label="Assign Doctor" @bind-Value="clinicInput.AssignDoctor" Required="true">
             @foreach (var doctor in doctors)
             {
-                // Find the corresponding user for the doctor based on DID (Doctor ID)
                 var user = users.FirstOrDefault(u => u.UID == doctor.DID);
-                var userName = user?.UserName ?? "Unknown User"; // If no user found, show "Unknown User"
+                var userName = user?.UserName ?? "Unknown User";
 
                 <MudSelectItem T="int" Value="user.UID">
                     @userName
@@ -28,9 +27,10 @@
             }
         </MudSelect>
 
-
         <!-- Slot Duration Input -->
-        <MudTextField Label="Slot Duration (in minutes)" For="() => clinicInput.SlotDuration" Required="true" Type="number" />
+        <MudTextField Label="Slot Duration (in minutes)" @bind-Value="clinicInput.SlotDuration"
+                      Required="true" Type="number"
+                      Validation="(Func<int, string>)ValidatePositiveNumber" />
 
         <!-- Start Time Dropdown -->
         <MudSelect T="TimeSpan" Label="Start Time" @bind-Value="clinicInput.StartTime" Required="true">
@@ -47,13 +47,13 @@
             @foreach (var time in availableTimes)
             {
                 <MudSelectItem T="TimeSpan" Value="@time">
-                    @time.ToString(@"hh\:mm")
+                    @time.ToString(@"hh\:mm\:ss")
                 </MudSelectItem>
             }
         </MudSelect>
 
         <!-- Cost Input -->
-        <MudTextField Label="Cost (in $)" For="() => clinicInput.Cost" Required="true" Type="number" />
+        <MudTextField Label="Cost (in $)" @bind-Value="clinicInput.Cost" Required="true" Type="number" />
 
         <!-- Submit and Cancel Buttons -->
         <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SubmitForm" Disabled="!form.IsValid">
@@ -63,6 +63,7 @@
             Cancel
         </MudButton>
     </MudForm>
+
 </MudPaper>
 
 @code {
@@ -115,7 +116,7 @@
                 await Task.Delay(2000);
 
                 // Redirect to clinics list
-                NavigationManager.NavigateTo("/AllClinicsPage");
+                NavigationManager.NavigateTo("/AddClinic");
             }
             catch (Exception ex)
             {
@@ -126,6 +127,10 @@
         {
             Snackbar.Add("Please fill out all required fields.", Severity.Warning);
         }
+    }
+    private string ValidatePositiveNumber(int value)
+    {
+        return value > 0 ? null : "Slot duration must be a positive number.";
     }
 
     private void NavigateBack()
