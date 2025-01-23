@@ -1,0 +1,104 @@
+﻿@layout StaffLayout
+@page "/AllClinicsPage/{bid:int}/{depId:int}"
+@inject IClinicService clinicService
+@inject NavigationManager NavigationManager
+@inject IDialogService DialogService // Inject the dialog service
+<MudTable Items="@clinics" Hover="true" SortLabel="Sort By" Style="width: 180%;">
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortBy="new Func<Clinic, object>(x => x.CID)">Clinic ID</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Clinic, object>(x => x.ClincName)">Clinic Name</MudTableSortLabel></MudTh>
+        <MudTh>View</MudTh>
+        <MudTh>Schedule</MudTh>
+        <MudTh>Edit</MudTh>
+        <MudTh>Delete</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Clinic ID">@context.CID</MudTd>
+        <MudTd DataLabel="Clinic Name">@context.ClincName</MudTd>
+        <MudTd DataLabel="View">
+            <MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Primary" OnClick="() => NavigateToView(context.CID)" />
+        </MudTd>
+        <MudTd DataLabel="Schedule">
+            <MudIconButton Icon="@Icons.Material.Filled.Schedule" Color="Color.Info" OnClick="() => NavigateToSchedule(context.CID)" />
+        </MudTd>
+        <MudTd DataLabel="Edit">
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Warning" OnClick="() => NavigateToEdit(context.CID)" />
+        </MudTd>
+        <MudTd DataLabel="Delete">
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="() => ShowDeleteConfirmation(context.CID)" />
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100 }" />
+    </PagerContent>
+</MudTable>
+<MudDialog @bind-IsVisible="isDeleteDialogVisible" MaxWidth="MaxWidth.Small" CloseOnEscape="true" CloseOnOverlayClick="true">
+    <DialogContent>
+        <MudText Typo="Typo.h6" GutterBottom="true">
+            Are you sure you want to delete clinic ID @clinicToDelete?
+        </MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="ConfirmDelete" Color="Color.Error" Variant="Variant.Filled">Delete</MudButton>
+        <MudButton OnClick="CancelDelete" Color="Color.Default" Variant="Variant.Text">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [Parameter] public int bid { get; set; }
+    [Parameter] public int depId { get; set; }
+    private IEnumerable<Clinic> clinics = new List<Clinic>();
+    private bool isDeleteDialogVisible = false;
+    private int clinicToDelete;
+    protected override void OnInitialized()
+    {
+        try
+        {
+            // Fetch clinics for the specified branch and department
+            clinics = clinicService.GetClinicByBranchDep(bid, depId);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching clinics: {ex.Message}");
+            clinics = new List<Clinic>(); // Ensure the table is empty on failure
+        }
+    }
+    private void NavigateToView(int clinicId)
+    {
+        NavigationManager.NavigateTo($"/ClinicDetailsPage/{clinicId}");
+    }
+    private void NavigateToSchedule(int clinicId)
+    {
+        NavigationManager.NavigateTo($"/ClinicSchedulePage/{clinicId}");
+    }
+    private void NavigateToEdit(int clinicId)
+    {
+        NavigationManager.NavigateTo($"/EditClinicPage/{clinicId}");
+    }
+    private void ShowDeleteConfirmation(int clinicId)
+    {
+        clinicToDelete = clinicId;
+        isDeleteDialogVisible = true; // Show dialog
+    }
+    private void ConfirmDelete()
+    {
+        try
+        {
+            // Call the service to delete the clinic
+            clinicService.SetClinicStatus(clinicToDelete);
+            // Refresh the clinic list after deletion
+            clinics = clinics.Where(c => c.CID != clinicToDelete).ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting clinic: {ex.Message}");
+        }
+        finally
+        {
+            isDeleteDialogVisible = false; // Close the dialog
+        }
+    }
+    private void CancelDelete()
+    {
+        isDeleteDialogVisible = false; // Close the dialog without taking action
+    }
+}

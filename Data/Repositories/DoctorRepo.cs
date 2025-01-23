@@ -134,7 +134,6 @@ namespace HospitalSystemTeamTask.Repositories
                 .ToList();
         }
 
-
         public void UpdateDoctor(Doctor doctor)
         {
             try
@@ -150,13 +149,12 @@ namespace HospitalSystemTeamTask.Repositories
 
         }
 
-
-
         public IQueryable<Doctor>GetDoctorByBrancDep(int bid, int depid)
         {
             return _context.Doctors
                 .Where(d => d.CurrentBrunch == bid && d.DepId == depid);
         }
+
 
 
 

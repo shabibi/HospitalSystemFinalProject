@@ -1,98 +1,103 @@
 ﻿@layout StaffLayout
-
 @page "/ClinicPage"
-@inject IClinicService clinicService
-@inject IBranchService branchService
-@inject IDepartmentService departmentService
+@inject IClinicService ClinicService
+@inject IBranchService BranchService
+@inject IDepartmentService DepartmentService
+@inject NavigationManager NavigationManager
 
-<!-- Button at the Top -->
-<div style="margin-top: 0; position: absolute; top: 100px; width: 100%; display: flex; justify-content: center; margin-bottom: 40px;">
-    <MudButton Variant="Variant.Filled" DropShadow="true" Color="Color.Primary" OnClick="AddClinic"
-               Style="background-color: #1B7D84; color: white; font-size: 1.2rem; padding: 16px 32px;">
-        Add Clinic
-    </MudButton>
-</div>
+<MudContainer MaxWidth="MaxWidth.Medium" Class="my-5" Style=" align-items:center">
+    <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84;">
+        Clinic Management
+    </MudText>
+    <MudCard Class="mt-5">
+        <MudCardContent>
+            <MudGrid>
+                <!-- Add Clinic Button -->
+                <MudItem xs="12">
+                    <div class="d-flex justify-end">
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddClinic"
+                                   Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 8px 16px;">
+                            Add Clinic
+                        </MudButton>
+                    </div>
+                </MudItem>
 
-<!-- Dropdowns for Branch -->
-<div style="margin-bottom: 16px; margin-top: 60px;">
-    <!-- Custom Label Above the Select Box -->
-    <MudText Typo="Typo.h5" Style="font-weight: bold; color: #1B7D84; text-align: left;">Select Branch</MudText>
+                <!-- Select Branch -->
+                <MudItem xs="12">
+                    <MudText Typo="Typo.body1" Style="font-weight: bold; color: #1B7D84;">Select Branch</MudText>
+                    <MudSelect T="Branch" @bind-Value="selectedBranch" Variant="Variant.Outlined" Clearable>
+                        @foreach (var branch in branches)
+                        {
+                            <MudSelectItem T="Branch" Value="@branch" Style="font-size: 1rem; font-weight: bold;">
+                                @branch.BranchName
+                            </MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
 
-    <MudSelect T="Branch" @bind-Value="selectedBranch" Variant="Variant.Outlined" Clearable>
-        @foreach (var branch in branches)
-        {
-            <MudSelectItem T="Branch" Value="@branch" Style="font-size: 1.2rem; font-weight: bold;">@branch.BranchName</MudSelectItem>
-        }
-    </MudSelect>
-</div>
+                <!-- Select Department -->
+                <MudItem xs="12">
+                    <MudText Typo="Typo.body1" Style="font-weight: bold; color: #1B7D84;">Select Department</MudText>
+                    <MudSelect T="DepDTO" @bind-Value="selectedDepartment" Variant="Variant.Outlined" Clearable>
+                        @foreach (var department in departments)
+                        {
+                            <MudSelectItem T="DepDTO" Value="@department" Style="font-size: 1rem; font-weight: bold;">
+                                @department.DepartmentName
+                            </MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
 
-<div style="margin-bottom: 16px;">
-    <MudText Typo="Typo.h5" Style="font-weight: bold; color: #1B7D84; text-align: left;">Select Department</MudText>
-    <MudSelect T="DepDTO" @bind-Value="selectedDepartment" Variant="Variant.Outlined" Clearable>
-        @foreach (var department in departments)
-        {
-            <MudSelectItem T="DepDTO" Value="@department" Style="font-size: 1.2rem;font-weight :bold">@department.DepartmentName</MudSelectItem>
-        }
-    </MudSelect>
-</div>
+                <!-- Find Clinic Button -->
+                <MudItem xs="12">
+                    <div class="d-flex justify-center mt-4">
+                        <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="FindClinic"
+                                   Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 8px 16px;">
+                            Find Clinic
+                        </MudButton>
+                    </div>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
+    <!-- Display Clinics -->
 
-<div style="margin-top: 0; position: center; top: 100px; width: 100%; display: flex; justify-content: center; margin-bottom: 40px;">
-    <MudButton Variant="Variant.Filled" DropShadow="false" Color="Color.Secondary" OnClick="FindClinic"
-               Style="background-color: #1B7D84; color: white; font-size: 1.2rem; padding: 16px 32px;">
-        Find Clinic
-        </MudButton>
-
-</div>
-
-
-<!-- Display selected Clinic(s) -->
-@if (clinics.Any())
-{
-    <h4>Clinics:</h4>
-    <ul>
-        @foreach (var clinic in clinics)
-        {
-            <li>@clinic.ClincName</li>
-        }
-    </ul>
-}
-else
-{
-    <MudText Typo="Typo.h6">No clinics found.</MudText>
-}
+</MudContainer>
 
 @code {
-    // Data
     private List<Branch> branches = new List<Branch>();
     private List<DepDTO> departments = new List<DepDTO>();
-    private List<Clinic> clinics = new List<Clinic>();
-
     private Branch selectedBranch;
     private DepDTO selectedDepartment;
-
-    // Assuming a service is injected for getting data
-    [Inject] private IClinicService ClinicService { get; set; }
 
     // Fetching Branches and Departments
     protected override void OnInitialized()
     {
-        // Simulate fetching branch and department data (replace with actual service call)
-        branches = branchService.GetAllBranches().ToList();
-        departments = departmentService.GetAllDepartments().ToList();
+        branches = BranchService.GetAllBranches().ToList();
+        departments = DepartmentService.GetAllDepartments().ToList();
     }
 
     private void AddClinic()
     {
-        // Logic to add a new clinic (for now, just a log statement)
-        Console.WriteLine("Add Clinic clicked");
+        // Navigate to the AddClinic page
+        NavigationManager.NavigateTo("/AddClinic");
     }
 
     private void FindClinic()
     {
-        // Get clinics by selected Branch and Department
+        // Only navigate to the AllClinicsPage if both Branch and Department are selected
         if (selectedBranch != null && selectedDepartment != null)
         {
-            clinics = ClinicService.GetClinicByBranchDep(selectedBranch.BID, selectedDepartment.DepId).ToList();
+            NavigationManager.NavigateTo($"/AllClinicsPage/{selectedBranch.BID}/{selectedDepartment.DepId}");
         }
+        else
+        {
+            Console.WriteLine("Please select both branch and department.");
+        }
+    }
+
+    private void NavigateToAllClinicsPage(int bid, int depId)
+    {
+        NavigationManager.NavigateTo($"/AllClinicsPage/{bid}/{depId}");
     }
 }

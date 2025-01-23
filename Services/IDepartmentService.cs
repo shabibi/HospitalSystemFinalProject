@@ -10,6 +10,8 @@ namespace HospitalSystemTeamTask.Services
         void UpdateDepartment(DepDTO departmentDto);
         void SetDepartmentActiveStatus(int departmentId, bool isActive);
         Department GetDepartmentByName(string department);
-        DepDTO GetDepartmentByid(int departmentId);
+        Department GetDepartmentByid(int did);
+        string GetDepartmentName(int depId);
+
     }
 }
