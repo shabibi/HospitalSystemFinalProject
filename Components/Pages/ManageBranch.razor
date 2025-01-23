@@ -1,0 +1,80 @@
+﻿@layout StaffLayout
+@page "/ManageBranch"
+@inject IBranchService BranchService
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="my-5">
+    <!-- Title -->
+    <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84; margin-bottom: 20px;">
+        Manage Branches
+    </MudText>
+
+    <!-- Add Branch Button -->
+    <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddBranch"
+                   Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 8px 16px;">
+            Add Branch
+        </MudButton>
+    </div>
+
+    <!-- Branches Table -->
+    <MudTable Items="branches" Dense="true" Bordered="true" Hover="true" Class="mt-3">
+        <HeaderContent>
+            <MudTh>Branch ID</MudTh>
+            <MudTh>Branch Name</MudTh>
+            <MudTh>Location</MudTh>
+            <MudTh>Actions</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Branch ID">@context.BID</MudTd>
+            <MudTd DataLabel="Branch Name">@context.BranchName</MudTd>
+            <MudTd DataLabel="Location">@context.Location</MudTd>
+            <MudTd DataLabel="Actions">
+                <!-- Edit Button -->
+                <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick="() => EditBranch(context.BID)"
+                           Style="margin-right: 10px;">
+                    <MudIcon Icon="edit" />
+                </MudButton>
+                <!-- Inactivate Button -->
+                <MudButton Variant="Variant.Outlined" Color="Color.Error" OnClick="() => ToggleBranchStatus(context.BID, false)">
+                    <MudIcon Icon="delete" />
+                </MudButton>
+            </MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText Typo="Typo.body1" Style="color: gray;">No branches found.</MudText>
+        </NoRecordsContent>
+    </MudTable>
+</MudContainer>
+
+@code {
+    private List<Branch> branches = new();
+
+    protected override void OnInitialized()
+    {
+        LoadBranches();
+    }
+
+    private void LoadBranches()
+    {
+        branches = BranchService.GetAllBranches().ToList();
+    }
+
+    private void AddBranch()
+    {
+        Console.WriteLine("Add Branch button clicked");
+        // Implement navigation or functionality to add a branch
+    }
+
+    private void EditBranch(int branchId)
+    {
+        Console.WriteLine($"Edit Branch button clicked for Branch ID: {branchId}");
+        // Implement navigation or functionality to edit a branch
+    }
+
+    private void ToggleBranchStatus(int branchId, bool isActive)
+    {
+        Console.WriteLine($"Toggle status for Branch ID: {branchId} to {(isActive ? "Active" : "Inactive")}");
+        BranchService.SetBranchStatus(branchId, isActive);
+        LoadBranches(); // Refresh branches after status update
+    }
+}
