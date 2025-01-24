@@ -2,7 +2,6 @@
 @inject IDoctorService doctorService
 @inject IUserService userService
 
-<h3>Doctors in @departmentName</h3>
 
 @if (doctors == null)
 {
@@ -52,7 +51,6 @@ else
     [Parameter]
     public int departmentId { get; set; }
 
-    private string departmentName = "Loading...";
     private List<Doctor> doctors = new List<Doctor>(); // Ensure it's initialized as an empty list
     private List<UserOutputDTO> users = new List<UserOutputDTO>();
 
@@ -75,8 +73,6 @@ else
                 users = new List<UserOutputDTO>(); // Ensure users is also empty
             }
 
-            // Set the department name (this may need to come from a service or API)
-            departmentName = "Department Name"; // Set this dynamically if needed
         }
         catch (Exception ex)
         {
