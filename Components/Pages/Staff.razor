@@ -1,8 +1,15 @@
 ﻿@layout StaffLayout
 @inject IUserService userService
+@inject NavigationManager NavigationManager
 @page "/Staff"
 
-<h3>Staff</h3>
+<!-- Add New Staff Button Positioned on the Right -->
+<div class="d-flex justify-end" style="margin-bottom: 30px;"> <!-- Increased margin-bottom for more space -->
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToAddStaff"
+               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px;">
+        Add New Staff
+    </MudButton>
+</div>
 
 <!-- Search Box -->
 <MudTextField T="string"
@@ -63,15 +70,11 @@
     {
         try
         {
-            // Fetch users by role
             var superAdmins = userService.GetUserByRole("superAdmin");
             var admins = userService.GetUserByRole("admin");
             var doctors = userService.GetUserByRole("doctor");
 
-            // Combine all users
             users = superAdmins.Concat(admins).Concat(doctors).ToList();
-
-            // Initialize filtered users
             filteredUsers = users;
         }
         catch (Exception ex)
@@ -90,7 +93,6 @@
         }
         else
         {
-            // Filter users based on name or role
             filteredUsers = users.Where(u =>
                 u.UserName.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
                 u.Role.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -112,13 +114,15 @@
         var userToUpdate = users.FirstOrDefault(u => u.UID == userId);
         if (userToUpdate != null)
         {
-            // Simulate toggling the status
             userToUpdate.IsActive = !isActive;
-
-            // Update the filtered list to reflect changes
             filteredUsers = users.ToList();
             StateHasChanged(); // Force UI update
         }
+    }
+
+    private void NavigateToAddStaff()
+    {
+        NavigationManager.NavigateTo("/AddStaff");
     }
 
     private string GetStatusStyle(bool isActive)

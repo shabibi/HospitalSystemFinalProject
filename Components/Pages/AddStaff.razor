@@ -1,0 +1,109 @@
+﻿@layout StaffLayout
+@page "/AddStaff"
+@inject IUserService userService
+@inject NavigationManager NavigationManager
+@inject ISnackbar Snackbar
+
+<MudPaper Elevation="4" Class="form-container" Style="width: 250%; align-content:center;" Align="Align.Center">
+    <MudText Typo="Typo.h3" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">
+        Add New Staff
+    </MudText>
+    <MudForm Model="newStaffInput" @ref="form" Valid="isFormValid" OnValidSubmit="SubmitForm">
+        <MudItem xs="12" Class="mb-4">
+            <!-- Staff Name Input -->
+            <MudTextField Label="Staff Name" @bind-Value="newStaffInput.UserName" Required="true" FullWidth="true" />
+        </MudItem>
+        <MudItem xs="12" Class="mb-4">
+            <!-- Role Dropdown -->
+            <MudSelect T="string" Label="Role" @bind-Value="newStaffInput.Role" Required="true" FullWidth="true">
+                @foreach (var role in roles)
+                {
+                    <MudSelectItem T="string" Value="@role">@role</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="12" Class="mb-4">
+            <!-- Phone Number Input -->
+            <MudTextField Label="Phone Number" @bind-Value="newStaffInput.Phone" FullWidth="true" />
+        </MudItem>
+        <MudItem xs="12" Class="d-flex justify-space-between mt-4">
+            <!-- Submit and Cancel Buttons -->
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SubmitForm" Disabled="!form.IsValid">
+                Submit
+            </MudButton>
+            <MudButton Variant="Variant.Text" Color="Color.Default" OnClick="NavigateBack">
+                Cancel
+            </MudButton>
+        </MudItem>
+    </MudForm>
+</MudPaper>
+
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh; /* Center vertically */
+    }
+
+    .mb-4 {
+        margin-bottom: 16px;
+    }
+
+    .d-flex {
+        display: flex;
+    }
+
+    .justify-space-between {
+        justify-content: space-between;
+    }
+
+    .mt-4 {
+        margin-top: 16px;
+    }
+</style>
+
+@code {
+    private UserInputDTO newStaffInput = new();
+    private MudForm form;
+    private bool isFormValid = false;
+
+    // Role options
+    private string[] roles = { "Admin", "Doctor" };
+
+    private async Task SubmitForm()
+    {
+        if (form.IsValid)
+        {
+            try
+            {
+                await userService.AddStaff(newStaffInput);
+                Snackbar.Add("New staff member added successfully!", Severity.Success);
+
+                // Wait for success message to show
+                await Task.Delay(2000);
+
+                // Navigate back to the staff list or another relevant page
+                NavigateBack();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"Error adding staff: {ex.Message}", Severity.Error);
+            }
+        }
+        else
+        {
+            Snackbar.Add("Please fill out all required fields.", Severity.Warning);
+        }
+    }
+
+    private void NavigateBack()
+    {
+        NavigationManager.NavigateTo("/Staff");
+    }
+}
