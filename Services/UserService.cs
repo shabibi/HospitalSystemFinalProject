@@ -74,7 +74,7 @@ namespace HospitalSystemTeamTask.Services
 
 
         //Add hospital stuff (admin or doctor ) 
-        public async Task AddStaff(UserInputDTO InputUser)
+        public async Task AddStaff(User InputUser)
         {
             if (InputUser.Role.ToLower() != "doctor" && InputUser.Role.ToLower() != "admin")
                 throw new ArgumentException("Invalid role. Only 'doctor' and 'admin' roles are allowed.", nameof(InputUser.Role));
