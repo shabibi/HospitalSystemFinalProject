@@ -1,0 +1,128 @@
+﻿@layout StaffLayout
+@inject IUserService userService
+@page "/Staff"
+
+<h3>Staff</h3>
+
+<!-- Search Box -->
+<MudTextField T="string"
+    Placeholder="Search for User"
+    ValueChanged="@OnSearchChanged"
+    Immediate="true"
+    Adornment="Adornment.End"
+    AdornmentIcon="@Icons.Material.Filled.Search"
+    Class="mb-4"
+    Variant="Variant.Filled"
+    Style="margin-bottom: 20px;" />
+
+<!-- Staff Table -->
+<MudTable Items="@filteredUsers" Hover="true" SortLabel="Sort By" Style="width: 100%; margin-top: 50px;">
+    <HeaderContent>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 10%;">User ID</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 20%;">Name</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Role</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Status</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">View</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Edit</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Inactivate</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="User ID" Style="background-color: #1B7D84; color: white; width: 10%;">@context.UID</MudTd>
+        <MudTd DataLabel="Name" Style="width: 20%;">@context.UserName</MudTd>
+        <MudTd DataLabel="Role" Style="width: 15%;">@context.Role</MudTd>
+        <MudTd DataLabel="Status" Style="@GetStatusStyle(context.IsActive)">
+            @(context.IsActive ? "Active" : "Inactive")
+        </MudTd>
+        <MudTd DataLabel="View" Style="width: 15%;">
+            <MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Primary" OnClick="() => NavigateToView(context.UID)" />
+        </MudTd>
+        <MudTd DataLabel="Edit" Style="width: 15%;">
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Warning" OnClick="() => NavigateToEdit(context.UID)" />
+        </MudTd>
+        <MudTd DataLabel="Inactivate" Style="width: 15%;">
+            <MudIconButton Icon="@(context.IsActive ? Icons.Material.Filled.Block : Icons.Material.Filled.CheckCircle)" 
+                Color="@(context.IsActive ? Color.Error : Color.Success)" 
+                OnClick="() => ToggleUserStatus(context.UID, context.IsActive)" />
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+<MudSnackbar />
+
+@code {
+    private IEnumerable<UserOutputDTO> users;
+    private IEnumerable<UserOutputDTO> filteredUsers;
+    private string searchQuery = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUsers();
+    }
+
+    private async Task LoadUsers()
+    {
+        try
+        {
+            // Fetch users by role
+            var superAdmins = userService.GetUserByRole("superAdmin");
+            var admins = userService.GetUserByRole("admin");
+            var doctors = userService.GetUserByRole("doctor");
+
+            // Combine all users
+            users = superAdmins.Concat(admins).Concat(doctors).ToList();
+
+            // Initialize filtered users
+            filteredUsers = users;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading users: {ex.Message}");
+        }
+    }
+
+    private void OnSearchChanged(string search)
+    {
+        searchQuery = search;
+
+        if (string.IsNullOrWhiteSpace(searchQuery))
+        {
+            filteredUsers = users;
+        }
+        else
+        {
+            // Filter users based on name or role
+            filteredUsers = users.Where(u =>
+                u.UserName.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                u.Role.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+    }
+
+    private void NavigateToView(int userId)
+    {
+        // Implement navigation logic for viewing user details
+    }
+
+    private void NavigateToEdit(int userId)
+    {
+        // Implement navigation logic for editing user details
+    }
+
+    private void ToggleUserStatus(int userId, bool isActive)
+    {
+        var userToUpdate = users.FirstOrDefault(u => u.UID == userId);
+        if (userToUpdate != null)
+        {
+            // Simulate toggling the status
+            userToUpdate.IsActive = !isActive;
+
+            // Update the filtered list to reflect changes
+            filteredUsers = users.ToList();
+            StateHasChanged(); // Force UI update
+        }
+    }
+
+    private string GetStatusStyle(bool isActive)
+    {
+        return isActive ? "color: green;" : "color: red;"; // Red for Inactive, Green for Active
+    }
+}

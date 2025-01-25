@@ -122,11 +122,11 @@ namespace HospitalSystemTeamTask.Repositories
             return user.Password == hashedCurrentPassword;
         }
 
-        public IEnumerable<User> GetUserByRole(string roleName)
+        public IQueryable<User> GetUserByRole(string roleName)
         {
             try
             {
-               return _context.Users.Where(u => u.Role == roleName&& u.IsActive == true).ToList();
+               return _context.Users.Where(u => u.Role == roleName);
             }
             catch (Exception ex)
             {
