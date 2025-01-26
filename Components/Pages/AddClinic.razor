@@ -151,7 +151,7 @@
                 Log.Information("Clinic added successfully at {Time}", DateTime.Now);
 
                 await Task.Delay(2000);
-                NavigationManager.NavigateTo("/AllClinicsPage");
+                NavigationManager.NavigateTo("/AddClinic");
             }
             catch (Exception ex)
             {
@@ -172,7 +172,7 @@
     private void NavigateBack()
     {
         Log.Information("User canceled adding a clinic at {Time}", DateTime.Now);
-        NavigationManager.NavigateTo("/AllClinicsPage");
+        NavigationManager.NavigateTo("/AddClinic");
     }
 
     private List<TimeSpan> GenerateAvailableTimes()
