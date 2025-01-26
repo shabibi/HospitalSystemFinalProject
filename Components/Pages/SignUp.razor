@@ -1,0 +1,104 @@
+﻿@layout LoginLayout
+
+@page "/signup"
+@using System.Text.RegularExpressions
+@inject NavigationManager NavigationManager
+@using System.ComponentModel.DataAnnotations
+@inject IUserService userService
+@inject IPatientService patientService
+@inject ISnackbar Snackbar
+
+<h3>Sign Up</h3>
+<MudGrid>
+    <MudItem xs="12" sm="7">
+        <MudPaper Class="pa-4">
+            <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+                <MudTextField T="string" Label="Username" Required="true" RequiredError="Username is required!"
+                              @bind-Value="newUser.UserName" />
+                <MudTextField T="string" Label="Email" Required="true" RequiredError="Email is required!"
+                              Validation="@(new EmailAddressAttribute() { ErrorMessage = "The email address is invalid." })"
+                              @bind-Value="newUser.Email" />
+                <MudTextField T="string" Label="Password" HelperText="Choose a strong password" @ref="pwField1"
+                              InputType="InputType.Password"
+                              Required="true"
+                              RequiredError="Password is required!" @bind-Value="newUser.Password" />
+                <MudTextField T="string" Label="Repeat Password" HelperText="Repeat the password" InputType="InputType.Password"
+                              Validation="PasswordMatch" />
+
+                <MudTextField T="int" Label="Age" Required="true" RequiredError="Age is required!"
+                              @bind-Value="newPatient.Age" />
+
+                <!-- Phone Number Field -->
+                <MudTextField T="string" Label="Phone Number" Required="true" RequiredError="Phone number is required!"
+                              @bind-Value="newUser.Phone" />
+
+                <MudRadioGroup T="string" @bind-Value="newPatient.Gender" Required="true" RequiredError="Please select a gender.">
+                    <MudRadio T="string" Value="@selectedGender[0]" Color="Color.Primary" Dense="true">Male</MudRadio>
+                    <MudRadio T="string" Value="@selectedGender[1]" Color="Color.Secondary" Dense="false">Female</MudRadio>
+                </MudRadioGroup>
+
+                <div class="d-flex align-center justify-space-between mt-4">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" OnClick="RegisterUser" Class="ml-auto">
+                        Register
+                    </MudButton>
+                </div>
+            </MudForm>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+@code {
+    private User newUser = new User();
+    private PatientInputDTO newPatient = new PatientInputDTO();
+    private bool success;
+    private string[] errors = { };
+    private MudTextField<string> pwField1;
+    private MudForm form;
+
+    // Array to hold gender options
+    private string[] selectedGender = { "M", "F" }; // "M" for Male, "F" for Female
+
+    private async Task RegisterUser()
+    {
+        // Validate the form
+        await form.Validate();
+
+        if (form.IsValid)
+        {
+            try
+            {
+                errors = new string[] { }; // Clear any previous errors
+                newUser.Role = "patient"; // Set the role to patient
+
+                // Set up the PatientInputDTO object
+                newPatient.UserName = newUser.UserName;
+                newPatient.Email = newUser.Email;
+                newPatient.Password = newUser.Password;
+                newPatient.Phone = newUser.Phone; // Bind the phone number
+                newPatient.Age = newPatient.Age;
+                newPatient.Gender = newPatient.Gender;
+
+                // Call AddPatient service
+                 patientService.AddPatient(newPatient);
+
+                // Success message
+                Snackbar.Add("Registration successful!", Severity.Success);
+
+                // Redirect after successful registration
+                NavigationManager.NavigateTo("/signin");
+            }
+            catch (Exception ex)
+            {
+                errors = new string[] { ex.Message }; // Capture any error that occurred
+                Snackbar.Add($"An error occurred: {ex.Message}", Severity.Error);
+            }
+        }
+    }
+
+ 
+
+    private string PasswordMatch(string arg)
+    {
+        return pwField1.Value != arg ? "Passwords don't match!" : null;
+    }
+}
