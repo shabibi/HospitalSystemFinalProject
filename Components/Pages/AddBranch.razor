@@ -1,6 +1,8 @@
 ﻿@page "/AddBranch/{BranchId:int?}"
 @inject IBranchService BranchService
 @inject NavigationManager NavigationManager
+@inject Serilog.ILogger Logger
+
 <MudContainer MaxWidth="MaxWidth.Medium" Class="my-5" Style="display: flex; flex-direction: column; align-items: center;">
     <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84; margin-bottom: 20px;">
         @(BranchId.HasValue ? "Edit Branch" : "Add Branch")
@@ -19,32 +21,68 @@
         </MudCardActions>
     </MudCard>
 </MudContainer>
+
 @code {
     [Parameter] public int? BranchId { get; set; }
     private BranchDTO branchModel = new();
     private MudForm branchForm;
     private bool isFormValid;
+
     protected override void OnInitialized()
     {
+        Logger.Information("Navigated to Add/Edit Branch page at {Time}", DateTime.Now);
+
         if (BranchId.HasValue)
         {
-            branchModel = BranchService.GetBranchById(BranchId.Value);
+            try
+            {
+                Logger.Information("Fetching branch details for Branch ID: {BranchId} at {Time}", BranchId, DateTime.Now);
+                branchModel = BranchService.GetBranchById(BranchId.Value);
+                Logger.Information("Successfully fetched branch details for Branch ID: {BranchId} at {Time}", BranchId, DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error fetching branch details for Branch ID: {BranchId}. Error: {Error} at {Time}", BranchId, ex.Message, DateTime.Now);
+                NavigationManager.NavigateTo("/ManageBranch");
+            }
         }
     }
+
     private void SaveBranch()
     {
         if (BranchId.HasValue)
         {
-            BranchService.UpdateBranch(BranchId.Value, branchModel);
+            try
+            {
+                Logger.Information("Attempting to update branch with ID: {BranchId} at {Time}", BranchId, DateTime.Now);
+                BranchService.UpdateBranch(BranchId.Value, branchModel);
+                Logger.Information("Successfully updated branch with ID: {BranchId} at {Time}", BranchId, DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error updating branch with ID: {BranchId}. Error: {Error} at {Time}", BranchId, ex.Message, DateTime.Now);
+            }
         }
         else
         {
-            BranchService.AddBranch(branchModel);
+            try
+            {
+                Logger.Information("Attempting to add a new branch at {Time}", DateTime.Now);
+                BranchService.AddBranch(branchModel);
+                Logger.Information("Successfully added a new branch at {Time}", DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Error adding a new branch. Error: {Error} at {Time}", ex.Message, DateTime.Now);
+            }
         }
+
         NavigationManager.NavigateTo("/ManageBranch");
     }
+
     private void Cancel()
     {
+        Logger.Information("Cancelled Add/Edit Branch operation at {Time}", DateTime.Now);
         NavigationManager.NavigateTo("/ManageBranch");
     }
 }

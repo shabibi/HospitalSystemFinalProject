@@ -2,7 +2,9 @@
 @page "/AllClinicsPage/{bid:int}/{depId:int}"
 @inject IClinicService clinicService
 @inject NavigationManager NavigationManager
-@inject IDialogService DialogService // Inject the dialog service
+@inject IDialogService DialogService
+@inject Serilog.ILogger Logger
+
 <MudTable Items="@clinics" Hover="true" SortLabel="Sort By" Style="width: 100%; margin-top: 50px;">
     <HeaderContent>
         <MudTh><MudTableSortLabel SortBy="new Func<Clinic, object>(x => x.CID)">Clinic ID</MudTableSortLabel></MudTh>
@@ -49,56 +51,70 @@
     private IEnumerable<Clinic> clinics = new List<Clinic>();
     private bool isDeleteDialogVisible = false;
     private int clinicToDelete;
+
     protected override void OnInitialized()
     {
+        Logger.Information("Navigated to AllClinicsPage with Branch ID: {BranchId} and Department ID: {DepId} at {Time}", bid, depId, DateTime.Now);
+
         try
         {
-            // Fetch clinics for the specified branch and department
             clinics = clinicService.GetClinicByBranchDep(bid, depId);
+            Logger.Information("Successfully fetched clinics for Branch ID: {BranchId} and Department ID: {DepId} at {Time}", bid, depId, DateTime.Now);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error fetching clinics: {ex.Message}");
-            clinics = new List<Clinic>(); // Ensure the table is empty on failure
+            Logger.Error("Error fetching clinics for Branch ID: {BranchId} and Department ID: {DepId}. Error: {Error} at {Time}", bid, depId, ex.Message, DateTime.Now);
+            clinics = new List<Clinic>();
         }
     }
+
     private void NavigateToView(int clinicId)
     {
+        Logger.Information("Navigating to view clinic appointments for Clinic ID: {ClinicId} at {Time}", clinicId, DateTime.Now);
         NavigationManager.NavigateTo($"/ViewAllClinicAppointments/{clinicId}");
     }
+
     private void NavigateToSchedule(int clinicId)
     {
+        Logger.Information("Navigating to schedule page for Clinic ID: {ClinicId} at {Time}", clinicId, DateTime.Now);
         NavigationManager.NavigateTo($"/SchedulePage/{clinicId}");
     }
+
     private void NavigateToEdit(int clinicId)
     {
+        Logger.Information("Navigating to edit page for Clinic ID: {ClinicId} at {Time}", clinicId, DateTime.Now);
         NavigationManager.NavigateTo($"/EditClinicPage/{clinicId}");
     }
+
     private void ShowDeleteConfirmation(int clinicId)
     {
+        Logger.Information("Showing delete confirmation dialog for Clinic ID: {ClinicId} at {Time}", clinicId, DateTime.Now);
         clinicToDelete = clinicId;
-        isDeleteDialogVisible = true; // Show dialog
+        isDeleteDialogVisible = true;
     }
+
     private void ConfirmDelete()
     {
         try
         {
-            // Call the service to delete the clinic
+            Logger.Information("Attempting to delete clinic with ID: {ClinicId} at {Time}", clinicToDelete, DateTime.Now);
             clinicService.SetClinicStatus(clinicToDelete);
-            // Refresh the clinic list after deletion
             clinics = clinics.Where(c => c.CID != clinicToDelete).ToList();
+            Logger.Information("Successfully deleted clinic with ID: {ClinicId} at {Time}", clinicToDelete, DateTime.Now);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error deleting clinic: {ex.Message}");
+            Logger.Error("Error deleting clinic with ID: {ClinicId}. Error: {Error} at {Time}", clinicToDelete, ex.Message, DateTime.Now);
         }
         finally
         {
-            isDeleteDialogVisible = false; // Close the dialog
+            isDeleteDialogVisible = false;
         }
     }
+
     private void CancelDelete()
     {
-        isDeleteDialogVisible = false; // Close the dialog without taking action
+        Logger.Information("Cancelled delete operation for Clinic ID: {ClinicId} at {Time}", clinicToDelete, DateTime.Now);
+        isDeleteDialogVisible = false;
     }
 }

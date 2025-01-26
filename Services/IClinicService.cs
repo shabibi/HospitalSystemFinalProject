@@ -5,16 +5,16 @@ namespace HospitalSystemTeamTask.Services
 {
     public interface IClinicService
     {
-        IEnumerable<Clinic> GetAllClinic();
         void AddClinic(ClinicInput input);
+        IEnumerable<Clinic> GetAllClinic();
+        IEnumerable<Clinic> GetClinicByBranchDep(int bid, int depid);
         Clinic GetClinicById(int clinicId);
         Clinic GetClinicByName(string clinicName);
+        string GetClinicName(int cid);
         IEnumerable<Clinic> GetClinicsByBranchName(string branchName);
         IEnumerable<Clinic> GetClinicsByDepartmentId(int departmentId);
-        void UpdateClinicDetails(int CID, ClinicInput input);
-        void SetClinicStatus(int clinicId);
         decimal GetPrice(int clinicId);
-        string GetClinicName(int cid);
-        IEnumerable<Clinic> GetClinicByBranchDep(int bid, int depid);
+        void SetClinicStatus(int clinicId);
+        void UpdateClinicDetails(int CID, ClinicInput input);
     }
 }

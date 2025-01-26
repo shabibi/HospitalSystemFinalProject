@@ -116,6 +116,7 @@ namespace HospitalSystemTeamTask
                 .ReadFrom.Configuration(builder.Configuration)
                 .CreateLogger();
 
+            builder.Logging.AddConsole();
             builder.Host.UseSerilog();
 
             var app = builder.Build();

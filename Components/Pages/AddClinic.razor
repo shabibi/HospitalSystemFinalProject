@@ -1,12 +1,11 @@
 ﻿@layout StaffLayout
 
 @page "/AddClinic"
-@inject IUserService userService // Inject UserService to fetch doctors
+@inject IUserService userService
 @inject IClinicService clinicService
 @inject NavigationManager NavigationManager
 @inject IDoctorService doctorService
-@inject ISnackbar Snackbar // Inject the ISnackbar service
-
+@inject ISnackbar Snackbar
 
 <MudPaper Elevation="4" Class="form-container" Style="width: 250%; align-content:center;" Align="Align.Center margin-top: center">
     <MudText Typo="Typo.h3" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">
@@ -112,86 +111,77 @@
     }
 </style>
 
-
 @code {
     private ClinicInput clinicInput = new();
     private MudForm form;
     private bool isFormValid = false;
 
-    private List<Doctor> doctors = new List<Doctor>(); // Ensure it's initialized as an empty list
+    private List<Doctor> doctors = new List<Doctor>();
     private List<UserOutputDTO> users = new List<UserOutputDTO>();
     private List<TimeSpan> availableTimes;
 
     protected override async Task OnInitializedAsync()
     {
+        Log.Information("User accessed the AddClinic page at {Time}", DateTime.Now);
+
         try
         {
-            // Fetch doctors and users
-            var doctorsResult = doctorService.GetAllDoctors().Where(u => u.CID == null); // Only fetch doctors without clinics
+            var doctorsResult = doctorService.GetAllDoctors().Where(u => u.CID == null);
             var userRole = userService.GetUserByRole("doctor");
 
-            if (doctorsResult != null)
-            {
-                doctors = doctorsResult.ToList(); // Assign to doctors
-                users = userRole.ToList(); // Assign to users
-            }
-            else
-            {
-                doctors = new List<Doctor>(); // In case no doctors found, assign an empty list
-                users = new List<UserOutputDTO>(); // Ensure users is also empty
-            }
-
-            // Generate available times after data is loaded
+            doctors = doctorsResult?.ToList() ?? new List<Doctor>();
+            users = userRole?.ToList() ?? new List<UserOutputDTO>();
             availableTimes = GenerateAvailableTimes();
         }
         catch (Exception ex)
         {
+            Log.Error("Error while loading doctors: {Error} at {Time}", ex.Message, DateTime.Now);
             Snackbar.Add($"Error while loading doctors: {ex.Message}", Severity.Error);
         }
     }
 
     private async Task SubmitForm()
     {
-        if (form.IsValid) // Check if the form is valid
+        if (form.IsValid)
         {
             try
             {
-                 clinicService.AddClinic(clinicInput); // Assuming it's an async method
+                Log.Information("User started saving a clinic at {Time}", DateTime.Now);
+                clinicService.AddClinic(clinicInput);
                 Snackbar.Add("Clinic added successfully!", Severity.Success);
+                Log.Information("Clinic added successfully at {Time}", DateTime.Now);
 
-                // Wait for success message to be visible
                 await Task.Delay(2000);
-
-                // Redirect to clinics list
-                NavigationManager.NavigateTo("/AddClinic");
+                NavigationManager.NavigateTo("/AllClinicsPage");
             }
             catch (Exception ex)
             {
+                Log.Error("Error adding clinic: {Error} at {Time}", ex.Message, DateTime.Now);
                 Snackbar.Add($"Error adding clinic: {ex.Message}", Severity.Error);
             }
         }
         else
         {
+            Log.Warning("Form submission failed due to validation errors at {Time}", DateTime.Now);
             Snackbar.Add("Please fill out all required fields.", Severity.Warning);
         }
     }
-    private string ValidatePositiveNumber(int value)
-    {
-        return value > 0 ? null : "Slot duration must be a positive number.";
-    }
+
+    private string ValidatePositiveNumber(int value) =>
+        value > 0 ? null : "Slot duration must be a positive number.";
 
     private void NavigateBack()
     {
+        Log.Information("User canceled adding a clinic at {Time}", DateTime.Now);
         NavigationManager.NavigateTo("/AllClinicsPage");
     }
 
-    // Generate available times (e.g., 9:00 AM to 5:00 PM in 30-minute intervals)
     private List<TimeSpan> GenerateAvailableTimes()
     {
         var times = new List<TimeSpan>();
-        var startTime = new TimeSpan(9, 00, 00); // Start at 9:00 AM
-        var endTime = new TimeSpan(17, 00, 00);  // End at 5:00 PM
-        var interval = new TimeSpan(0, 30, 00); // 30-minute interval
+        var startTime = new TimeSpan(9, 0, 0);
+        var endTime = new TimeSpan(17, 0, 0);
+        var interval = new TimeSpan(0, 30, 0);
 
         for (var time = startTime; time < endTime; time = time.Add(interval))
         {

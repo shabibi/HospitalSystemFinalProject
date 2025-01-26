@@ -7,6 +7,7 @@
 @inject IBranchService branchService
 @inject IDepartmentService departmentService
 @inject IBranchDepartmentService branchDepartmentService
+@inject Serilog.ILogger Logger
 
 <MudPaper Elevation="4" Class="form-container" Style="width: 100%; align-content:center;" Align="Align.Center">
     <MudText Typo="Typo.h3" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">
@@ -91,33 +92,34 @@
     private string[] roles = { "Admin", "Doctor" };
 
     private IEnumerable<Branch> branches = new List<Branch>();
-    private List<DepDTO> departments = new List<DepDTO>(); // No need to filter based on branch anymore
-    private int selectedBranchId = 0; // Track selected branch
-    private int selectedDepartment; // Track selected department for the doctor
+    private List<DepDTO> departments = new List<DepDTO>(); 
+    private int selectedBranchId = 0;
+    private int selectedDepartment;
 
     protected override async Task OnInitializedAsync()
     {
+        Logger.Information("Navigated to Add Staff page at {Time}", DateTime.Now);
+
         try
         {
-            // Fetch all branches when the component is initialized
             branches = await Task.Run(() => branchService.GetAllBranches());
-
             if (!branches.Any())
             {
                 Snackbar.Add("No branches found.", Severity.Warning);
+                Logger.Warning("No branches found at {Time}", DateTime.Now);
             }
 
-            // Fetch all departments for initial display
             departments = await Task.Run(() => departmentService.GetAllDepartments().ToList());
-
             if (!departments.Any())
             {
                 Snackbar.Add("No departments available.", Severity.Warning);
+                Logger.Warning("No departments available at {Time}", DateTime.Now);
             }
         }
         catch (Exception ex)
         {
             Snackbar.Add($"Error loading branches: {ex.Message}", Severity.Error);
+            Logger.Error("Error loading branches: {Error} at {Time}", ex.Message, DateTime.Now);
         }
     }
 
@@ -127,24 +129,22 @@
         {
             try
             {
-                // Get department IDs for the selected branch using branchDepartmentService
                 var departmentIds = await Task.Run(() => branchDepartmentService.GetDepartmentsByBranch(selectedBranchId));
-
                 if (departmentIds == null || !departmentIds.Any())
                 {
                     Snackbar.Add("No departments found for the selected branch.", Severity.Warning);
+                    Logger.Warning("No departments found for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
                     return;
                 }
 
-                // Here we would filter the departments for the selected branch, but for now, you can ignore it
-                // since the dropdown now shows all departments anyway.
                 departments.Clear();
                 departments = departmentIds.ToList();
+                Logger.Information("Departments loaded for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
             }
-            
             catch (Exception ex)
             {
                 Snackbar.Add($"Error loading departments for branch: {ex.Message}", Severity.Error);
+                Logger.Error("Error loading departments for branch ID {BranchId}: {Error} at {Time}", selectedBranchId, ex.Message, DateTime.Now);
             }
         }
     }
@@ -155,39 +155,39 @@
         {
             try
             {
-                // Add staff user asynchronously
+                Logger.Information("Adding new staff with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
                 await userService.AddStaff(newStaffInput);
-                var staffId = newStaffInput.UID;
 
-                // If the selected role is "Doctor", handle the additional doctor details
                 if (newStaffInput.Role == "Doctor" && selectedDepartment != 0)
                 {
-                    doctorInput.DID = staffId;
-                    doctorInput.DepID = selectedDepartment; // Set the department ID from selected department
-                    doctorService.AddDoctor(doctorInput); // Use the correct service for adding doctor
+                    doctorInput.DID = newStaffInput.UID;
+                    doctorInput.DepID = selectedDepartment;
+                    doctorService.AddDoctor(doctorInput);
+                    Logger.Information("Doctor-specific details added for UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
                 }
 
                 Snackbar.Add("New staff member added successfully!", Severity.Success);
+                Logger.Information("New staff added successfully with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
 
-                // Wait for success message to show
                 await Task.Delay(2000);
-
-                // Navigate back to the staff list or another relevant page
                 NavigateBack();
             }
             catch (Exception ex)
             {
                 Snackbar.Add($"Error adding staff: {ex.Message}", Severity.Error);
+                Logger.Error("Error adding new staff with UserName: {UserName}. Error: {Error} at {Time}", newStaffInput.UserName, ex.Message, DateTime.Now);
             }
         }
         else
         {
             Snackbar.Add("Please fill out all required fields.", Severity.Warning);
+            Logger.Warning("Form submission failed due to validation errors at {Time}", DateTime.Now);
         }
     }
 
     private void NavigateBack()
     {
+        Logger.Information("User canceled Add Staff operation at {Time}", DateTime.Now);
         NavigationManager.NavigateTo("/Staff");
     }
 }
