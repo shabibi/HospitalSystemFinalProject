@@ -1,20 +1,19 @@
 ﻿@page "/"
 @inject NavigationManager NavigationManager
 @inject IBranchService BranchService
-
-
+ 
 
 <PageTitle>Home</PageTitle>
 
- <MudText Typo="Typo.h2"
-          Style="color: #33BEC8;
-                 text-align: center;
-                 font-family: 'Times New Roman', Times, serif;
-                 font-weight: bold;
-                 font-size: 36px;
-                 margin: 20px;">
-     ATA Hospital
- </MudText>
+<MudText Typo="Typo.h2"
+         Style="color: #33BEC8;
+                text-align: center;
+                font-family: 'Times New Roman', Times, serif;
+                font-weight: bold;
+                font-size: 36px;
+                margin: 20px;">
+    ATA Hospital
+</MudText>
 
 <div>
     <MudSelect T="string"
@@ -106,45 +105,59 @@
     </MudPaper>
 </div>
 
-
-
 @code {
-    private void NavigateToGitHub()
-    {
-        // Navigate to GitHub URL
-        NavigationManager.NavigateTo("https://github.com/shabibi/HospitalSystemFinalProject", true);
-
-    }
-
     private List<Branch> branches = new();
     private Branch branchDetails = new();
     private string selectedBranchName;
 
     protected override void OnInitialized()
     {
-        // Fetch branches from the service
-        branches = BranchService.GetAllBranches().ToList();
+        Logger.Information("Home page initialized at {Time}", DateTime.Now);
+
+        try
+        {
+            branches = BranchService.GetAllBranches().ToList();
+            Logger.Information("Fetched {Count} branches from the service at {Time}", branches.Count, DateTime.Now);
+        }
+        catch (Exception ex)
+        {
+            Logger.Error("Error fetching branches: {Error} at {Time}", ex.Message, DateTime.Now);
+        }
     }
 
     private void OnBranchSelected(string branchName)
     {
         if (string.IsNullOrEmpty(branchName))
         {
-            Console.WriteLine("Branch name is empty or null.");
+            Logger.Warning("Branch selection was attempted, but branch name is null or empty at {Time}", DateTime.Now);
             return;
         }
 
         try
         {
+            Logger.Information("Fetching details for branch: {BranchName} at {Time}", branchName, DateTime.Now);
+
             branchDetails = BranchService.GetBranchDetailsByBranchName(branchName);
+
+            if (branchDetails != null)
+            {
+                Logger.Information("Successfully fetched details for branch: {BranchName} at {Time}", branchName, DateTime.Now);
+            }
+            else
+            {
+                Logger.Warning("No details found for branch: {BranchName} at {Time}", branchName, DateTime.Now);
+            }
         }
         catch (KeyNotFoundException ex)
         {
-            Console.WriteLine($"Branch not found: {ex.Message}");
-            branchDetails = null; // Reset branch details
+            Logger.Error("Branch not found: {Error} at {Time}", ex.Message, DateTime.Now);
+            branchDetails = null;
         }
     }
 
-  
+    private void NavigateToGitHub()
+    {
+        Logger.Information("Navigating to GitHub repository at {Time}", DateTime.Now);
+        NavigationManager.NavigateTo("https://github.com/shabibi/HospitalSystemFinalProject", true);
+    }
 }
-

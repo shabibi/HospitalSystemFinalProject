@@ -1,7 +1,7 @@
 ﻿@page "/BranchDepartmentDoctors/{branchId:int}/{departmentId:int}"
 @inject IDoctorService doctorService
 @inject IUserService userService
-
+ 
 
 @if (doctors == null)
 {
@@ -16,12 +16,9 @@ else
     <MudGrid Spacing="3" Justify="Justify.Center">
         @foreach (var doctor in doctors)
         {
-            // Find the corresponding user for the doctor based on UID
             var user = users.FirstOrDefault(u => u.UID == doctor.DID);
-            var userName = user?.UserName ?? "Unknown User"; // If no user found, show "Unknown User"
-
-            // Construct the image path based on the doctor ID (assuming the image is named by DID)
-            var doctorImagePath = $"/Images/Users/Doctors/{doctor.DID}.webp"; // Adjust the file extension and path as needed.
+            var userName = user?.UserName ?? "Unknown User";
+            var doctorImagePath = $"/Images/Users/Doctors/{doctor.DID}.webp";
 
             <MudItem xs="12" sm="4" md="3">
                 <MudCard Elevation="3" Class="ma-3" Style="width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; height: auto;">
@@ -51,34 +48,39 @@ else
     [Parameter]
     public int departmentId { get; set; }
 
-    private List<Doctor> doctors = new List<Doctor>(); // Ensure it's initialized as an empty list
+    private List<Doctor> doctors = new List<Doctor>();
     private List<UserOutputDTO> users = new List<UserOutputDTO>();
 
     protected override async Task OnInitializedAsync()
     {
+        Logger.Information("Navigated to BranchDepartmentDoctors page for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", branchId, departmentId, DateTime.Now);
+
         try
         {
-            // Fetch doctors and users
+            Logger.Information("Fetching doctors for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", branchId, departmentId, DateTime.Now);
             var doctorsResult = doctorService.GetDoctorByBrancDep(branchId, departmentId);
             var userRole = userService.GetUserByRole("doctor");
 
             if (doctorsResult != null)
             {
-                doctors = doctorsResult.ToList(); // Assign to doctors
-                users = userRole.ToList(); // Assign to users
+                doctors = doctorsResult.ToList();
+                Logger.Information("Successfully fetched doctors for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", branchId, departmentId, DateTime.Now);
+
+                users = userRole.ToList();
+                Logger.Information("Successfully fetched users with role 'doctor' at {Time}", DateTime.Now);
             }
             else
             {
-                doctors = new List<Doctor>(); // In case no doctors found, assign an empty list
-                users = new List<UserOutputDTO>(); // Ensure users is also empty
+                doctors = new List<Doctor>();
+                users = new List<UserOutputDTO>();
+                Logger.Warning("No doctors found for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", branchId, departmentId, DateTime.Now);
             }
-
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error fetching doctors: {ex.Message}");
-            doctors = new List<Doctor>(); // Ensure doctors is initialized even on error
-            users = new List<UserOutputDTO>(); // Ensure users is initialized even on error
+            Logger.Error("Error fetching doctors or users for Branch ID: {BranchId} and Department ID: {DepartmentId}. Error: {Error} at {Time}", branchId, departmentId, ex.Message, DateTime.Now);
+            doctors = new List<Doctor>();
+            users = new List<UserOutputDTO>();
         }
     }
 }

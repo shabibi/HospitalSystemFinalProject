@@ -38,15 +38,15 @@ namespace HospitalSystemTeamTask.Services
         {
             if (InputUser.Role != "superAdmin")
                 throw new ArgumentException("Invalid role. Only 'superAdmin' role is allowed.", nameof(InputUser.Role));
-           
+
             //check if there is any active supper admin
             var existingSuperAdmins = _userRepo.GetUserByRole(InputUser.Role);
-                if (existingSuperAdmins != null && existingSuperAdmins.Any(u => u.IsActive))
-                {
-                    throw new InvalidOperationException("Only one active super admin is allowed in the system.");
-                }
-                else
-                {
+            if (existingSuperAdmins != null && existingSuperAdmins.Any(u => u.IsActive))
+            {
+                throw new InvalidOperationException("Only one active super admin is allowed in the system.");
+            }
+            else
+            {
                 // Default password and email generation
                 String defaultPassword = "Super1234";
                 string sanitizedUserName = InputUser.UserName.Replace(" ", "");
@@ -68,7 +68,7 @@ namespace HospitalSystemTeamTask.Services
                 string subject = "Hospital System Signing In";
                 string body = $"Dear {InputUser.UserName},\n\nYour Super Admin account has been created successfully.\n\nYour default password is: " +
                $"{defaultPassword}\nPlease change your password after logging in.\n\nBest Regards,\nYour System Team";
-                
+
                 // Add the new super admin to the repository
                 _userRepo.AddUser(newSupperAdmin);
                 // Send email
@@ -77,7 +77,7 @@ namespace HospitalSystemTeamTask.Services
 
                 
             }
-                   
+
         }
 
 
@@ -137,9 +137,9 @@ namespace HospitalSystemTeamTask.Services
             if (user == null)
                 throw new KeyNotFoundException($"User with ID {uid} not found.");
 
-            if(!user.IsActive)
+            if (!user.IsActive)
                 throw new ArgumentException("User already not active.");
-            
+
             user.IsActive = false;
             _userRepo.UpdateUser(user); // Deactivate the user
         }
@@ -160,8 +160,8 @@ namespace HospitalSystemTeamTask.Services
                 throw new KeyNotFoundException($"User with Name {userName} not found.");
             return user;
         }
-        
-        public UserOutputDTO GetUserData(string ? userName, int ? uid)
+
+        public UserOutputDTO GetUserData(string? userName, int? uid)
         {
             User user = null;
 
@@ -171,14 +171,14 @@ namespace HospitalSystemTeamTask.Services
 
             // Retrieve user based on username 
             if (!string.IsNullOrEmpty(userName))
-                 user = GetUserByName(userName);
+                user = GetUserByName(userName);
 
             // Retrieve user based on UID
             if (uid.HasValue)
                 user = GetUserById(uid.Value);
 
 
-            if(user == null)
+            if (user == null)
                 throw new KeyNotFoundException($"User not found.");
 
             var outputData = new UserOutputDTO
@@ -224,7 +224,7 @@ namespace HospitalSystemTeamTask.Services
 
         public IEnumerable<UserOutputDTO> GetUserByRole(string roleName)
         {
-           var users =  _userRepo.GetUserByRole(roleName);
+            var users = _userRepo.GetUserByRole(roleName);
             if (users == null)
                 throw new KeyNotFoundException($"No Users found");
 
@@ -243,7 +243,7 @@ namespace HospitalSystemTeamTask.Services
                     IsActive = user.IsActive
                 });
             }
-            return (output);    
+            return (output);
         }
         public void UpdatePassword(int uid, string currentPassword, string newPassword)
         {
@@ -286,6 +286,6 @@ namespace HospitalSystemTeamTask.Services
         {
             return _userRepo.GetUserName(userId);
         }
-      
+
     }
 }
