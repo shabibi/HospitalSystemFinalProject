@@ -10,13 +10,14 @@
     <MudCard Class="mt-4">
         <MudCardContent>
             <!-- Add Branch Button -->
-            <div class="d-flex justify-end mb-4">
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddBranch"
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToAddBranch"
                            Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 8px 16px;">
                     Add Branch
                 </MudButton>
             </div>
 
+            
             <!-- Branch Table -->
             <MudTable Items="branches" T="Branch" Hover="true" Bordered="true" Striped="true" Elevation="2">
                 <HeaderContent>
@@ -33,7 +34,7 @@
                         <!-- View Button -->
                         <MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Info" OnClick="() => ViewBranch(context.BID)" />
                         <!-- Edit Button -->
-                        <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary" OnClick="() => EditBranch(context.BID)" />
+                        <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="() => NavigateToAddBranch(context.BID)" />
                         <!-- Delete Button -->
                         <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="() => DeleteBranch(context.BID)" />
                     </MudTd>
@@ -62,6 +63,21 @@
         // Navigate to the AddBranch page
         NavigationManager.NavigateTo("/AddBranch");
     }
+    private void NavigateToAddBranch()
+    {
+        NavigationManager.NavigateTo("/AddBranch");
+    }
+    private void NavigateToAddBranch(int? branchId = null)
+    {
+        if (branchId.HasValue)
+        {
+            NavigationManager.NavigateTo($"/AddBranch/{branchId.Value}");
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/AddBranch");
+        }
+    }
 
     private void EditBranch(int branchId)
     {
@@ -71,8 +87,8 @@
 
     private void DeleteBranch(int branchId)
     {
-        // Implement the deletion logic
-        Console.WriteLine($"Branch with ID {branchId} deleted.");
+        BranchService.SetBranchStatus(branchId, false);
+        branches = BranchService.GetAllBranches().ToList();
     }
 
     private void ViewBranch(int branchId)

@@ -53,16 +53,16 @@ namespace HospitalSystemTeamTask.Services
             {
                 BranchName = branch.BranchName,
                 Location = branch.Location,
-                BID= branch.BID,
+                BID = branch.BID,
                 IsActive = branch.IsActive
             };
         }
 
-        public string GetBranchName (int branchId)
+        public string GetBranchName(int branchId)
         {
             return _branchRepository.GetBranchName(branchId);
         }
-        public void UpdateBranch(int branchId, UpdateBranchDTO updatedBranchDto)
+        public void UpdateBranch(int branchId, UpdateBranchDTO branchDTO)
         {
             // Retrieve the existing branch
             var branch = _branchRepository.GetBranchById(branchId);
@@ -72,13 +72,13 @@ namespace HospitalSystemTeamTask.Services
             }
 
             // Update only the provided fields
-            if (!string.IsNullOrWhiteSpace(updatedBranchDto.BranchName))
+            if (!string.IsNullOrWhiteSpace(branchDTO.BranchName))
             {
-                branch.BranchName = updatedBranchDto.BranchName;
+                branch.BranchName = branchDTO.BranchName;
             }
-            if (!string.IsNullOrWhiteSpace(updatedBranchDto.Location))
+            if (!string.IsNullOrWhiteSpace(branchDTO.Location))
             {
-                branch.Location = updatedBranchDto.Location;
+                branch.Location = branchDTO.Location;
             }
 
             // Save changes

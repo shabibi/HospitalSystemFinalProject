@@ -202,7 +202,7 @@ namespace HospitalSystemTeamTask.Services
             _userRepo.UpdateUser(user);
         }
 
-        public string AuthenticateUser(string email, string password)
+        public User AuthenticateUser(string email, string password)
         {
             // Retrieve the user from the repository using the provided email
             var user = _userRepo.GetUserByEmail(email);
@@ -219,8 +219,7 @@ namespace HospitalSystemTeamTask.Services
             // Ensure the user's account is active
             if (!user.IsActive)
                 throw new ArgumentException("This user account is inactive");
-
-            return GenerateJwtToken(user.UID.ToString(), user.UserName, user.Role);
+            return user;
         }
 
         public IEnumerable<UserOutputDTO> GetUserByRole(string roleName)
@@ -282,31 +281,6 @@ namespace HospitalSystemTeamTask.Services
             return _userRepo.EmailExists(email);
         }
 
-        public string GenerateJwtToken(string userId, string username , string role)
-        {
-            var jwtSettings = _configuration.GetSection("JwtSettings");
-            var secretKey = jwtSettings["SecretKey"];
-
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, userId),
-                new Claim(JwtRegisteredClaimNames.Name, username),
-                new Claim(JwtRegisteredClaimNames.UniqueName, role),
-
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-             };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(jwtSettings["ExpiryInMinutes"])),
-                signingCredentials: creds
-                );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
 
         public string GetUserName(int userId)
         {
