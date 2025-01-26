@@ -1,0 +1,168 @@
+2025-01-26 16:00:40.365 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-26 16:00:40.656 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-26 16:00:40.851 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-26 16:00:40.901 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-26 16:00:40.902 +04:00 [INF] Hosting environment: Development
+2025-01-26 16:00:40.903 +04:00 [INF] Content root path: C:\Users\azzaA\source\repos\HospitalSystemFinalProject
+2025-01-26 16:00:41.346 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-26 16:00:41.465 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-26 16:00:41.537 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-26 16:00:41.968 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-26 16:00:42.130 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-26 16:00:42.133 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-26 16:00:42.619 +04:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-26 16:00:42.841 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-26 16:00:42.845 +04:00 [INF] HTTP GET / responded 200 in 1377.1702 ms
+2025-01-26 16:00:42.883 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 1544.5218ms
+2025-01-26 16:00:42.888 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-26 16:00:42.888 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-26 16:00:42.889 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-26 16:00:42.896 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 7.8833ms
+2025-01-26 16:00:42.906 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-26 16:00:42.916 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-26 16:00:42.918 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-26 16:00:42.921 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 24.0215 ms
+2025-01-26 16:00:42.923 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 33.5259ms
+2025-01-26 16:00:42.929 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 41.3545ms
+2025-01-26 16:00:42.997 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-26 16:00:43.007 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 16:00:43.009 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 16:00:43.010 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 5.7895 ms
+2025-01-26 16:00:43.012 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 14.3817ms
+2025-01-26 16:00:43.141 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-26 16:00:43.145 +04:00 [INF] CORS policy execution successful.
+2025-01-26 16:00:43.148 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 16:00:43.161 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 16:00:43.162 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 17.5639 ms
+2025-01-26 16:00:43.164 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 22.73ms
+2025-01-26 16:00:43.270 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=uN5ZF_UVwLYpaJWIQkrMeg - null null
+2025-01-26 16:00:43.273 +04:00 [INF] CORS policy execution successful.
+2025-01-26 16:00:43.274 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 16:00:43.417 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-26 16:00:48.479 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/Images/img4.png - null null
+2025-01-26 16:00:48.483 +04:00 [INF] The file /Images/img4.png was not modified
+2025-01-26 16:00:48.485 +04:00 [INF] HTTP GET /Images/img4.png responded 304 in 2.1866 ms
+2025-01-26 16:00:48.487 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/Images/img4.png - 304 null image/png 7.8897ms
+2025-01-26 16:00:49.659 +04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-26 16:00:51.335 +04:00 [WRN] Unhandled exception rendering component: Cannot provide a value for property 'Logger' on type 'HospitalSystemTeamTask.Components.Pages.AddBranch'. There is no registered service of type 'Serilog.ILogger'.
+System.InvalidOperationException: Cannot provide a value for property 'Logger' on type 'HospitalSystemTeamTask.Components.Pages.AddBranch'. There is no registered service of type 'Serilog.ILogger'.
+   at Microsoft.AspNetCore.Components.ComponentFactory.<>c__DisplayClass9_0.<CreatePropertyInjector>g__Initialize|1(IServiceProvider serviceProvider, IComponent component)
+   at Microsoft.AspNetCore.Components.ComponentFactory.InstantiateComponent(IServiceProvider serviceProvider, Type componentType, IComponentRenderMode callerSpecifiedRenderMode, Nullable`1 parentComponentId)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.InstantiateChildComponentOnFrame(RenderTreeFrame[] frames, Int32 frameIndex, Int32 parentComponentId)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewComponentFrame(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewSubtree(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InsertNewFrame(DiffContext& diffContext, Int32 newFrameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.AppendDiffEntriesForRange(DiffContext& diffContext, Int32 oldStartIndex, Int32 oldEndIndexExcl, Int32 newStartIndex, Int32 newEndIndexExcl)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.RenderIntoBatch(RenderBatchBuilder batchBuilder, RenderFragment renderFragment, Exception& renderFragmentException)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.RenderInExistingBatch(RenderQueueEntry renderQueueEntry)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+2025-01-26 16:00:51.360 +04:00 [ERR] Unhandled exception in circuit 'oKdviuHkKcP7GLCdtyDJxphTn2KxP5-JJPb3p5JM4cU'.
+System.InvalidOperationException: Cannot provide a value for property 'Logger' on type 'HospitalSystemTeamTask.Components.Pages.AddBranch'. There is no registered service of type 'Serilog.ILogger'.
+   at Microsoft.AspNetCore.Components.ComponentFactory.<>c__DisplayClass9_0.<CreatePropertyInjector>g__Initialize|1(IServiceProvider serviceProvider, IComponent component)
+   at Microsoft.AspNetCore.Components.ComponentFactory.InstantiateComponent(IServiceProvider serviceProvider, Type componentType, IComponentRenderMode callerSpecifiedRenderMode, Nullable`1 parentComponentId)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.InstantiateChildComponentOnFrame(RenderTreeFrame[] frames, Int32 frameIndex, Int32 parentComponentId)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewComponentFrame(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewSubtree(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InsertNewFrame(DiffContext& diffContext, Int32 newFrameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.AppendDiffEntriesForRange(DiffContext& diffContext, Int32 oldStartIndex, Int32 oldEndIndexExcl, Int32 newStartIndex, Int32 newEndIndexExcl)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.RenderIntoBatch(RenderBatchBuilder batchBuilder, RenderFragment renderFragment, Exception& renderFragmentException)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.RenderInExistingBatch(RenderQueueEntry renderQueueEntry)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+2025-01-26 16:00:51.380 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 16:00:51.383 +04:00 [INF] HTTP GET /_blazor responded 101 in 8109.9758 ms
+2025-01-26 16:00:51.386 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor?id=uN5ZF_UVwLYpaJWIQkrMeg - 101 null null 8115.6177ms
+2025-01-26 16:00:59.157 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/AddBranch - null null
+2025-01-26 16:00:59.166 +04:00 [INF] Executing endpoint '/AddBranch/{BranchId:int?} (/AddBranch/{BranchId:int?})'
+2025-01-26 16:00:59.180 +04:00 [INF] Executed endpoint '/AddBranch/{BranchId:int?} (/AddBranch/{BranchId:int?})'
+2025-01-26 16:00:59.182 +04:00 [ERR] HTTP GET /AddBranch responded 500 in 16.2452 ms
+System.InvalidOperationException: Cannot provide a value for property 'Logger' on type 'HospitalSystemTeamTask.Components.Pages.AddBranch'. There is no registered service of type 'Serilog.ILogger'.
+   at Microsoft.AspNetCore.Components.ComponentFactory.<>c__DisplayClass9_0.<CreatePropertyInjector>g__Initialize|1(IServiceProvider serviceProvider, IComponent component)
+   at Microsoft.AspNetCore.Components.ComponentFactory.InstantiateComponent(IServiceProvider serviceProvider, Type componentType, IComponentRenderMode callerSpecifiedRenderMode, Nullable`1 parentComponentId)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.InstantiateChildComponentOnFrame(RenderTreeFrame[] frames, Int32 frameIndex, Int32 parentComponentId)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewComponentFrame(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewSubtree(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InsertNewFrame(DiffContext& diffContext, Int32 newFrameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.AppendDiffEntriesForRange(DiffContext& diffContext, Int32 oldStartIndex, Int32 oldEndIndexExcl, Int32 newStartIndex, Int32 newEndIndexExcl)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.RenderIntoBatch(RenderBatchBuilder batchBuilder, RenderFragment renderFragment, Exception& renderFragmentException)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.RenderInExistingBatch(RenderQueueEntry renderQueueEntry)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure.StaticHtmlRenderer.HandleException(Exception exception)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessPendingRender()
+   at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+   at Microsoft.AspNetCore.Components.ComponentBase.CallOnParametersSetAsync()
+   at Microsoft.AspNetCore.Components.ComponentBase.RunInitAndSetParametersAsync()
+   at Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure.StaticHtmlRenderer.HandleException(Exception exception)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.HandleExceptionViaErrorBoundary(Exception error, ComponentState errorSourceOrNull)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SupplyCombinedParameters(ParameterView directAndCascadingParameters)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SetDirectParameters(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.RenderRootComponentAsync(Int32 componentId, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure.StaticHtmlRenderer.BeginRenderingComponent(IComponent component, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure.StaticHtmlRenderer.BeginRenderingComponent(Type componentType, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.Endpoints.EndpointHtmlRenderer.RenderEndpointComponent(HttpContext httpContext, Type rootComponentType, ParameterView parameters, Boolean waitForQuiescence)
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+   at Microsoft.AspNetCore.Components.Rendering.RendererSynchronizationContext.<>c.<<InvokeAsync>b__10_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2025-01-26 16:00:59.192 +04:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Cannot provide a value for property 'Logger' on type 'HospitalSystemTeamTask.Components.Pages.AddBranch'. There is no registered service of type 'Serilog.ILogger'.
+   at Microsoft.AspNetCore.Components.ComponentFactory.<>c__DisplayClass9_0.<CreatePropertyInjector>g__Initialize|1(IServiceProvider serviceProvider, IComponent component)
+   at Microsoft.AspNetCore.Components.ComponentFactory.InstantiateComponent(IServiceProvider serviceProvider, Type componentType, IComponentRenderMode callerSpecifiedRenderMode, Nullable`1 parentComponentId)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.InstantiateChildComponentOnFrame(RenderTreeFrame[] frames, Int32 frameIndex, Int32 parentComponentId)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewComponentFrame(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewSubtree(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InsertNewFrame(DiffContext& diffContext, Int32 newFrameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.AppendDiffEntriesForRange(DiffContext& diffContext, Int32 oldStartIndex, Int32 oldEndIndexExcl, Int32 newStartIndex, Int32 newEndIndexExcl)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.RenderIntoBatch(RenderBatchBuilder batchBuilder, RenderFragment renderFragment, Exception& renderFragmentException)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.RenderInExistingBatch(RenderQueueEntry renderQueueEntry)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure.StaticHtmlRenderer.HandleException(Exception exception)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessPendingRender()
+   at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+   at Microsoft.AspNetCore.Components.ComponentBase.CallOnParametersSetAsync()
+   at Microsoft.AspNetCore.Components.ComponentBase.RunInitAndSetParametersAsync()
+   at Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure.StaticHtmlRenderer.HandleException(Exception exception)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.HandleExceptionViaErrorBoundary(Exception error, ComponentState errorSourceOrNull)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SupplyCombinedParameters(ParameterView directAndCascadingParameters)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SetDirectParameters(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.RenderRootComponentAsync(Int32 componentId, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure.StaticHtmlRenderer.BeginRenderingComponent(IComponent component, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure.StaticHtmlRenderer.BeginRenderingComponent(Type componentType, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.Endpoints.EndpointHtmlRenderer.RenderEndpointComponent(HttpContext httpContext, Type rootComponentType, ParameterView parameters, Boolean waitForQuiescence)
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+   at Microsoft.AspNetCore.Components.Rendering.RendererSynchronizationContext.<>c.<<InvokeAsync>b__10_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-01-26 16:00:59.227 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/AddBranch - 500 null text/html; charset=utf-8 70.4387ms
+2025-01-26 16:00:59.232 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryhJ8rxABjZcEGLsc5 359
+2025-01-26 16:00:59.234 +04:00 [INF] CORS policy execution successful.
+2025-01-26 16:00:59.235 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 16:00:59.238 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-26 16:00:59.241 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-26 16:00:59.247 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 5.7764ms
+2025-01-26 16:00:59.256 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 16:00:59.257 +04:00 [INF] HTTP POST /_blazor/disconnect responded 200 in 23.1901 ms
+2025-01-26 16:00:59.259 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - 200 0 null 27.3496ms
+2025-01-26 16:00:59.260 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 21.8526ms
+2025-01-26 16:00:59.344 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/favicon.ico - null null
+2025-01-26 16:00:59.347 +04:00 [INF] HTTP GET /favicon.ico responded 404 in 0.4159 ms
+2025-01-26 16:00:59.348 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/favicon.ico - 404 0 null 4.6198ms
+2025-01-26 16:00:59.354 +04:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5233/favicon.ico, Response status code: 404

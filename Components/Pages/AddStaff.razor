@@ -103,7 +103,7 @@
             if (!branches.Any())
             {
                 Snackbar.Add("No branches found.", Severity.Warning);
-                Logger.Warning("No branches found at {Time}", DateTime.Now);
+                Log.Warning("No branches found at {Time}", DateTime.Now);
             }
 
             departments = departmentService.GetAllDepartments().ToList();
@@ -131,18 +131,18 @@
                 if (departmentIds == null || !departmentIds.Any())
                 {
                     Snackbar.Add("No departments found for the selected branch.", Severity.Warning);
-                    Logger.Warning("No departments found for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
+                    Log.Warning("No departments found for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
                     return;
                 }
 
                 departments.Clear();
                 departments = departmentIds.ToList();
-                Logger.Information("Departments loaded for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
+                Log.Information("Departments loaded for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
             }
             catch (Exception ex)
             {
                 Snackbar.Add($"Error loading departments for branch: {ex.Message}", Severity.Error);
-                Logger.Error("Error loading departments for branch ID {BranchId}: {Error} at {Time}", selectedBranchId, ex.Message, DateTime.Now);
+                Log.Error("Error loading departments for branch ID {BranchId}: {Error} at {Time}", selectedBranchId, ex.Message, DateTime.Now);
             }
         }
 
@@ -155,7 +155,7 @@
         {
             try
             {
-                Logger.Information("Adding new staff with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
+                Log.Information("Adding new staff with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
                 await userService.AddStaff(newStaffInput);
 
                 if (newStaffInput.Role == "Doctor" && selectedDepartment != 0)
@@ -164,11 +164,11 @@
                     doctorInput.DepID = selectedDepartment;
                     doctorInput.CurrentBrunch = branchId;
                     doctorService.AddDoctor(doctorInput);
-                    Logger.Information("Doctor-specific details added for UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
+                    Log.Information("Doctor-specific details added for UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
                 }
 
                 Snackbar.Add("New staff member added successfully!", Severity.Success);
-                Logger.Information("New staff added successfully with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
+                Log.Information("New staff added successfully with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
 
                 await Task.Delay(2000);
                 NavigateBack();
