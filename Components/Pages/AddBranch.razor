@@ -1,7 +1,6 @@
 ﻿@page "/AddBranch/{BranchId:int?}"
 @inject IBranchService BranchService
 @inject NavigationManager NavigationManager
-
 <MudContainer MaxWidth="MaxWidth.Medium" Class="my-5" Style="display: flex; flex-direction: column; align-items: center;">
     <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84; margin-bottom: 20px;">
         @(BranchId.HasValue ? "Edit Branch" : "Add Branch")
@@ -20,13 +19,11 @@
         </MudCardActions>
     </MudCard>
 </MudContainer>
-
 @code {
     [Parameter] public int? BranchId { get; set; }
     private BranchDTO branchModel = new();
     private MudForm branchForm;
     private bool isFormValid;
-
     protected override void OnInitialized()
     {
         if (BranchId.HasValue)
@@ -34,7 +31,6 @@
             branchModel = BranchService.GetBranchById(BranchId.Value);
         }
     }
-
     private void SaveBranch()
     {
         if (BranchId.HasValue)
@@ -47,7 +43,6 @@
         }
         NavigationManager.NavigateTo("/ManageBranch");
     }
-
     private void Cancel()
     {
         NavigationManager.NavigateTo("/ManageBranch");
