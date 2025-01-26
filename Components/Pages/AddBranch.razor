@@ -39,11 +39,11 @@
     {
         if (BranchId.HasValue)
         {
-            BranchService.UpdateBranch(BranchId.Value, branchModel);
+            //BranchService.UpdateBranch(BranchId.Value, branchModel);
         }
         else
         {
-            BranchService.AddBranch(branchModel);
+            //BranchService.AddBranch(branchModel);
         }
         NavigationManager.NavigateTo("/ManageBranch");
     }
