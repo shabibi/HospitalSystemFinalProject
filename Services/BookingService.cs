@@ -20,7 +20,7 @@ namespace HospitalSystemTeamTask.Services
         private readonly IUserService _userService;
         private readonly ISendEmail _email;
 
-        public BookingService(IBookingRepo bookingRepo, IClinicService clinicService,ISendEmail email,IUserService userService)
+        public BookingService(IBookingRepo bookingRepo, IClinicService clinicService, ISendEmail email, IUserService userService)
         {
             _bookingRepo = bookingRepo;
             _clinicService = clinicService;
@@ -29,7 +29,7 @@ namespace HospitalSystemTeamTask.Services
         }
         public IEnumerable<BookingOutputDTO> GetAllBooking()
         {
-        
+
 
             // Get all bookings from the repository
             var appointments = _bookingRepo.GetAllBooking();
@@ -184,7 +184,7 @@ namespace HospitalSystemTeamTask.Services
         }
 
 
-        public IEnumerable<BookingInputDTO> GetAvailableAppointmentsBy( int? clinicId, int? departmentId)
+        public IEnumerable<BookingInputDTO> GetAvailableAppointmentsBy(int? clinicId, int? departmentId)
         {
             // Retrieve all bookings from the repository
             var bookings = _bookingRepo.GetAllBooking();
@@ -225,10 +225,10 @@ namespace HospitalSystemTeamTask.Services
                 throw new ArgumentException("Invalid booking ID. booking ID must be greater than 0.");
             }
 
-            
+
             var booking = _bookingRepo.GetBookingById(bookingId);
 
-           
+
             if (booking == null)
             {
                 throw new KeyNotFoundException($"booking with ID {bookingId} not found.");
@@ -237,7 +237,7 @@ namespace HospitalSystemTeamTask.Services
             return booking;
         }
 
-        public IEnumerable<BookingOutputDTO> GetBookedAppointments(int ? patientId, int? clinicId, int? departmentId, DateTime ? date)
+        public IEnumerable<BookingOutputDTO> GetBookedAppointments(int? patientId, int? clinicId, int? departmentId, DateTime? date)
         {
             // Retrieve all bookings from the repository
             var bookings = _bookingRepo.GetAllBooking();
@@ -309,7 +309,7 @@ namespace HospitalSystemTeamTask.Services
                 }
 
                 // Only allow cancellation by the patient or admin
-                if (appointment.PID != patientId )
+                if (appointment.PID != patientId)
                 {
                     throw new UnauthorizedAccessException("You are not authorized to cancel this appointment.");
                 }
@@ -348,10 +348,10 @@ namespace HospitalSystemTeamTask.Services
                 throw new InvalidOperationException("An error occurred while canceling the appointment.", ex);
             }
         }
-    
+
         public IEnumerable<Booking> GetBookingsByClinicAndDate(int clinicId, DateTime date)
         {
-           return _bookingRepo.GetBookingsByClinicAndDate(clinicId, date);
+            return _bookingRepo.GetBookingsByClinicAndDate(clinicId, date);
         }
         public void UpdateBookedAppointment(BookingInputDTO previousAppointment, BookingInputDTO newAppointment, int patientId)
         {

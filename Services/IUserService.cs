@@ -16,11 +16,6 @@ namespace HospitalSystemTeamTask.Services
         string GetUserName(int userId);
         void UpdatePassword(int uid, string currentPassword, string newPassword);
         void UpdateUser(User user);
-        User AuthenticateUser(string email, string password);
-        void UpdatePassword(int uid, string currentPassword, string newPassword);
-        void AddSuperAdmin(UserInputDTO InputUser);
-        bool EmailExists(string email);
-        int AddStaff(User InputUser);
         UserOutputDTO GetUserData(string? userName, int? uid);
         IEnumerable<UserOutputDTO> GetUserByRole(string roleName);
     }

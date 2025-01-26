@@ -1,20 +1,19 @@
 ﻿using HospitalSystemTeamTask.DTO_s;
 using HospitalSystemTeamTask.Models;
-using System.Collections.Generic;
 
 namespace HospitalSystemTeamTask.Services
 {
     public interface IBookingService
     {
+        void BookAppointment(BookingInputDTO input, int patientId);
+        void CancelAppointment(BookingInputDTO bookingInputDTO, int patientId);
+        void DeleteAppointments(BookingInputDTO bookingInputDTO);
         IEnumerable<BookingOutputDTO> GetAllBooking();
-        Booking GetBookingById(int bookingId);
-        IEnumerable<Booking> ScheduledAppointments(int cid, DateTime appointmentDate);
-       void BookAppointment(BookingInputDTO input, int patientId);
         IEnumerable<BookingInputDTO> GetAvailableAppointmentsBy(int? clinicId, int? departmentId);
         IEnumerable<BookingOutputDTO> GetBookedAppointments(int? patientId, int? clinicId, int? departmentId, DateTime? date);
-        void CancelAppointment(BookingInputDTO bookingInputDTO, int patientId);
+        Booking GetBookingById(int bookingId);
         IEnumerable<Booking> GetBookingsByClinicAndDate(int clinicId, DateTime date);
+        IEnumerable<Booking> ScheduledAppointments(int cid, DateTime appointmentDate);
         void UpdateBookedAppointment(BookingInputDTO previousAppointment, BookingInputDTO newAppointment, int patientId);
-        void DeleteAppointments(BookingInputDTO bookingInputDTO);
     }
 }
