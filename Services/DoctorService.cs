@@ -94,18 +94,18 @@ namespace HospitalSystemTeamTask.Services
             };
         }
 
-        public void AddDoctor(DoctorOutPutDTO input)
+        public void AddDoctor(DoctorInput input)
         {
             if (input == null)
                 throw new ArgumentException("Doctor information is missing.");
 
-            if (input.UID <= 0)
+            if (input.DID <= 0)
                 throw new ArgumentException("Invalid doctor ID.");
 
             // Retrieve the user by ID
-            var user = _UserService.GetUserById(input.UID);
+            var user = _UserService.GetUserById(input.DID);
             if (user == null)
-                throw new ArgumentException($"No user found with ID {input.UID}.");
+                throw new ArgumentException($"No user found with ID {input.DID}.");
 
             // Ensure the user's role is 'doctor'
             if (!user.Role.Equals("doctor", StringComparison.OrdinalIgnoreCase))
@@ -116,7 +116,7 @@ namespace HospitalSystemTeamTask.Services
             {
                 DID = user.UID, // Link User to Doctor
                 CurrentBrunch = input.CurrentBrunch,
-                DepId = input.DepId,
+                DepId = input.DepID,
                 Level = input.Level,
                 Degree = input.Degree,
                 WorkingYear = input.WorkingYear,

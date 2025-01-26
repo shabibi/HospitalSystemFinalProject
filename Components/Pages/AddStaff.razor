@@ -1,0 +1,193 @@
+﻿@layout StaffLayout
+@page "/AddStaff"
+@inject IUserService userService
+@inject NavigationManager NavigationManager
+@inject ISnackbar Snackbar
+@inject IDoctorService doctorService
+@inject IBranchService branchService
+@inject IDepartmentService departmentService
+@inject IBranchDepartmentService branchDepartmentService
+
+<MudPaper Elevation="4" Class="form-container" Style="width: 100%; align-content:center;" Align="Align.Center">
+    <MudText Typo="Typo.h3" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">
+        Add New Staff
+    </MudText>
+    <MudForm Model="newStaffInput" @ref="form" Valid="isFormValid" OnValidSubmit="SubmitForm">
+        <MudItem xs="12" Class="mb-4">
+            <!-- Staff Name Input -->
+            <MudTextField Label="Staff Name" @bind-Value="newStaffInput.UserName" Required="true" FullWidth="true" />
+        </MudItem>
+        <MudItem xs="12" Class="mb-4">
+            <!-- Role Dropdown -->
+            <MudSelect T="string" Label="Role" @bind-Value="newStaffInput.Role" Required="true" FullWidth="true">
+                @foreach (var role in roles)
+                {
+                    <MudSelectItem T="string" Value="@role">@role</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="12" Class="mb-4">
+            <!-- Phone Number Input -->
+            <MudTextField Label="Phone Number" @bind-Value="newStaffInput.Phone" FullWidth="true" />
+        </MudItem>
+
+        <!-- Additional fields for Doctor -->
+        @if (newStaffInput.Role == "Doctor")
+        {
+            <MudItem xs="12" Class="mb-4">
+                <!-- Degree -->
+                <MudTextField Label="Degree" @bind-Value="doctorInput.Degree" FullWidth="true" />
+            </MudItem>
+            <MudItem xs="12" Class="mb-4">
+                <!-- Working Years -->
+                <MudTextField Label="Working Years" @bind-Value="doctorInput.WorkingYear" FullWidth="true" />
+            </MudItem>
+            <MudItem xs="12" Class="mb-4">
+                <!-- Level -->
+                <MudTextField Label="Level" @bind-Value="doctorInput.Level" FullWidth="true" />
+            </MudItem>
+
+            <!-- Branch Selection -->
+            <MudItem xs="12" Class="mb-4">
+                <MudSelect T="int" Label="Branch" @bind-Value="selectedBranchId" FullWidth="true" @onchange="OnBranchChanged">
+                    @foreach (var branch in branches)
+                    {
+                        <MudSelectItem T="int" Value="@branch.BID">@branch.BranchName</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+
+            <!-- Department Selection -->
+            <MudItem xs="12" Class="mb-4">
+                <MudSelect T="int" Label="Department" @bind-Value="selectedDepartment" FullWidth="true">
+                    @foreach (var department in departments)
+                    {
+                        <MudSelectItem T="int" Value="@department.DepId" Style="font-size: 1rem; font-weight: bold; color: #1B7D84;">
+                            <MudIcon Icon="@Icons.Material.Filled.Home" Color="Color.Primary" Style="margin-right: 8px;" />
+                            @department.DepartmentName
+                        </MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+        }
+
+        <MudItem xs="12" Class="d-flex justify-space-between mt-4">
+            <!-- Submit and Cancel Buttons -->
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SubmitForm" Disabled="!form.IsValid">
+                Submit
+            </MudButton>
+            <MudButton Variant="Variant.Text" Color="Color.Default" OnClick="NavigateBack">
+                Cancel
+            </MudButton>
+        </MudItem>
+    </MudForm>
+</MudPaper>
+
+@code {
+    private User newStaffInput = new();
+    private DoctorInput doctorInput = new(); // This is for the doctor-specific details
+    private MudForm form;
+    private bool isFormValid = false;
+    private string[] roles = { "Admin", "Doctor" };
+
+    private IEnumerable<Branch> branches = new List<Branch>();
+    private List<DepDTO> departments = new List<DepDTO>(); // No need to filter based on branch anymore
+    private int selectedBranchId = 0; // Track selected branch
+    private int selectedDepartment; // Track selected department for the doctor
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // Fetch all branches when the component is initialized
+            branches = await Task.Run(() => branchService.GetAllBranches());
+
+            if (!branches.Any())
+            {
+                Snackbar.Add("No branches found.", Severity.Warning);
+            }
+
+            // Fetch all departments for initial display
+            departments = await Task.Run(() => departmentService.GetAllDepartments().ToList());
+
+            if (!departments.Any())
+            {
+                Snackbar.Add("No departments available.", Severity.Warning);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error loading branches: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task OnBranchChanged()
+    {
+        if (selectedBranchId > 0)
+        {
+            try
+            {
+                // Get department IDs for the selected branch using branchDepartmentService
+                var departmentIds = await Task.Run(() => branchDepartmentService.GetDepartmentsByBranch(selectedBranchId));
+
+                if (departmentIds == null || !departmentIds.Any())
+                {
+                    Snackbar.Add("No departments found for the selected branch.", Severity.Warning);
+                    return;
+                }
+
+                // Here we would filter the departments for the selected branch, but for now, you can ignore it
+                // since the dropdown now shows all departments anyway.
+                departments.Clear();
+                departments = departmentIds.ToList();
+            }
+            
+            catch (Exception ex)
+            {
+                Snackbar.Add($"Error loading departments for branch: {ex.Message}", Severity.Error);
+            }
+        }
+    }
+
+    private async Task SubmitForm()
+    {
+        if (form.IsValid)
+        {
+            try
+            {
+                // Add staff user asynchronously
+                await userService.AddStaff(newStaffInput);
+                var staffId = newStaffInput.UID;
+
+                // If the selected role is "Doctor", handle the additional doctor details
+                if (newStaffInput.Role == "Doctor" && selectedDepartment != 0)
+                {
+                    doctorInput.DID = staffId;
+                    doctorInput.DepID = selectedDepartment; // Set the department ID from selected department
+                    doctorService.AddDoctor(doctorInput); // Use the correct service for adding doctor
+                }
+
+                Snackbar.Add("New staff member added successfully!", Severity.Success);
+
+                // Wait for success message to show
+                await Task.Delay(2000);
+
+                // Navigate back to the staff list or another relevant page
+                NavigateBack();
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"Error adding staff: {ex.Message}", Severity.Error);
+            }
+        }
+        else
+        {
+            Snackbar.Add("Please fill out all required fields.", Severity.Warning);
+        }
+    }
+
+    private void NavigateBack()
+    {
+        NavigationManager.NavigateTo("/Staff");
+    }
+}

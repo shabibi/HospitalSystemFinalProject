@@ -5,7 +5,7 @@ namespace HospitalSystemTeamTask.Services
 {
     public interface IDoctorService
     {
-        void AddDoctor(DoctorOutPutDTO input);
+        void AddDoctor(DoctorInput input);
         bool EmailExists(string email);
         IEnumerable<Doctor> GetAllDoctors();
         IEnumerable<Doctor> GetDoctorByBrancDep(int bid, int depid);
