@@ -28,13 +28,14 @@ namespace HospitalSystemTeamTask.Repositories
         }
 
         // Add new user
-        public void AddUser(User user)
+        public int AddUser(User user)
         {
             try
             {
                 // Hash the password before saving
                 _context.Users.Add(user);
                 _context.SaveChanges();
+                return user.UID;
             }
             catch (Exception ex)
             {

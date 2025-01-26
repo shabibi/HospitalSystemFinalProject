@@ -13,10 +13,15 @@ namespace HospitalSystemTeamTask.Services
         bool EmailExists(string email);
         User GetUserById(int uid);
         User GetUserByName(string userName);
-        IEnumerable<UserOutputDTO> GetUserByRole(string roleName);
-        UserOutputDTO GetUserData(string? userName, int? uid);
         string GetUserName(int userId);
         void UpdatePassword(int uid, string currentPassword, string newPassword);
         void UpdateUser(User user);
+        User AuthenticateUser(string email, string password);
+        void UpdatePassword(int uid, string currentPassword, string newPassword);
+        void AddSuperAdmin(UserInputDTO InputUser);
+        bool EmailExists(string email);
+        int AddStaff(User InputUser);
+        UserOutputDTO GetUserData(string? userName, int? uid);
+        IEnumerable<UserOutputDTO> GetUserByRole(string roleName);
     }
 }

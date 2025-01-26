@@ -40,7 +40,7 @@ namespace HospitalSystemTeamTask.Repositories
             }
 
         }
-
+     
         public IEnumerable<Branch> GetBranchByDepartments(int departmentId)
         {
             try

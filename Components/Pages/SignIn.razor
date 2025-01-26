@@ -78,10 +78,14 @@
 
                 authService.GenerateToken(authenticatedUser);
 
-                if (authenticatedUser.Role == "admin" || authenticatedUser.Role == "superAdmin")
+                if (authenticatedUser.Role == "Admin" || authenticatedUser.Role =="admin" || authenticatedUser.Role == "superAdmin")
                 {
                     Log.Information("Redirecting admin user: {Email} to /StaffPage.", authenticatedUser.Email);
                     NavigationManager.NavigateTo("/StaffPage");
+                }
+                else if (authenticatedUser.Role == "doctor")
+                {
+                    NavigationManager.NavigateTo("/DoctorPage");
                 }
                 else
                 {

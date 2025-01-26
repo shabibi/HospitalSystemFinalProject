@@ -33,9 +33,16 @@ namespace HospitalSystemTeamTask.Repositories
 
         public Branch GetBranchByBranchName(string branchName)
         {
+            try
+            {
 
-            return _context.Branches
-        .FirstOrDefault(b => b.BranchName.ToLower() == branchName.ToLower());
+                return _context.Branches
+            .FirstOrDefault(b => b.BranchName.ToLower() == branchName.ToLower());
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Database error: {ex.Message}");
+            }
         }
 
         public void UpdateBranch(Branch branch)

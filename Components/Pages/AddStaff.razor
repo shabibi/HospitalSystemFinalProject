@@ -48,14 +48,12 @@
             </MudItem>
 
             <!-- Branch Selection -->
-            <MudItem xs="12" Class="mb-4">
-                <MudSelect T="int" Label="Branch" @bind-Value="selectedBranchId" FullWidth="true" @onchange="OnBranchChanged">
-                    @foreach (var branch in branches)
-                    {
-                        <MudSelectItem T="int" Value="@branch.BID">@branch.BranchName</MudSelectItem>
-                    }
-                </MudSelect>
-            </MudItem>
+            <MudSelect MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))" MultiSelection="true" @bind-Value="selectedBranch" T="string" Label="Branches" AdornmentIcon="@Icons.Material.Filled.Search">
+                @foreach (var branch in branches)
+                {
+                    <MudSelectItem T="string" Value="@branch">@branch</MudSelectItem>
+                }
+            </MudSelect>
 
             <!-- Department Selection -->
             <MudItem xs="12" Class="mb-4">
@@ -89,11 +87,11 @@
     private MudForm form;
     private bool isFormValid = false;
     private string[] roles = { "Admin", "Doctor" };
-
-    private IEnumerable<Branch> branches = new List<Branch>();
-    private List<DepDTO> departments = new List<DepDTO>(); 
-    private int selectedBranchId = 0;
-    private int selectedDepartment;
+    private int  branchId; 
+    private List<string> branches = new List<string>();  // List of branch names
+    private List<DepDTO> departments = new();           // List of departments
+    private string selectedBranch { set; get; } = "No Selected";         // Multi-selection for branch names
+    private int selectedDepartment;                       // Selected department
 
     protected override async Task OnInitializedAsync()
     {
@@ -101,14 +99,14 @@
 
         try
         {
-            branches = await Task.Run(() => branchService.GetAllBranches());
+            branches = branchService.GetAllBranches().Select(b => b.BranchName).ToList();
             if (!branches.Any())
             {
                 Snackbar.Add("No branches found.", Severity.Warning);
-                Log.Warning("No branches found at {Time}", DateTime.Now);
+                Logger.Warning("No branches found at {Time}", DateTime.Now);
             }
 
-            departments = await Task.Run(() => departmentService.GetAllDepartments().ToList());
+            departments = departmentService.GetAllDepartments().ToList();
             if (!departments.Any())
             {
                 Snackbar.Add("No departments available.", Severity.Warning);
@@ -122,9 +120,10 @@
         }
     }
 
-    private async Task OnBranchChanged()
+    // Multi-selection handler for branches
+    private string GetMultiSelectionText(List<string> selectedValues)
     {
-        if (selectedBranchId > 0)
+        if (selectedValues == null || !selectedValues.Any())
         {
             try
             {
@@ -132,20 +131,22 @@
                 if (departmentIds == null || !departmentIds.Any())
                 {
                     Snackbar.Add("No departments found for the selected branch.", Severity.Warning);
-                    Log.Warning("No departments found for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
+                    Logger.Warning("No departments found for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
                     return;
                 }
 
                 departments.Clear();
                 departments = departmentIds.ToList();
-                Log.Information("Departments loaded for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
+                Logger.Information("Departments loaded for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
             }
             catch (Exception ex)
             {
                 Snackbar.Add($"Error loading departments for branch: {ex.Message}", Severity.Error);
-                Log.Error("Error loading departments for branch ID {BranchId}: {Error} at {Time}", selectedBranchId, ex.Message, DateTime.Now);
+                Logger.Error("Error loading departments for branch ID {BranchId}: {Error} at {Time}", selectedBranchId, ex.Message, DateTime.Now);
             }
         }
+
+        return string.Join(", ", selectedValues);
     }
 
     private async Task SubmitForm()
@@ -154,19 +155,20 @@
         {
             try
             {
-                Log.Information("Adding new staff with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
+                Logger.Information("Adding new staff with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
                 await userService.AddStaff(newStaffInput);
 
                 if (newStaffInput.Role == "Doctor" && selectedDepartment != 0)
                 {
-                    doctorInput.DID = newStaffInput.UID;
+                    doctorInput.DID = doctorId;
                     doctorInput.DepID = selectedDepartment;
+                    doctorInput.CurrentBrunch = branchId;
                     doctorService.AddDoctor(doctorInput);
-                    Log.Information("Doctor-specific details added for UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
+                    Logger.Information("Doctor-specific details added for UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
                 }
 
                 Snackbar.Add("New staff member added successfully!", Severity.Success);
-                Log.Information("New staff added successfully with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
+                Logger.Information("New staff added successfully with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
 
                 await Task.Delay(2000);
                 NavigateBack();
