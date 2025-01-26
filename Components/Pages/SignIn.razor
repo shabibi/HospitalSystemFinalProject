@@ -72,8 +72,7 @@
                 successMessage = "Login successful! Redirecting...";
                 errorMessage = null;
 
-                // If needed, generate a token or perform authentication logic here
-                // authService.GenerateToken(authenticatedUser);
+                 authService.GenerateToken(authenticatedUser);
 
                 if (authenticatedUser.Role == "admin" || authenticatedUser.Role == "superAdmin")
                 {
