@@ -35,20 +35,17 @@
         @if (newStaffInput.Role == "Doctor")
         {
             <MudItem xs="12" Class="mb-4">
-                <!-- Degree -->
                 <MudTextField Label="Degree" @bind-Value="doctorInput.Degree" FullWidth="true" />
             </MudItem>
             <MudItem xs="12" Class="mb-4">
-                <!-- Working Years -->
                 <MudTextField Label="Working Years" @bind-Value="doctorInput.WorkingYear" FullWidth="true" />
             </MudItem>
             <MudItem xs="12" Class="mb-4">
-                <!-- Level -->
                 <MudTextField Label="Level" @bind-Value="doctorInput.Level" FullWidth="true" />
             </MudItem>
 
             <!-- Branch Selection -->
-            <MudSelect MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))" MultiSelection="true" @bind-Value="selectedBranch" T="string" Label="Branches" AdornmentIcon="@Icons.Material.Filled.Search">
+            <MudSelect MultiSelectionTextFunc="GetMultiSelectionText" MultiSelection="true" @bind-Value="selectedBranches" T="string" Label="Branches" AdornmentIcon="@Icons.Material.Filled.Search">
                 @foreach (var branch in branches)
                 {
                     <MudSelectItem T="string" Value="@branch">@branch</MudSelectItem>
@@ -61,17 +58,15 @@
                     @foreach (var department in departments)
                     {
                         <MudSelectItem T="int" Value="@department.DepId" Style="font-size: 1rem; font-weight: bold; color: #1B7D84;">
-                            <MudIcon Icon="@Icons.Material.Filled.Home" Color="Color.Primary" Style="margin-right: 8px;" />
                             @department.DepartmentName
                         </MudSelectItem>
                     }
-                </MudSelect>
-            </MudItem>
+                }
+            </MudSelect>
         }
 
         <MudItem xs="12" Class="d-flex justify-space-between mt-4">
-            <!-- Submit and Cancel Buttons -->
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SubmitForm" Disabled="!form.IsValid">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="!form.IsValid">
                 Submit
             </MudButton>
             <MudButton Variant="Variant.Text" Color="Color.Default" OnClick="NavigateBack">
@@ -83,30 +78,28 @@
 
 @code {
     private User newStaffInput = new();
-    private DoctorInput doctorInput = new(); // This is for the doctor-specific details
+    private DoctorInput doctorInput = new();
     private MudForm form;
     private bool isFormValid = false;
     private string[] roles = { "Admin", "Doctor" };
-    private int  branchId; 
-    private List<string> branches = new List<string>();  // List of branch names
-    private List<DepDTO> departments = new();           // List of departments
-    private string selectedBranch { set; get; } = "No Selected";         // Multi-selection for branch names
-    private int selectedDepartment;                       // Selected department
+    private List<string> branches = new();
+    private List<DepDTO> departments = new();
+    private List<string> selectedBranches = new();
+    private int selectedDepartment;
 
     protected override async Task OnInitializedAsync()
     {
         Log.Information("Navigated to Add Staff page at {Time}", DateTime.Now);
-
         try
         {
             branches = branchService.GetAllBranches().Select(b => b.BranchName).ToList();
+            departments = departmentService.GetAllDepartments().ToList();
+
             if (!branches.Any())
             {
                 Snackbar.Add("No branches found.", Severity.Warning);
                 Log.Warning("No branches found at {Time}", DateTime.Now);
             }
-
-            departments = departmentService.GetAllDepartments().ToList();
             if (!departments.Any())
             {
                 Snackbar.Add("No departments available.", Severity.Warning);
@@ -115,80 +108,41 @@
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"Error loading branches: {ex.Message}", Severity.Error);
-            Log.Error("Error loading branches: {Error} at {Time}", ex.Message, DateTime.Now);
+            Snackbar.Add($"Error loading data: {ex.Message}", Severity.Error);
+            Log.Error("Error loading data: {Error} at {Time}", ex.Message, DateTime.Now);
         }
     }
 
-    // Multi-selection handler for branches
     private string GetMultiSelectionText(List<string> selectedValues)
     {
-        if (selectedValues == null || !selectedValues.Any())
-        {
-            try
-            {
-                var departmentIds = await Task.Run(() => branchDepartmentService.GetDepartmentsByBranch(selectedBranchId));
-                if (departmentIds == null || !departmentIds.Any())
-                {
-                    Snackbar.Add("No departments found for the selected branch.", Severity.Warning);
-                    Log.Warning("No departments found for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
-                    return;
-                }
-
-                departments.Clear();
-                departments = departmentIds.ToList();
-                Log.Information("Departments loaded for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                Snackbar.Add($"Error loading departments for branch: {ex.Message}", Severity.Error);
-                Log.Error("Error loading departments for branch ID {BranchId}: {Error} at {Time}", selectedBranchId, ex.Message, DateTime.Now);
-            }
-        }
-
-        return string.Join(", ", selectedValues);
+        return selectedValues == null || !selectedValues.Any() ? "No branches selected" : string.Join(", ", selectedValues);
     }
 
     private async Task SubmitForm()
     {
-        if (form.IsValid)
+        try
         {
-            try
+            if (form.IsValid)
             {
-                Log.Information("Adding new staff with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
+                Log.Information("Adding new staff at {Time}", DateTime.Now);
                 await userService.AddStaff(newStaffInput);
 
-                if (newStaffInput.Role == "Doctor" && selectedDepartment != 0)
+                if (newStaffInput.Role == "Doctor")
                 {
-                    doctorInput.DID = doctorId;
                     doctorInput.DepID = selectedDepartment;
-                    doctorInput.CurrentBrunch = branchId;
                     doctorService.AddDoctor(doctorInput);
-                    Log.Information("Doctor-specific details added for UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
                 }
 
                 Snackbar.Add("New staff member added successfully!", Severity.Success);
-                Log.Information("New staff added successfully with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
-
-                await Task.Delay(2000);
-                NavigateBack();
-            }
-            catch (Exception ex)
-            {
-                Snackbar.Add($"Error adding staff: {ex.Message}", Severity.Error);
-                Log.Error("Error adding new staff with UserName: {UserName}. Error: {Error} at {Time}", newStaffInput.UserName, ex.Message, DateTime.Now);
+                NavigationManager.NavigateTo("/Staff");
             }
         }
-        else
+        catch (Exception ex)
         {
-            Snackbar.Add("Please fill out all required fields.", Severity.Warning);
-            Log.Warning("Form submission failed due to validation errors at {Time}", DateTime.Now);
+            Snackbar.Add($"Error adding staff: {ex.Message}", Severity.Error);
+            Log.Error("Error adding staff: {Error} at {Time}", ex.Message, DateTime.Now);
         }
     }
 
-    private void NavigateBack()
-    {
-        Log.Information("User canceled Add Staff operation at {Time}", DateTime.Now);
-        NavigationManager.NavigateTo("/Staff");
-    }
+    private void NavigateBack() => NavigationManager.NavigateTo("/Staff");
 }
