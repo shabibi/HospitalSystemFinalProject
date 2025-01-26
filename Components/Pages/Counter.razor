@@ -8,11 +8,19 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+@inject Serilog.ILogger Logger
+
 @code {
     private int currentCount = 0;
 
     private void IncrementCount()
     {
         currentCount++;
+        Logger.Information("Counter incremented. Current count: {CurrentCount} at {Time}", currentCount, DateTime.Now);
+    }
+
+    protected override void OnInitialized()
+    {
+        Logger.Information("Navigated to Counter page at {Time}", DateTime.Now);
     }
 }

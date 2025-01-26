@@ -3,6 +3,7 @@
 @inject IBranchDepartmentService BranchDepartmentService
 @inject IDepartmentService DepartmentService
 @inject IDoctorService DoctorService
+@inject Serilog.ILogger Logger
 
 <PageTitle>@departmentName Branches</PageTitle>
 
@@ -60,46 +61,73 @@ else
 
     protected override void OnInitialized()
     {
-        // Fetch branches for the given department ID
-        var branchDtos = BranchDepartmentService.GetBranchsByDepartment(DepartmentId);
+        Logger.Information("Navigated to DepartmentBranch page for Department ID: {DepartmentId} at {Time}", DepartmentId, DateTime.Now);
 
-        branches = branchDtos.Select(branch => new BranchViewModel
+        try
+        {
+            Logger.Information("Fetching branches for Department ID: {DepartmentId} at {Time}", DepartmentId, DateTime.Now);
+            var branchDtos = BranchDepartmentService.GetBranchsByDepartment(DepartmentId);
+
+            branches = branchDtos.Select(branch => new BranchViewModel
+                {
+                    BranchName = branch.BranchName,
+                    Location = branch.Location,
+                    BranchImage = branch.BranchName, // Store the branch name to check later
+                    Doctors = DoctorService.GetDoctorByBrancDep(branch.BID, DepartmentId)
+                                                .Select(doc => new DoctorViewModel
+                                                {
+                                                    Level = doc.Level,
+                                                    Degree = doc.Degree,
+                                                }).ToList()
+                }).ToList();
+
+            Logger.Information("Successfully fetched and mapped {Count} branches for Department ID: {DepartmentId} at {Time}", branches.Count, DepartmentId, DateTime.Now);
+
+            Logger.Information("Fetching department name for Department ID: {DepartmentId} at {Time}", DepartmentId, DateTime.Now);
+            var department = DepartmentService.GetDepartmentByid(DepartmentId);
+            if (department != null)
             {
-                BranchName = branch.BranchName,
-                Location = branch.Location,
-                BranchImage = branch.BranchName, // Store the branch name to check later
-                Doctors = DoctorService.GetDoctorByBrancDep(branch.BID, DepartmentId)
-                                        .Select(doc => new DoctorViewModel
-                                        {
-                                            Level = doc.Level,
-                                            Degree = doc.Degree,
-                                        }).ToList()
-            }).ToList();
-
-        // Fetch the department name using ID
-        var department = DepartmentService.GetDepartmentByid(DepartmentId);
-        if (department != null)
-        {
-            departmentName = department.DepartmentName;
+                departmentName = department.DepartmentName;
+                Logger.Information("Successfully fetched department name: {DepartmentName} for Department ID: {DepartmentId} at {Time}", departmentName, DepartmentId, DateTime.Now);
+            }
+            else
+            {
+                departmentName = "Unknown Department";
+                Logger.Warning("Department with ID: {DepartmentId} not found at {Time}", DepartmentId, DateTime.Now);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            departmentName = "Unknown Department";
+            Logger.Error("Error fetching branches or department details for Department ID: {DepartmentId}. Error: {Error} at {Time}", DepartmentId, ex.Message, DateTime.Now);
+            departmentName = "Error Loading Department";
+            branches = new List<BranchViewModel>();
         }
     }
 
     private string GetBranchImage(string branchName)
     {
-        string imagesFolder = Path.Combine("wwwroot", "images");
-        string[] availableImages = Directory.GetFiles(imagesFolder, "*.png"); // Get all PNG images
-
-        foreach (var imagePath in availableImages)
+        try
         {
-            string imageName = Path.GetFileNameWithoutExtension(imagePath).ToLower();
-            if (branchName.ToLower().Contains(imageName))
+            Logger.Information("Getting branch image for branch: {BranchName} at {Time}", branchName, DateTime.Now);
+
+            string imagesFolder = Path.Combine("wwwroot", "images");
+            string[] availableImages = Directory.GetFiles(imagesFolder, "*.png");
+
+            foreach (var imagePath in availableImages)
             {
-                return $"images/{Path.GetFileName(imagePath)}";
+                string imageName = Path.GetFileNameWithoutExtension(imagePath).ToLower();
+                if (branchName.ToLower().Contains(imageName))
+                {
+                    Logger.Information("Match found for branch image: {ImageName} at {Time}", imageName, DateTime.Now);
+                    return $"images/{Path.GetFileName(imagePath)}";
+                }
             }
+
+            Logger.Warning("No match found for branch image. Falling back to default image for branch: {BranchName} at {Time}", branchName, DateTime.Now);
+        }
+        catch (Exception ex)
+        {
+            Logger.Error("Error retrieving branch image for branch: {BranchName}. Error: {Error} at {Time}", branchName, ex.Message, DateTime.Now);
         }
 
         return "images/default.png";
@@ -107,6 +135,7 @@ else
 
     private void GoBack()
     {
+        Logger.Information("Navigating back to Department page at {Time}", DateTime.Now);
         NavigationManager.NavigateTo("/Department");
     }
 
@@ -123,5 +152,4 @@ else
         public string Level { get; set; }
         public string Degree { get; set; }
     }
-   
 }

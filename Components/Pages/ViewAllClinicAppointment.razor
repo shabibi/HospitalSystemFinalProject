@@ -4,11 +4,11 @@
 
 @inject IBookingService bookingService
 @inject IClinicService clinicService
+@inject Serilog.ILogger Logger
 
 <h3>Appointments for Clinic @clinicId - @clinicName</h3> <!-- Display clinic name here -->
 
 <MudTable Items="@uniqueDates" Bordered="true">
-    <!-- Add Bordered property for borders -->
     <ColGroup>
         <col style="width: 150px;" /> <!-- Date column -->
         @foreach (var time in uniqueTimes)
@@ -62,14 +62,23 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadAppointments(); // Load appointments on page initialization
-        await LoadClinicName();   // Load clinic name
+        try
+        {
+            Logger.Information("Initializing ViewAllClinicAppointments page for Clinic ID: {ClinicId}", clinicId);
+            await LoadAppointments(); // Load appointments on page initialization
+            await LoadClinicName();   // Load clinic name
+        }
+        catch (Exception ex)
+        {
+            Logger.Error("Error initializing ViewAllClinicAppointments page for Clinic ID: {ClinicId}. Error: {ErrorMessage}", clinicId, ex.Message);
+        }
     }
 
     private async Task LoadAppointments()
     {
         try
         {
+            Logger.Information("Loading appointments for Clinic ID: {ClinicId}", clinicId);
             appointments = bookingService.GetAllBooking()
                                          .Where(a => a.CID == clinicId)
                                          .ToList();
@@ -87,10 +96,12 @@
                 .Distinct()
                 .OrderBy(t => t)
                 .ToList();
+
+            Logger.Information("Successfully loaded {Count} appointments for Clinic ID: {ClinicId}", appointments.Count(), clinicId);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error loading appointments: {ex.Message}");
+            Logger.Error("Error loading appointments for Clinic ID: {ClinicId}. Error: {ErrorMessage}", clinicId, ex.Message);
         }
     }
 
@@ -98,15 +109,21 @@
     {
         try
         {
+            Logger.Information("Loading clinic name for Clinic ID: {ClinicId}", clinicId);
             var clinic = clinicService.GetClinicById(clinicId); // Assuming you have this method in the service
             if (clinic != null)
             {
                 clinicName = clinic.ClincName; // Replace with actual property for clinic name
+                Logger.Information("Loaded clinic name: {ClinicName} for Clinic ID: {ClinicId}", clinicName, clinicId);
+            }
+            else
+            {
+                Logger.Warning("Clinic not found for Clinic ID: {ClinicId}", clinicId);
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error loading clinic name: {ex.Message}");
+            Logger.Error("Error loading clinic name for Clinic ID: {ClinicId}. Error: {ErrorMessage}", clinicId, ex.Message);
         }
     }
 }

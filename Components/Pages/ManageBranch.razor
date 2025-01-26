@@ -2,6 +2,7 @@
 @layout StaffLayout
 @inject NavigationManager NavigationManager
 @inject IBranchService BranchService
+@inject Serilog.ILogger Logger
 
 <MudContainer MaxWidth="MaxWidth.Medium" Class="my-5">
     <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84;">
@@ -17,7 +18,6 @@
                 </MudButton>
             </div>
 
-            
             <!-- Branch Table -->
             <MudTable Items="branches" T="Branch" Hover="true" Bordered="true" Striped="true" Elevation="2">
                 <HeaderContent>
@@ -54,46 +54,72 @@
 
     protected override void OnInitialized()
     {
-        // Load branches on initialization
-        branches = BranchService.GetAllBranches().ToList();
+        Logger.Information("ManageBranch page initialized at {Time}", DateTime.Now);
+
+        try
+        {
+            // Load branches on initialization
+            branches = BranchService.GetAllBranches().ToList();
+            Logger.Information("Successfully fetched {Count} branches at {Time}", branches.Count, DateTime.Now);
+        }
+        catch (Exception ex)
+        {
+            Logger.Error("Error fetching branches: {Error} at {Time}", ex.Message, DateTime.Now);
+        }
     }
 
     private void AddBranch()
     {
-        // Navigate to the AddBranch page
+        Logger.Information("Navigating to AddBranch page at {Time}", DateTime.Now);
         NavigationManager.NavigateTo("/AddBranch");
     }
+
     private void NavigateToAddBranch()
     {
+        Logger.Information("Navigating to AddBranch page at {Time}", DateTime.Now);
         NavigationManager.NavigateTo("/AddBranch");
     }
+
     private void NavigateToAddBranch(int? branchId = null)
     {
         if (branchId.HasValue)
         {
+            Logger.Information("Navigating to AddBranch page for Branch ID: {BranchId} at {Time}", branchId.Value, DateTime.Now);
             NavigationManager.NavigateTo($"/AddBranch/{branchId.Value}");
         }
         else
         {
+            Logger.Information("Navigating to AddBranch page at {Time}", DateTime.Now);
             NavigationManager.NavigateTo("/AddBranch");
         }
     }
 
     private void EditBranch(int branchId)
     {
-        // Navigate to the EditBranch page with the branch ID
+        Logger.Information("Navigating to EditBranch page for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
         NavigationManager.NavigateTo($"/EditBranch/{branchId}");
     }
 
     private void DeleteBranch(int branchId)
     {
-        BranchService.SetBranchStatus(branchId, false);
-        branches = BranchService.GetAllBranches().ToList();
+        try
+        {
+            Logger.Information("Attempting to delete Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
+            BranchService.SetBranchStatus(branchId, false);
+
+            // Refresh branch list after deletion
+            branches = BranchService.GetAllBranches().ToList();
+            Logger.Information("Branch ID: {BranchId} deleted successfully at {Time}", branchId, DateTime.Now);
+        }
+        catch (Exception ex)
+        {
+            Logger.Error("Error deleting Branch ID: {BranchId}. Error: {Error} at {Time}", branchId, ex.Message, DateTime.Now);
+        }
     }
 
     private void ViewBranch(int branchId)
     {
-        // Navigate to the ViewBranch page with the branch ID
+        Logger.Information("Navigating to ViewBranch page for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
         NavigationManager.NavigateTo($"/ViewBranch/{branchId}");
     }
 }

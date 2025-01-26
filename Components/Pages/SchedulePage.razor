@@ -3,10 +3,11 @@
 @inject IBookingService bookingService
 @inject IClinicService clinicService
 @inject ISnackbar Snackbar
+@inject Serilog.ILogger Logger
 
 <MudPaper Elevation="4" Class="p-4 mx-auto" Style="max-width: 800px;">
     <MudText Typo="Typo.h3" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">
-         Schedule Appointments
+        Schedule Appointments
     </MudText>
     <MudDatePicker @bind-Date="selectedDate" Label="Pick a Date" Required="true" Style="font-size: 1.2rem;" />
 
@@ -48,10 +49,13 @@ else if (appointments != null && !appointments.Any())
 
     private async Task GenerateSchedule()
     {
+        Logger.Information("Generating schedule for clinic ID: {ClinicId} on date: {SelectedDate}", clinicId, selectedDate);
+
         try
         {
             if (!isDateValid)
             {
+                Logger.Warning("Invalid date selected: {SelectedDate}. Date must be today or in the future.", selectedDate);
                 Snackbar.Add("Please select a valid future date.", Severity.Warning);
                 return;
             }
@@ -60,10 +64,12 @@ else if (appointments != null && !appointments.Any())
             appointments = bookingService.ScheduledAppointments(clinicId, selectedDate.Value).ToList();
 
             Snackbar.Add("Appointments generated successfully!", Severity.Success);
+            Logger.Information("Appointments generated successfully for clinic ID: {ClinicId} on {SelectedDate}", clinicId, selectedDate);
         }
         catch (Exception ex)
         {
             Snackbar.Add($"Error: {ex.Message}", Severity.Error);
+            Logger.Error("Error generating appointments for clinic ID: {ClinicId} on {SelectedDate}. Error: {ErrorMessage}", clinicId, selectedDate, ex.Message);
         }
     }
 }

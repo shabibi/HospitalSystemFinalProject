@@ -2,6 +2,7 @@
 @inject IUserService UserService
 @inject IDoctorService DoctorService
 @inject IDepartmentService DepartmentService
+@inject Serilog.ILogger Logger
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="my-5">
     <!-- Title -->
@@ -62,6 +63,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        Logger.Information("Initializing Our Doctors page at {Time}", DateTime.Now);
+
         try
         {
             // Fetch all doctors and departments
@@ -92,31 +95,47 @@
 
             // Initialize filtered list
             FilteredDoctors = new List<UserOutputDTO>(Doctors);
+            Logger.Information("Successfully loaded {Count} doctors at {Time}", Doctors.Count, DateTime.Now);
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error loading doctors or departments: {ex.Message}");
+            Logger.Error("Error loading doctors or departments: {Error} at {Time}", ex.Message, DateTime.Now);
         }
     }
 
     private void OnSearchChanged(string searchQuery)
     {
+        Logger.Information("Search query updated: {Query} at {Time}", searchQuery, DateTime.Now);
+
         SearchQuery = searchQuery;
 
-        // Perform live filtering
-        FilteredDoctors = string.IsNullOrWhiteSpace(SearchQuery)
-            ? new List<UserOutputDTO>(Doctors)
-            : Doctors.Where(d => d.UserName.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ||
-                                 (departmentNames.ContainsKey(d.UID) && departmentNames[d.UID].Contains(SearchQuery, StringComparison.OrdinalIgnoreCase)))
-                     .ToList();
+        try
+        {
+            // Perform live filtering
+            FilteredDoctors = string.IsNullOrWhiteSpace(SearchQuery)
+                ? new List<UserOutputDTO>(Doctors)
+                : Doctors.Where(d => d.UserName.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ||
+                                     (departmentNames.ContainsKey(d.UID) && departmentNames[d.UID].Contains(SearchQuery, StringComparison.OrdinalIgnoreCase)))
+                         .ToList();
+
+            Logger.Information("Filtered results: {Count} doctors found for query '{Query}' at {Time}", FilteredDoctors.Count, SearchQuery, DateTime.Now);
+        }
+        catch (Exception ex)
+        {
+            Logger.Error("Error during search filtering: {Error} at {Time}", ex.Message, DateTime.Now);
+        }
     }
 
     private string GetDoctorImage(string imagePath, int doctorId)
     {
         // Return default image if doctor image is null or empty
-        return string.IsNullOrEmpty(imagePath)
-            ? "/Images/Users/Doctors/maleDoctor.png"
-            : imagePath;
+        if (string.IsNullOrEmpty(imagePath))
+        {
+            Logger.Warning("No image found for doctor ID: {DoctorId} at {Time}", doctorId, DateTime.Now);
+            return "/Images/Users/Doctors/maleDoctor.png";
+        }
+
+        return imagePath;
     }
 
     private string CapitalizeWords(string input)
