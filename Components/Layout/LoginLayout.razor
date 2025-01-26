@@ -1,0 +1,20 @@
+﻿@inherits LayoutComponentBase
+@namespace HospitalSystemTeamTask.Shared.Layouts
+
+@* Required *@
+<MudThemeProvider />
+<MudPopoverProvider />
+
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
+    <MudContainer MaxWidth="MaxWidth.Medium" Class="shadow-lg rounded-2xl" Style="padding: 20px; background-color: white;">
+        <div class="w-full max-w-md">
+            @Body
+        </div>
+    </MudContainer>
+</div>

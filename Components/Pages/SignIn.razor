@@ -1,0 +1,104 @@
+﻿@layout LoginLayout
+@page "/SignIn"
+@using System.ComponentModel.DataAnnotations
+
+@inject IUserService UserService
+@inject NavigationManager NavigationManager
+@inject IAuthService authService
+
+<div class="flex justify-center items-center h-screen">
+    <div class="w-full max-w-sm bg-white p-6 shadow-lg rounded-md">
+        <h3 class="text-center text-2xl font-semibold mb-6">Login</h3>
+
+        <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="my-4">
+                <MudTextField Label="Email" @bind-Value="loginModel.Email" For="@(() => loginModel.Email)" 
+                              Variant="Variant.Outlined" FullWidth="true" />
+                <ValidationMessage For="@(() => loginModel.Email)" />
+            </div>
+
+            <div class="my-4">
+                <MudTextField Label="Password" @bind-Value="loginModel.Password" For="@(() => loginModel.Password)" 
+                              InputType="InputType.Password" Variant="Variant.Outlined" FullWidth="true" />
+                <ValidationMessage For="@(() => loginModel.Password)" />
+            </div>
+            <div class="flex justify-center mt-4">
+                <MudButton Type="submit" Variant="Variant.Filled" Color="Color.Primary" OnClick="HandleLogin"
+                           Style="font-size: 1rem; padding: 12px;">
+                    Login
+                </MudButton>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="/signup" class="text-sm text-blue-600 hover:underline">
+                    Not registered? Sign up
+                </a>
+            </div>
+        </EditForm>
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="text-red-500 mt-4 text-center">@errorMessage</div>
+        }
+
+        @if (!string.IsNullOrEmpty(successMessage))
+        {
+            <div class="text-green-500 mt-4 text-center">@successMessage</div>
+        }
+    </div>
+</div>
+
+@code {
+    private LoginModel loginModel = new LoginModel();
+    private string? errorMessage;
+    private string? successMessage;
+
+    private async Task HandleLogin()
+    {
+        try
+        {
+            var authenticatedUser = UserService.AuthenticateUser(loginModel.Email, loginModel.Password);
+
+            if (authenticatedUser == null)
+            {
+                errorMessage = "Login failed. Please check your credentials.";
+                successMessage = null;
+            }
+            else
+            {
+                successMessage = "Login successful! Redirecting...";
+                errorMessage = null;
+
+                // If needed, generate a token or perform authentication logic here
+                // authService.GenerateToken(authenticatedUser);
+
+                if (authenticatedUser.Role == "admin" || authenticatedUser.Role == "superAdmin")
+                {
+                    NavigationManager.NavigateTo("/StaffPage");
+                }
+                else
+                {
+                    NavigationManager.NavigateTo("/");
+                }
+            }
+        }
+        catch (Exception)
+        {
+            errorMessage = "An unexpected error occurred. Please try again.";
+            successMessage = null;
+        }
+    }
+
+    public class LoginModel
+    {
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email format.")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Password is required.")]
+        public string Password { get; set; } = string.Empty;
+    }
+}
