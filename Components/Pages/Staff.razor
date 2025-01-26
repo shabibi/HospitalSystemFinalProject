@@ -6,21 +6,21 @@
 <!-- Add New Staff Button Positioned on the Right -->
 <div class="d-flex justify-end" style="margin-bottom: 30px;"> <!-- Increased margin-bottom for more space -->
     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToAddStaff"
-               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px;">
+    Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px;">
         Add New Staff
     </MudButton>
 </div>
 
 <!-- Search Box -->
 <MudTextField T="string"
-    Placeholder="Search for User"
-    ValueChanged="@OnSearchChanged"
-    Immediate="true"
-    Adornment="Adornment.End"
-    AdornmentIcon="@Icons.Material.Filled.Search"
-    Class="mb-4"
-    Variant="Variant.Filled"
-    Style="margin-bottom: 20px;" />
+Placeholder="Search for User"
+ValueChanged="@OnSearchChanged"
+Immediate="true"
+Adornment="Adornment.End"
+AdornmentIcon="@Icons.Material.Filled.Search"
+Class="mb-4"
+Variant="Variant.Filled"
+Style="margin-bottom: 20px;" />
 
 <!-- Staff Table -->
 <MudTable Items="@filteredUsers" Hover="true" SortLabel="Sort By" Style="width: 100%; margin-top: 50px;">
@@ -48,8 +48,8 @@
         </MudTd>
         <MudTd DataLabel="Inactivate" Style="width: 15%;">
             <MudIconButton Icon="@(context.IsActive ? Icons.Material.Filled.Block : Icons.Material.Filled.CheckCircle)" 
-                Color="@(context.IsActive ? Color.Error : Color.Success)" 
-                OnClick="() => ToggleUserStatus(context.UID, context.IsActive)" />
+            Color="@(context.IsActive ? Color.Error : Color.Success)" 
+            OnClick="() => ToggleUserStatus(context.UID, context.IsActive)" />
         </MudTd>
     </RowTemplate>
 </MudTable>
@@ -101,7 +101,15 @@
 
     private void NavigateToView(int userId)
     {
-        // Implement navigation logic for viewing user details
+        var staffRole = userService.GetUserById(userId).Role.ToLower();
+        if(staffRole =="admin" || staffRole == "superadmin"){
+            NavigationManager.NavigateTo($"/StaffPage/{userId}");
+        }
+        else
+        {
+            NavigationManager.NavigateTo($"/doctor_info/{userId}");
+        }
+        
     }
 
     private void NavigateToEdit(int userId)
