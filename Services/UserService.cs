@@ -7,6 +7,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Twilio.TwiML.Voice;
+using Task = System.Threading.Tasks.Task;
 
 namespace HospitalSystemTeamTask.Services
 {
@@ -15,12 +17,15 @@ namespace HospitalSystemTeamTask.Services
         private readonly IUserRepo _userRepo;
         private readonly IConfiguration _configuration;
         private readonly ISendEmail _email;
+        private readonly ISMS _SMS;
 
-        public UserService(IUserRepo userRepo, IConfiguration configuration, ISendEmail email)
+
+        public UserService(IUserRepo userRepo, IConfiguration configuration, ISendEmail email,ISMS sMS)
         {
             _userRepo = userRepo;
             _configuration = configuration;
             _email = email;
+            _SMS = sMS;
         }
 
         // Add user
@@ -68,6 +73,9 @@ namespace HospitalSystemTeamTask.Services
                 _userRepo.AddUser(newSupperAdmin);
                 // Send email
                 _email.SendEmailAsync("hospitalproject2025@outlook.com", subject, body);
+
+
+                
             }
                    
         }
@@ -114,6 +122,9 @@ namespace HospitalSystemTeamTask.Services
 
             // Send email asynchronously
             await _email.SendEmailAsync("hospitalproject2025@outlook.com", subject, body);
+
+            // Send SMS
+
 
             // Add user to the database
             _userRepo.AddUser(newStaff);

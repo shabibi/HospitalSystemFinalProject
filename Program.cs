@@ -47,6 +47,9 @@ namespace HospitalSystemTeamTask
             builder.Services.AddScoped<IUserRepo, UserRepo>();
             builder.Services.AddScoped<IUserService, UserService>();
 
+            //SMS service
+            builder.Services.AddScoped<ISMS, SMS>();
+
 
             builder.Services.AddScoped<ISendEmail, SendEmail>();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
