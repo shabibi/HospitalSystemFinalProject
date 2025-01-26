@@ -9,6 +9,8 @@
 @inject IBranchDepartmentService branchDepartmentService
 @inject ISMS smsService
 
+
+
 <MudPaper Elevation="4" Class="form-container" Style="width: 100%; align-content:center;" Align="Align.Center">
     <MudText Typo="Typo.h3" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">
         Add New Staff
@@ -167,17 +169,21 @@
                     doctorInput.DepID = selectedDepartment; // Set the department ID from selected department
                     doctorService.AddDoctor(doctorInput); // Use the correct service for adding doctor
                 }
+
                 // Validate and send SMS if phone number is valid
-                if (!string.IsNullOrEmpty(newStaffInput.Phone) && IsValidPhoneNumber(newStaffInput.Phone))
-                {
-                    var message = $"Hello {newStaffInput.UserName}, your account as a {newStaffInput.Role} has been created successfully.";
-                    await smsService.SendSmsAsync(newStaffInput.Phone, message);
-                }
-                else
-                {
-                    Snackbar.Add("Invalid phone number format. Please ensure it includes the country code.", Severity.Error);
-                    return;
-                }
+
+                //Comm for test
+
+                // if (!string.IsNullOrEmpty(newStaffInput.Phone) && IsValidPhoneNumber(newStaffInput.Phone))
+                // {
+                //     var message = $"Hello {newStaffInput.UserName}, your account as a {newStaffInput.Role} has been created successfully.";
+                //     await smsService.SendSmsAsync(newStaffInput.Phone, message);
+                // }
+                // else
+                // {
+                //     Snackbar.Add("Invalid phone number format. Please ensure it includes the country code.", Severity.Error);
+                //     return;
+                // }
 
 
                 Snackbar.Add("New staff member added successfully!", Severity.Success);
