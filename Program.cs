@@ -2,8 +2,14 @@ using HospitalSystemTeamTask.Components;
 using HospitalSystemTeamTask.Helper;
 using HospitalSystemTeamTask.Repositories;
 using HospitalSystemTeamTask.Services;
+using JWTAuthentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using MudBlazor.Services;
+using Serilog;
+using System.Text;
 
 namespace HospitalSystemTeamTask
 {
@@ -12,12 +18,12 @@ namespace HospitalSystemTeamTask
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
 
-            // Add services to the container.
-
+            // Repository and Service DI Registrations
             builder.Services.AddScoped<IBookingRepo, BookingRepo>();
             builder.Services.AddScoped<IBookingService, BookingService>();
 
@@ -30,7 +36,6 @@ namespace HospitalSystemTeamTask
             builder.Services.AddScoped<IPatientRecordRepository, PatientRecordRepository>();
             builder.Services.AddScoped<IPatientRecordService, PatientRecordService>();
 
-
             builder.Services.AddScoped<IDoctorRepo, DoctorRepo>();
             builder.Services.AddScoped<IDoctorService, DoctorService>();
 
@@ -40,27 +45,78 @@ namespace HospitalSystemTeamTask
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
-
             builder.Services.AddScoped<IBranchRepository, BranchRepository>();
             builder.Services.AddScoped<IBranchService, BranchService>();
 
             builder.Services.AddScoped<IUserRepo, UserRepo>();
             builder.Services.AddScoped<IUserService, UserService>();
 
-
             builder.Services.AddScoped<ISendEmail, SendEmail>();
+
+            // Add database context
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                  options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddControllers();
-        
 
+            // Add MudBlazor Services
             builder.Services.AddMudServices();
 
-
-            // Add services to the container.
+            // Add Interactive Server Components
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+
+            // Register HttpClient for Dependency Injection
+            builder.Services.AddHttpClient();
+
+            // JWT and Authentication Setup
+            var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
+            builder.Services.AddSingleton(jwtSettings);
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey))
+                };
+            });
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Seller", policy => policy.RequireRole("Seller"));
+                options.AddPolicy("Client", policy => policy.RequireRole("Client"));
+            });
+
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+
+            // Configure CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                builder =>
+                {
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
+                });
+            });
+
+            // Configure Serilog
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(builder.Configuration)
+                .CreateLogger();
+
+            builder.Host.UseSerilog();
 
             var app = builder.Build();
 
@@ -74,11 +130,25 @@ namespace HospitalSystemTeamTask
 
             app.UseHttpsRedirection();
 
+            // Serilog request logging
+            app.UseSerilogRequestLogging();
+
+            // Cors middleware
+            app.UseCors("AllowAll");
+
+
             app.UseStaticFiles();
+
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseAntiforgery();
 
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();
+
+
 
             app.Run();
         }
