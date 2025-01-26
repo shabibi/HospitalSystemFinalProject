@@ -7,7 +7,10 @@
 @inject IBranchService branchService
 @inject IDepartmentService departmentService
 @inject IBranchDepartmentService branchDepartmentService
+ 
 @inject ISMS smsService
+
+
 
 <MudPaper Elevation="4" Class="form-container" Style="width: 100%; align-content:center;" Align="Align.Center">
     <MudText Typo="Typo.h3" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">
@@ -96,23 +99,28 @@
 
     protected override async Task OnInitializedAsync()
     {
+        Logger.Information("Navigated to Add Staff page at {Time}", DateTime.Now);
+
         try
         {
             branches = branchService.GetAllBranches().Select(b => b.BranchName).ToList();
             if (!branches.Any())
             {
                 Snackbar.Add("No branches found.", Severity.Warning);
+                Logger.Warning("No branches found at {Time}", DateTime.Now);
             }
 
             departments = departmentService.GetAllDepartments().ToList();
             if (!departments.Any())
             {
                 Snackbar.Add("No departments available.", Severity.Warning);
+                Logger.Warning("No departments available at {Time}", DateTime.Now);
             }
         }
         catch (Exception ex)
         {
             Snackbar.Add($"Error loading branches: {ex.Message}", Severity.Error);
+            Logger.Error("Error loading branches: {Error} at {Time}", ex.Message, DateTime.Now);
         }
     }
 
@@ -158,16 +166,19 @@
             catch (Exception ex)
             {
                 Snackbar.Add($"Error adding staff: {ex.Message}", Severity.Error);
+                Logger.Error("Error adding new staff with UserName: {UserName}. Error: {Error} at {Time}", newStaffInput.UserName, ex.Message, DateTime.Now);
             }
         }
         else
         {
             Snackbar.Add("Please fill out all required fields.", Severity.Warning);
+            Logger.Warning("Form submission failed due to validation errors at {Time}", DateTime.Now);
         }
     }
 
     private void NavigateBack()
     {
+        Logger.Information("User canceled Add Staff operation at {Time}", DateTime.Now);
         NavigationManager.NavigateTo("/Staff");
     }
 }

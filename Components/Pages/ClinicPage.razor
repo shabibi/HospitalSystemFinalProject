@@ -4,6 +4,7 @@
 @inject IBranchService BranchService
 @inject IDepartmentService DepartmentService
 @inject NavigationManager NavigationManager
+ 
 
 <MudContainer MaxWidth="MaxWidth.Medium" Class="my-5" Style=" align-items:center margin-top: 100px;">
     <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84;">
@@ -60,8 +61,6 @@
             </MudGrid>
         </MudCardContent>
     </MudCard>
-    <!-- Display Clinics -->
-
 </MudContainer>
 
 @code {
@@ -73,31 +72,47 @@
     // Fetching Branches and Departments
     protected override void OnInitialized()
     {
-        branches = BranchService.GetAllBranches().ToList();
-        departments = DepartmentService.GetAllDepartments().ToList();
+        Logger.Information("Navigated to ClinicPage at {Time}", DateTime.Now);
+
+        try
+        {
+            Logger.Information("Fetching all branches at {Time}", DateTime.Now);
+            branches = BranchService.GetAllBranches().ToList();
+            Logger.Information("Successfully fetched {Count} branches at {Time}", branches.Count, DateTime.Now);
+
+            Logger.Information("Fetching all departments at {Time}", DateTime.Now);
+            departments = DepartmentService.GetAllDepartments().ToList();
+            Logger.Information("Successfully fetched {Count} departments at {Time}", departments.Count, DateTime.Now);
+        }
+        catch (Exception ex)
+        {
+            Logger.Error("Error fetching branches or departments. Error: {Error} at {Time}", ex.Message, DateTime.Now);
+        }
     }
 
     private void AddClinic()
     {
-        // Navigate to the AddClinic page
+        Logger.Information("Navigating to AddClinic page at {Time}", DateTime.Now);
         NavigationManager.NavigateTo("/AddClinic");
     }
 
     private void FindClinic()
     {
-        // Only navigate to the AllClinicsPage if both Branch and Department are selected
         if (selectedBranch != null && selectedDepartment != null)
         {
+            Logger.Information("Navigating to AllClinicsPage for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", selectedBranch.BID, selectedDepartment.DepId, DateTime.Now);
             NavigationManager.NavigateTo($"/AllClinicsPage/{selectedBranch.BID}/{selectedDepartment.DepId}");
         }
         else
         {
+            Logger.Warning("FindClinic action attempted without selecting both Branch and Department at {Time}", DateTime.Now);
             Console.WriteLine("Please select both branch and department.");
         }
     }
 
     private void NavigateToAllClinicsPage(int bid, int depId)
     {
+        Logger.Information("Navigating to AllClinicsPage for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", bid, depId, DateTime.Now);
         NavigationManager.NavigateTo($"/AllClinicsPage/{bid}/{depId}");
     }
 }

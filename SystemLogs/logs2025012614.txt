@@ -1,0 +1,191 @@
+2025-01-26 14:23:13.631 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-26 14:23:13.944 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-26 14:23:14.007 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-26 14:23:14.056 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-26 14:23:14.057 +04:00 [INF] Hosting environment: Development
+2025-01-26 14:23:14.060 +04:00 [INF] Content root path: C:\Users\azzaA\source\repos\HospitalSystemFinalProject
+2025-01-26 14:23:14.472 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-26 14:23:14.609 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-26 14:23:14.687 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-26 14:23:15.344 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-26 14:23:15.536 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-26 14:23:15.539 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-26 14:23:16.195 +04:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-26 14:23:16.472 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-26 14:23:16.477 +04:00 [INF] HTTP GET / responded 200 in 1864.6787 ms
+2025-01-26 14:23:16.510 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 2047.2242ms
+2025-01-26 14:23:16.517 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-26 14:23:16.517 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-26 14:23:16.518 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-26 14:23:16.522 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 5.4376ms
+2025-01-26 14:23:16.528 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-26 14:23:16.542 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-26 14:23:16.543 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-26 14:23:16.545 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 20.7886 ms
+2025-01-26 14:23:16.547 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 30.342ms
+2025-01-26 14:23:16.557 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 39.536ms
+2025-01-26 14:23:16.652 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-26 14:23:16.661 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 14:23:16.663 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 14:23:16.665 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 6.2739 ms
+2025-01-26 14:23:16.666 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 14.0648ms
+2025-01-26 14:23:16.886 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-26 14:23:16.898 +04:00 [INF] CORS policy execution successful.
+2025-01-26 14:23:16.903 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 14:23:16.912 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 14:23:16.914 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 17.4366 ms
+2025-01-26 14:23:16.918 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 31.5392ms
+2025-01-26 14:23:17.051 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=DpsS3kIHv0IvTWiCAjUieA - null null
+2025-01-26 14:23:17.053 +04:00 [INF] CORS policy execution successful.
+2025-01-26 14:23:17.053 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 14:23:17.192 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-26 14:23:23.763 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-26 14:24:46.664 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-26 14:24:46.671 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-26 14:24:50.207 +04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-26 14:24:50.211 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-26 14:24:50.379 +04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-26 14:24:51.649 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-26 14:24:58.835 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-26 14:25:02.932 +04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-26 14:25:05.359 +04:00 [INF] Executed DbCommand (47ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-26 14:25:05.425 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[@__departmentId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [b0].[BID], [b0].[BranchName], [b0].[IsActive], [b0].[Location]
+FROM [branchDepartments] AS [b]
+INNER JOIN [Branches] AS [b0] ON [b].[BID] = [b0].[BID]
+WHERE [b].[DepID] = @__departmentId_0
+2025-01-26 14:25:05.449 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[CurrentBrunch] = @__bid_0 AND [d].[DepId] = @__depid_1
+2025-01-26 14:25:05.505 +04:00 [INF] Executed DbCommand (0ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[CurrentBrunch] = @__bid_0 AND [d].[DepId] = @__depid_1
+2025-01-26 14:25:05.509 +04:00 [INF] Executed DbCommand (0ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[CurrentBrunch] = @__bid_0 AND [d].[DepId] = @__depid_1
+2025-01-26 14:25:05.515 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-26 14:25:08.634 +04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-26 14:27:50.860 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-26 14:27:53.057 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-26 14:27:53.064 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-26 14:27:55.322 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-26 14:29:00.164 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-26 14:29:00.171 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-26 14:29:12.119 +04:00 [INF] User accessed the AddClinic page at "2025-01-26T14:29:12.0761432+04:00"
+2025-01-26 14:29:14.478 +04:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+2025-01-26 14:29:14.494 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@__roleName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Role] = @__roleName_0
+2025-01-26 14:37:24.118 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-26 14:37:24.376 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-26 14:37:24.431 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-26 14:37:24.469 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-26 14:37:24.471 +04:00 [INF] Hosting environment: Development
+2025-01-26 14:37:24.472 +04:00 [INF] Content root path: C:\Users\azzaA\source\repos\HospitalSystemFinalProject
+2025-01-26 14:37:25.009 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-26 14:37:25.197 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-26 14:37:25.272 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-26 14:37:25.931 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-26 14:37:26.125 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-26 14:37:26.129 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-26 14:37:26.672 +04:00 [INF] Executed DbCommand (20ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-26 14:37:26.915 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-26 14:37:26.920 +04:00 [INF] HTTP GET / responded 200 in 1719.3500 ms
+2025-01-26 14:37:26.964 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 1967.306ms
+2025-01-26 14:37:26.969 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-26 14:37:26.975 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-26 14:37:26.979 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-26 14:37:26.988 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-26 14:37:26.991 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 12.5381ms
+2025-01-26 14:37:26.992 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-26 14:37:26.997 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-26 14:37:26.998 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 24.4805 ms
+2025-01-26 14:37:27.003 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 33.3398ms
+2025-01-26 14:37:27.025 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 37.0586ms
+2025-01-26 14:37:27.129 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-26 14:37:27.140 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 14:37:27.142 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 14:37:27.142 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 4.8759 ms
+2025-01-26 14:37:27.144 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 15.0594ms
+2025-01-26 14:37:27.266 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-26 14:37:27.271 +04:00 [INF] CORS policy execution successful.
+2025-01-26 14:37:27.274 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 14:37:27.287 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 14:37:27.289 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 19.4090 ms
+2025-01-26 14:37:27.291 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 25.2437ms
+2025-01-26 14:37:27.421 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=WAfaPUHIyPaQ2mWCTFS7Fw - null null
+2025-01-26 14:37:27.423 +04:00 [INF] CORS policy execution successful.
+2025-01-26 14:37:27.424 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-26 14:37:27.605 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-26 14:37:27.677 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/Images/img3.png - null null
+2025-01-26 14:37:27.694 +04:00 [INF] The file /Images/img3.png was not modified
+2025-01-26 14:37:27.696 +04:00 [INF] HTTP GET /Images/img3.png responded 304 in 3.4706 ms
+2025-01-26 14:37:27.724 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/Images/img3.png - 304 null image/png 46.9357ms
+2025-01-26 14:37:30.719 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-26 14:37:30.736 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-26 14:37:32.212 +04:00 [INF] User accessed the AddClinic page at "2025-01-26T14:37:32.2119760+04:00"
+2025-01-26 14:37:32.238 +04:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+2025-01-26 14:37:32.883 +04:00 [INF] Executed DbCommand (476ms) [Parameters=[@__roleName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Role] = @__roleName_0

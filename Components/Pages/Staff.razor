@@ -1,10 +1,11 @@
 ﻿@layout StaffLayout
 @inject IUserService userService
 @inject NavigationManager NavigationManager
+ 
 @page "/Staff"
 
 <!-- Add New Staff Button Positioned on the Right -->
-<div class="d-flex justify-end" style="margin-bottom: 30px;"> <!-- Increased margin-bottom for more space -->
+<div class="d-flex justify-end" style="margin-bottom: 30px;">
     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToAddStaff"
                Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px;">
         Add New Staff
@@ -34,19 +35,19 @@
         <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Inactivate</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="User ID" Style="background-color: #1B7D84; color: white; width: 10%;">@context.UID</MudTd>
-        <MudTd DataLabel="Name" Style="width: 20%;">@context.UserName</MudTd>
-        <MudTd DataLabel="Role" Style="width: 15%;">@context.Role</MudTd>
+        <MudTd DataLabel="User ID">@context.UID</MudTd>
+        <MudTd DataLabel="Name">@context.UserName</MudTd>
+        <MudTd DataLabel="Role">@context.Role</MudTd>
         <MudTd DataLabel="Status" Style="@GetStatusStyle(context.IsActive)">
             @(context.IsActive ? "Active" : "Inactive")
         </MudTd>
-        <MudTd DataLabel="View" Style="width: 15%;">
+        <MudTd DataLabel="View">
             <MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Primary" OnClick="() => NavigateToView(context.UID)" />
         </MudTd>
-        <MudTd DataLabel="Edit" Style="width: 15%;">
+        <MudTd DataLabel="Edit">
             <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Warning" OnClick="() => NavigateToEdit(context.UID)" />
         </MudTd>
-        <MudTd DataLabel="Inactivate" Style="width: 15%;">
+        <MudTd DataLabel="Inactivate">
             <MudIconButton Icon="@(context.IsActive ? Icons.Material.Filled.Block : Icons.Material.Filled.CheckCircle)" 
                 Color="@(context.IsActive ? Color.Error : Color.Success)" 
                 OnClick="() => ToggleUserStatus(context.UID, context.IsActive)" />
@@ -63,70 +64,95 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadUsers();
+        try
+        {
+            Logger.Information("Initializing staff page.");
+            await LoadUsers();
+        }
+        catch (Exception ex)
+        {
+            Logger.Error("Error initializing staff page: {ErrorMessage}", ex.Message);
+        }
     }
 
     private async Task LoadUsers()
     {
         try
         {
+            Logger.Information("Loading users for staff management.");
             var superAdmins = userService.GetUserByRole("superAdmin");
             var admins = userService.GetUserByRole("admin");
             var doctors = userService.GetUserByRole("doctor");
 
             users = superAdmins.Concat(admins).Concat(doctors).ToList();
             filteredUsers = users;
+            Logger.Information("Successfully loaded users for staff management.");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error loading users: {ex.Message}");
+            Logger.Error("Error loading users: {ErrorMessage}", ex.Message);
         }
     }
 
     private void OnSearchChanged(string search)
     {
         searchQuery = search;
+        Logger.Information("Search query updated: {SearchQuery}", searchQuery);
 
         if (string.IsNullOrWhiteSpace(searchQuery))
         {
             filteredUsers = users;
+            Logger.Information("Reset search. Displaying all users.");
         }
         else
         {
             filteredUsers = users.Where(u =>
                 u.UserName.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
                 u.Role.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
+            Logger.Information("Filtered users based on search query: {SearchQuery}", searchQuery);
         }
     }
 
     private void NavigateToView(int userId)
     {
-        // Implement navigation logic for viewing user details
+        Logger.Information("Navigating to view details of user ID: {UserId}", userId);
+        // Implement navigation logic
     }
 
     private void NavigateToEdit(int userId)
     {
-        // Implement navigation logic for editing user details
+        Logger.Information("Navigating to edit user ID: {UserId}", userId);
+        // Implement navigation logic
     }
 
     private void ToggleUserStatus(int userId, bool isActive)
     {
-        var userToUpdate = users.FirstOrDefault(u => u.UID == userId);
-        if (userToUpdate != null)
+        try
         {
-            userToUpdate.IsActive = !isActive;
-            filteredUsers = users.ToList();
-            StateHasChanged(); // Force UI update
+            Logger.Information("Toggling status for user ID: {UserId}, Current Status: {IsActive}", userId, isActive);
+            var userToUpdate = users.FirstOrDefault(u => u.UID == userId);
+            if (userToUpdate != null)
+            {
+                userToUpdate.IsActive = !isActive;
+                filteredUsers = users.ToList();
+                StateHasChanged();
+                Logger.Information("Successfully toggled status for user ID: {UserId}", userId);
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Error("Error toggling user status: {ErrorMessage}", ex.Message);
         }
     }
 
     private void NavigateToAddStaff()
     {
+        Logger.Information("Navigating to add new staff.");
         NavigationManager.NavigateTo("/AddStaff");
     }
 
     private string GetStatusStyle(bool isActive)
     {
-        return isActive ? "color: green;" : "color: red;"; // Red for Inactive, Green for Active
+        return isActive ? "color: green;" : "color: red;";
     }
 }

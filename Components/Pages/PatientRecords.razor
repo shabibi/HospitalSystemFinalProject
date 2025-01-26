@@ -1,0 +1,117 @@
+﻿@layout DoctorLayout
+@inject IPatientRecordService patientRecordService
+@inject NavigationManager NavigationManager
+@page "/PatientRecords"
+
+<!-- Add New Patient Record Button Positioned on the Right -->
+<div class="d-flex justify-end" style="margin-bottom: 30px;">
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToAddPatientRecord"
+               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px;">
+        Add New Patient Record
+    </MudButton>
+</div>
+
+<!-- Search Box -->
+<MudTextField T="string"
+    Placeholder="Search for Patient Record"
+    ValueChanged="@OnSearchChanged"
+    Immediate="true"
+    Adornment="Adornment.End"
+    AdornmentIcon="@Icons.Material.Filled.Search"
+    Class="mb-4"
+    Variant="Variant.Filled"
+    Style="margin-bottom: 20px;" />
+
+<!-- Patient Records Table -->
+<MudTable Items="@filteredPatientRecords" Hover="true" SortLabel="Sort By" Style="width: 100%; margin-top: 50px;">
+    <HeaderContent>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 10%;">Record ID</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 20%;">Patient Name</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 20%;">Doctor Name</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Visit Date</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Treatment</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 10%;">Edit</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 10%;">Delete</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Record ID" Style="background-color: #1B7D84; color: white; width: 10%;">@context.RecordId</MudTd>
+        <MudTd DataLabel="Patient Name" Style="width: 20%;">@context.PatientName</MudTd>
+        <MudTd DataLabel="Doctor Name" Style="width: 20%;">@context.DoctorName</MudTd>
+        <MudTd DataLabel="Visit Date" Style="width: 15%;">@context.VisitDate.ToShortDateString()</MudTd>
+        <MudTd DataLabel="Treatment" Style="width: 15%;">@context.Treatment</MudTd>
+        <MudTd DataLabel="Edit" Style="width: 10%;">
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Warning" OnClick="() => NavigateToEdit(context.RecordId)" />
+        </MudTd>
+        <MudTd DataLabel="Delete" Style="width: 10%;">
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="() => DeleteRecord(context.RecordId)" />
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+<MudSnackbar />
+
+@code {
+    private IEnumerable<PatientRecordOutput> patientRecords;
+    private IEnumerable<PatientRecordOutput> filteredPatientRecords;
+    private string searchQuery = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPatientRecords();
+    }
+
+    private async Task LoadPatientRecords()
+    {
+        try
+        {
+            patientRecords = await Task.Run(() => patientRecordService.GetAllRecords());
+
+            filteredPatientRecords = patientRecords;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading patient records: {ex.Message}");
+        }
+    }
+
+    private void OnSearchChanged(string search)
+    {
+        searchQuery = search;
+
+        if (string.IsNullOrWhiteSpace(searchQuery))
+        {
+            filteredPatientRecords = patientRecords;
+        }
+        else
+        {
+            filteredPatientRecords = patientRecords.Where(r =>
+                r.PatientName.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                r.DoctorName.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                r.Treatment.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+    }
+
+    private void NavigateToEdit(int recordId)
+    {
+        // Implement navigation logic for editing patient record
+        NavigationManager.NavigateTo($"/EditPatientRecord/{recordId}");
+    }
+
+    private void DeleteRecord(int recordId)
+    {
+        // Implement logic to delete a patient record
+        var recordToDelete = patientRecords.FirstOrDefault(r => r.RecordId == recordId);
+        if (recordToDelete != null)
+        {
+            // Call service method to delete the record (e.g., patientRecordService.DeleteRecord(recordId))
+            patientRecords = patientRecords.Where(r => r.RecordId != recordId).ToList();
+            filteredPatientRecords = patientRecords;
+            StateHasChanged(); // Force UI update
+        }
+    }
+
+    private void NavigateToAddPatientRecord()
+    {
+        NavigationManager.NavigateTo("/AddPatientRecord");
+    }
+}
