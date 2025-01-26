@@ -1,54 +1,52 @@
-﻿@layout StaffLayout
-@page "/ManageBranch"
-@inject IBranchService BranchService
+﻿@page "/ManageBranch"
+@layout StaffLayout
 @inject NavigationManager NavigationManager
+@inject IBranchService BranchService
 
-<MudContainer MaxWidth="MaxWidth.Large" Class="my-5" Style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
-    <!-- Title -->
-    <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84; margin-bottom: 20px;">
+<MudContainer MaxWidth="MaxWidth.Medium" Class="my-5">
+    <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84;">
         Branch Management
     </MudText>
+    <MudCard Class="mt-4">
+        <MudCardContent>
+            <!-- Add Branch Button -->
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToAddBranch"
+                           Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 8px 16px;">
+                    Add Branch
+                </MudButton>
+            </div>
 
-    <!-- Add Branch Button -->
-    <div style="display: flex; justify-content: flex-end; margin-bottom: 20px; width: 100%; max-width: 800px;">
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddBranch"
-                   Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 8px 16px;">
-            Add Branch
-        </MudButton>
-    </div>
-
-    <!-- Table -->
-    <MudTable Items="@branches" Elevation="0" Dense="true" Hover="true" Bordered="false" Class="my-4" Style="width: 100%; max-width: 800px;">
-        <HeaderContent>
-            <MudTh>Branch ID</MudTh>
-            <MudTh>Branch Name</MudTh>
-            <MudTh>Location</MudTh>
-            <MudTh>Actions</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd>@context.BID</MudTd>
-            <MudTd>@context.BranchName</MudTd>
-            <MudTd>@context.Location</MudTd>
-            <MudTd>
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <!-- View Action -->
-                    <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="() => ViewBranch(context.BID)">
-                        <MudIcon Icon="@Icons.Material.Filled.Visibility" /> View
-                    </MudButton>
-
-                    <!-- Edit Action -->
-                    <MudButton Variant="Variant.Text" Color="Color.Secondary" OnClick="() => EditBranch(context.BID)">
-                        <MudIcon Icon="@Icons.Material.Filled.Edit" /> Edit
-                    </MudButton>
-
-                    <!-- Delete Action -->
-                    <MudButton Variant="Variant.Text" Color="Color.Error" OnClick="() => DeleteBranch(context.BID)">
-                        <MudIcon Icon="@Icons.Material.Filled.Delete" /> Delete
-                    </MudButton>
-                </div>
-            </MudTd>
-        </RowTemplate>
-    </MudTable>
+            
+            <!-- Branch Table -->
+            <MudTable Items="branches" T="Branch" Hover="true" Bordered="true" Striped="true" Elevation="2">
+                <HeaderContent>
+                    <MudTh>Branch ID</MudTh>
+                    <MudTh>Branch Name</MudTh>
+                    <MudTh>Location</MudTh>
+                    <MudTh>Actions</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd>@context.BID</MudTd>
+                    <MudTd>@context.BranchName</MudTd>
+                    <MudTd>@context.Location</MudTd>
+                    <MudTd>
+                        <!-- View Button -->
+                        <MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Info" OnClick="() => ViewBranch(context.BID)" />
+                        <!-- Edit Button -->
+                        <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="() => NavigateToAddBranch(context.BID)" />
+                        <!-- Delete Button -->
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="() => DeleteBranch(context.BID)" />
+                    </MudTd>
+                </RowTemplate>
+                <NoRecordsContent>
+                    <MudText Typo="Typo.body1" Align="Align.Center" Style="color: gray;">
+                        No branches found.
+                    </MudText>
+                </NoRecordsContent>
+            </MudTable>
+        </MudCardContent>
+    </MudCard>
 </MudContainer>
 
 @code {
@@ -56,32 +54,46 @@
 
     protected override void OnInitialized()
     {
-        // Fetch the branch data from the service
+        // Load branches on initialization
         branches = BranchService.GetAllBranches().ToList();
     }
 
     private void AddBranch()
     {
-        // Navigate to AddBranch page
+        // Navigate to the AddBranch page
         NavigationManager.NavigateTo("/AddBranch");
     }
-
-    private void ViewBranch(int branchId)
+    private void NavigateToAddBranch()
     {
-        // Navigate to ViewBranch page
-        NavigationManager.NavigateTo($"/ViewBranch/{branchId}");
+        NavigationManager.NavigateTo("/AddBranch");
+    }
+    private void NavigateToAddBranch(int? branchId = null)
+    {
+        if (branchId.HasValue)
+        {
+            NavigationManager.NavigateTo($"/AddBranch/{branchId.Value}");
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/AddBranch");
+        }
     }
 
     private void EditBranch(int branchId)
     {
-        // Navigate to EditBranch page
+        // Navigate to the EditBranch page with the branch ID
         NavigationManager.NavigateTo($"/EditBranch/{branchId}");
     }
 
     private void DeleteBranch(int branchId)
     {
-        // Delete logic
-        Console.WriteLine($"Branch with ID {branchId} deleted.");
-        branches = branches.Where(b => b.BID != branchId).ToList();
+        BranchService.SetBranchStatus(branchId, false);
+        branches = BranchService.GetAllBranches().ToList();
+    }
+
+    private void ViewBranch(int branchId)
+    {
+        // Navigate to the ViewBranch page with the branch ID
+        NavigationManager.NavigateTo($"/ViewBranch/{branchId}");
     }
 }
