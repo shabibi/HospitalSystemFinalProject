@@ -1,7 +1,6 @@
 ﻿@page "/BranchDepartmentDoctors/{branchId:int}/{departmentId:int}"
 @inject IDoctorService doctorService
 @inject IUserService userService
- 
 
 @if (doctors == null)
 {
@@ -53,32 +52,32 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        Logger.Information("Navigated to BranchDepartmentDoctors page for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", branchId, departmentId, DateTime.Now);
+        Log.Information("Navigated to BranchDepartmentDoctors page for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", branchId, departmentId, DateTime.Now);
 
         try
         {
-            Logger.Information("Fetching doctors for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", branchId, departmentId, DateTime.Now);
+            Log.Information("Fetching doctors for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", branchId, departmentId, DateTime.Now);
             var doctorsResult = doctorService.GetDoctorByBrancDep(branchId, departmentId);
             var userRole = userService.GetUserByRole("doctor");
 
             if (doctorsResult != null)
             {
                 doctors = doctorsResult.ToList();
-                Logger.Information("Successfully fetched doctors for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", branchId, departmentId, DateTime.Now);
+                Log.Information("Successfully fetched doctors for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", branchId, departmentId, DateTime.Now);
 
                 users = userRole.ToList();
-                Logger.Information("Successfully fetched users with role 'doctor' at {Time}", DateTime.Now);
+                Log.Information("Successfully fetched users with role 'doctor' at {Time}", DateTime.Now);
             }
             else
             {
                 doctors = new List<Doctor>();
                 users = new List<UserOutputDTO>();
-                Logger.Warning("No doctors found for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", branchId, departmentId, DateTime.Now);
+                Log.Warning("No doctors found for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", branchId, departmentId, DateTime.Now);
             }
         }
         catch (Exception ex)
         {
-            Logger.Error("Error fetching doctors or users for Branch ID: {BranchId} and Department ID: {DepartmentId}. Error: {Error} at {Time}", branchId, departmentId, ex.Message, DateTime.Now);
+            Log.Error("Error fetching doctors or users for Branch ID: {BranchId} and Department ID: {DepartmentId}. Error: {Error} at {Time}", branchId, departmentId, ex.Message, DateTime.Now);
             doctors = new List<Doctor>();
             users = new List<UserOutputDTO>();
         }

@@ -57,22 +57,26 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        Logger.Information("Navigated to BranchDepartmentPage for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
+        
+        
+        
+        
+        Information("Navigated to BranchDepartmentPage for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
 
         try
         {
-            Logger.Information("Fetching branch details for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
+            Log.Information("Fetching branch details for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
             var branch = BranchService.GetBranchById(branchId);
             branchName = branch?.BranchName ?? "Unknown Branch";
-            Logger.Information("Successfully fetched branch details for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
+            Log.Information("Successfully fetched branch details for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
 
-            Logger.Information("Fetching departments for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
+            Log.Information("Fetching departments for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
             departments = BranchDepartmentService.GetDepartmentsByBranch(branchId).ToList();
-            Logger.Information("Successfully fetched {Count} departments for Branch ID: {BranchId} at {Time}", departments.Count, branchId, DateTime.Now);
+            Log.Information("Successfully fetched {Count} departments for Branch ID: {BranchId} at {Time}", departments.Count, branchId, DateTime.Now);
         }
         catch (Exception ex)
         {
-            Logger.Error("Error fetching departments or branch for Branch ID: {BranchId}. Error: {Error} at {Time}", branchId, ex.Message, DateTime.Now);
+            Log.Error("Error fetching departments or branch for Branch ID: {BranchId}. Error: {Error} at {Time}", branchId, ex.Message, DateTime.Now);
             branchName = "Error Loading Branch";
             departments = new List<DepDTO>();
         }
@@ -82,12 +86,12 @@ else
     {
         try
         {
-            Logger.Information("Getting department image for department: {DepartmentName} at {Time}", departmentName, DateTime.Now);
+            Log.Information("Getting department image for department: {DepartmentName} at {Time}", departmentName, DateTime.Now);
 
             string imagesFolder = Path.Combine("wwwroot", "images", "IconDep");
             if (!Directory.Exists(imagesFolder))
             {
-                Logger.Warning("IconDep folder does not exist at {Time}", DateTime.Now);
+                Log.Warning("IconDep folder does not exist at {Time}", DateTime.Now);
                 return "images/IconDep/defultDep.png";
             }
 
@@ -97,23 +101,23 @@ else
                 string imageName = Path.GetFileNameWithoutExtension(imagePath).ToLower();
                 if (departmentName.ToLower().Contains(imageName))
                 {
-                    Logger.Information("Match found for department image: {ImageName} at {Time}", imageName, DateTime.Now);
+                    Log.Information("Match found for department image: {ImageName} at {Time}", imageName, DateTime.Now);
                     return $"images/IconDep/{Path.GetFileName(imagePath)}";
                 }
             }
         }
         catch (Exception ex)
         {
-            Logger.Error("Error accessing images for department: {DepartmentName}. Error: {Error} at {Time}", departmentName, ex.Message, DateTime.Now);
+            Log.Error("Error accessing images for department: {DepartmentName}. Error: {Error} at {Time}", departmentName, ex.Message, DateTime.Now);
         }
 
-        Logger.Warning("Fallback to default image for department: {DepartmentName} at {Time}", departmentName, DateTime.Now);
+        Log.Warning("Fallback to default image for department: {DepartmentName} at {Time}", departmentName, DateTime.Now);
         return "images/IconDep/defultDep.png"; // Fallback image
     }
 
     private void NavigateToFindDoctor(int departmentId, int branchId)
     {
-        Logger.Information("Navigating to find doctor page for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", branchId, departmentId, DateTime.Now);
+        Log.Information("Navigating to find doctor page for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", branchId, departmentId, DateTime.Now);
         NavigationManager.NavigateTo($"/BranchDepartmentDoctors/{branchId}/{departmentId}");
     }
 }

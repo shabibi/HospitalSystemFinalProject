@@ -2,7 +2,6 @@
 @layout StaffLayout
 @inject NavigationManager NavigationManager
 @inject IBranchService BranchService
- 
 
 <MudContainer MaxWidth="MaxWidth.Medium" Class="my-5">
     <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84;">
@@ -54,29 +53,29 @@
 
     protected override void OnInitialized()
     {
-        Logger.Information("ManageBranch page initialized at {Time}", DateTime.Now);
+        Log.Information("ManageBranch page initialized at {Time}", DateTime.Now);
 
         try
         {
             // Load branches on initialization
             branches = BranchService.GetAllBranches().ToList();
-            Logger.Information("Successfully fetched {Count} branches at {Time}", branches.Count, DateTime.Now);
+            Log.Information("Successfully fetched {Count} branches at {Time}", branches.Count, DateTime.Now);
         }
         catch (Exception ex)
         {
-            Logger.Error("Error fetching branches: {Error} at {Time}", ex.Message, DateTime.Now);
+            Log.Error("Error fetching branches: {Error} at {Time}", ex.Message, DateTime.Now);
         }
     }
 
     private void AddBranch()
     {
-        Logger.Information("Navigating to AddBranch page at {Time}", DateTime.Now);
+        Log.Information("Navigating to AddBranch page at {Time}", DateTime.Now);
         NavigationManager.NavigateTo("/AddBranch");
     }
 
     private void NavigateToAddBranch()
     {
-        Logger.Information("Navigating to AddBranch page at {Time}", DateTime.Now);
+        Log.Information("Navigating to AddBranch page at {Time}", DateTime.Now);
         NavigationManager.NavigateTo("/AddBranch");
     }
 
@@ -84,19 +83,19 @@
     {
         if (branchId.HasValue)
         {
-            Logger.Information("Navigating to AddBranch page for Branch ID: {BranchId} at {Time}", branchId.Value, DateTime.Now);
+            Log.Information("Navigating to AddBranch page for Branch ID: {BranchId} at {Time}", branchId.Value, DateTime.Now);
             NavigationManager.NavigateTo($"/AddBranch/{branchId.Value}");
         }
         else
         {
-            Logger.Information("Navigating to AddBranch page at {Time}", DateTime.Now);
+            Log.Information("Navigating to AddBranch page at {Time}", DateTime.Now);
             NavigationManager.NavigateTo("/AddBranch");
         }
     }
 
     private void EditBranch(int branchId)
     {
-        Logger.Information("Navigating to EditBranch page for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
+        Log.Information("Navigating to EditBranch page for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
         NavigationManager.NavigateTo($"/EditBranch/{branchId}");
     }
 
@@ -104,22 +103,22 @@
     {
         try
         {
-            Logger.Information("Attempting to delete Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
+            Log.Information("Attempting to delete Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
             BranchService.SetBranchStatus(branchId, false);
 
             // Refresh branch list after deletion
             branches = BranchService.GetAllBranches().ToList();
-            Logger.Information("Branch ID: {BranchId} deleted successfully at {Time}", branchId, DateTime.Now);
+            Log.Information("Branch ID: {BranchId} deleted successfully at {Time}", branchId, DateTime.Now);
         }
         catch (Exception ex)
         {
-            Logger.Error("Error deleting Branch ID: {BranchId}. Error: {Error} at {Time}", branchId, ex.Message, DateTime.Now);
+            Log.Error("Error deleting Branch ID: {BranchId}. Error: {Error} at {Time}", branchId, ex.Message, DateTime.Now);
         }
     }
 
     private void ViewBranch(int branchId)
     {
-        Logger.Information("Navigating to ViewBranch page for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
+        Log.Information("Navigating to ViewBranch page for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
         NavigationManager.NavigateTo($"/ViewBranch/{branchId}");
     }
 }

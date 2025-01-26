@@ -1,6 +1,5 @@
 ﻿@page "/Error"
 @using System.Diagnostics
- 
 
 <PageTitle>Error</PageTitle>
 
@@ -38,12 +37,12 @@
 
         if (!string.IsNullOrEmpty(RequestId))
         {
-            Logger.Error("An error occurred. Request ID: {RequestId}, Trace Identifier: {TraceIdentifier}",
+            Log.Error("An error occurred. Request ID: {RequestId}, Trace Identifier: {TraceIdentifier}",
                          RequestId, HttpContext?.TraceIdentifier);
         }
         else
         {
-            Logger.Error("An error occurred, but no Request ID or Trace Identifier was available.");
+            Log.Error("An error occurred, but no Request ID or Trace Identifier was available.");
         }
     }
 }

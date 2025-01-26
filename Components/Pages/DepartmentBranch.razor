@@ -61,11 +61,15 @@ else
 
     protected override void OnInitialized()
     {
-        Logger.Information("Navigated to DepartmentBranch page for Department ID: {DepartmentId} at {Time}", DepartmentId, DateTime.Now);
+        
+        
+        
+        
+        Information("Navigated to DepartmentBranch page for Department ID: {DepartmentId} at {Time}", DepartmentId, DateTime.Now);
 
         try
         {
-            Logger.Information("Fetching branches for Department ID: {DepartmentId} at {Time}", DepartmentId, DateTime.Now);
+            Log.Information("Fetching branches for Department ID: {DepartmentId} at {Time}", DepartmentId, DateTime.Now);
             var branchDtos = BranchDepartmentService.GetBranchsByDepartment(DepartmentId);
 
             branches = branchDtos.Select(branch => new BranchViewModel
@@ -81,24 +85,24 @@ else
                                                 }).ToList()
                 }).ToList();
 
-            Logger.Information("Successfully fetched and mapped {Count} branches for Department ID: {DepartmentId} at {Time}", branches.Count, DepartmentId, DateTime.Now);
+            Log.Information("Successfully fetched and mapped {Count} branches for Department ID: {DepartmentId} at {Time}", branches.Count, DepartmentId, DateTime.Now);
 
-            Logger.Information("Fetching department name for Department ID: {DepartmentId} at {Time}", DepartmentId, DateTime.Now);
+            Log.Information("Fetching department name for Department ID: {DepartmentId} at {Time}", DepartmentId, DateTime.Now);
             var department = DepartmentService.GetDepartmentByid(DepartmentId);
             if (department != null)
             {
                 departmentName = department.DepartmentName;
-                Logger.Information("Successfully fetched department name: {DepartmentName} for Department ID: {DepartmentId} at {Time}", departmentName, DepartmentId, DateTime.Now);
+                Log.Information("Successfully fetched department name: {DepartmentName} for Department ID: {DepartmentId} at {Time}", departmentName, DepartmentId, DateTime.Now);
             }
             else
             {
                 departmentName = "Unknown Department";
-                Logger.Warning("Department with ID: {DepartmentId} not found at {Time}", DepartmentId, DateTime.Now);
+                Log.Warning("Department with ID: {DepartmentId} not found at {Time}", DepartmentId, DateTime.Now);
             }
         }
         catch (Exception ex)
         {
-            Logger.Error("Error fetching branches or department details for Department ID: {DepartmentId}. Error: {Error} at {Time}", DepartmentId, ex.Message, DateTime.Now);
+            Log.Error("Error fetching branches or department details for Department ID: {DepartmentId}. Error: {Error} at {Time}", DepartmentId, ex.Message, DateTime.Now);
             departmentName = "Error Loading Department";
             branches = new List<BranchViewModel>();
         }
@@ -108,7 +112,7 @@ else
     {
         try
         {
-            Logger.Information("Getting branch image for branch: {BranchName} at {Time}", branchName, DateTime.Now);
+            Log.Information("Getting branch image for branch: {BranchName} at {Time}", branchName, DateTime.Now);
 
             string imagesFolder = Path.Combine("wwwroot", "images");
             string[] availableImages = Directory.GetFiles(imagesFolder, "*.png");
@@ -118,16 +122,16 @@ else
                 string imageName = Path.GetFileNameWithoutExtension(imagePath).ToLower();
                 if (branchName.ToLower().Contains(imageName))
                 {
-                    Logger.Information("Match found for branch image: {ImageName} at {Time}", imageName, DateTime.Now);
+                    Log.Information("Match found for branch image: {ImageName} at {Time}", imageName, DateTime.Now);
                     return $"images/{Path.GetFileName(imagePath)}";
                 }
             }
 
-            Logger.Warning("No match found for branch image. Falling back to default image for branch: {BranchName} at {Time}", branchName, DateTime.Now);
+            Log.Warning("No match found for branch image. Falling back to default image for branch: {BranchName} at {Time}", branchName, DateTime.Now);
         }
         catch (Exception ex)
         {
-            Logger.Error("Error retrieving branch image for branch: {BranchName}. Error: {Error} at {Time}", branchName, ex.Message, DateTime.Now);
+            Log.Error("Error retrieving branch image for branch: {BranchName}. Error: {Error} at {Time}", branchName, ex.Message, DateTime.Now);
         }
 
         return "images/default.png";
@@ -135,7 +139,7 @@ else
 
     private void GoBack()
     {
-        Logger.Information("Navigating back to Department page at {Time}", DateTime.Now);
+        Log.Information("Navigating back to Department page at {Time}", DateTime.Now);
         NavigationManager.NavigateTo("/Department");
     }
 

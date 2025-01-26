@@ -1,9 +1,7 @@
 ﻿@layout StaffLayout
-
 @page "/DepartmentPage"
 @inject IDepartmentService departmentService
 @inject NavigationManager NavigationManager
- 
 
 <!-- Centered Header with Adjusted Spacing -->
 <div style="margin-top: 40px; margin-bottom: 20px; display: flex; justify-content: center;">
@@ -98,7 +96,7 @@ else
 
     private void NavigateToDepartmentBranch(int departmentId)
     {
-        Logger.Information("Navigating to DepartmentBranch page for Department ID: {DepartmentId} at {Time}", departmentId, DateTime.Now);
+        Log.Information("Navigating to DepartmentBranch page for Department ID: {DepartmentId} at {Time}", departmentId, DateTime.Now);
         NavigationManager.NavigateTo($"/DepartmentBranch/{departmentId}");
     }
 
@@ -106,13 +104,13 @@ else
     {
         try
         {
-            Logger.Information("Loading all departments at {Time}", DateTime.Now);
+            Log.Information("Loading all departments at {Time}", DateTime.Now);
             LoadDepartments();
-            Logger.Information("Successfully loaded {Count} departments at {Time}", departments.Count, DateTime.Now);
+            Log.Information("Successfully loaded {Count} departments at {Time}", departments.Count, DateTime.Now);
         }
         catch (Exception ex)
         {
-            Logger.Error("Error loading departments: {Error} at {Time}", ex.Message, DateTime.Now);
+            Log.Error("Error loading departments: {Error} at {Time}", ex.Message, DateTime.Now);
         }
     }
 
@@ -123,7 +121,7 @@ else
 
     private void EditDepartment(DepDTO department)
     {
-        Logger.Information("Editing department: {DepartmentName} at {Time}", department.DepartmentName, DateTime.Now);
+        Log.Information("Editing department: {DepartmentName} at {Time}", department.DepartmentName, DateTime.Now);
         FormTitle = "Edit Department";
         CurrentDepartment = new DepartmentDTO
             {
@@ -135,17 +133,17 @@ else
 
     private void SaveDepartment()
     {
-        Logger.Information("Saving department: {DepartmentName} at {Time}", CurrentDepartment.DepartmentName, DateTime.Now);
+        Log.Information("Saving department: {DepartmentName} at {Time}", CurrentDepartment.DepartmentName, DateTime.Now);
 
         if (string.IsNullOrWhiteSpace(CurrentDepartment.DepartmentName))
         {
-            Logger.Warning("Save operation failed: Department name is required at {Time}", DateTime.Now);
+            Log.Warning("Save operation failed: Department name is required at {Time}", DateTime.Now);
             return;
         }
 
         if (departments.Any(d => d.DepartmentName == CurrentDepartment.DepartmentName && FormTitle == "Add Department"))
         {
-            Logger.Warning("Save operation failed: Duplicate department name detected for {DepartmentName} at {Time}", CurrentDepartment.DepartmentName, DateTime.Now);
+            Log.Warning("Save operation failed: Duplicate department name detected for {DepartmentName} at {Time}", CurrentDepartment.DepartmentName, DateTime.Now);
             return;
         }
 
@@ -157,13 +155,13 @@ else
                 departmentToUpdate.Description = CurrentDepartment.Description;
                 departmentToUpdate.DepartmentStatus = CurrentDepartment.DepartmentStatus;
                 departmentService.UpdateDepartment(departmentToUpdate);
-                Logger.Information("Successfully updated department: {DepartmentName} at {Time}", departmentToUpdate.DepartmentName, DateTime.Now);
+                Log.Information("Successfully updated department: {DepartmentName} at {Time}", departmentToUpdate.DepartmentName, DateTime.Now);
             }
         }
         else
         {
             departmentService.CreateDepartment(CurrentDepartment);
-            Logger.Information("Successfully added new department: {DepartmentName} at {Time}", CurrentDepartment.DepartmentName, DateTime.Now);
+            Log.Information("Successfully added new department: {DepartmentName} at {Time}", CurrentDepartment.DepartmentName, DateTime.Now);
         }
 
         LoadDepartments();
@@ -172,15 +170,15 @@ else
 
     private void DeleteDepartment(int departmentId)
     {
-        Logger.Information("Deleting department with ID: {DepartmentId} at {Time}", departmentId, DateTime.Now);
+        Log.Information("Deleting department with ID: {DepartmentId} at {Time}", departmentId, DateTime.Now);
         departmentService.SetDepartmentActiveStatus(departmentId, false);
         departments = departments.Where(d => d.DepId != departmentId).ToList();
-        Logger.Information("Successfully deleted department with ID: {DepartmentId} at {Time}", departmentId, DateTime.Now);
+        Log.Information("Successfully deleted department with ID: {DepartmentId} at {Time}", departmentId, DateTime.Now);
     }
 
     private void ResetForm()
     {
-        Logger.Information("Resetting department form at {Time}", DateTime.Now);
+        Log.Information("Resetting department form at {Time}", DateTime.Now);
         CurrentDepartment = new DepartmentDTO();
         FormTitle = "Add Department";
     }

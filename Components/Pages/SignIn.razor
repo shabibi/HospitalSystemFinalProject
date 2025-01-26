@@ -5,7 +5,6 @@
 @inject IUserService UserService
 @inject NavigationManager NavigationManager
 @inject IAuthService authService
- 
 
 <div class="flex justify-center items-center h-screen">
     <div class="w-full max-w-sm bg-white p-6 shadow-lg rounded-md">
@@ -16,13 +15,13 @@
             <ValidationSummary />
 
             <div class="my-4">
-                <MudTextField Label="Email" @bind-Value="loginModel.Email" For="@(() => loginModel.Email)"
+                <MudTextField Label="Email" @bind-Value="loginModel.Email" For="@(() => loginModel.Email)" 
                               Variant="Variant.Outlined" FullWidth="true" />
                 <ValidationMessage For="@(() => loginModel.Email)" />
             </div>
 
             <div class="my-4">
-                <MudTextField Label="Password" @bind-Value="loginModel.Password" For="@(() => loginModel.Password)"
+                <MudTextField Label="Password" @bind-Value="loginModel.Password" For="@(() => loginModel.Password)" 
                               InputType="InputType.Password" Variant="Variant.Outlined" FullWidth="true" />
                 <ValidationMessage For="@(() => loginModel.Password)" />
             </div>
@@ -59,7 +58,7 @@
 
     private async Task HandleLogin()
     {
-        Logger.Information("Attempting login for email: {Email}", loginModel.Email);
+        Log.Information("Attempting login for email: {Email}", loginModel.Email);
 
         try
         {
@@ -69,24 +68,24 @@
             {
                 errorMessage = "Login failed. Please check your credentials.";
                 successMessage = null;
-                Logger.Warning("Login failed for email: {Email}. Invalid credentials.", loginModel.Email);
+                Log.Warning("Login failed for email: {Email}. Invalid credentials.", loginModel.Email);
             }
             else
             {
                 successMessage = "Login successful! Redirecting...";
                 errorMessage = null;
-                Logger.Information("Login successful for user: {Email} with role: {Role}", authenticatedUser.Email, authenticatedUser.Role);
+                Log.Information("Login successful for user: {Email} with role: {Role}", authenticatedUser.Email, authenticatedUser.Role);
 
                 authService.GenerateToken(authenticatedUser);
 
                 if (authenticatedUser.Role == "admin" || authenticatedUser.Role == "superAdmin")
                 {
-                    Logger.Information("Redirecting admin user: {Email} to /StaffPage.", authenticatedUser.Email);
+                    Log.Information("Redirecting admin user: {Email} to /StaffPage.", authenticatedUser.Email);
                     NavigationManager.NavigateTo("/StaffPage");
                 }
                 else
                 {
-                    Logger.Information("Redirecting user: {Email} to home page.", authenticatedUser.Email);
+                    Log.Information("Redirecting user: {Email} to home page.", authenticatedUser.Email);
                     NavigationManager.NavigateTo("/");
                 }
             }
@@ -95,7 +94,7 @@
         {
             errorMessage = "An unexpected error occurred. Please try again.";
             successMessage = null;
-            Logger.Error("An error occurred during login for email: {Email}. Error: {ErrorMessage}", loginModel.Email, ex.Message);
+            Log.Error("An error occurred during login for email: {Email}. Error: {ErrorMessage}", loginModel.Email, ex.Message);
         }
     }
 

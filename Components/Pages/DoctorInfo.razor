@@ -1,52 +1,51 @@
 ﻿@page "/doctor_info/{doctorId:int}"
 @inject IDoctorService DoctorService
 @inject IDepartmentService DepartmentService
- 
 
 <MudContainer MaxWidth="MaxWidth.Medium" Class="my-5">
     @if (DoctorDetails != null)
     {
-            <MudText Typo="Typo.h3" Align="Align.Center" Style="color: #1B7D84;">@DoctorDetails.UserName</MudText>
-            <MudText Typo="Typo.subtitle1" Align="Align.Center" Style="color: #33BEC8;">@DoctorDetails.Level - @CapitalizeWords(DepartmentName)</MudText>
+        <MudText Typo="Typo.h3" Align="Align.Center" Style="color: #1B7D84;">@DoctorDetails.UserName</MudText>
+        <MudText Typo="Typo.subtitle1" Align="Align.Center" Style="color: #33BEC8;">@DoctorDetails.Level - @CapitalizeWords(DepartmentName)</MudText>
 
-            <MudCard Class="mt-5">
-                <MudCardContent>
-                    <MudGrid>
-                        <!-- Doctor Image -->
-                        <MudItem xs="12" md="4" Class="d-flex justify-center align-center">
-                            <div style="width: 100%; max-width: 200px; height: auto; overflow: hidden;">
-                                <img src="@($"/Images/Users/Doctors/{DoctorDetails.UID}.webp" ?? "/Images/Users/Doctors/defaultDoctor.png")"
-                                     alt="@DoctorDetails.UserName"
-                                     style="width: 100%; height: auto; border-radius: 4px; border: 1px solid #ccc;" />
-                            </div>
-                        </MudItem>
+        <MudCard Class="mt-5">
+            <MudCardContent>
+                <MudGrid>
+                    <!-- Doctor Image -->
+                    <MudItem xs="12" md="4" Class="d-flex justify-center align-center">
+                        <div style="width: 100%; max-width: 200px; height: auto; overflow: hidden;">
+                            <img src="@($"/Images/Users/Doctors/{DoctorDetails.UID}.webp" ?? "/Images/Users/Doctors/defaultDoctor.png")"
+                                 alt="@DoctorDetails.UserName"
+                                 style="width: 100%; height: auto; border-radius: 4px; border: 1px solid #ccc;" />
+                        </div>
+                    </MudItem>
 
-                        <!-- Doctor Information -->
-                        <MudItem xs="12" md="8">
-                            <MudGrid>
-                                <!-- Personal Information -->
-                                <MudItem xs="12" md="12">
-                                    <MudDivider Class="my-2" />
-                                    <MudText Typo="Typo.body1"><b>Email:</b> @DoctorDetails.Email</MudText>
-                                    <MudText Typo="Typo.body1"><b>Phone:</b> @DoctorDetails.Phone</MudText>
-                                </MudItem>
+                    <!-- Doctor Information -->
+                    <MudItem xs="12" md="8">
+                        <MudGrid>
+                            <!-- Personal Information -->
+                            <MudItem xs="12" md="12">
+                                <MudDivider Class="my-2" />
+                                <MudText Typo="Typo.body1"><b>Email:</b> @DoctorDetails.Email</MudText>
+                                <MudText Typo="Typo.body1"><b>Phone:</b> @DoctorDetails.Phone</MudText>
+                            </MudItem>
 
-                                <!-- Professional Information -->
-                                <MudItem xs="12" md="12">
-                                    <MudDivider Class="my-2" />
-                                    <MudText Typo="Typo.body1"><b>Degree:</b> @DoctorDetails.Degree</MudText>
-                                    <MudText Typo="Typo.body1"><b>Clinic:</b> @DoctorDetails.CurrentBrunch</MudText>
-                                    <MudText Typo="Typo.body1"><b>Department:</b> @CapitalizeWords(DepartmentName)</MudText>
-                                </MudItem>
-                            </MudGrid>
-                        </MudItem>
-                    </MudGrid>
-                </MudCardContent>
-            </MudCard>
+                            <!-- Professional Information -->
+                            <MudItem xs="12" md="12">
+                                <MudDivider Class="my-2" />
+                                <MudText Typo="Typo.body1"><b>Degree:</b> @DoctorDetails.Degree</MudText>
+                                <MudText Typo="Typo.body1"><b>Clinic:</b> @DoctorDetails.CurrentBrunch</MudText>
+                                <MudText Typo="Typo.body1"><b>Department:</b> @CapitalizeWords(DepartmentName)</MudText>
+                            </MudItem>
+                        </MudGrid>
+                    </MudItem>
+                </MudGrid>
+            </MudCardContent>
+        </MudCard>
     }
     else
     {
-            <MudText Typo="Typo.body1" Align="Align.Center" Style="color: gray;">Loading doctor information...</MudText>
+        <MudText Typo="Typo.body1" Align="Align.Center" Style="color: gray;">Loading doctor information...</MudText>
     }
 </MudContainer>
 
@@ -59,29 +58,29 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        Logger.Information("Navigating to doctor_info page for Doctor ID: {DoctorId} at {Time}", DoctorId, DateTime.Now);
+        Log.Information("Navigating to doctor_info page for Doctor ID: {DoctorId} at {Time}", DoctorId, DateTime.Now);
 
         try
         {
-            Logger.Information("Fetching details for Doctor ID: {DoctorId} at {Time}", DoctorId, DateTime.Now);
+            Log.Information("Fetching details for Doctor ID: {DoctorId} at {Time}", DoctorId, DateTime.Now);
 
             DoctorDetails = DoctorService.GetDoctorDetailsById(DoctorId);
 
             if (DoctorDetails != null)
             {
-                Logger.Information("Successfully fetched details for Doctor ID: {DoctorId} at {Time}", DoctorId, DateTime.Now);
+                Log.Information("Successfully fetched details for Doctor ID: {DoctorId} at {Time}", DoctorId, DateTime.Now);
 
                 DepartmentName = DepartmentService.GetDepartmentName(DoctorDetails.DepId);
-                Logger.Information("Fetched department name: {DepartmentName} for Department ID: {DepId} at {Time}", DepartmentName, DoctorDetails.DepId, DateTime.Now);
+                Log.Information("Fetched department name: {DepartmentName} for Department ID: {DepId} at {Time}", DepartmentName, DoctorDetails.DepId, DateTime.Now);
             }
             else
             {
-                Logger.Warning("No details found for Doctor ID: {DoctorId} at {Time}", DoctorId, DateTime.Now);
+                Log.Warning("No details found for Doctor ID: {DoctorId} at {Time}", DoctorId, DateTime.Now);
             }
         }
         catch (Exception ex)
         {
-            Logger.Error("Error fetching doctor info for Doctor ID: {DoctorId}. Error: {Error} at {Time}", DoctorId, ex.Message, DateTime.Now);
+            Log.Error("Error fetching doctor info for Doctor ID: {DoctorId}. Error: {Error} at {Time}", DoctorId, ex.Message, DateTime.Now);
         }
     }
 
@@ -89,12 +88,12 @@
     {
         if (string.IsNullOrWhiteSpace(input))
         {
-            Logger.Warning("CapitalizeWords called with null or empty input at {Time}", DateTime.Now);
+            Log.Warning("CapitalizeWords called with null or empty input at {Time}", DateTime.Now);
             return input;
         }
 
         var cultureInfo = System.Globalization.CultureInfo.CurrentCulture;
-        Logger.Information("Capitalizing words for input: {Input} at {Time}", input, DateTime.Now);
+        Log.Information("Capitalizing words for input: {Input} at {Time}", input, DateTime.Now);
         return cultureInfo.TextInfo.ToTitleCase(input.ToLower());
     }
 }

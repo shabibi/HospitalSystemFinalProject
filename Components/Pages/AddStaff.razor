@@ -7,10 +7,6 @@
 @inject IBranchService branchService
 @inject IDepartmentService departmentService
 @inject IBranchDepartmentService branchDepartmentService
- 
-@inject ISMS smsService
-
-
 
 <MudPaper Elevation="4" Class="form-container" Style="width: 100%; align-content:center;" Align="Align.Center">
     <MudText Typo="Typo.h3" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">
@@ -101,7 +97,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Logger.Information("Navigated to Add Staff page at {Time}", DateTime.Now);
+        Log.Information("Navigated to Add Staff page at {Time}", DateTime.Now);
 
         try
         {
@@ -109,20 +105,20 @@
             if (!branches.Any())
             {
                 Snackbar.Add("No branches found.", Severity.Warning);
-                Logger.Warning("No branches found at {Time}", DateTime.Now);
+                Log.Warning("No branches found at {Time}", DateTime.Now);
             }
 
             departments = await Task.Run(() => departmentService.GetAllDepartments().ToList());
             if (!departments.Any())
             {
                 Snackbar.Add("No departments available.", Severity.Warning);
-                Logger.Warning("No departments available at {Time}", DateTime.Now);
+                Log.Warning("No departments available at {Time}", DateTime.Now);
             }
         }
         catch (Exception ex)
         {
             Snackbar.Add($"Error loading branches: {ex.Message}", Severity.Error);
-            Logger.Error("Error loading branches: {Error} at {Time}", ex.Message, DateTime.Now);
+            Log.Error("Error loading branches: {Error} at {Time}", ex.Message, DateTime.Now);
         }
     }
 
@@ -136,18 +132,18 @@
                 if (departmentIds == null || !departmentIds.Any())
                 {
                     Snackbar.Add("No departments found for the selected branch.", Severity.Warning);
-                    Logger.Warning("No departments found for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
+                    Log.Warning("No departments found for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
                     return;
                 }
 
                 departments.Clear();
                 departments = departmentIds.ToList();
-                Logger.Information("Departments loaded for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
+                Log.Information("Departments loaded for branch ID {BranchId} at {Time}", selectedBranchId, DateTime.Now);
             }
             catch (Exception ex)
             {
                 Snackbar.Add($"Error loading departments for branch: {ex.Message}", Severity.Error);
-                Logger.Error("Error loading departments for branch ID {BranchId}: {Error} at {Time}", selectedBranchId, ex.Message, DateTime.Now);
+                Log.Error("Error loading departments for branch ID {BranchId}: {Error} at {Time}", selectedBranchId, ex.Message, DateTime.Now);
             }
         }
     }
@@ -158,7 +154,7 @@
         {
             try
             {
-                Logger.Information("Adding new staff with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
+                Log.Information("Adding new staff with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
                 await userService.AddStaff(newStaffInput);
 
                 if (newStaffInput.Role == "Doctor" && selectedDepartment != 0)
@@ -166,27 +162,11 @@
                     doctorInput.DID = newStaffInput.UID;
                     doctorInput.DepID = selectedDepartment;
                     doctorService.AddDoctor(doctorInput);
-                    Logger.Information("Doctor-specific details added for UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
+                    Log.Information("Doctor-specific details added for UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
                 }
 
-                // Validate and send SMS if phone number is valid
-
-                //Comm for test
-
-                // if (!string.IsNullOrEmpty(newStaffInput.Phone) && IsValidPhoneNumber(newStaffInput.Phone))
-                // {
-                //     var message = $"Hello {newStaffInput.UserName}, your account as a {newStaffInput.Role} has been created successfully.";
-                //     await smsService.SendSmsAsync(newStaffInput.Phone, message);
-                // }
-                // else
-                // {
-                //     Snackbar.Add("Invalid phone number format. Please ensure it includes the country code.", Severity.Error);
-                //     return;
-                // }
-
-
                 Snackbar.Add("New staff member added successfully!", Severity.Success);
-                Logger.Information("New staff added successfully with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
+                Log.Information("New staff added successfully with UserName: {UserName} at {Time}", newStaffInput.UserName, DateTime.Now);
 
                 await Task.Delay(2000);
                 NavigateBack();
@@ -194,26 +174,19 @@
             catch (Exception ex)
             {
                 Snackbar.Add($"Error adding staff: {ex.Message}", Severity.Error);
-                Logger.Error("Error adding new staff with UserName: {UserName}. Error: {Error} at {Time}", newStaffInput.UserName, ex.Message, DateTime.Now);
+                Log.Error("Error adding new staff with UserName: {UserName}. Error: {Error} at {Time}", newStaffInput.UserName, ex.Message, DateTime.Now);
             }
         }
         else
         {
             Snackbar.Add("Please fill out all required fields.", Severity.Warning);
-            Logger.Warning("Form submission failed due to validation errors at {Time}", DateTime.Now);
+            Log.Warning("Form submission failed due to validation errors at {Time}", DateTime.Now);
         }
     }
 
     private void NavigateBack()
     {
-        Logger.Information("User canceled Add Staff operation at {Time}", DateTime.Now);
+        Log.Information("User canceled Add Staff operation at {Time}", DateTime.Now);
         NavigationManager.NavigateTo("/Staff");
-    }
-    // Phone number validation method
-    private bool IsValidPhoneNumber(string phoneNumber)
-    {
-        // Check if phone number starts with a plus sign and contains only digits after it
-        var regex = new System.Text.RegularExpressions.Regex(@"^\+(\d{1,3})\d{7,14}$");
-        return regex.IsMatch(phoneNumber);
     }
 }

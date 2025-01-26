@@ -1,7 +1,6 @@
 ﻿@page "/"
 @inject NavigationManager NavigationManager
 @inject IBranchService BranchService
- 
 
 <PageTitle>Home</PageTitle>
 
@@ -112,16 +111,16 @@
 
     protected override void OnInitialized()
     {
-        Logger.Information("Home page initialized at {Time}", DateTime.Now);
+        Log.Information("Home page initialized at {Time}", DateTime.Now);
 
         try
         {
             branches = BranchService.GetAllBranches().ToList();
-            Logger.Information("Fetched {Count} branches from the service at {Time}", branches.Count, DateTime.Now);
+            Log.Information("Fetched {Count} branches from the service at {Time}", branches.Count, DateTime.Now);
         }
         catch (Exception ex)
         {
-            Logger.Error("Error fetching branches: {Error} at {Time}", ex.Message, DateTime.Now);
+            Log.Error("Error fetching branches: {Error} at {Time}", ex.Message, DateTime.Now);
         }
     }
 
@@ -129,35 +128,35 @@
     {
         if (string.IsNullOrEmpty(branchName))
         {
-            Logger.Warning("Branch selection was attempted, but branch name is null or empty at {Time}", DateTime.Now);
+            Log.Warning("Branch selection was attempted, but branch name is null or empty at {Time}", DateTime.Now);
             return;
         }
 
         try
         {
-            Logger.Information("Fetching details for branch: {BranchName} at {Time}", branchName, DateTime.Now);
+            Log.Information("Fetching details for branch: {BranchName} at {Time}", branchName, DateTime.Now);
 
             branchDetails = BranchService.GetBranchDetailsByBranchName(branchName);
 
             if (branchDetails != null)
             {
-                Logger.Information("Successfully fetched details for branch: {BranchName} at {Time}", branchName, DateTime.Now);
+                Log.Information("Successfully fetched details for branch: {BranchName} at {Time}", branchName, DateTime.Now);
             }
             else
             {
-                Logger.Warning("No details found for branch: {BranchName} at {Time}", branchName, DateTime.Now);
+                Log.Warning("No details found for branch: {BranchName} at {Time}", branchName, DateTime.Now);
             }
         }
         catch (KeyNotFoundException ex)
         {
-            Logger.Error("Branch not found: {Error} at {Time}", ex.Message, DateTime.Now);
+            Log.Error("Branch not found: {Error} at {Time}", ex.Message, DateTime.Now);
             branchDetails = null;
         }
     }
 
     private void NavigateToGitHub()
     {
-        Logger.Information("Navigating to GitHub repository at {Time}", DateTime.Now);
+        Log.Information("Navigating to GitHub repository at {Time}", DateTime.Now);
         NavigationManager.NavigateTo("https://github.com/shabibi/HospitalSystemFinalProject", true);
     }
 }

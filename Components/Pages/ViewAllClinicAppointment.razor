@@ -4,7 +4,6 @@
 
 @inject IBookingService bookingService
 @inject IClinicService clinicService
- 
 
 <h3>Appointments for Clinic @clinicId - @clinicName</h3> <!-- Display clinic name here -->
 
@@ -64,13 +63,13 @@
     {
         try
         {
-            Logger.Information("Initializing ViewAllClinicAppointments page for Clinic ID: {ClinicId}", clinicId);
+            Log.Information("Initializing ViewAllClinicAppointments page for Clinic ID: {ClinicId}", clinicId);
             await LoadAppointments(); // Load appointments on page initialization
             await LoadClinicName();   // Load clinic name
         }
         catch (Exception ex)
         {
-            Logger.Error("Error initializing ViewAllClinicAppointments page for Clinic ID: {ClinicId}. Error: {ErrorMessage}", clinicId, ex.Message);
+            Log.Error("Error initializing ViewAllClinicAppointments page for Clinic ID: {ClinicId}. Error: {ErrorMessage}", clinicId, ex.Message);
         }
     }
 
@@ -78,7 +77,7 @@
     {
         try
         {
-            Logger.Information("Loading appointments for Clinic ID: {ClinicId}", clinicId);
+            Log.Information("Loading appointments for Clinic ID: {ClinicId}", clinicId);
             appointments = bookingService.GetAllBooking()
                                          .Where(a => a.CID == clinicId)
                                          .ToList();
@@ -97,11 +96,11 @@
                 .OrderBy(t => t)
                 .ToList();
 
-            Logger.Information("Successfully loaded {Count} appointments for Clinic ID: {ClinicId}", appointments.Count(), clinicId);
+            Log.Information("Successfully loaded {Count} appointments for Clinic ID: {ClinicId}", appointments.Count(), clinicId);
         }
         catch (Exception ex)
         {
-            Logger.Error("Error loading appointments for Clinic ID: {ClinicId}. Error: {ErrorMessage}", clinicId, ex.Message);
+            Log.Error("Error loading appointments for Clinic ID: {ClinicId}. Error: {ErrorMessage}", clinicId, ex.Message);
         }
     }
 
@@ -109,21 +108,21 @@
     {
         try
         {
-            Logger.Information("Loading clinic name for Clinic ID: {ClinicId}", clinicId);
+            Log.Information("Loading clinic name for Clinic ID: {ClinicId}", clinicId);
             var clinic = clinicService.GetClinicById(clinicId); // Assuming you have this method in the service
             if (clinic != null)
             {
                 clinicName = clinic.ClincName; // Replace with actual property for clinic name
-                Logger.Information("Loaded clinic name: {ClinicName} for Clinic ID: {ClinicId}", clinicName, clinicId);
+                Log.Information("Loaded clinic name: {ClinicName} for Clinic ID: {ClinicId}", clinicName, clinicId);
             }
             else
             {
-                Logger.Warning("Clinic not found for Clinic ID: {ClinicId}", clinicId);
+                Log.Warning("Clinic not found for Clinic ID: {ClinicId}", clinicId);
             }
         }
         catch (Exception ex)
         {
-            Logger.Error("Error loading clinic name for Clinic ID: {ClinicId}. Error: {ErrorMessage}", clinicId, ex.Message);
+            Log.Error("Error loading clinic name for Clinic ID: {ClinicId}. Error: {ErrorMessage}", clinicId, ex.Message);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿@page "/Department"
 @inject NavigationManager NavigationManager
 @inject IDepartmentService DepartmentService
- 
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="my-5">
     <!-- Title -->
@@ -61,11 +60,11 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Logger.Information("Navigated to Department page at {Time}", DateTime.Now);
+        Log.Information("Navigated to Department page at {Time}", DateTime.Now);
 
         try
         {
-            Logger.Information("Fetching all departments at {Time}", DateTime.Now);
+            Log.Information("Fetching all departments at {Time}", DateTime.Now);
 
             // Fetch all departments
             var departmentDtos = DepartmentService.GetAllDepartments().ToList();
@@ -82,11 +81,11 @@
             // Initialize filtered list
             FilteredDepartments = new List<DepartmentViewModel>(Departments);
 
-            Logger.Information("Successfully fetched and mapped {Count} departments at {Time}", Departments.Count, DateTime.Now);
+            Log.Information("Successfully fetched and mapped {Count} departments at {Time}", Departments.Count, DateTime.Now);
         }
         catch (Exception ex)
         {
-            Logger.Error("Error loading departments. Error: {Error} at {Time}", ex.Message, DateTime.Now);
+            Log.Error("Error loading departments. Error: {Error} at {Time}", ex.Message, DateTime.Now);
         }
     }
 
@@ -94,7 +93,7 @@
     {
         SearchQuery = searchQuery;
 
-        Logger.Information("Search query updated to: {SearchQuery} at {Time}", SearchQuery, DateTime.Now);
+        Log.Information("Search query updated to: {SearchQuery} at {Time}", SearchQuery, DateTime.Now);
 
         // Perform live filtering
         FilteredDepartments = string.IsNullOrWhiteSpace(SearchQuery)
@@ -103,12 +102,12 @@
                                      d.Description.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase))
                          .ToList();
 
-        Logger.Information("Filtered departments count: {Count} after search query update at {Time}", FilteredDepartments.Count, DateTime.Now);
+        Log.Information("Filtered departments count: {Count} after search query update at {Time}", FilteredDepartments.Count, DateTime.Now);
     }
 
     private void NavigateToBranch(int departmentId)
     {
-        Logger.Information("Navigating to DepartmentBranch page for Department ID: {DepartmentId} at {Time}", departmentId, DateTime.Now);
+        Log.Information("Navigating to DepartmentBranch page for Department ID: {DepartmentId} at {Time}", departmentId, DateTime.Now);
         NavigationManager.NavigateTo($"/DepartmentBranch/{departmentId}");
     }
 
@@ -118,7 +117,7 @@
         const int maxLength = 80;
         if (description.Length > maxLength)
         {
-            Logger.Information("Shortening description for department at {Time}", DateTime.Now);
+            Log.Information("Shortening description for department at {Time}", DateTime.Now);
             return description.Substring(0, maxLength) + "...";
         }
         return description;

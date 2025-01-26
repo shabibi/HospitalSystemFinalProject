@@ -2,7 +2,6 @@
 @inject IUserService UserService
 @inject IDoctorService DoctorService
 @inject IDepartmentService DepartmentService
- 
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="my-5">
     <!-- Title -->
@@ -63,7 +62,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Logger.Information("Initializing Our Doctors page at {Time}", DateTime.Now);
+        Log.Information("Initializing Our Doctors page at {Time}", DateTime.Now);
 
         try
         {
@@ -95,17 +94,17 @@
 
             // Initialize filtered list
             FilteredDoctors = new List<UserOutputDTO>(Doctors);
-            Logger.Information("Successfully loaded {Count} doctors at {Time}", Doctors.Count, DateTime.Now);
+            Log.Information("Successfully loaded {Count} doctors at {Time}", Doctors.Count, DateTime.Now);
         }
         catch (Exception ex)
         {
-            Logger.Error("Error loading doctors or departments: {Error} at {Time}", ex.Message, DateTime.Now);
+            Log.Error("Error loading doctors or departments: {Error} at {Time}", ex.Message, DateTime.Now);
         }
     }
 
     private void OnSearchChanged(string searchQuery)
     {
-        Logger.Information("Search query updated: {Query} at {Time}", searchQuery, DateTime.Now);
+        Log.Information("Search query updated: {Query} at {Time}", searchQuery, DateTime.Now);
 
         SearchQuery = searchQuery;
 
@@ -118,11 +117,11 @@
                                      (departmentNames.ContainsKey(d.UID) && departmentNames[d.UID].Contains(SearchQuery, StringComparison.OrdinalIgnoreCase)))
                          .ToList();
 
-            Logger.Information("Filtered results: {Count} doctors found for query '{Query}' at {Time}", FilteredDoctors.Count, SearchQuery, DateTime.Now);
+            Log.Information("Filtered results: {Count} doctors found for query '{Query}' at {Time}", FilteredDoctors.Count, SearchQuery, DateTime.Now);
         }
         catch (Exception ex)
         {
-            Logger.Error("Error during search filtering: {Error} at {Time}", ex.Message, DateTime.Now);
+            Log.Error("Error during search filtering: {Error} at {Time}", ex.Message, DateTime.Now);
         }
     }
 
@@ -131,7 +130,7 @@
         // Return default image if doctor image is null or empty
         if (string.IsNullOrEmpty(imagePath))
         {
-            Logger.Warning("No image found for doctor ID: {DoctorId} at {Time}", doctorId, DateTime.Now);
+            Log.Warning("No image found for doctor ID: {DoctorId} at {Time}", doctorId, DateTime.Now);
             return "/Images/Users/Doctors/maleDoctor.png";
         }
 

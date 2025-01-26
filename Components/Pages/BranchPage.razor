@@ -1,7 +1,6 @@
 ﻿@page "/BranchPage"
 @inject IBranchService branchService
 @inject NavigationManager Navigation
- 
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="my-5">
     <MudText Typo="Typo.h3" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">
@@ -42,23 +41,23 @@
 
     protected override void OnInitialized()
     {
-        Logger.Information("Navigated to BranchPage at {Time}", DateTime.Now);
+        Log.Information("Navigated to BranchPage at {Time}", DateTime.Now);
 
         try
         {
-            Logger.Information("Fetching all branches at {Time}", DateTime.Now);
+            Log.Information("Fetching all branches at {Time}", DateTime.Now);
             branches = branchService.GetAllBranches().ToList();
-            Logger.Information("Successfully fetched {Count} branches at {Time}", branches.Count, DateTime.Now);
+            Log.Information("Successfully fetched {Count} branches at {Time}", branches.Count, DateTime.Now);
         }
         catch (Exception ex)
         {
-            Logger.Error("Error fetching branches. Error: {Error} at {Time}", ex.Message, DateTime.Now);
+            Log.Error("Error fetching branches. Error: {Error} at {Time}", ex.Message, DateTime.Now);
         }
     }
 
     private void ShowDetails(int branchId)
     {
-        Logger.Information("Navigating to BranchDepartmentPage for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
+        Log.Information("Navigating to BranchDepartmentPage for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
         Navigation.NavigateTo($"/BranchDepartmentPage/{branchId}");
     }
 
@@ -66,7 +65,7 @@
     {
         try
         {
-            Logger.Information("Getting branch image for branch: {BranchName} at {Time}", branchName, DateTime.Now);
+            Log.Information("Getting branch image for branch: {BranchName} at {Time}", branchName, DateTime.Now);
 
             string imagesFolder = Path.Combine("wwwroot", "images");
             string[] availableImages = Directory.GetFiles(imagesFolder, "*.png");
@@ -76,16 +75,16 @@
                 string imageName = Path.GetFileNameWithoutExtension(imagePath).ToLower();
                 if (branchName.ToLower().Contains(imageName))
                 {
-                    Logger.Information("Match found for branch image: {ImageName} at {Time}", imageName, DateTime.Now);
+                    Log.Information("Match found for branch image: {ImageName} at {Time}", imageName, DateTime.Now);
                     return $"images/{Path.GetFileName(imagePath)}";
                 }
             }
 
-            Logger.Warning("No match found for branch image. Falling back to default image for branch: {BranchName} at {Time}", branchName, DateTime.Now);
+            Log.Warning("No match found for branch image. Falling back to default image for branch: {BranchName} at {Time}", branchName, DateTime.Now);
         }
         catch (Exception ex)
         {
-            Logger.Error("Error retrieving branch image for branch: {BranchName}. Error: {Error} at {Time}", branchName, ex.Message, DateTime.Now);
+            Log.Error("Error retrieving branch image for branch: {BranchName}. Error: {Error} at {Time}", branchName, ex.Message, DateTime.Now);
         }
 
         return "images/default.png";

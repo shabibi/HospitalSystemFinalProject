@@ -7,7 +7,6 @@
 @inject IUserService userService
 @inject IPatientService patientService
 @inject ISnackbar Snackbar
- 
 
 <h3>Sign Up</h3>
 <MudGrid>
@@ -66,7 +65,7 @@
 
         if (form.IsValid)
         {
-            Logger.Information("Registering user with email: {Email}", newUser.Email);
+            Log.Information("Registering user with email: {Email}", newUser.Email);
 
             try
             {
@@ -84,7 +83,7 @@
                 // Call AddPatient service
                 patientService.AddPatient(newPatient);
 
-                Logger.Information("Registration successful for user: {Email}", newUser.Email);
+                Log.Information("Registration successful for user: {Email}", newUser.Email);
 
                 // Success message
                 Snackbar.Add("Registration successful!", Severity.Success);
@@ -96,12 +95,12 @@
             {
                 errors = new string[] { ex.Message }; // Capture any error that occurred
                 Snackbar.Add($"An error occurred: {ex.Message}", Severity.Error);
-                Logger.Error("Error registering user with email: {Email}. Error: {Message}", newUser.Email, ex.Message);
+                Log.Error("Error registering user with email: {Email}. Error: {Message}", newUser.Email, ex.Message);
             }
         }
         else
         {
-            Logger.Warning("Form validation failed for email: {Email}", newUser.Email);
+            Log.Warning("Form validation failed for email: {Email}", newUser.Email);
         }
     }
 
