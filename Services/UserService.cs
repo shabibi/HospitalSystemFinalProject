@@ -82,7 +82,7 @@ namespace HospitalSystemTeamTask.Services
 
 
         //Add hospital stuff (admin or doctor ) 
-        public async Task AddStaff(User InputUser)
+        public int AddStaff(User InputUser)
         {
             if (InputUser.Role.ToLower() != "doctor" && InputUser.Role.ToLower() != "admin")
                 throw new ArgumentException("Invalid role. Only 'doctor' and 'admin' roles are allowed.", nameof(InputUser.Role));
@@ -121,13 +121,13 @@ namespace HospitalSystemTeamTask.Services
                           $"Please change your password after logging in.\n\nBest Regards,\nYour Super Admin";
 
             // Send email asynchronously
-            await _email.SendEmailAsync("hospitalproject2025@outlook.com", subject, body);
+             _email.SendEmailAsync("hospitalproject2025@outlook.com", subject, body);
 
             // Send SMS
 
 
             // Add user to the database
-            _userRepo.AddUser(newStaff);
+            return _userRepo.AddUser(newStaff);
         }
 
         // Deactivate user

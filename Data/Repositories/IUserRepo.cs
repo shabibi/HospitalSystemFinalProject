@@ -9,7 +9,7 @@ namespace HospitalSystemTeamTask.Repositories
         User GetUserById(int uid);
 
         
-        void AddUser(User user);
+        int AddUser(User user);
 
         User GetUserByEmail(string email);
 

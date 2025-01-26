@@ -10,6 +10,7 @@ namespace HospitalSystemTeamTask.Services
         IEnumerable<Branch> GetBranchsByDepartment(int did);
         void UpdateBranchDepartment(BranchDepartment branchDepartment);
         BranchDepartment GetBranchDep(int departmentId, int branchId);
+        IEnumerable<DepDTO> GetDepartmentsByBranchName(string branchName);
 
     }
 }

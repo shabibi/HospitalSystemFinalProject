@@ -72,11 +72,15 @@
                 successMessage = "Login successful! Redirecting...";
                 errorMessage = null;
 
-                 authService.GenerateToken(authenticatedUser);
+                authService.GenerateToken(authenticatedUser);
 
-                if (authenticatedUser.Role == "admin" || authenticatedUser.Role == "superAdmin")
+                if (authenticatedUser.Role == "Admin" || authenticatedUser.Role =="admin" || authenticatedUser.Role == "superAdmin")
                 {
                     NavigationManager.NavigateTo("/StaffPage");
+                }
+                else if (authenticatedUser.Role == "doctor")
+                {
+                    NavigationManager.NavigateTo("/DoctorPage");
                 }
                 else
                 {
