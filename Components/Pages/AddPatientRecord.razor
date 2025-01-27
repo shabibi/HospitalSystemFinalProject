@@ -1,0 +1,70 @@
+﻿@page "/AddPatientRecord"
+@layout DoctorLayout
+@inject IPatientRecordService patientRecordService
+@inject IAuthService authservice
+@inject NavigationManager NavigationManager
+@inject ISnackbar Snackbar
+
+<h3 style="color: #1B7D84;">Add New Patient Record</h3>
+
+<MudForm @ref="form" Model="@newPatientRecord" OnValidSubmit="HandleValidSubmit">
+    <MudTextField T="int" Label="Patient ID" @bind-Value="newPatientRecord.PtientID" Required="true" />
+    <MudTextField T="string" Label="Treatment" @bind-Value="newPatientRecord.Treatment" Required="true" />
+    <MudTextField T="string" Label="Inspection" @bind-Value="newPatientRecord.Inspection" Required="true" />
+
+    <MudButton Type="Submit" Variant="Variant.Filled" Style="margin-top: 20px; background-color: #1B7D84; border-color: #1B7D84; color: white;">
+        Save Record
+    </MudButton>
+</MudForm>
+
+@code {
+    private PatientRecordInputDTO newPatientRecord = new PatientRecordInputDTO();
+    private MudForm form;
+
+    [Parameter] public int DoctorId { get; set; }  // This will capture the DoctorId from the URL
+
+    protected override async Task OnInitializedAsync()
+    {
+        // You already have a check to get the logged-in Doctor's ID
+        // If you want to keep the logic of logged-in Doctor ID as fallback, you can handle it here
+        if (DoctorId == 0)
+        {
+            try
+            {
+                // Fallback to get the logged-in Doctor's ID
+                DoctorId = await authservice.GetUserIdFromToken();
+                if (DoctorId == 0)
+                {
+                    Console.WriteLine("No doctor is logged in.");
+                    NavigationManager.NavigateTo("/ErrorPage");  // Handle error appropriately
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving user information: {ex.Message}");
+            }
+        }
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            // Create the patient record, passing the DoctorId
+            Task.Run(() => patientRecordService.CreateRecord(newPatientRecord, DoctorId));
+
+            // Navigate to Patient Records page after successful creation
+            NavigationManager.NavigateTo("/PatientRecords");
+        }
+        catch (Exception ex)
+        {
+            // Log the detailed error for debugging
+            Console.WriteLine($"Error creating record: {ex.Message}");
+
+            // Display an error message using MudSnackbar
+            Snackbar.Add($"Error adding patient record: {ex.Message}", Severity.Error);
+        }
+    }
+}
+
