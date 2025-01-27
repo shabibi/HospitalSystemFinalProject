@@ -1,0 +1,72 @@
+﻿@page "/PatientPage/{UserId:int}"
+@inject IBookingService AppointmentService
+@inject IClinicService ClinicService
+@inject IDepartmentService DepartmentService
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="my-5">
+    @if (BookedAppointments != null && BookedAppointments.Any())
+    {
+        <MudText Typo="Typo.h4" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">Patient's Booked Appointments</MudText>
+
+        <MudTable Items="BookedAppointments" Striped="true" Hover="true">
+            <HeaderContent>
+                <MudTh>Clinic Name</MudTh>
+                <MudTh>Department</MudTh>
+                <MudTh>Date</MudTh>
+                <MudTh>Time</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>@context.ClinicName</MudTd>
+                <MudTd>@context.DepartmentName</MudTd>
+                <MudTd>@context.Date.ToShortDateString()</MudTd>
+                <MudTd>@(new DateTime(context.Date.Year, context.Date.Month, context.Date.Day, context.StartTime.Hours, context.StartTime.Minutes, 0).ToString("hh:mm tt"))</MudTd>
+            </RowTemplate>
+        </MudTable>
+    }
+    else if (BookedAppointments == null)
+    {
+        <MudText Typo="Typo.body1" Align="Align.Center"></MudText>
+    }
+</MudContainer>
+
+@code {
+    [Parameter]
+    public int UserId { get; set; }
+
+    private List<EnrichedBooking> BookedAppointments { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // Fetch all booked appointments for the specific patient
+            var appointments = AppointmentService.GetBookedAppointments(UserId)
+                .Where(a => a.Staus == true) // Filter only active appointments
+                .ToList();
+
+            // Enrich data with clinic and department names
+            BookedAppointments = appointments.Select(a => new EnrichedBooking
+                {
+                    CID = a.CID,
+                    Date = a.Date,
+                    StartTime = a.StartTime,
+                    ClinicName = ClinicService.GetClinicName(a.CID),
+                    DepartmentName = DepartmentService.GetDepartmentName(a.CID)
+                }).ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading appointments for User ID {UserId}: {ex.Message}");
+        }
+    }
+
+    // Enriched booking model with additional details
+    private class EnrichedBooking
+    {
+        public int CID { get; set; }
+        public DateTime Date { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public string ClinicName { get; set; }
+        public string DepartmentName { get; set; }
+    }
+}

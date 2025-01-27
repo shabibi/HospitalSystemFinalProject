@@ -90,7 +90,7 @@
                 else
                 {
                     Log.Information("Redirecting user: {Email} to home page.", authenticatedUser.Email);
-                    NavigationManager.NavigateTo("/");
+                    NavigationManager.NavigateTo($"/PatientPage/{authenticatedUser.UID}");
                 }
             }
         }
