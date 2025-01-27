@@ -5,7 +5,8 @@
 @inject IDepartmentService DepartmentService
 @inject IBookingService BookingService
 @inject NavigationManager NavigationManager
-
+@inject ISnackbar Snackbar
+ 
 <MudContainer MaxWidth="MaxWidth.Medium" Class="my-5" Style="align-items:center; margin-top: 100px;">
     <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84;">
         Clinic Management
@@ -237,7 +238,7 @@
             Log.Information("Loading appointments for Clinic ID: {ClinicId}", clinicId);
 
             appointments = BookingService.GetAllBooking()
-                                         .Where(a => a.CID == clinicId)
+                                         .Where(a => a.CID == clinicId && a.Date >= DateTime.Now)
                                          .ToList();
 
             if (appointments.Any())
@@ -287,20 +288,33 @@
             // Call the service to book the appointment
             BookingService.BookAppointment(bookingInput, patientId);
 
-            // Show success message
-            bookingStatusMessage = "Your appointment has been successfully booked!";
+            // Show success message in Snackbar
+            if (Snackbar != null)
+            {
+                Snackbar.Add("Your appointment has been successfully booked!", Severity.Success);
+            }
+
             Log.Information("Appointment successfully booked for Patient ID: {PatientId}", patientId);
+
+            // Navigate to patient page after success
+            NavigationManager.NavigateTo($"/PatientPage/{patientId}");
         }
         catch (InvalidOperationException ex)
         {
             // Handle expected errors
-            bookingStatusMessage = $"Booking failed: {ex.Message}";
+            if (Snackbar != null)
+            {
+                Snackbar.Add($"Booking failed: {ex.Message}", Severity.Error);
+            }
             Log.Warning("Booking failed for Patient ID: {PatientId}. Error: {Message}", patientId, ex.Message);
         }
         catch (Exception ex)
         {
             // Handle unexpected errors
-            bookingStatusMessage = "An unexpected error occurred while booking the appointment. Please try again.";
+            if (Snackbar != null)
+            {
+                Snackbar.Add("An unexpected error occurred while booking the appointment. Please try again.", Severity.Error);
+            }
             Log.Error("Unexpected error during booking for Patient ID: {PatientId}. Error: {Message}", patientId, ex.Message);
         }
     }
