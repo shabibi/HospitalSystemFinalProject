@@ -237,38 +237,15 @@ namespace HospitalSystemTeamTask.Services
             return booking;
         }
 
-        public IEnumerable<BookingOutputDTO> GetBookedAppointments(int? patientId, int? clinicId, int? departmentId, DateTime? date)
+        public IEnumerable<BookingOutputDTO> GetBookedAppointments(int patientId)
         {
             // Retrieve all bookings from the repository
             var bookings = _bookingRepo.GetAllBooking();
 
             // Filter only booked appointments (Staus == true)
-            var bookedAppointments = bookings.Where(b => b.Staus == true);
+            var bookedAppointments = bookings.Where(b => b.Staus == true && b.PID == patientId);
 
-            // Filter by clinicId if provided
-            if (clinicId.HasValue)
-            {
-                bookedAppointments = bookedAppointments.Where(b => b.CID == clinicId.Value);
-            }
-
-            // Filter by departmentId if provided
-            if (departmentId.HasValue)
-            {
-                bookedAppointments = bookedAppointments.Where(b => _clinicService.GetClinicById(b.CID)?.DepID == departmentId.Value);
-            }
-
-            // Filter by patientId if provided
-            if (patientId.HasValue)
-            {
-                bookedAppointments = bookedAppointments.Where(b => b.PID == patientId.Value);
-            }
-            // Filter by date if provided
-            if (date.HasValue)
-            {
-                bookedAppointments = bookedAppointments.Where(b => b.Date == date.Value);
-            }
-
-
+          
             // Check if no available bookings were found
             if (!bookedAppointments.Any())
                 throw new InvalidOperationException("No booked appointments found for the given criteria");
