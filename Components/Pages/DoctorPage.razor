@@ -1,11 +1,41 @@
 ﻿@page "/DoctorPage/{DoctorId:int}"
 @layout DoctorLayout
+@inject NavigationManager NavigationManager
 
-<h3>DoctorPage</h3>
+
+<h3 style="color: #1B7D84;">Doctor Page</h3>
+
+<div>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToPatientRecords"
+               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px;">
+        View Patient Records
+    </MudButton>
+</div>
+
+
+<!-- Button to navigate to Add Patient Record page -->
+<div style="margin-top: 20px;">
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToAddPatientRecord"
+               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px;">
+        Add Patient Record
+    </MudButton>
+</div>
 
 @code {
     [Parameter]
     public int DoctorId { get; set; }
+
+
+    private void NavigateToPatientRecords()
+    {
+        // Navigate to the PatientRecords page with DoctorId
+        NavigationManager.NavigateTo($"/PatientRecords/{DoctorId}");
+    }
+    private void NavigateToAddPatientRecord()
+    {
+        // Navigate to Add Patient Record page with DoctorId
+        NavigationManager.NavigateTo($"/AddPatientRecord/{DoctorId}");
+    }
 
     protected override void OnInitialized()
     {
@@ -13,3 +43,4 @@
         Console.WriteLine($"Doctor ID: {DoctorId}");
     }
 }
+
