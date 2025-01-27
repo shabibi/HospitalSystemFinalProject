@@ -57,16 +57,25 @@ else
                     </MudTd>
                 </RowTemplate>
             </MudTable>
+
+            <!-- Buttons in same line -->
+            <MudGrid>
+                <MudItem xs="6" sm="6" md="6">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" OnClick="NavigateToBooking">
+                        Book Appointment
+                    </MudButton>
+                </MudItem>
+                <MudItem xs="6" sm="6" md="6" Class="d-flex justify-end">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" OnClick="ViewAppointmentRecords">
+                        View Records
+                    </MudButton>
+                </MudItem>
+            </MudGrid>
         }
         else
         {
             <MudText Typo="Typo.body1" Align="Align.Center">No appointments booked.</MudText>
         }
-
-        <!-- Book Appointment Button -->
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" OnClick="NavigateToBooking">
-            Book Appointment
-        </MudButton>
     </MudContainer>
 }
 
@@ -171,6 +180,12 @@ else
             // Handle errors, such as unauthorized access or already canceled appointments
             Console.WriteLine($"Error canceling appointment: {ex.Message}");
         }
+    }
+
+    private void ViewAppointmentRecords()
+    {
+        // Navigate to the page that displays records of appointments (you can modify this as per your requirements)
+        NavigationManager.NavigateTo($"/ViewPatientRecord/{UserId}");
     }
 
     // Enriched booking model with additional details

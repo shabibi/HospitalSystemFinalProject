@@ -1,0 +1,79 @@
+﻿@page "/ViewPatientRecord/{PatientId:int}"
+@inject NavigationManager NavigationManager
+@inject IPatientRecordService patientRecordService
+
+<h3 style="color: #1B7D84;">@patientRecords.FirstOrDefault()?.PatientName</h3>
+
+@if (loading)
+{
+    <div class="text-center" style="margin-top: 50px;">
+        <MudProgressCircular Indeterminate="true" />
+        <p>Loading patient records...</p>
+    </div>
+}
+else if (errorMessage != null)
+{
+    <div class="alert alert-danger text-center" style="margin-top: 20px;">
+        @errorMessage
+    </div>
+}
+else if (!filteredPatientRecords.Any())
+{
+    <div class="alert alert-warning text-center" style="margin-top: 20px;">
+        No records found for the given patient.
+    </div>
+}
+else
+{
+    <MudTable Items="@filteredPatientRecords" Hover="true" SortLabel="Sort By" Style="width: 100%; margin-top: 50px;">
+        <HeaderContent>
+            <MudTh Style="background-color: #1B7D84; color: white; width: 10%;">Record ID</MudTh>
+            <MudTh Style="background-color: #1B7D84; color: white; width: 20%;">Doctor Name</MudTh>
+            <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Visit Date</MudTh>
+            <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Treatment</MudTh>
+            <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Inspection</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Record ID" Style="background-color: #1B7D84; color: white; width: 10%;">@context.RecordId</MudTd>
+            <MudTd DataLabel="Doctor Name" Style="width: 20%;">@context.DoctorName</MudTd>
+            <MudTd DataLabel="Visit Date" Style="width: 15%;">@context.VisitDate.ToShortDateString()</MudTd>
+            <MudTd DataLabel="Treatment" Style="width: 15%;">@context.Treatment</MudTd>
+            <MudTd DataLabel="Inspection" Style="width: 15%;">@context.Inspection</MudTd>
+        </RowTemplate>
+    </MudTable>
+}
+
+@code {
+    [Parameter]
+    public int PatientId { get; set; }
+
+    private IEnumerable<PatientRecordOutput> patientRecords = new List<PatientRecordOutput>();
+    private IEnumerable<PatientRecordOutput> filteredPatientRecords = new List<PatientRecordOutput>();
+    private bool loading = true;
+    private string errorMessage = null;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (PatientId == 0)
+        {
+            errorMessage = "Invalid Patient ID.";
+            loading = false;
+            return;
+        }
+
+        try
+        {
+            // Fetch records based on PatientId
+            patientRecords = await Task.Run(() => patientRecordService.GetRecords(PatientId));
+            filteredPatientRecords = patientRecords;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+}
