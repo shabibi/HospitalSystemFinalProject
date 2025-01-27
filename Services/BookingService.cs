@@ -32,7 +32,7 @@ namespace HospitalSystemTeamTask.Services
 
 
             // Get all bookings from the repository
-            var appointments = _bookingRepo.GetAllBooking().Where(b=> b.Date >= DateTime.Now);
+            var appointments = _bookingRepo.GetAllBooking();
 
             // Map each booking to a BookingOutputDTO
             var bookingList = appointments.Select(appointment => new BookingOutputDTO

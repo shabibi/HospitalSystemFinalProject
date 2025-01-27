@@ -1,4 +1,4 @@
-﻿@page "/BookAppointment/{patientId:int}"
+﻿@page "/BookAppointment"
 
 @inject IClinicService ClinicService
 @inject IBranchService BranchService
@@ -145,7 +145,7 @@
             @if (selectedDate != default && selectedTime != default)
             {
                 <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ConfirmAppointment"
-                           Style="margin-top: 20px; background-color: #1B7D84; color: white;">
+                Style="margin-top: 20px; background-color: #1B7D84; color: white;">
                     Confirm Appointment
                 </MudButton>
             }
@@ -160,7 +160,6 @@
 </MudContainer>
 
 @code {
-    [Parameter] public int patientId { get; set; }
     private List<Branch> branches = new List<Branch>();
     private List<DepDTO> departments = new List<DepDTO>();
     private Branch selectedBranch;
@@ -171,10 +170,8 @@
     private IEnumerable<BookingOutputDTO> appointments = new List<BookingOutputDTO>(); // List of appointments
     private List<TimeSpan> uniqueTimes = new List<TimeSpan>(); // List of unique time slots (columns)
     private List<DateTime> uniqueDates = new List<DateTime>(); // List of unique dates (rows)
-    private DateTime selectedDate; // User-selected date
-    private TimeSpan selectedTime; // User-selected time
     private string statusMessage = string.Empty; // Status message to display
-    private string bookingStatusMessage = string.Empty;
+
     // Fetching Branches and Departments
     protected override void OnInitialized()
     {
@@ -305,4 +302,4 @@
         }
     }
 
-} 
+}
