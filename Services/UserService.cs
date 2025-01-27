@@ -99,7 +99,7 @@ namespace HospitalSystemTeamTask.Services
             do
             {
                 randomNumber = random.Next(1000, 9999);
-                generatedEmail = $"{sanitizedUserName}{randomNumber}@ATAHospital.com";
+                generatedEmail = $"{sanitizedUserName}{randomNumber}@ATAHospital.com".ToLower();
             } while (_userRepo.EmailExists(generatedEmail));
 
             string hashedPassword = HashingPassword.Hshing(defaultPassword);
