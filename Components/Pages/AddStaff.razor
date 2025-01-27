@@ -1,178 +1,308 @@
-﻿@layout StaffLayout
-@page "/AddStaff"
-@inject IUserService userService
+﻿@page "/BookAppointment/{patientId:int}"
+
+@inject IClinicService ClinicService
+@inject IBranchService BranchService
+@inject IDepartmentService DepartmentService
+@inject IBookingService BookingService
 @inject NavigationManager NavigationManager
-@inject ISnackbar Snackbar
-@inject IDoctorService doctorService
-@inject IBranchService branchService
-@inject IDepartmentService departmentService
-@inject IBranchDepartmentService branchDepartmentService
-@inject ISMS smsService
 
-<MudPaper Elevation="4" Class="form-container" Style="width: 100%; align-content:center;" Align="Align.Center">
-    <MudText Typo="Typo.h3" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">
-        Add New Staff
+<MudContainer MaxWidth="MaxWidth.Medium" Class="my-5" Style="align-items:center; margin-top: 100px;">
+    <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84;">
+        Clinic Management
     </MudText>
-    <MudForm Model="newStaffInput" @ref="form" Valid="isFormValid" OnValidSubmit="SubmitForm">
-        <MudItem xs="12" Class="mb-4">
-            <!-- Staff Name Input -->
-            <MudTextField Label="Staff Name" @bind-Value="newStaffInput.UserName" Required="true" FullWidth="true" />
-        </MudItem>
-        <MudItem xs="12" Class="mb-4">
-            <!-- Role Dropdown -->
-            <MudSelect T="string" Label="Role" @bind-Value="newStaffInput.Role" Required="true" FullWidth="true">
-                @foreach (var role in roles)
-                {
-                    <MudSelectItem T="string" Value="@role">@role</MudSelectItem>
-                }
-            </MudSelect>
-        </MudItem>
-        <MudItem xs="12" Class="mb-4">
-            <!-- Phone Number Input -->
-            <MudTextField Label="Phone Number" @bind-Value="newStaffInput.Phone" FullWidth="true" />
-        </MudItem>
 
-        <!-- Additional fields for Doctor -->
-        @if (newStaffInput.Role == "Doctor")
+    <MudCard Class="mt-5">
+        <MudCardContent>
+            <MudGrid>
+                <!-- Select Branch -->
+                <MudItem xs="12">
+                    <MudText Typo="Typo.body1" Style="font-weight: bold; color: #1B7D84;">Select Branch</MudText>
+                    <MudSelect T="Branch" @bind-Value="selectedBranch" Variant="Variant.Outlined" Clearable>
+                        @foreach (var branch in branches)
+                        {
+                            <MudSelectItem T="Branch" Value="@branch" Style="font-size: 1rem; font-weight: bold;">
+                                @branch.BranchName
+                            </MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- Select Department -->
+                <MudItem xs="12">
+                    <MudText Typo="Typo.body1" Style="font-weight: bold; color: #1B7D84;">Select Department</MudText>
+                    <MudSelect T="DepDTO" @bind-Value="selectedDepartment" Variant="Variant.Outlined" Clearable @onchange="OnDepartmentChanged">
+                        @foreach (var department in departments)
+                        {
+                            <MudSelectItem T="DepDTO" Value="@department" Style="font-size: 1rem; font-weight: bold;">
+                                @department.DepartmentName
+                            </MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+                <!-- Find Clinic Button -->
+                <MudItem xs="12">
+                    <div class="d-flex justify-center mt-4">
+                        <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="FindClinic"
+                                   Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 8px 16px;">
+                            Find Clinic
+                        </MudButton>
+                    </div>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
+
+    <!-- Appointments Section -->
+    @if (clinicId != 0)
+    {
+        <h3>Appointments for Clinic @clinicId - @clinicName</h3>
+
+        @if (!string.IsNullOrEmpty(statusMessage))
         {
-            <MudItem xs="12" Class="mb-4">
-                <!-- Degree -->
-                <MudTextField Label="Degree" @bind-Value="doctorInput.Degree" FullWidth="true" />
-            </MudItem>
-            <MudItem xs="12" Class="mb-4">
-                <!-- Working Years -->
-                <MudTextField Label="Working Years" @bind-Value="doctorInput.WorkingYear" FullWidth="true" />
-            </MudItem>
-            <MudItem xs="12" Class="mb-4">
-                <!-- Level -->
-                <MudTextField Label="Level" @bind-Value="doctorInput.Level" FullWidth="true" />
-            </MudItem>
+            <MudText Typo="Typo.body1" Align="Align.Center" Style="color: #FF6B6B; margin-top: 20px;">
+                @statusMessage
+            </MudText>
+        }
+        else
+        {
+            <MudTable Items="@uniqueDates" Bordered="true">
+                <ColGroup>
+                    <col style="width: 150px;" /> <!-- Date column -->
+                    @foreach (var time in uniqueTimes)
+                    {
+                        <col style="width: 100px;" /> <!-- Time columns -->
+                    }
+                </ColGroup>
 
-            <!-- Branch Selection -->
-            <text >Select One Branch</text>
-            <MudSelect MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))" MultiSelection="true" @bind-Value="selectedBranch" T="string" Label="Branches" AdornmentIcon="@Icons.Material.Filled.Search">
-                @foreach (var branch in branches)
+                <HeaderContent>
+                    <MudTh>Date</MudTh>
+                    @foreach (var time in uniqueTimes)
+                    {
+                        <MudTh>@DateTime.Today.Add(time).ToString("hh:mm tt")</MudTh>
+                    }
+                </HeaderContent>
+
+                <RowTemplate>
+                    <MudTd>@context.ToString("dd/MM/yyyy")</MudTd>
+                    @foreach (var time in uniqueTimes)
+                    {
+                        var appointment = appointments.FirstOrDefault(a => a.StartTime == time && a.Date.Date == context);
+
+                        if (appointment == null)
+                        {
+                            <MudTd>--</MudTd>
+                        }
+                        else if (appointment.Staus)
+                        {
+                            <MudTd style="color: white; background-color: red;">Booked</MudTd>
+                        }
+                        else
+                        {
+                            <MudTd style="color: green; background-color: lightgreen;">Available</MudTd>
+                        }
+                    }
+                </RowTemplate>
+
+                <PagerContent>
+                    <MudTablePager />
+                </PagerContent>
+            </MudTable>
+
+            <!-- Available Dates -->
+            <MudText Typo="Typo.h6" Class="mt-4" Style="color: #1B7D84;">Select an Available Date</MudText>
+            <MudSelect T="DateTime" @bind-Value="selectedDate" Variant="Variant.Outlined" Clearable>
+                @foreach (var date in uniqueDates)
                 {
-                    <MudSelectItem T="string" Value="@branch">@branch</MudSelectItem>
+                    <MudSelectItem T="DateTime" Value="@date">@date.ToString("dd/MM/yyyy")</MudSelectItem>
                 }
             </MudSelect>
 
-            <!-- Department Selection -->
-            <MudItem xs="12" Class="mb-4">
-                <MudSelect T="int" Label="Department" @bind-Value="selectedDepartment" FullWidth="true">
-                    @foreach (var department in departments)
+            <!-- Available Time Slots -->
+            @if (selectedDate != default)
+            {
+                <MudText Typo="Typo.h6" Class="mt-4" Style="color: #1B7D84;">Select an Available Time Slot</MudText>
+                <MudSelect T="TimeSpan" @bind-Value="selectedTime" Variant="Variant.Outlined" Clearable>
+                    @foreach (var time in uniqueTimes)
                     {
-                        <MudSelectItem T="int" Value="@department.DepId" Style="font-size: 1rem; font-weight: bold; color: #1B7D84;">
-                            <MudIcon Icon="@Icons.Material.Filled.Home" Color="Color.Primary" Style="margin-right: 8px;" />
-                            @department.DepartmentName
-                        </MudSelectItem>
+                        if (!appointments.Any(a => a.Date.Date == selectedDate.Date && a.StartTime == time && a.Staus))
+                        {
+                            <MudSelectItem T="TimeSpan" Value="@time">@DateTime.Today.Add(time).ToString("hh:mm tt")</MudSelectItem>
+                        }
                     }
                 </MudSelect>
-            </MudItem>
-        }
+            }
 
-        <MudItem xs="12" Class="d-flex justify-space-between mt-4">
-            <!-- Submit and Cancel Buttons -->
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SubmitForm" Disabled="!form.IsValid">
-                Submit
-            </MudButton>
-            <MudButton Variant="Variant.Text" Color="Color.Default" OnClick="NavigateBack">
-                Cancel
-            </MudButton>
-        </MudItem>
-    </MudForm>
-</MudPaper>
+            <!-- Selected Appointment -->
+            @if (selectedDate != default && selectedTime != default)
+            {
+                <MudText Typo="Typo.body1" Class="mt-4" Style="color: #1B7D84;">
+                    Selected Appointment: @selectedDate.ToString("dd/MM/yyyy") at @DateTime.Today.Add(selectedTime).ToString("hh:mm tt")
+                </MudText>
+            }
+
+            <!-- Confirmation Button -->
+            @if (selectedDate != default && selectedTime != default)
+            {
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ConfirmAppointment"
+                           Style="margin-top: 20px; background-color: #1B7D84; color: white;">
+                    Confirm Appointment
+                </MudButton>
+            }
+        }
+    }
+    @if (!string.IsNullOrEmpty(bookingStatusMessage))
+    {
+        <MudText Typo="Typo.body1" Align="Align.Center" Class="mt-3" Style="color: #FF6B6B;">
+            @bookingStatusMessage
+        </MudText>
+    }
+</MudContainer>
 
 @code {
-    private User newStaffInput = new();
-    private DoctorInput doctorInput = new(); // This is for the doctor-specific details
-    private MudForm form;
-    private bool isFormValid = false;
-    private string[] roles = { "Admin", "Doctor" };
-    private int branchId;
-    private List<string> branches = new List<string>();  // List of branch names
-    private List<DepDTO> departments = new();           // List of departments
-    private string selectedBranch { set; get; } = "No Selected";         // Multi-selection for branch names
-    private int selectedDepartment;                       // Selected department
+    [Parameter] public int patientId { get; set; }
+    private List<Branch> branches = new List<Branch>();
+    private List<DepDTO> departments = new List<DepDTO>();
+    private Branch selectedBranch;
+    private DepDTO selectedDepartment;
 
-    protected override async Task OnInitializedAsync()
+    private int clinicId = 0; // Clinic ID
+    private string clinicName = ""; // Clinic name
+    private IEnumerable<BookingOutputDTO> appointments = new List<BookingOutputDTO>(); // List of appointments
+    private List<TimeSpan> uniqueTimes = new List<TimeSpan>(); // List of unique time slots (columns)
+    private List<DateTime> uniqueDates = new List<DateTime>(); // List of unique dates (rows)
+    private DateTime selectedDate; // User-selected date
+    private TimeSpan selectedTime; // User-selected time
+    private string statusMessage = string.Empty; // Status message to display
+    private string bookingStatusMessage = string.Empty;
+    // Fetching Branches and Departments
+    protected override void OnInitialized()
     {
+        Log.Information("Navigated to BookAppointment page at {Time}", DateTime.Now);
+
         try
         {
-            branches = branchService.GetAllBranches().Select(b => b.BranchName).ToList();
-            if (!branches.Any())
-            {
-                Snackbar.Add("No branches found.", Severity.Warning);
-            }
+            Log.Information("Fetching all branches at {Time}", DateTime.Now);
+            branches = BranchService.GetAllBranches().ToList();
+            Log.Information("Successfully fetched {Count} branches at {Time}", branches.Count, DateTime.Now);
 
-            departments = departmentService.GetAllDepartments().ToList();
-            if (!departments.Any())
-            {
-                Snackbar.Add("No departments available.", Severity.Warning);
-            }
+            Log.Information("Fetching all departments at {Time}", DateTime.Now);
+            departments = DepartmentService.GetAllDepartments().ToList();
+            Log.Information("Successfully fetched {Count} departments at {Time}", departments.Count, DateTime.Now);
         }
         catch (Exception ex)
         {
-            Snackbar.Add($"Error loading branches: {ex.Message}", Severity.Error);
+            Log.Error("Error fetching branches or departments. Error: {Error} at {Time}", ex.Message, DateTime.Now);
         }
     }
 
-    // Multi-selection handler for branches
-    private string GetMultiSelectionText(List<string> selectedValues)
+    private void OnDepartmentChanged(ChangeEventArgs e)
     {
-        if (selectedValues == null || !selectedValues.Any())
-        {
-            return "No branches selected";
-        }
-
-        // Load departments based on the selected branches
-        departments.Clear();
-        foreach (var branchName in selectedValues)
-        {
-            var branchDepartments = branchDepartmentService.GetDepartmentsByBranchName(branchName);
-            departments.AddRange(branchDepartments);
-        }
-        if(selectedValues.Count> 1){
-            return "Select only one branch ";
-        }
-        return string.Join(", ", selectedValues);
+        Log.Information("Department changed, triggering FindClinic to update appointments at {Time}", DateTime.Now);
+        FindClinic();
     }
 
-    private async Task SubmitForm()
+    private void FindClinic()
     {
-        if (form.IsValid)
+        if (selectedBranch != null && selectedDepartment != null)
         {
-            try
+            Log.Information("Fetching appointments for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", selectedBranch.BID, selectedDepartment.DepId, DateTime.Now);
+
+            var clinics = ClinicService.GetClinicByBranchDep(selectedBranch.BID, selectedDepartment.DepId);
+            if (clinics.Any())
             {
-                var userId = userService.AddStaff(newStaffInput);
-                if(newStaffInput.Role == roles[1])
-                {
-                    branchId = branchService.GetBranchDetailsByBranchName(selectedBranch).BID;
-                    if (newStaffInput.Role == "Doctor" && selectedDepartment != 0)
-                    {
-                        doctorInput.DID = userId;
-                        doctorInput.DepID = selectedDepartment;
-                        doctorInput.CurrentBrunch = branchId;
-                        doctorService.AddDoctor(doctorInput);
-                    }
-                }
-               
-                Snackbar.Add("New staff member added successfully!", Severity.Success);
-                NavigateBack();
+                var clinic = clinics.FirstOrDefault(); // Assuming one clinic per branch-department combination.
+                clinicId = clinic.CID;
+                clinicName = clinic.ClincName;
+                Log.Information("Found clinic with ID: {ClinicId} and Name: {ClinicName} at {Time}", clinicId, clinicName, DateTime.Now);
+                LoadAppointments(); // Load appointments
             }
-            catch (Exception ex)
+            else
             {
-                Snackbar.Add($"Error adding staff: {ex.Message}", Severity.Error);
+                statusMessage = "No clinic found for the selected branch and department.";
+                Log.Warning("No clinic found for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", selectedBranch.BID, selectedDepartment.DepId, DateTime.Now);
             }
         }
         else
         {
-            Snackbar.Add("Please fill out all required fields.", Severity.Warning);
+            statusMessage = "Please select both branch and department.";
+            Log.Warning("FindClinic action attempted without selecting both Branch and Department at {Time}", DateTime.Now);
         }
     }
 
-    private void NavigateBack()
+    private async Task LoadAppointments()
     {
-        NavigationManager.NavigateTo("/Staff");
+        try
+        {
+            Log.Information("Loading appointments for Clinic ID: {ClinicId}", clinicId);
+
+            appointments = BookingService.GetAllBooking()
+                                         .Where(a => a.CID == clinicId)
+                                         .ToList();
+
+            if (appointments.Any())
+            {
+                uniqueDates = appointments
+                    .Select(a => a.Date)
+                    .Distinct()
+                    .OrderBy(d => d)
+                    .ToList();
+
+                uniqueTimes = appointments
+                    .Select(a => a.StartTime)
+                    .Distinct()
+                    .OrderBy(t => t)
+                    .ToList();
+
+                statusMessage = string.Empty; // Clear previous messages
+                Log.Information("Successfully loaded {Count} appointments for Clinic ID: {ClinicId}", appointments.Count(), clinicId);
+            }
+            else
+            {
+                statusMessage = "No appointments available for the selected clinic.";
+                Log.Warning("No appointments available for Clinic ID: {ClinicId}", clinicId);
+            }
+        }
+        catch (Exception ex)
+        {
+            statusMessage = "An error occurred while loading appointments. Please try again later.";
+            Log.Error("Error loading appointments for Clinic ID: {ClinicId}. Error: {ErrorMessage}", clinicId, ex.Message);
+        }
     }
+    private async Task ConfirmAppointment()
+    {
+        try
+        {
+            // Create the booking input DTO
+            var bookingInput = new BookingInputDTO
+                {
+                    CID = clinicId,
+                    Date = selectedDate,
+                    StartTime = selectedTime
+                };
+
+            Log.Information("Attempting to book appointment for Patient ID: {PatientId}, Clinic ID: {ClinicId}, Date: {Date}, Time: {Time}",
+                            patientId, bookingInput.CID, bookingInput.Date, bookingInput.StartTime);
+
+            // Call the service to book the appointment
+            BookingService.BookAppointment(bookingInput, patientId);
+
+            // Show success message
+            bookingStatusMessage = "Your appointment has been successfully booked!";
+            Log.Information("Appointment successfully booked for Patient ID: {PatientId}", patientId);
+        }
+        catch (InvalidOperationException ex)
+        {
+            // Handle expected errors
+            bookingStatusMessage = $"Booking failed: {ex.Message}";
+            Log.Warning("Booking failed for Patient ID: {PatientId}. Error: {Message}", patientId, ex.Message);
+        }
+        catch (Exception ex)
+        {
+            // Handle unexpected errors
+            bookingStatusMessage = "An unexpected error occurred while booking the appointment. Please try again.";
+            Log.Error("Unexpected error during booking for Patient ID: {PatientId}. Error: {Message}", patientId, ex.Message);
+        }
+    }
+
 }
