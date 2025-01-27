@@ -34,10 +34,10 @@
         if (BranchId.HasValue)
         {
             try
-            // {
-            //     Log.Information("Fetching branch details for Branch ID: {BranchId} at {Time}", BranchId, DateTime.Now);
-            //     branchModel = BranchService.GetBranchById(BranchId.Value);
-            //     Log.Information("Successfully fetched branch details for Branch ID: {BranchId} at {Time}", BranchId, DateTime.Now);
+            {
+                Log.Information("Fetching branch details for Branch ID: {BranchId} at {Time}", BranchId, DateTime.Now);
+                branchModel = BranchService.GetBranchById(BranchId.Value);
+                Log.Information("Successfully fetched branch details for Branch ID: {BranchId} at {Time}", BranchId, DateTime.Now);
             }
             catch (Exception ex)
             {
@@ -53,9 +53,17 @@
         {
             try
             {
-            //     Log.Information("Attempting to update branch with ID: {BranchId} at {Time}", BranchId, DateTime.Now);
-            //     BranchService.UpdateBranch(BranchId.Value, branchModel);
-            //     Log.Information("Successfully updated branch with ID: {BranchId} at {Time}", BranchId, DateTime.Now);
+                Log.Information("Attempting to update branch with ID: {BranchId} at {Time}", BranchId, DateTime.Now);
+
+                // Map BranchDTO to UpdateBranchDTO
+                var updateBranchDTO = new UpdateBranchDTO
+                    {
+                        BranchName = branchModel.BranchName,
+                        Location = branchModel.Location
+                    };
+
+                BranchService.UpdateBranch(BranchId.Value, updateBranchDTO);
+                Log.Information("Successfully updated branch with ID: {BranchId} at {Time}", BranchId, DateTime.Now);
             }
             catch (Exception ex)
             {
