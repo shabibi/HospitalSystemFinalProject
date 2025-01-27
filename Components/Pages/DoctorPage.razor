@@ -1,7 +1,15 @@
-﻿@page "/DoctorPage"
+﻿@page "/DoctorPage/{DoctorId:int}"
 @layout DoctorLayout
+
 <h3>DoctorPage</h3>
 
 @code {
+    [Parameter]
+    public int DoctorId { get; set; }
 
+    protected override void OnInitialized()
+    {
+        // Use the DoctorId to fetch doctor-specific data
+        Console.WriteLine($"Doctor ID: {DoctorId}");
+    }
 }

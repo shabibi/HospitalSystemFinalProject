@@ -1,7 +1,8 @@
 ﻿@layout DoctorLayout
 @inject IPatientRecordService patientRecordService
-@inject NavigationManager NavigationManager
 @page "/PatientRecords"
+
+@inject NavigationManager NavigationManager
 
 <!-- Add New Patient Record Button Positioned on the Right -->
 <div class="d-flex justify-end" style="margin-bottom: 30px;">
@@ -110,8 +111,10 @@
         }
     }
 
+
     private void NavigateToAddPatientRecord()
     {
-        NavigationManager.NavigateTo("/AddPatientRecord");
+        // Use the DoctorId from the route parameters when navigating
+        NavigationManager.NavigateTo($"/AddPatientRecord");
     }
 }

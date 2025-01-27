@@ -85,7 +85,12 @@
                 }
                 else if (authenticatedUser.Role == "doctor")
                 {
-                    NavigationManager.NavigateTo("/DoctorPage");
+                    Log.Information("Redirecting doctor user: {Email} to /DoctorPage/{DoctorId}.", authenticatedUser.Email);
+                    NavigationManager.NavigateTo($"/DoctorPage/{authenticatedUser.UID}");
+                    // NavigationManager.NavigateTo("/DoctorPage");
+                    // Navigating to PatientRecords page with the DoctorId
+                
+
                 }
                 else
                 {
