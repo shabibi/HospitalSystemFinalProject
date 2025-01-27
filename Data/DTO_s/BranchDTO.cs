@@ -16,9 +16,13 @@ namespace HospitalSystemTeamTask.DTO_s
 
         public bool BranchStatus { get; set; }
     }
-}
-public class UpdateBranchDTO
-{
-    public string BranchName { get; set; }
-    public string Location { get; set; }
+
+    public class UpdateBranchDTO
+    {
+        public string BranchName { get; set; }
+        public string Location { get; set; }
+        public bool BranchStatus { get; set; }
+
+    }
+
 }

@@ -144,18 +144,20 @@
         {
             try
             {
-                var doctorId = userService.AddStaff(newStaffInput);
-                branchId = branchService.GetBranchDetailsByBranchName(selectedBranch).BID;
-                if (newStaffInput.Role == "Doctor" && selectedDepartment != 0)
+                var userId = userService.AddStaff(newStaffInput);
+                if(newStaffInput.Role == roles[1])
                 {
-                    doctorInput.DID = doctorId;
-                    doctorInput.DepID = selectedDepartment;
-                    doctorInput.CurrentBrunch = branchId;
-                    doctorService.AddDoctor(doctorInput);
+                    branchId = branchService.GetBranchDetailsByBranchName(selectedBranch).BID;
+                    if (newStaffInput.Role == "Doctor" && selectedDepartment != 0)
+                    {
+                        doctorInput.DID = userId;
+                        doctorInput.DepID = selectedDepartment;
+                        doctorInput.CurrentBrunch = branchId;
+                        doctorService.AddDoctor(doctorInput);
+                    }
                 }
-
+               
                 Snackbar.Add("New staff member added successfully!", Severity.Success);
-                await Task.Delay(2000);
                 NavigateBack();
             }
             catch (Exception ex)

@@ -97,7 +97,7 @@ else
     private void NavigateToDepartmentBranch(int departmentId)
     {
         Log.Information("Navigating to DepartmentBranch page for Department ID: {DepartmentId} at {Time}", departmentId, DateTime.Now);
-        NavigationManager.NavigateTo($"/DepartmentBranch/{departmentId}");
+        NavigationManager.NavigateTo($"/ViewDepartment/{departmentId}");
     }
 
     protected override void OnInitialized()

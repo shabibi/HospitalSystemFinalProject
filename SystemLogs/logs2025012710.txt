@@ -1,0 +1,74 @@
+2025-01-27 10:00:12.787 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-27 10:00:13.009 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-27 10:00:13.060 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-27 10:00:13.103 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-27 10:00:13.105 +04:00 [INF] Hosting environment: Development
+2025-01-27 10:00:13.107 +04:00 [INF] Content root path: C:\Users\azzaA\source\repos\HospitalSystemFinalProject
+2025-01-27 10:00:13.608 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-27 10:00:13.708 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-27 10:00:13.760 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-27 10:00:13.949 +04:00 [INF] Home page initialized at "2025-01-27T10:00:13.9488564+04:00"
+2025-01-27 10:00:14.188 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-27 10:00:14.343 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-27 10:00:14.346 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-27 10:00:14.767 +04:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 10:00:14.813 +04:00 [INF] Fetched 4 branches from the service at "2025-01-27T10:00:14.8136428+04:00"
+2025-01-27 10:00:14.985 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-27 10:00:14.988 +04:00 [INF] HTTP GET / responded 200 in 1274.3138 ms
+2025-01-27 10:00:15.025 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 1425.1148ms
+2025-01-27 10:00:15.029 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-27 10:00:15.033 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-27 10:00:15.041 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-27 10:00:15.043 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-27 10:00:15.045 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-27 10:00:15.047 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 5.5997ms
+2025-01-27 10:00:15.049 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-27 10:00:15.050 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 18.5024 ms
+2025-01-27 10:00:15.053 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 23.1216ms
+2025-01-27 10:00:15.074 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 31.116ms
+2025-01-27 10:00:15.133 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-27 10:00:15.139 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 10:00:15.141 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 10:00:15.142 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 4.0581 ms
+2025-01-27 10:00:15.143 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 9.4883ms
+2025-01-27 10:00:15.302 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-27 10:00:15.308 +04:00 [INF] CORS policy execution successful.
+2025-01-27 10:00:15.310 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 10:00:15.325 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 10:00:15.326 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 19.2449 ms
+2025-01-27 10:00:15.327 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 25.4704ms
+2025-01-27 10:00:15.332 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=wGArG4vCSdSZnkzDaduZGg - null null
+2025-01-27 10:00:15.336 +04:00 [INF] CORS policy execution successful.
+2025-01-27 10:00:15.337 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 10:00:15.603 +04:00 [INF] Home page initialized at "2025-01-27T10:00:15.6039939+04:00"
+2025-01-27 10:00:15.619 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 10:00:15.622 +04:00 [INF] Fetched 4 branches from the service at "2025-01-27T10:00:15.6224759+04:00"
+2025-01-27 10:00:30.677 +04:00 [INF] Attempting login for email: ZahraTaqi8015@CodelineHospital.com
+2025-01-27 10:00:30.812 +04:00 [INF] Executed DbCommand (43ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-27 10:00:30.845 +04:00 [INF] Login successful for user: ZahraTaqi8015@CodelineHospital.com with role: admin
+2025-01-27 10:00:30.907 +04:00 [INF] Redirecting admin user: ZahraTaqi8015@CodelineHospital.com to /StaffPage.
+2025-01-27 10:00:30.958 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-27 10:00:33.340 +04:00 [INF] ManageBranch page initialized at "2025-01-27T10:00:33.3405941+04:00"
+2025-01-27 10:00:33.344 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 10:00:33.348 +04:00 [INF] Successfully fetched 4 branches at "2025-01-27T10:00:33.3485286+04:00"
+2025-01-27 10:00:34.659 +04:00 [INF] Navigating to AddBranch page at "2025-01-27T10:00:34.6596767+04:00"
+2025-01-27 10:00:34.667 +04:00 [INF] Navigated to Add/Edit Branch page at "2025-01-27T10:00:34.6670811+04:00"
+2025-01-27 10:00:51.187 +04:00 [INF] ManageBranch page initialized at "2025-01-27T10:00:51.1871607+04:00"
+2025-01-27 10:00:51.189 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 10:00:51.192 +04:00 [INF] Successfully fetched 4 branches at "2025-01-27T10:00:51.1921611+04:00"
+2025-01-27 10:07:30.250 +04:00 [INF] Navigating to AddBranch page at "2025-01-27T10:07:30.2502271+04:00"
+2025-01-27 10:07:30.254 +04:00 [INF] Navigated to Add/Edit Branch page at "2025-01-27T10:07:30.2541926+04:00"

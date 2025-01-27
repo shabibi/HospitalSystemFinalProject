@@ -56,3 +56,20 @@ h1:focus {
     border-radius: 50%;
     margin: auto;
 }
+
+.active-switch .mud-switch-track {
+    background-color: #1B7D84 !important; /* Green for Active */
+}
+
+.inactive-switch .mud-switch-track {
+    background-color: #f44336 !important; /* Red for Inactive */
+}
+
+.active-switch .mud-switch-thumb {
+    background-color: #ffffff !important; /* White thumb for Active */
+}
+
+.inactive-switch .mud-switch-thumb {
+    background-color: #ffffff !important; /* White thumb for Inactive */
+}
+

@@ -1,0 +1,156 @@
+﻿@layout StaffLayout
+@page "/ViewDepartment/{departmentId:int}"
+@inject NavigationManager NavigationManager
+@inject IBranchDepartmentService BranchDepartmentService
+@inject IDepartmentService DepartmentService
+@inject IDoctorService DoctorService
+
+
+<PageTitle>@departmentName Branches</PageTitle>
+
+<MudText Typo="Typo.h4" Style="color: #33BEC8; text-align: center; margin-top: 16px;">
+    @departmentName Branches
+</MudText>
+
+@if (branches == null)
+{
+    <MudText Typo="Typo.body1" Style="text-align: center; margin-top: 16px;">Loading branches...</MudText>
+}
+else if (!branches.Any())
+{
+    <MudText Typo="Typo.body1" Style="text-align: center; margin-top: 16px;">No branches available for this department.</MudText>
+}
+else
+{
+    <div Style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 16px;">
+        @foreach (var branch in branches)
+        {
+            <MudCard Style="width: 300px; height: auto; display: flex; flex-direction: column; justify-content: space-between;">
+                <MudCardMedia Image="@GetBranchImage(branch.BranchName)" Height="150" />
+                <MudCardContent>
+                    <MudText Typo="Typo.h6" Style="text-align: center;">@branch.BranchName</MudText>
+                    <MudText Typo="Typo.body2" Style="text-align: center;">@branch.Location</MudText>
+                    <MudDivider Style="margin: 8px 0;" />
+                    <MudText Typo="Typo.subtitle2" Style="text-align: center; color: #757575;">Doctors:</MudText>
+                    @if (branch.Doctors.Any())
+                    {
+                        <ul>
+                            @foreach (var doctor in branch.Doctors)
+                            {
+                                <li>@doctor.Level @doctor.Degree</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <MudText Typo="Typo.body2" Style="text-align: center;">No doctors assigned to this branch.</MudText>
+                    }
+
+                </MudCardContent>
+            </MudCard>
+        }
+    </div>
+}
+
+<MudButton Variant="Variant.Filled" OnClick="@GoBack" Color="Color.Transparent" Style="margin-top: 16px;">Back to Departments</MudButton>
+
+@code {
+    [Parameter] public int DepartmentId { get; set; }
+
+    private List<BranchViewModel> branches;
+    private string departmentName;
+
+    protected override void OnInitialized()
+    {
+        //   Information("Navigated to DepartmentBranch page for Department ID: {DepartmentId} at {Time}", DepartmentId, DateTime.Now);
+
+        try
+        {
+            Log.Information("Fetching branches for Department ID: {DepartmentId} at {Time}", DepartmentId, DateTime.Now);
+            var branchDtos = BranchDepartmentService.GetBranchsByDepartment(DepartmentId);
+
+            branches = branchDtos.Select(branch => new BranchViewModel
+                {
+                    BranchName = branch.BranchName,
+                    Location = branch.Location,
+                    BranchImage = branch.BranchName, // Store the branch name to check later
+                    Doctors = DoctorService.GetDoctorByBrancDep(branch.BID, DepartmentId)
+                                                    .Select(doc => new DoctorViewModel
+                                                    {
+                                                        Level = doc.Level,
+                                                        Degree = doc.Degree,
+                                                    }).ToList()
+                }).ToList();
+
+            Log.Information("Successfully fetched and mapped {Count} branches for Department ID: {DepartmentId} at {Time}", branches.Count, DepartmentId, DateTime.Now);
+
+            Log.Information("Fetching department name for Department ID: {DepartmentId} at {Time}", DepartmentId, DateTime.Now);
+            var department = DepartmentService.GetDepartmentByid(DepartmentId);
+            if (department != null)
+            {
+                departmentName = department.DepartmentName;
+                Log.Information("Successfully fetched department name: {DepartmentName} for Department ID: {DepartmentId} at {Time}", departmentName, DepartmentId, DateTime.Now);
+            }
+            else
+            {
+                departmentName = "Unknown Department";
+                Log.Warning("Department with ID: {DepartmentId} not found at {Time}", DepartmentId, DateTime.Now);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error("Error fetching branches or department details for Department ID: {DepartmentId}. Error: {Error} at {Time}", DepartmentId, ex.Message, DateTime.Now);
+            departmentName = "Error Loading Department";
+            branches = new List<BranchViewModel>();
+        }
+    }
+
+    private string GetBranchImage(string branchName)
+    {
+        try
+        {
+            Log.Information("Getting branch image for branch: {BranchName} at {Time}", branchName, DateTime.Now);
+
+            string imagesFolder = Path.Combine("wwwroot", "images");
+            string[] availableImages = Directory.GetFiles(imagesFolder, "*.png");
+
+            foreach (var imagePath in availableImages)
+            {
+                string imageName = Path.GetFileNameWithoutExtension(imagePath).ToLower();
+                if (branchName.ToLower().Contains(imageName))
+                {
+                    Log.Information("Match found for branch image: {ImageName} at {Time}", imageName, DateTime.Now);
+                    return $"images/{Path.GetFileName(imagePath)}";
+                }
+            }
+
+            Log.Warning("No match found for branch image. Falling back to default image for branch: {BranchName} at {Time}", branchName, DateTime.Now);
+        }
+        catch (Exception ex)
+        {
+            Log.Error("Error retrieving branch image for branch: {BranchName}. Error: {Error} at {Time}", branchName, ex.Message, DateTime.Now);
+        }
+
+        return "images/default.png";
+    }
+
+    private void GoBack()
+    {
+        Log.Information("Navigating back to Department page at {Time}", DateTime.Now);
+        NavigationManager.NavigateTo("/Department");
+    }
+
+    private class BranchViewModel
+    {
+        public string BranchName { get; set; }
+        public string Location { get; set; }
+        public string BranchImage { get; set; }
+        public List<DoctorViewModel> Doctors { get; set; } = new();
+    }
+
+    private class DoctorViewModel
+    {
+        public string Level { get; set; }
+        public string Degree { get; set; }
+    }
+}
