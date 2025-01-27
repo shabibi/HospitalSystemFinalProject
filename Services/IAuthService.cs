@@ -7,5 +7,6 @@ namespace HospitalSystemTeamTask.Services
     {
         JwtTokenResponse GenerateToken(User user);
         Task SaveTokenToCookie(string token);
+        Task<int> GetUserIdFromToken();
     }
 }

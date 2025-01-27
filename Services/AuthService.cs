@@ -63,5 +63,18 @@ namespace HospitalSystemTeamTask.Services
             // Store the token in a cookie
             await _jsRuntime.InvokeVoidAsync("eval", $"document.cookie = 'authToken={token}; {cookieOptions.ToString()}';");
         }
+        public async Task<int> GetUserIdFromToken()
+        {
+            // Logic to extract user ID from token
+            var authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+            if (user.Identity.IsAuthenticated)
+            {
+                var userIdClaim = user.FindFirst(ClaimTypes.NameIdentifier);
+                return userIdClaim != null ? int.Parse(userIdClaim.Value) : 0;
+            }
+            return 0;
+        }
+
     }
 }
