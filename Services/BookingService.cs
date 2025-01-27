@@ -117,7 +117,7 @@ namespace HospitalSystemTeamTask.Services
             try
             {
                 // Fetch appointments for the clinic and date
-                var bookedAppointments = _bookingRepo.GetBookingsByClinicAndDate(input.CID, input.Date);
+                var bookedAppointments = _bookingRepo.GetBookingsByClinicAndDate(input.CID, input.Date).Where(b=> b.Date >= DateTime.Now);
 
                 // Check if the patient already has a booking at the same clinic or time
                 var patientBookings = _bookingRepo.GetBookingsByPatientId(patientId);
