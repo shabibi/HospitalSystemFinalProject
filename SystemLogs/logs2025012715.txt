@@ -1,0 +1,590 @@
+2025-01-27 15:00:17.660 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-27 15:00:17.966 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-27 15:00:18.028 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-27 15:00:18.082 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-27 15:00:18.084 +04:00 [INF] Hosting environment: Development
+2025-01-27 15:00:18.117 +04:00 [INF] Content root path: C:\Users\azzaA\source\repos\HospitalSystemFinalProject
+2025-01-27 15:00:18.684 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-27 15:00:18.844 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-27 15:00:18.905 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-27 15:00:19.141 +04:00 [INF] Home page initialized at "2025-01-27T15:00:19.1403501+04:00"
+2025-01-27 15:00:19.413 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-27 15:00:19.584 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-27 15:00:19.585 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-27 15:00:20.157 +04:00 [INF] Executed DbCommand (52ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 15:00:20.212 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T15:00:20.2120581+04:00"
+2025-01-27 15:00:20.448 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-27 15:00:20.452 +04:00 [INF] HTTP GET / responded 200 in 1602.5376 ms
+2025-01-27 15:00:20.499 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 1822.9741ms
+2025-01-27 15:00:20.507 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-27 15:00:20.513 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-27 15:00:20.520 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-27 15:00:20.522 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-27 15:00:20.523 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 11.4741 ms
+2025-01-27 15:00:20.528 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 21.0757ms
+2025-01-27 15:00:20.532 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-27 15:00:20.533 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-27 15:00:20.537 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 4.368ms
+2025-01-27 15:00:20.561 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 28.9088ms
+2025-01-27 15:00:20.684 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-27 15:00:20.697 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:00:20.701 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:00:20.704 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 9.6538 ms
+2025-01-27 15:00:20.708 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 24.1813ms
+2025-01-27 15:00:20.933 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-27 15:00:20.943 +04:00 [INF] CORS policy execution successful.
+2025-01-27 15:00:20.945 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:00:20.957 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:00:20.960 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 21.1467 ms
+2025-01-27 15:00:20.964 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 31.0141ms
+2025-01-27 15:00:21.083 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=6Fdb6N1VaGhpfaZCNeBt5w - null null
+2025-01-27 15:00:21.087 +04:00 [INF] CORS policy execution successful.
+2025-01-27 15:00:21.089 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:00:21.258 +04:00 [INF] Home page initialized at "2025-01-27T15:00:21.2585933+04:00"
+2025-01-27 15:00:21.273 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 15:00:21.277 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T15:00:21.2773764+04:00"
+2025-01-27 15:00:38.951 +04:00 [INF] Attempting login for email: 
+2025-01-27 15:00:39.226 +04:00 [INF] Executed DbCommand (63ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-27 15:00:39.378 +04:00 [ERR] An error occurred during login for email: . Error: Invalid email
+2025-01-27 15:00:47.057 +04:00 [INF] Attempting login for email: ZahraTaqi8015@CodelineHospital.com
+2025-01-27 15:00:47.070 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-27 15:00:47.119 +04:00 [INF] Login successful for user: ZahraTaqi8015@CodelineHospital.com with role: admin
+2025-01-27 15:00:47.231 +04:00 [INF] Redirecting admin user: ZahraTaqi8015@CodelineHospital.com to /StaffPage.
+2025-01-27 15:00:47.296 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-27 15:00:49.291 +04:00 [INF] ManageBranch page initialized at "2025-01-27T15:00:49.2915080+04:00"
+2025-01-27 15:00:49.294 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 15:00:49.297 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T15:00:49.2978860+04:00"
+2025-01-27 15:00:50.922 +04:00 [INF] Navigated to BranchDepartmentPage for Branch ID: 1 at "2025-01-27T15:00:50.9224592+04:00"
+2025-01-27 15:00:50.925 +04:00 [INF] Fetching branch details for Branch ID: 1 at "2025-01-27T15:00:50.9254263+04:00"
+2025-01-27 15:00:50.946 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 15:00:50.956 +04:00 [INF] Successfully fetched branch details for Branch ID: 1 at "2025-01-27T15:00:50.9566571+04:00"
+2025-01-27 15:00:50.960 +04:00 [INF] Fetching departments for Branch ID: 1 at "2025-01-27T15:00:50.9600752+04:00"
+2025-01-27 15:00:50.965 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 15:00:51.084 +04:00 [ERR] Error fetching departments or branch for Branch ID: 1. Error: Muscat medical center Not Found at "2025-01-27T15:00:51.0828791+04:00"
+2025-01-27 15:00:55.981 +04:00 [INF] ManageBranch page initialized at "2025-01-27T15:00:55.9813868+04:00"
+2025-01-27 15:00:55.985 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 15:00:55.991 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T15:00:55.9914395+04:00"
+2025-01-27 15:01:04.632 +04:00 [INF] Navigated to BranchDepartmentPage for Branch ID: 2 at "2025-01-27T15:01:04.6325673+04:00"
+2025-01-27 15:01:04.637 +04:00 [INF] Fetching branch details for Branch ID: 2 at "2025-01-27T15:01:04.6375512+04:00"
+2025-01-27 15:01:04.643 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 15:01:04.649 +04:00 [INF] Successfully fetched branch details for Branch ID: 2 at "2025-01-27T15:01:04.6493147+04:00"
+2025-01-27 15:01:04.653 +04:00 [INF] Fetching departments for Branch ID: 2 at "2025-01-27T15:01:04.6538024+04:00"
+2025-01-27 15:01:04.658 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 15:01:04.842 +04:00 [INF] Executed DbCommand (44ms) [Parameters=[@__BranchID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [branchDepartments] AS [b]
+INNER JOIN [Departments] AS [d] ON [b].[DepID] = [d].[DepID]
+WHERE [b].[BID] = @__BranchID_0
+2025-01-27 15:01:04.876 +04:00 [INF] Successfully fetched 7 departments for Branch ID: 2 at "2025-01-27T15:01:04.8748021+04:00"
+2025-01-27 15:01:04.891 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T15:01:04.8909264+04:00"
+2025-01-27 15:01:04.895 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T15:01:04.8956273+04:00"
+2025-01-27 15:01:04.900 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T15:01:04.9004179+04:00"
+2025-01-27 15:01:04.903 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T15:01:04.9037629+04:00"
+2025-01-27 15:01:04.907 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T15:01:04.9071211+04:00"
+2025-01-27 15:01:04.916 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T15:01:04.9163558+04:00"
+2025-01-27 15:01:04.920 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T15:01:04.9202435+04:00"
+2025-01-27 15:01:04.924 +04:00 [INF] Match found for department image: radiology at "2025-01-27T15:01:04.9245037+04:00"
+2025-01-27 15:01:04.932 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T15:01:04.9324947+04:00"
+2025-01-27 15:01:04.937 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T15:01:04.9376257+04:00"
+2025-01-27 15:01:04.943 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T15:01:04.9434440+04:00"
+2025-01-27 15:01:04.952 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T15:01:04.9517399+04:00"
+2025-01-27 15:01:04.955 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T15:01:04.9552450+04:00"
+2025-01-27 15:01:04.957 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T15:01:04.9572232+04:00"
+2025-01-27 15:01:10.198 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryLCBOYjc6HWlUTkpx 359
+2025-01-27 15:01:10.205 +04:00 [INF] CORS policy execution successful.
+2025-01-27 15:01:10.207 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:01:10.224 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:01:10.239 +04:00 [INF] HTTP GET /_blazor responded 101 in 49151.7685 ms
+2025-01-27 15:01:10.254 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor?id=6Fdb6N1VaGhpfaZCNeBt5w - 101 null null 49170.1824ms
+2025-01-27 15:01:10.271 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:01:10.272 +04:00 [INF] HTTP POST /_blazor/disconnect responded 200 in 67.6172 ms
+2025-01-27 15:01:10.274 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - 200 0 null 76.0418ms
+2025-01-27 15:17:20.722 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-27 15:17:20.997 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-27 15:17:21.056 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-27 15:17:21.102 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-27 15:17:21.104 +04:00 [INF] Hosting environment: Development
+2025-01-27 15:17:21.106 +04:00 [INF] Content root path: C:\Users\azzaA\source\repos\HospitalSystemFinalProject
+2025-01-27 15:17:21.701 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-27 15:17:21.813 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-27 15:17:21.868 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-27 15:17:22.128 +04:00 [INF] Home page initialized at "2025-01-27T15:17:22.1279474+04:00"
+2025-01-27 15:17:22.412 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-27 15:17:22.587 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-27 15:17:22.591 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-27 15:17:23.214 +04:00 [INF] Executed DbCommand (57ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 15:17:23.291 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T15:17:23.2917054+04:00"
+2025-01-27 15:17:23.498 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-27 15:17:23.503 +04:00 [INF] HTTP GET / responded 200 in 1685.6094 ms
+2025-01-27 15:17:23.542 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-27 15:17:23.542 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-27 15:17:23.543 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 1847.5313ms
+2025-01-27 15:17:23.553 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 10.75ms
+2025-01-27 15:17:23.561 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-27 15:17:23.581 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-27 15:17:23.587 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-27 15:17:23.591 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-27 15:17:23.593 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 12.2877 ms
+2025-01-27 15:17:23.594 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 52.1375ms
+2025-01-27 15:17:23.597 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 35.4752ms
+2025-01-27 15:17:23.675 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-27 15:17:23.683 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:17:23.685 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:17:23.686 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 4.8913 ms
+2025-01-27 15:17:23.688 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 12.8473ms
+2025-01-27 15:17:23.799 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-27 15:17:23.806 +04:00 [INF] CORS policy execution successful.
+2025-01-27 15:17:23.810 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:17:23.824 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:17:23.826 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 21.9432 ms
+2025-01-27 15:17:23.827 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 28.9002ms
+2025-01-27 15:17:23.936 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=hlrEY3MD-UcL1di6H3gPIw - null null
+2025-01-27 15:17:23.942 +04:00 [INF] CORS policy execution successful.
+2025-01-27 15:17:23.944 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:17:24.118 +04:00 [INF] Home page initialized at "2025-01-27T15:17:24.1186882+04:00"
+2025-01-27 15:17:24.133 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 15:17:24.138 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T15:17:24.1381029+04:00"
+2025-01-27 15:17:30.941 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryDdmpJ9PAKQ4t4AfN 359
+2025-01-27 15:17:30.946 +04:00 [INF] CORS policy execution successful.
+2025-01-27 15:17:30.950 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:17:30.966 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:17:30.970 +04:00 [INF] HTTP GET /_blazor responded 101 in 7028.0216 ms
+2025-01-27 15:17:30.976 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor?id=hlrEY3MD-UcL1di6H3gPIw - 101 null null 7039.3618ms
+2025-01-27 15:17:31.026 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:17:31.029 +04:00 [INF] HTTP POST /_blazor/disconnect responded 200 in 82.5289 ms
+2025-01-27 15:17:31.033 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - 200 0 null 92.6843ms
+2025-01-27 15:26:57.811 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-27 15:26:58.106 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-27 15:26:58.163 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-27 15:26:58.236 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-27 15:26:58.237 +04:00 [INF] Hosting environment: Development
+2025-01-27 15:26:58.238 +04:00 [INF] Content root path: C:\Users\azzaA\source\repos\HospitalSystemFinalProject
+2025-01-27 15:26:58.436 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-27 15:26:58.560 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-27 15:26:58.615 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-27 15:26:58.931 +04:00 [INF] Home page initialized at "2025-01-27T15:26:58.9305906+04:00"
+2025-01-27 15:26:59.266 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-27 15:26:59.431 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-27 15:26:59.435 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-27 15:27:00.031 +04:00 [INF] Executed DbCommand (54ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 15:27:00.086 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T15:27:00.0859404+04:00"
+2025-01-27 15:27:00.280 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-27 15:27:00.285 +04:00 [INF] HTTP GET / responded 200 in 1720.0962 ms
+2025-01-27 15:27:00.323 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 1895.2076ms
+2025-01-27 15:27:00.331 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-27 15:27:00.337 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-27 15:27:00.342 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-27 15:27:00.345 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-27 15:27:00.346 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 10.2150 ms
+2025-01-27 15:27:00.349 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 18.6144ms
+2025-01-27 15:27:00.388 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-27 15:27:00.388 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-27 15:27:00.397 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 8.9065ms
+2025-01-27 15:27:00.427 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 38.2641ms
+2025-01-27 15:27:00.673 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-27 15:27:00.686 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:27:00.690 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:27:00.691 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 8.9841 ms
+2025-01-27 15:27:00.694 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 21.1898ms
+2025-01-27 15:27:01.069 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-27 15:27:01.077 +04:00 [INF] CORS policy execution successful.
+2025-01-27 15:27:01.079 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:27:01.093 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:27:01.095 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 18.5839 ms
+2025-01-27 15:27:01.099 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 30.261ms
+2025-01-27 15:27:01.105 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=q82oIaYvYQ_LumVpMOWpEQ - null null
+2025-01-27 15:27:01.111 +04:00 [INF] CORS policy execution successful.
+2025-01-27 15:27:01.112 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:27:01.539 +04:00 [INF] Home page initialized at "2025-01-27T15:27:01.5395045+04:00"
+2025-01-27 15:27:01.555 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 15:27:01.562 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T15:27:01.5622475+04:00"
+2025-01-27 15:27:03.083 +04:00 [INF] Navigated to BranchPage at "2025-01-27T15:27:03.0831029+04:00"
+2025-01-27 15:27:03.085 +04:00 [INF] Fetching all branches at "2025-01-27T15:27:03.0858363+04:00"
+2025-01-27 15:27:03.089 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 15:27:03.096 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T15:27:03.0963637+04:00"
+2025-01-27 15:27:03.116 +04:00 [INF] Getting branch image for branch: Muscat medical center at "2025-01-27T15:27:03.1156535+04:00"
+2025-01-27 15:27:03.121 +04:00 [INF] Match found for branch image: muscat at "2025-01-27T15:27:03.1218533+04:00"
+2025-01-27 15:27:03.126 +04:00 [INF] Getting branch image for branch: salalah healthcare clinic at "2025-01-27T15:27:03.1264574+04:00"
+2025-01-27 15:27:03.127 +04:00 [INF] Match found for branch image: salalah at "2025-01-27T15:27:03.1276853+04:00"
+2025-01-27 15:27:03.129 +04:00 [INF] Getting branch image for branch: sohar general hospital at "2025-01-27T15:27:03.1292798+04:00"
+2025-01-27 15:27:03.130 +04:00 [INF] Match found for branch image: sohar at "2025-01-27T15:27:03.1302702+04:00"
+2025-01-27 15:27:03.131 +04:00 [INF] Getting branch image for branch: barka medical clinic at "2025-01-27T15:27:03.1311267+04:00"
+2025-01-27 15:27:03.136 +04:00 [INF] Match found for branch image: barka at "2025-01-27T15:27:03.1365172+04:00"
+2025-01-27 15:27:03.141 +04:00 [INF] Getting branch image for branch: ATA ibri at "2025-01-27T15:27:03.1412206+04:00"
+2025-01-27 15:27:03.143 +04:00 [WRN] No match found for branch image. Falling back to default image for branch: ATA ibri at "2025-01-27T15:27:03.1427797+04:00"
+2025-01-27 15:27:06.101 +04:00 [INF] Navigating to BranchDepartmentPage for Branch ID: 1 at "2025-01-27T15:27:06.1010077+04:00"
+2025-01-27 15:27:06.127 +04:00 [INF] Getting branch image for branch: Muscat medical center at "2025-01-27T15:27:06.1278287+04:00"
+2025-01-27 15:27:06.130 +04:00 [INF] Match found for branch image: muscat at "2025-01-27T15:27:06.1306092+04:00"
+2025-01-27 15:27:06.134 +04:00 [INF] Getting branch image for branch: salalah healthcare clinic at "2025-01-27T15:27:06.1340662+04:00"
+2025-01-27 15:27:06.135 +04:00 [INF] Match found for branch image: salalah at "2025-01-27T15:27:06.1359034+04:00"
+2025-01-27 15:27:06.137 +04:00 [INF] Getting branch image for branch: sohar general hospital at "2025-01-27T15:27:06.1372276+04:00"
+2025-01-27 15:27:06.138 +04:00 [INF] Match found for branch image: sohar at "2025-01-27T15:27:06.1385087+04:00"
+2025-01-27 15:27:06.142 +04:00 [INF] Getting branch image for branch: barka medical clinic at "2025-01-27T15:27:06.1426679+04:00"
+2025-01-27 15:27:06.150 +04:00 [INF] Match found for branch image: barka at "2025-01-27T15:27:06.1507715+04:00"
+2025-01-27 15:27:06.153 +04:00 [INF] Getting branch image for branch: ATA ibri at "2025-01-27T15:27:06.1532153+04:00"
+2025-01-27 15:27:06.156 +04:00 [WRN] No match found for branch image. Falling back to default image for branch: ATA ibri at "2025-01-27T15:27:06.1568322+04:00"
+2025-01-27 15:27:06.171 +04:00 [INF] Navigated to BranchDepartmentPage for Branch ID: 1 at "2025-01-27T15:27:06.1718328+04:00"
+2025-01-27 15:27:06.177 +04:00 [INF] Fetching branch details for Branch ID: 1 at "2025-01-27T15:27:06.1774794+04:00"
+2025-01-27 15:27:06.474 +04:00 [INF] Executed DbCommand (66ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 15:27:06.484 +04:00 [INF] Successfully fetched branch details for Branch ID: 1 at "2025-01-27T15:27:06.4846159+04:00"
+2025-01-27 15:27:06.486 +04:00 [INF] Fetching departments for Branch ID: 1 at "2025-01-27T15:27:06.4865707+04:00"
+2025-01-27 15:27:06.502 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 15:27:06.635 +04:00 [ERR] Error fetching departments or branch for Branch ID: 1. Error: Muscat medical center Not Found at "2025-01-27T15:27:06.6339923+04:00"
+2025-01-27 15:27:08.210 +04:00 [INF] Navigated to BranchPage at "2025-01-27T15:27:08.2102433+04:00"
+2025-01-27 15:27:08.212 +04:00 [INF] Fetching all branches at "2025-01-27T15:27:08.2122310+04:00"
+2025-01-27 15:27:08.215 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 15:27:08.217 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T15:27:08.2176659+04:00"
+2025-01-27 15:27:08.219 +04:00 [INF] Getting branch image for branch: Muscat medical center at "2025-01-27T15:27:08.2199885+04:00"
+2025-01-27 15:27:08.220 +04:00 [INF] Match found for branch image: muscat at "2025-01-27T15:27:08.2209748+04:00"
+2025-01-27 15:27:08.221 +04:00 [INF] Getting branch image for branch: salalah healthcare clinic at "2025-01-27T15:27:08.2217833+04:00"
+2025-01-27 15:27:08.223 +04:00 [INF] Match found for branch image: salalah at "2025-01-27T15:27:08.2232263+04:00"
+2025-01-27 15:27:08.224 +04:00 [INF] Getting branch image for branch: sohar general hospital at "2025-01-27T15:27:08.2242137+04:00"
+2025-01-27 15:27:08.225 +04:00 [INF] Match found for branch image: sohar at "2025-01-27T15:27:08.2254505+04:00"
+2025-01-27 15:27:08.228 +04:00 [INF] Getting branch image for branch: barka medical clinic at "2025-01-27T15:27:08.2287929+04:00"
+2025-01-27 15:27:08.230 +04:00 [INF] Match found for branch image: barka at "2025-01-27T15:27:08.2309243+04:00"
+2025-01-27 15:27:08.234 +04:00 [INF] Getting branch image for branch: ATA ibri at "2025-01-27T15:27:08.2344437+04:00"
+2025-01-27 15:27:08.236 +04:00 [WRN] No match found for branch image. Falling back to default image for branch: ATA ibri at "2025-01-27T15:27:08.2360996+04:00"
+2025-01-27 15:27:11.357 +04:00 [INF] Navigating to BranchDepartmentPage for Branch ID: 2 at "2025-01-27T15:27:11.3574075+04:00"
+2025-01-27 15:27:11.364 +04:00 [INF] Getting branch image for branch: Muscat medical center at "2025-01-27T15:27:11.3649110+04:00"
+2025-01-27 15:27:11.368 +04:00 [INF] Match found for branch image: muscat at "2025-01-27T15:27:11.3684827+04:00"
+2025-01-27 15:27:11.370 +04:00 [INF] Getting branch image for branch: salalah healthcare clinic at "2025-01-27T15:27:11.3703939+04:00"
+2025-01-27 15:27:11.371 +04:00 [INF] Match found for branch image: salalah at "2025-01-27T15:27:11.3715669+04:00"
+2025-01-27 15:27:11.372 +04:00 [INF] Getting branch image for branch: sohar general hospital at "2025-01-27T15:27:11.3728765+04:00"
+2025-01-27 15:27:11.374 +04:00 [INF] Match found for branch image: sohar at "2025-01-27T15:27:11.3743538+04:00"
+2025-01-27 15:27:11.375 +04:00 [INF] Getting branch image for branch: barka medical clinic at "2025-01-27T15:27:11.3755965+04:00"
+2025-01-27 15:27:11.376 +04:00 [INF] Match found for branch image: barka at "2025-01-27T15:27:11.3764543+04:00"
+2025-01-27 15:27:11.377 +04:00 [INF] Getting branch image for branch: ATA ibri at "2025-01-27T15:27:11.3770325+04:00"
+2025-01-27 15:27:11.378 +04:00 [WRN] No match found for branch image. Falling back to default image for branch: ATA ibri at "2025-01-27T15:27:11.3782722+04:00"
+2025-01-27 15:27:11.380 +04:00 [INF] Navigated to BranchDepartmentPage for Branch ID: 2 at "2025-01-27T15:27:11.3805603+04:00"
+2025-01-27 15:27:11.381 +04:00 [INF] Fetching branch details for Branch ID: 2 at "2025-01-27T15:27:11.3816888+04:00"
+2025-01-27 15:27:11.384 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 15:27:11.387 +04:00 [INF] Successfully fetched branch details for Branch ID: 2 at "2025-01-27T15:27:11.3870712+04:00"
+2025-01-27 15:27:11.388 +04:00 [INF] Fetching departments for Branch ID: 2 at "2025-01-27T15:27:11.3888583+04:00"
+2025-01-27 15:27:11.392 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 15:27:11.535 +04:00 [INF] Executed DbCommand (11ms) [Parameters=[@__BranchID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [branchDepartments] AS [b]
+INNER JOIN [Departments] AS [d] ON [b].[DepID] = [d].[DepID]
+WHERE [b].[BID] = @__BranchID_0
+2025-01-27 15:27:11.570 +04:00 [INF] Successfully fetched 7 departments for Branch ID: 2 at "2025-01-27T15:27:11.5693125+04:00"
+2025-01-27 15:27:11.578 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T15:27:11.5783078+04:00"
+2025-01-27 15:27:11.581 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T15:27:11.5818241+04:00"
+2025-01-27 15:27:11.583 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T15:27:11.5839392+04:00"
+2025-01-27 15:27:11.586 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T15:27:11.5866912+04:00"
+2025-01-27 15:27:11.590 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T15:27:11.5905926+04:00"
+2025-01-27 15:27:11.598 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T15:27:11.5980608+04:00"
+2025-01-27 15:27:11.600 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T15:27:11.6003696+04:00"
+2025-01-27 15:27:11.603 +04:00 [INF] Match found for department image: radiology at "2025-01-27T15:27:11.6035829+04:00"
+2025-01-27 15:27:11.610 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T15:27:11.6104912+04:00"
+2025-01-27 15:27:11.614 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T15:27:11.6142352+04:00"
+2025-01-27 15:27:11.616 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T15:27:11.6165115+04:00"
+2025-01-27 15:27:11.617 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T15:27:11.6178122+04:00"
+2025-01-27 15:27:11.620 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T15:27:11.6204462+04:00"
+2025-01-27 15:27:11.623 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T15:27:11.6234625+04:00"
+2025-01-27 15:27:14.212 +04:00 [INF] Navigating to find doctor page for Branch ID: 2 and Department ID: 1 at "2025-01-27T15:27:14.2121472+04:00"
+2025-01-27 15:27:14.218 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T15:27:14.2188979+04:00"
+2025-01-27 15:27:14.222 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T15:27:14.2223254+04:00"
+2025-01-27 15:27:14.225 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T15:27:14.2250260+04:00"
+2025-01-27 15:27:14.227 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T15:27:14.2278644+04:00"
+2025-01-27 15:27:14.230 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T15:27:14.2304420+04:00"
+2025-01-27 15:27:14.231 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T15:27:14.2318012+04:00"
+2025-01-27 15:27:14.233 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T15:27:14.2337682+04:00"
+2025-01-27 15:27:14.236 +04:00 [INF] Match found for department image: radiology at "2025-01-27T15:27:14.2363763+04:00"
+2025-01-27 15:27:14.243 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T15:27:14.2430196+04:00"
+2025-01-27 15:27:14.245 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T15:27:14.2455045+04:00"
+2025-01-27 15:27:14.250 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T15:27:14.2505911+04:00"
+2025-01-27 15:27:14.253 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T15:27:14.2539534+04:00"
+2025-01-27 15:27:14.260 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T15:27:14.2603412+04:00"
+2025-01-27 15:27:14.262 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T15:27:14.2628799+04:00"
+2025-01-27 15:27:14.277 +04:00 [INF] Navigated to BranchDepartmentDoctors page for Branch ID: 2 and Department ID: 1 at "2025-01-27T15:27:14.2771874+04:00"
+2025-01-27 15:27:14.284 +04:00 [INF] Fetching doctors for Branch ID: 2 and Department ID: 1 at "2025-01-27T15:27:14.2846034+04:00"
+2025-01-27 15:27:14.327 +04:00 [INF] Executed DbCommand (12ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[CurrentBrunch] = @__bid_0 AND [d].[DepId] = @__depid_1
+2025-01-27 15:27:14.355 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__roleName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Role] = @__roleName_0
+2025-01-27 15:27:14.399 +04:00 [INF] Successfully fetched doctors for Branch ID: 2 and Department ID: 1 at "2025-01-27T15:27:14.3996908+04:00"
+2025-01-27 15:27:14.402 +04:00 [INF] Successfully fetched users with role 'doctor' at "2025-01-27T15:27:14.4027261+04:00"
+2025-01-27 15:27:16.499 +04:00 [INF] Navigated to Department page at "2025-01-27T15:27:16.4998614+04:00"
+2025-01-27 15:27:16.501 +04:00 [INF] Fetching all departments at "2025-01-27T15:27:16.5014789+04:00"
+2025-01-27 15:27:16.514 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-27 15:27:16.537 +04:00 [INF] Successfully fetched and mapped 10 departments at "2025-01-27T15:27:16.5373845+04:00"
+2025-01-27 15:27:20.338 +04:00 [INF] Navigating to DepartmentBranch page for Department ID: 1 at "2025-01-27T15:27:20.3381495+04:00"
+2025-01-27 15:27:20.349 +04:00 [INF] Fetching branches for Department ID: 1 at "2025-01-27T15:27:20.3497971+04:00"
+2025-01-27 15:27:20.363 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-27 15:27:20.429 +04:00 [INF] Executed DbCommand (40ms) [Parameters=[@__departmentId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [b0].[BID], [b0].[BranchName], [b0].[IsActive], [b0].[Location]
+FROM [branchDepartments] AS [b]
+INNER JOIN [Branches] AS [b0] ON [b].[BID] = [b0].[BID]
+WHERE [b].[DepID] = @__departmentId_0
+2025-01-27 15:27:20.446 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[CurrentBrunch] = @__bid_0 AND [d].[DepId] = @__depid_1
+2025-01-27 15:27:20.559 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[CurrentBrunch] = @__bid_0 AND [d].[DepId] = @__depid_1
+2025-01-27 15:27:20.570 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[CurrentBrunch] = @__bid_0 AND [d].[DepId] = @__depid_1
+2025-01-27 15:27:20.582 +04:00 [INF] Successfully fetched and mapped 3 branches for Department ID: 1 at "2025-01-27T15:27:20.5822473+04:00"
+2025-01-27 15:27:20.584 +04:00 [INF] Fetching department name for Department ID: 1 at "2025-01-27T15:27:20.5845459+04:00"
+2025-01-27 15:27:20.589 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-27 15:27:20.597 +04:00 [INF] Successfully fetched department name: cardiology for Department ID: 1 at "2025-01-27T15:27:20.5954459+04:00"
+2025-01-27 15:27:20.610 +04:00 [INF] Getting branch image for branch: Muscat medical center at "2025-01-27T15:27:20.6103719+04:00"
+2025-01-27 15:27:20.614 +04:00 [INF] Match found for branch image: muscat at "2025-01-27T15:27:20.6146422+04:00"
+2025-01-27 15:27:20.617 +04:00 [INF] Getting branch image for branch: salalah healthcare clinic at "2025-01-27T15:27:20.6176058+04:00"
+2025-01-27 15:27:20.620 +04:00 [INF] Match found for branch image: salalah at "2025-01-27T15:27:20.6202760+04:00"
+2025-01-27 15:27:20.622 +04:00 [INF] Getting branch image for branch: sohar general hospital at "2025-01-27T15:27:20.6229391+04:00"
+2025-01-27 15:27:20.625 +04:00 [INF] Match found for branch image: sohar at "2025-01-27T15:27:20.6258347+04:00"
+2025-01-27 15:27:26.904 +04:00 [INF] Navigated to BranchPage at "2025-01-27T15:27:26.9049821+04:00"
+2025-01-27 15:27:26.907 +04:00 [INF] Fetching all branches at "2025-01-27T15:27:26.9075005+04:00"
+2025-01-27 15:27:26.910 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 15:27:26.915 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T15:27:26.9158327+04:00"
+2025-01-27 15:27:26.918 +04:00 [INF] Getting branch image for branch: Muscat medical center at "2025-01-27T15:27:26.9188871+04:00"
+2025-01-27 15:27:26.923 +04:00 [INF] Match found for branch image: muscat at "2025-01-27T15:27:26.9235221+04:00"
+2025-01-27 15:27:26.926 +04:00 [INF] Getting branch image for branch: salalah healthcare clinic at "2025-01-27T15:27:26.9264557+04:00"
+2025-01-27 15:27:26.932 +04:00 [INF] Match found for branch image: salalah at "2025-01-27T15:27:26.9322671+04:00"
+2025-01-27 15:27:26.937 +04:00 [INF] Getting branch image for branch: sohar general hospital at "2025-01-27T15:27:26.9372238+04:00"
+2025-01-27 15:27:26.944 +04:00 [INF] Match found for branch image: sohar at "2025-01-27T15:27:26.9446751+04:00"
+2025-01-27 15:27:26.951 +04:00 [INF] Getting branch image for branch: barka medical clinic at "2025-01-27T15:27:26.9512101+04:00"
+2025-01-27 15:27:26.954 +04:00 [INF] Match found for branch image: barka at "2025-01-27T15:27:26.9542048+04:00"
+2025-01-27 15:27:26.958 +04:00 [INF] Getting branch image for branch: ATA ibri at "2025-01-27T15:27:26.9580943+04:00"
+2025-01-27 15:27:26.961 +04:00 [WRN] No match found for branch image. Falling back to default image for branch: ATA ibri at "2025-01-27T15:27:26.9609932+04:00"
+2025-01-27 15:27:31.617 +04:00 [INF] Navigating to BranchDepartmentPage for Branch ID: 2 at "2025-01-27T15:27:31.6177032+04:00"
+2025-01-27 15:27:31.621 +04:00 [INF] Getting branch image for branch: Muscat medical center at "2025-01-27T15:27:31.6214297+04:00"
+2025-01-27 15:27:31.623 +04:00 [INF] Match found for branch image: muscat at "2025-01-27T15:27:31.6236074+04:00"
+2025-01-27 15:27:31.625 +04:00 [INF] Getting branch image for branch: salalah healthcare clinic at "2025-01-27T15:27:31.6254194+04:00"
+2025-01-27 15:27:31.627 +04:00 [INF] Match found for branch image: salalah at "2025-01-27T15:27:31.6274203+04:00"
+2025-01-27 15:27:31.629 +04:00 [INF] Getting branch image for branch: sohar general hospital at "2025-01-27T15:27:31.6293641+04:00"
+2025-01-27 15:27:31.632 +04:00 [INF] Match found for branch image: sohar at "2025-01-27T15:27:31.6327292+04:00"
+2025-01-27 15:27:31.636 +04:00 [INF] Getting branch image for branch: barka medical clinic at "2025-01-27T15:27:31.6360173+04:00"
+2025-01-27 15:27:31.637 +04:00 [INF] Match found for branch image: barka at "2025-01-27T15:27:31.6376037+04:00"
+2025-01-27 15:27:31.639 +04:00 [INF] Getting branch image for branch: ATA ibri at "2025-01-27T15:27:31.6391727+04:00"
+2025-01-27 15:27:31.641 +04:00 [WRN] No match found for branch image. Falling back to default image for branch: ATA ibri at "2025-01-27T15:27:31.6410175+04:00"
+2025-01-27 15:27:31.644 +04:00 [INF] Navigated to BranchDepartmentPage for Branch ID: 2 at "2025-01-27T15:27:31.6447325+04:00"
+2025-01-27 15:27:31.646 +04:00 [INF] Fetching branch details for Branch ID: 2 at "2025-01-27T15:27:31.6467099+04:00"
+2025-01-27 15:27:31.656 +04:00 [INF] Executed DbCommand (7ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 15:27:31.659 +04:00 [INF] Successfully fetched branch details for Branch ID: 2 at "2025-01-27T15:27:31.6598646+04:00"
+2025-01-27 15:27:31.662 +04:00 [INF] Fetching departments for Branch ID: 2 at "2025-01-27T15:27:31.6620330+04:00"
+2025-01-27 15:27:31.666 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 15:27:31.684 +04:00 [INF] Executed DbCommand (15ms) [Parameters=[@__BranchID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [branchDepartments] AS [b]
+INNER JOIN [Departments] AS [d] ON [b].[DepID] = [d].[DepID]
+WHERE [b].[BID] = @__BranchID_0
+2025-01-27 15:27:31.688 +04:00 [INF] Successfully fetched 7 departments for Branch ID: 2 at "2025-01-27T15:27:31.6882970+04:00"
+2025-01-27 15:27:31.692 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T15:27:31.6929563+04:00"
+2025-01-27 15:27:31.696 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T15:27:31.6961205+04:00"
+2025-01-27 15:27:31.697 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T15:27:31.6977248+04:00"
+2025-01-27 15:27:31.699 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T15:27:31.6997256+04:00"
+2025-01-27 15:27:31.701 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T15:27:31.7012133+04:00"
+2025-01-27 15:27:31.703 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T15:27:31.7034165+04:00"
+2025-01-27 15:27:31.706 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T15:27:31.7064411+04:00"
+2025-01-27 15:27:31.709 +04:00 [INF] Match found for department image: radiology at "2025-01-27T15:27:31.7099226+04:00"
+2025-01-27 15:27:31.712 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T15:27:31.7129636+04:00"
+2025-01-27 15:27:31.715 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T15:27:31.7157963+04:00"
+2025-01-27 15:27:31.716 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T15:27:31.7162928+04:00"
+2025-01-27 15:27:31.717 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T15:27:31.7174613+04:00"
+2025-01-27 15:27:31.718 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T15:27:31.7186810+04:00"
+2025-01-27 15:27:31.720 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T15:27:31.7200542+04:00"
+2025-01-27 15:27:33.810 +04:00 [INF] Navigating to find doctor page for Branch ID: 2 and Department ID: 2 at "2025-01-27T15:27:33.8101465+04:00"
+2025-01-27 15:27:33.813 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T15:27:33.8131392+04:00"
+2025-01-27 15:27:33.816 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T15:27:33.8162789+04:00"
+2025-01-27 15:27:33.817 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T15:27:33.8177617+04:00"
+2025-01-27 15:27:33.818 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T15:27:33.8186996+04:00"
+2025-01-27 15:27:33.819 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T15:27:33.8195412+04:00"
+2025-01-27 15:27:33.820 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T15:27:33.8206405+04:00"
+2025-01-27 15:27:33.821 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T15:27:33.8214974+04:00"
+2025-01-27 15:27:33.823 +04:00 [INF] Match found for department image: radiology at "2025-01-27T15:27:33.8230198+04:00"
+2025-01-27 15:27:33.823 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T15:27:33.8236627+04:00"
+2025-01-27 15:27:33.824 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T15:27:33.8242883+04:00"
+2025-01-27 15:27:33.825 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T15:27:33.8257121+04:00"
+2025-01-27 15:27:33.828 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T15:27:33.8281728+04:00"
+2025-01-27 15:27:33.829 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T15:27:33.8295526+04:00"
+2025-01-27 15:27:33.831 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T15:27:33.8314864+04:00"
+2025-01-27 15:27:33.838 +04:00 [INF] Navigated to BranchDepartmentDoctors page for Branch ID: 2 and Department ID: 2 at "2025-01-27T15:27:33.8387655+04:00"
+2025-01-27 15:27:33.843 +04:00 [INF] Fetching doctors for Branch ID: 2 and Department ID: 2 at "2025-01-27T15:27:33.8431523+04:00"
+2025-01-27 15:27:33.860 +04:00 [INF] Executed DbCommand (11ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[CurrentBrunch] = @__bid_0 AND [d].[DepId] = @__depid_1
+2025-01-27 15:27:33.871 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[@__roleName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Role] = @__roleName_0
+2025-01-27 15:27:33.881 +04:00 [INF] Successfully fetched doctors for Branch ID: 2 and Department ID: 2 at "2025-01-27T15:27:33.8813489+04:00"
+2025-01-27 15:27:33.884 +04:00 [INF] Successfully fetched users with role 'doctor' at "2025-01-27T15:27:33.8849782+04:00"
+2025-01-27 15:27:53.752 +04:00 [INF] Navigated to BranchPage at "2025-01-27T15:27:53.7529689+04:00"
+2025-01-27 15:27:53.753 +04:00 [INF] Fetching all branches at "2025-01-27T15:27:53.7537211+04:00"
+2025-01-27 15:27:53.757 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 15:27:53.760 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T15:27:53.7604549+04:00"
+2025-01-27 15:27:53.762 +04:00 [INF] Getting branch image for branch: Muscat medical center at "2025-01-27T15:27:53.7628053+04:00"
+2025-01-27 15:27:53.763 +04:00 [INF] Match found for branch image: muscat at "2025-01-27T15:27:53.7638397+04:00"
+2025-01-27 15:27:53.764 +04:00 [INF] Getting branch image for branch: salalah healthcare clinic at "2025-01-27T15:27:53.7647437+04:00"
+2025-01-27 15:27:53.766 +04:00 [INF] Match found for branch image: salalah at "2025-01-27T15:27:53.7666589+04:00"
+2025-01-27 15:27:53.768 +04:00 [INF] Getting branch image for branch: sohar general hospital at "2025-01-27T15:27:53.7685060+04:00"
+2025-01-27 15:27:53.770 +04:00 [INF] Match found for branch image: sohar at "2025-01-27T15:27:53.7703888+04:00"
+2025-01-27 15:27:53.771 +04:00 [INF] Getting branch image for branch: barka medical clinic at "2025-01-27T15:27:53.7718056+04:00"
+2025-01-27 15:27:53.773 +04:00 [INF] Match found for branch image: barka at "2025-01-27T15:27:53.7734911+04:00"
+2025-01-27 15:27:53.774 +04:00 [INF] Getting branch image for branch: ATA ibri at "2025-01-27T15:27:53.7746720+04:00"
+2025-01-27 15:27:53.776 +04:00 [WRN] No match found for branch image. Falling back to default image for branch: ATA ibri at "2025-01-27T15:27:53.7762243+04:00"
+2025-01-27 15:29:02.060 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryRJmGKRXrLqaBCXiw 359
+2025-01-27 15:29:02.064 +04:00 [INF] CORS policy execution successful.
+2025-01-27 15:29:02.067 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:29:02.076 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:29:02.080 +04:00 [INF] HTTP GET /_blazor responded 101 in 120969.0259 ms
+2025-01-27 15:29:02.084 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor?id=q82oIaYvYQ_LumVpMOWpEQ - 101 null null 120979.0511ms
+2025-01-27 15:29:02.124 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:29:02.126 +04:00 [INF] HTTP POST /_blazor/disconnect responded 200 in 61.4514 ms
+2025-01-27 15:29:02.128 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - 200 0 null 67.6849ms
+2025-01-27 15:35:43.920 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-27 15:35:44.179 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-27 15:35:44.248 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-27 15:35:44.301 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-27 15:35:44.303 +04:00 [INF] Hosting environment: Development
+2025-01-27 15:35:44.304 +04:00 [INF] Content root path: C:\Users\azzaA\source\repos\HospitalSystemFinalProject
+2025-01-27 15:35:44.791 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-27 15:35:44.900 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-27 15:35:44.966 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-27 15:35:45.200 +04:00 [INF] Home page initialized at "2025-01-27T15:35:45.1994703+04:00"
+2025-01-27 15:35:45.487 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-27 15:35:45.672 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-27 15:35:45.675 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-27 15:35:46.244 +04:00 [INF] Executed DbCommand (52ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 15:35:46.306 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T15:35:46.3065111+04:00"
+2025-01-27 15:35:46.475 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-27 15:35:46.478 +04:00 [INF] HTTP GET / responded 200 in 1572.3780 ms
+2025-01-27 15:35:46.515 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 1734.3888ms
+2025-01-27 15:35:46.529 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-27 15:35:46.534 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-27 15:35:46.539 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-27 15:35:46.542 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-27 15:35:46.544 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 11.1738 ms
+2025-01-27 15:35:46.549 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 19.9621ms
+2025-01-27 15:35:46.574 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-27 15:35:46.574 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-27 15:35:46.583 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 9.3535ms
+2025-01-27 15:35:46.615 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 40.4695ms
+2025-01-27 15:35:46.892 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-27 15:35:46.904 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:35:46.907 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:35:46.909 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 9.4927 ms
+2025-01-27 15:35:46.911 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 19.4502ms
+2025-01-27 15:35:47.279 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-27 15:35:47.284 +04:00 [INF] CORS policy execution successful.
+2025-01-27 15:35:47.287 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:35:47.303 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:35:47.305 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 22.4089 ms
+2025-01-27 15:35:47.307 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 28.1114ms
+2025-01-27 15:35:47.584 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=Jntt8FI-IaI23l_dFdnw-A - null null
+2025-01-27 15:35:47.590 +04:00 [INF] CORS policy execution successful.
+2025-01-27 15:35:47.591 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:35:47.750 +04:00 [INF] Home page initialized at "2025-01-27T15:35:47.7500695+04:00"
+2025-01-27 15:35:47.766 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 15:35:47.770 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T15:35:47.7700623+04:00"
+2025-01-27 15:36:24.432 +04:00 [INF] Attempting login for email: ZahraTaqi8015@CodelineHospital.com
+2025-01-27 15:36:24.786 +04:00 [INF] Executed DbCommand (101ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-27 15:36:24.847 +04:00 [INF] Login successful for user: ZahraTaqi8015@CodelineHospital.com with role: admin
+2025-01-27 15:36:24.927 +04:00 [INF] Redirecting admin user: ZahraTaqi8015@CodelineHospital.com to /StaffPage.
+2025-01-27 15:36:24.997 +04:00 [INF] Executed DbCommand (5ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-27 15:36:28.046 +04:00 [INF] ManageBranch page initialized at "2025-01-27T15:36:28.0459876+04:00"
+2025-01-27 15:36:28.051 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 15:36:28.054 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T15:36:28.0548199+04:00"
+2025-01-27 15:39:12.010 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryMOekMcb5MItgIc1d 359
+2025-01-27 15:39:12.029 +04:00 [INF] CORS policy execution successful.
+2025-01-27 15:39:12.031 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:39:12.037 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:39:12.062 +04:00 [INF] HTTP GET /_blazor responded 101 in 204472.5237 ms
+2025-01-27 15:39:12.066 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor?id=Jntt8FI-IaI23l_dFdnw-A - 101 null null 204481.7498ms
+2025-01-27 15:39:12.093 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 15:39:12.094 +04:00 [INF] HTTP POST /_blazor/disconnect responded 200 in 65.1243 ms
+2025-01-27 15:39:12.097 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - 200 0 null 87.5161ms

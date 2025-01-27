@@ -115,10 +115,17 @@
             Log.Error("Error deleting Branch ID: {BranchId}. Error: {Error} at {Time}", branchId, ex.Message, DateTime.Now);
         }
     }
+    // private void NavigateToManageBranch(int branchId)
+    // {
+    //     Log.Information("Navigating to ViewBranch page for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
 
+    //     NavigationManager.NavigateTo($"/ManageBranch/{branchId}");
+    // }
     private void ViewBranch(int branchId)
     {
         Log.Information("Navigating to ViewBranch page for Branch ID: {BranchId} at {Time}", branchId, DateTime.Now);
-        NavigationManager.NavigateTo($"/ViewBranch/{branchId}");
+        // Navigate to the BranchDepartmentPage with the branch ID
+        NavigationManager.NavigateTo($"/BranchDepartmentPage/{branchId}");
     }
+    
 }

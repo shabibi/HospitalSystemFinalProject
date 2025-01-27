@@ -245,7 +245,7 @@ namespace HospitalSystemTeamTask.Services
             // Filter only booked appointments (Staus == true)
             var bookedAppointments = bookings.Where(b => b.Staus == true && b.PID == patientId);
 
-          
+
             // Check if no available bookings were found
             if (!bookedAppointments.Any())
                 throw new InvalidOperationException("No booked appointments found for the given criteria");
