@@ -2,6 +2,7 @@
 @page "/AddBranch/{BranchId:int?}"
 @inject IBranchService BranchService
 @inject NavigationManager NavigationManager
+@inject ISnackbar Snackbar
 
 <MudContainer MaxWidth="MaxWidth.Medium" Class="my-5" Style="display: flex; flex-direction: column; align-items: center;">
     <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84; margin-bottom: 20px;">
@@ -9,10 +10,10 @@
     </MudText>
     <MudCard Style="width: 100%;">
         <MudCardContent>
-            <MudForm @ref="branchForm" Valid="@isFormValid">
+            <MudForm @ref="branchForm" Model="@branchModel" OnValidSubmit="SaveBranch" @bind-IsValid="isFormValid">
                 <MudTextField T="string" Label="Branch Name" @bind-Value="branchModel.BranchName" Required="true" />
                 <MudTextField T="string" Label="Location" @bind-Value="branchModel.Location" Required="true" />
-                <MudSwitch T="bool" Label="Active" @bind-Checked="branchModel.BranchStatus" Class="@GetSwitchClass()" />
+                <MudSwitch T="bool" Label="Active" @bind-Checked="branchModel.BranchStatus" Color="Color.Primary" />
             </MudForm>
         </MudCardContent>
         <MudCardActions Style="justify-content: flex-end;">
@@ -28,7 +29,7 @@
     private MudForm branchForm;
     private bool isFormValid;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         Log.Information("Navigated to Add/Edit Branch page at {Time}", DateTime.Now);
 
@@ -47,54 +48,41 @@
         }
     }
 
-    private void SaveBranch()
+    private async Task SaveBranch()
     {
-        if (BranchId.HasValue)
+        try
         {
-            try
+            if (BranchId.HasValue)
             {
                 Log.Information("Attempting to update branch with ID: {BranchId} at {Time}", BranchId, DateTime.Now);
-
-                // Map BranchDTO to UpdateBranchDTO
-                var updateBranchDto = new UpdateBranchDTO
+                BranchService.UpdateBranch(BranchId.Value, new UpdateBranchDTO
                     {
                         BranchName = branchModel.BranchName,
-                        Location = branchModel.Location
-                    };
-
-                BranchService.UpdateBranch(BranchId.Value, updateBranchDto);
+                        Location = branchModel.Location,
+                    });
+                Snackbar.Add("Branch updated successfully.", Severity.Success);
                 Log.Information("Successfully updated branch with ID: {BranchId} at {Time}", BranchId, DateTime.Now);
             }
-            catch (Exception ex)
-            {
-                Log.Error("Error updating branch with ID: {BranchId}. Error: {Error} at {Time}", BranchId, ex.Message, DateTime.Now);
-            }
-        }
-        else
-        {
-            try
+            else
             {
                 Log.Information("Attempting to add a new branch at {Time}", DateTime.Now);
                 BranchService.AddBranch(branchModel);
+                Snackbar.Add("Branch added successfully.", Severity.Success);
                 Log.Information("Successfully added a new branch at {Time}", DateTime.Now);
             }
-            catch (Exception ex)
-            {
-                Log.Error("Error adding a new branch. Error: {Error} at {Time}", ex.Message, DateTime.Now);
-            }
-        }
 
-        NavigationManager.NavigateTo("/ManageBranch");
+            NavigationManager.NavigateTo("/ManageBranch");
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"An error occurred: {ex.Message}", Severity.Error);
+            Log.Error("Error saving branch: {Error} at {Time}", ex.Message, DateTime.Now);
+        }
     }
 
     private void Cancel()
     {
         Log.Information("Cancelled Add/Edit Branch operation at {Time}", DateTime.Now);
         NavigationManager.NavigateTo("/ManageBranch");
-    }
-
-    private string GetSwitchClass()
-    {
-        return branchModel.BranchStatus ? "active-switch" : "inactive-switch";
     }
 }
