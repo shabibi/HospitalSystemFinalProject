@@ -2,43 +2,91 @@
 @inject IBookingService AppointmentService
 @inject IClinicService ClinicService
 @inject IDepartmentService DepartmentService
+@inject IPatientService PatientService
+@inject IUserService UserService
+@inject NavigationManager NavigationManager
 
-<MudContainer MaxWidth="MaxWidth.Medium" Class="my-5">
-    @if (BookedAppointments != null && BookedAppointments.Any())
-    {
-        <MudText Typo="Typo.h4" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">Patient's Booked Appointments</MudText>
+@if (PatientDetails == null)
+{
+    <p>Loading patient details...</p>
+}
+else
+{
+    <MudContainer MaxWidth="MaxWidth.Medium" Class="my-5">
 
-        <MudTable Items="BookedAppointments" Striped="true" Hover="true">
-            <HeaderContent>
-                <MudTh>Clinic Name</MudTh>
-                <MudTh>Department</MudTh>
-                <MudTh>Date</MudTh>
-                <MudTh>Time</MudTh>
-            </HeaderContent>
-            <RowTemplate>
-                <MudTd>@context.ClinicName</MudTd>
-                <MudTd>@context.DepartmentName</MudTd>
-                <MudTd>@context.Date.ToShortDateString()</MudTd>
-                <MudTd>@(new DateTime(context.Date.Year, context.Date.Month, context.Date.Day, context.StartTime.Hours, context.StartTime.Minutes, 0).ToString("hh:mm tt"))</MudTd>
-            </RowTemplate>
-        </MudTable>
-    }
-    else if (BookedAppointments == null)
-    {
-        <MudText Typo="Typo.body1" Align="Align.Center"></MudText>
-    }
-</MudContainer>
+        <!-- Patient Details -->
+        <MudCard Class="my-5">
+            <MudCardContent>
+                <MudGrid>
+                    <MudItem xs="12" md="8">
+                        <MudText Typo="Typo.h6"><b>Name:</b> @PatientDetails.UserName</MudText>
+                        <MudText Typo="Typo.body1"><b>Email:</b> @PatientDetails.Email</MudText>
+                        <MudText Typo="Typo.body1"><b>Phone:</b> @PatientDetails.Phone</MudText>
+                        <MudText Typo="Typo.body1"><b>Age:</b> @PatientDetails.Age</MudText>
+                        <MudText Typo="Typo.body1"><b>Role:</b> @PatientDetails.Role</MudText>
+                        
+                    </MudItem>
+                </MudGrid>
+            </MudCardContent>
+        </MudCard>
+
+        <!-- Booked Appointments -->
+        @if (BookedAppointments != null && BookedAppointments.Any())
+        {
+            <MudText Typo="Typo.h4" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">Patient's Booked Appointments</MudText>
+
+            <MudTable Items="BookedAppointments" Striped="true" Hover="true">
+                <HeaderContent>
+                    <MudTh>Clinic Name</MudTh>
+                    <MudTh>Department</MudTh>
+                    <MudTh>Date</MudTh>
+                    <MudTh>Time</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd>@context.ClinicName</MudTd>
+                    <MudTd>@context.DepartmentName</MudTd>
+                    <MudTd>@context.Date.ToShortDateString()</MudTd>
+                    <MudTd>@(new DateTime(context.Date.Year, context.Date.Month, context.Date.Day, context.StartTime.Hours, context.StartTime.Minutes, 0).ToString("hh:mm tt"))</MudTd>
+                </RowTemplate>
+            </MudTable>
+        }
+        else if (BookedAppointments == null)
+        {
+            <MudText Typo="Typo.body1" Align="Align.Center"></MudText>
+        }
+
+        <!-- Book Appointment Button -->
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" OnClick="NavigateToBooking">
+            Book Appointment
+        </MudButton>
+    </MudContainer>
+}
 
 @code {
     [Parameter]
     public int UserId { get; set; }
 
+    private PatienoutputDTO PatientDetails { get; set; }
     private List<EnrichedBooking> BookedAppointments { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
+            // Fetch patient and user details
+            var patient = PatientService.GetPatientById(UserId);
+            var user = UserService.GetUserById(UserId);
+
+            PatientDetails = new PatienoutputDTO
+                {
+                    PID = patient.PID,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    Phone = user.Phone,
+                    Age = patient.Age,
+                    Role = user.Role
+                };
+
             // Fetch all booked appointments for the specific patient
             var appointments = AppointmentService.GetBookedAppointments(UserId)
                 .Where(a => a.Staus == true) // Filter only active appointments
@@ -56,8 +104,19 @@
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error loading appointments for User ID {UserId}: {ex.Message}");
+            Console.WriteLine($"Error loading data for User ID {UserId}: {ex.Message}");
         }
+    }
+
+    private void NavigateToBooking()
+    {
+        // Navigate to the appointment booking page with the patient ID
+        NavigationManager.NavigateTo($"/BookAppointment");
+    }
+
+    private string GetStatusStyle(bool isActive)
+    {
+        return isActive ? "color: green;" : "color: red;";
     }
 
     // Enriched booking model with additional details
