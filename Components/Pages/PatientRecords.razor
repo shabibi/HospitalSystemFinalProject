@@ -92,8 +92,8 @@ else
         try
         {
             // Fetch records based on DoctorId
-            patientRecords = await Task.Run(() => patientRecordService.GetRecords(null, null, DoctorId.Value, null));
-            filteredPatientRecords = patientRecords;
+            // patientRecords = await Task.Run(() => patientRecordService.GetRecords(null, null, DoctorId.Value, null));
+            // filteredPatientRecords = patientRecords;
         }
         catch (Exception ex)
         {

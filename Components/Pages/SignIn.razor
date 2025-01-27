@@ -83,7 +83,7 @@
                     Log.Information("Redirecting admin user: {Email} to /StaffPage.", authenticatedUser.Email);
                     NavigationManager.NavigateTo($"/StaffPage/{authenticatedUser.UID}");
                 }
-                else if (authenticatedUser.Role == "doctor")
+                else if (authenticatedUser.Role == "Doctor" || authenticatedUser.Role == "doctor")
                 {
                     Log.Information("Redirecting doctor user: {Email} to /DoctorPage/{DoctorId}.", authenticatedUser.Email);
                     NavigationManager.NavigateTo($"/DoctorPage/{authenticatedUser.UID}");
