@@ -1,4 +1,4 @@
-﻿@page "/BookAppointment"
+﻿@page "/BookAppointment/{patientId:int}"
 
 @inject IClinicService ClinicService
 @inject IBranchService BranchService
@@ -44,7 +44,7 @@
                 <MudItem xs="12">
                     <div class="d-flex justify-center mt-4">
                         <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="FindClinic"
-                                   Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 8px 16px;">
+                        Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 8px 16px;">
                             Find Clinic
                         </MudButton>
                     </div>
@@ -108,11 +108,59 @@
                     <MudTablePager />
                 </PagerContent>
             </MudTable>
+
+            <!-- Available Dates -->
+            <MudText Typo="Typo.h6" Class="mt-4" Style="color: #1B7D84;">Select an Available Date</MudText>
+            <MudSelect T="DateTime" @bind-Value="selectedDate" Variant="Variant.Outlined" Clearable>
+                @foreach (var date in uniqueDates)
+                {
+                    <MudSelectItem T="DateTime" Value="@date">@date.ToString("dd/MM/yyyy")</MudSelectItem>
+                }
+            </MudSelect>
+
+            <!-- Available Time Slots -->
+            @if (selectedDate != default)
+            {
+                <MudText Typo="Typo.h6" Class="mt-4" Style="color: #1B7D84;">Select an Available Time Slot</MudText>
+                <MudSelect T="TimeSpan" @bind-Value="selectedTime" Variant="Variant.Outlined" Clearable>
+                    @foreach (var time in uniqueTimes)
+                    {
+                        if (!appointments.Any(a => a.Date.Date == selectedDate.Date && a.StartTime == time && a.Staus))
+                        {
+                            <MudSelectItem T="TimeSpan" Value="@time">@DateTime.Today.Add(time).ToString("hh:mm tt")</MudSelectItem>
+                        }
+                    }
+                </MudSelect>
+            }
+
+            <!-- Selected Appointment -->
+            @if (selectedDate != default && selectedTime != default)
+            {
+                <MudText Typo="Typo.body1" Class="mt-4" Style="color: #1B7D84;">
+                    Selected Appointment: @selectedDate.ToString("dd/MM/yyyy") at @DateTime.Today.Add(selectedTime).ToString("hh:mm tt")
+                </MudText>
+            }
+
+            <!-- Confirmation Button -->
+            @if (selectedDate != default && selectedTime != default)
+            {
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ConfirmAppointment"
+                Style="margin-top: 20px; background-color: #1B7D84; color: white;">
+                    Confirm Appointment
+                </MudButton>
+            }
         }
+    }
+    @if (!string.IsNullOrEmpty(bookingStatusMessage))
+    {
+        <MudText Typo="Typo.body1" Align="Align.Center" Class="mt-3" Style="color: #FF6B6B;">
+            @bookingStatusMessage
+        </MudText>
     }
 </MudContainer>
 
 @code {
+    [Parameter] public int patientId { get; set; }
     private List<Branch> branches = new List<Branch>();
     private List<DepDTO> departments = new List<DepDTO>();
     private Branch selectedBranch;
@@ -123,8 +171,10 @@
     private IEnumerable<BookingOutputDTO> appointments = new List<BookingOutputDTO>(); // List of appointments
     private List<TimeSpan> uniqueTimes = new List<TimeSpan>(); // List of unique time slots (columns)
     private List<DateTime> uniqueDates = new List<DateTime>(); // List of unique dates (rows)
+    private DateTime selectedDate; // User-selected date
+    private TimeSpan selectedTime; // User-selected time
     private string statusMessage = string.Empty; // Status message to display
-
+    private string bookingStatusMessage = string.Empty;
     // Fetching Branches and Departments
     protected override void OnInitialized()
     {
@@ -219,4 +269,40 @@
             Log.Error("Error loading appointments for Clinic ID: {ClinicId}. Error: {ErrorMessage}", clinicId, ex.Message);
         }
     }
+    private async Task ConfirmAppointment()
+    {
+        try
+        {
+            // Create the booking input DTO
+            var bookingInput = new BookingInputDTO
+                {
+                    CID = clinicId,
+                    Date = selectedDate,
+                    StartTime = selectedTime
+                };
+
+            Log.Information("Attempting to book appointment for Patient ID: {PatientId}, Clinic ID: {ClinicId}, Date: {Date}, Time: {Time}",
+                            patientId, bookingInput.CID, bookingInput.Date, bookingInput.StartTime);
+
+            // Call the service to book the appointment
+            BookingService.BookAppointment(bookingInput, patientId);
+
+            // Show success message
+            bookingStatusMessage = "Your appointment has been successfully booked!";
+            Log.Information("Appointment successfully booked for Patient ID: {PatientId}", patientId);
+        }
+        catch (InvalidOperationException ex)
+        {
+            // Handle expected errors
+            bookingStatusMessage = $"Booking failed: {ex.Message}";
+            Log.Warning("Booking failed for Patient ID: {PatientId}. Error: {Message}", patientId, ex.Message);
+        }
+        catch (Exception ex)
+        {
+            // Handle unexpected errors
+            bookingStatusMessage = "An unexpected error occurred while booking the appointment. Please try again.";
+            Log.Error("Unexpected error during booking for Patient ID: {PatientId}. Error: {Message}", patientId, ex.Message);
+        }
+    }
+
 }
