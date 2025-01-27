@@ -1,0 +1,15 @@
+2025-01-27 12:01:53.770 +04:00 [INF] Loading all departments at "2025-01-27T12:01:53.7702206+04:00"
+2025-01-27 12:01:53.781 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-27 12:01:53.783 +04:00 [INF] Successfully loaded 10 departments at "2025-01-27T12:01:53.7835160+04:00"
+2025-01-27 12:02:17.354 +04:00 [INF] ManageBranch page initialized at "2025-01-27T12:02:17.3541131+04:00"
+2025-01-27 12:02:17.357 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 12:02:17.360 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T12:02:17.3603452+04:00"
+2025-01-27 12:07:25.822 +04:00 [INF] Home page initialized at "2025-01-27T12:07:25.8221582+04:00"
+2025-01-27 12:07:25.833 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 12:07:25.835 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T12:07:25.8351787+04:00"

@@ -49,7 +49,7 @@
             </MudItem>
 
             <!-- Branch Selection -->
-            <text >Select One Branch</text>
+            <text>Select One Branch</text>
             <MudSelect MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))" MultiSelection="true" @bind-Value="selectedBranch" T="string" Label="Branches" AdornmentIcon="@Icons.Material.Filled.Search">
                 @foreach (var branch in branches)
                 {
@@ -132,7 +132,8 @@
             var branchDepartments = branchDepartmentService.GetDepartmentsByBranchName(branchName);
             departments.AddRange(branchDepartments);
         }
-        if(selectedValues.Count> 1){
+        if (selectedValues.Count > 1)
+        {
             return "Select only one branch ";
         }
         return string.Join(", ", selectedValues);
@@ -145,7 +146,7 @@
             try
             {
                 var userId = userService.AddStaff(newStaffInput);
-                if(newStaffInput.Role == roles[1])
+                if (newStaffInput.Role == roles[1])
                 {
                     branchId = branchService.GetBranchDetailsByBranchName(selectedBranch).BID;
                     if (newStaffInput.Role == "Doctor" && selectedDepartment != 0)
@@ -156,7 +157,7 @@
                         doctorService.AddDoctor(doctorInput);
                     }
                 }
-               
+
                 Snackbar.Add("New staff member added successfully!", Severity.Success);
                 NavigateBack();
             }

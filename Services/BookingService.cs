@@ -117,7 +117,7 @@ namespace HospitalSystemTeamTask.Services
             try
             {
                 // Fetch appointments for the clinic and date
-                var bookedAppointments = _bookingRepo.GetBookingsByClinicAndDate(input.CID, input.Date);
+                var bookedAppointments = _bookingRepo.GetBookingsByClinicAndDate(input.CID, input.Date).Where(b=> b.Date >= DateTime.Now);
 
                 // Check if the patient already has a booking at the same clinic or time
                 var patientBookings = _bookingRepo.GetBookingsByPatientId(patientId);
@@ -245,7 +245,7 @@ namespace HospitalSystemTeamTask.Services
             // Filter only booked appointments (Staus == true)
             var bookedAppointments = bookings.Where(b => b.Staus == true && b.PID == patientId);
 
-          
+
             // Check if no available bookings were found
             if (!bookedAppointments.Any())
                 throw new InvalidOperationException("No booked appointments found for the given criteria");

@@ -80,19 +80,16 @@ namespace HospitalSystemTeamTask.Services
         }
         public void SetBranchStatus(int branchId, bool isActive)
         {
-            // Retrieve the branch by name
             var branch = _branchRepository.GetBranchById(branchId);
             if (branch == null)
             {
-                throw new KeyNotFoundException($"Branch with ID ' {branchId}' not found.");
+                throw new KeyNotFoundException($"Branch with ID '{branchId}' not found.");
             }
 
-            // Update the IsActive flag
             branch.IsActive = isActive;
-
-            // Save the updated branch
             _branchRepository.UpdateBranch(branch);
         }
+
         public BranchDTO GetBranchById(int id)
         {
             var branch = _branchRepository.GetBranchById(id);

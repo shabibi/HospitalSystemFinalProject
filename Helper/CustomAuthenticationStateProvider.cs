@@ -102,6 +102,7 @@ namespace JWTAuthentication
             }
             return Convert.FromBase64String(base64);
         }
+
     }
 
 }
