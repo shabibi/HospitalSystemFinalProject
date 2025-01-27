@@ -81,7 +81,7 @@
                 if (authenticatedUser.Role == "Admin" || authenticatedUser.Role =="admin" || authenticatedUser.Role == "superAdmin")
                 {
                     Log.Information("Redirecting admin user: {Email} to /StaffPage.", authenticatedUser.Email);
-                    NavigationManager.NavigateTo("/StaffPage");
+                    NavigationManager.NavigateTo($"/StaffPage/{authenticatedUser.UID}");
                 }
                 else if (authenticatedUser.Role == "doctor")
                 {

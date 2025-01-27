@@ -5,7 +5,7 @@ namespace HospitalSystemTeamTask.Services
 {
     public interface IUserService
     {
-        Task AddStaff(User InputUser);
+        int AddStaff(User InputUser);
         void AddSuperAdmin(UserInputDTO InputUser);
         void AddUser(User user);
         User AuthenticateUser(string email, string password);
