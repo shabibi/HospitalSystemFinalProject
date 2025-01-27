@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @namespace HospitalSystemTeamTask.Shared.Layouts
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthStateProvider
 
 <MudThemeProvider />
 <MudPopoverProvider />
@@ -9,6 +11,12 @@
 <div class="page d-flex flex-column" style="min-height: 100vh;">
     <!-- AppBar Section -->
     <MudAppBar Color="Color.Default" Fixed="true" Style="background-color: #1B7D84;">
+        <MudText Typo="Typo.body1" Align="Align.Center" Style="color: white; margin-right: auto;">
+            @if (!string.IsNullOrEmpty(UserName))
+            {
+                <span>Hello, @UserName!</span>
+            }
+        </MudText>
         <MudSpacer />
         <MudMenu>
             <ActivatorContent>
@@ -24,7 +32,6 @@
 
     <!-- Main Content Section -->
     <div class="d-flex" style="flex: 1; margin-top: 65px;">
-        <!-- Added margin-top to push content below the AppBar -->
         <!-- Sidebar -->
         <div style="background: linear-gradient(to bottom, #1B7D84, #33BEC8); color: white; width: 250px; height: calc(100vh - 65px); padding: 1rem;">
             <div class="text-center">
@@ -63,21 +70,38 @@
 </div>
 
 @code {
+    private string UserName;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity != null && user.Identity.IsAuthenticated)
+        {
+            UserName = user.Identity.Name; // Retrieve username from claims
+        }
+        else
+        {
+            UserName = "Guest";
+        }
+    }
+
     private void NavigateToProfile()
     {
         Console.WriteLine("Navigating to profile...");
-        // Add navigation logic
+        NavigationManager.NavigateTo("/Profile");
     }
 
     private void NavigateToSettings()
     {
         Console.WriteLine("Navigating to settings...");
-        // Add navigation logic
+        NavigationManager.NavigateTo("/Settings");
     }
 
     private void Logout()
     {
         Console.WriteLine("Logging out...");
-        // Add logout logic
+        NavigationManager.NavigateTo("/Logout");
     }
 }
