@@ -1,4 +1,4 @@
-﻿@page "/BookAppointment"
+﻿@page "/BookAppointment/{patientId:int}"
 
 @inject IClinicService ClinicService
 @inject IBranchService BranchService
@@ -140,11 +140,27 @@
                     Selected Appointment: @selectedDate.ToString("dd/MM/yyyy") at @DateTime.Today.Add(selectedTime).ToString("hh:mm tt")
                 </MudText>
             }
+
+            <!-- Confirmation Button -->
+            @if (selectedDate != default && selectedTime != default)
+            {
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ConfirmAppointment"
+                           Style="margin-top: 20px; background-color: #1B7D84; color: white;">
+                    Confirm Appointment
+                </MudButton>
+            }
         }
+    }
+    @if (!string.IsNullOrEmpty(bookingStatusMessage))
+    {
+        <MudText Typo="Typo.body1" Align="Align.Center" Class="mt-3" Style="color: #FF6B6B;">
+            @bookingStatusMessage
+        </MudText>
     }
 </MudContainer>
 
 @code {
+    [Parameter] public int patientId { get; set; }
     private List<Branch> branches = new List<Branch>();
     private List<DepDTO> departments = new List<DepDTO>();
     private Branch selectedBranch;
@@ -158,7 +174,7 @@
     private DateTime selectedDate; // User-selected date
     private TimeSpan selectedTime; // User-selected time
     private string statusMessage = string.Empty; // Status message to display
-
+    private string bookingStatusMessage = string.Empty;
     // Fetching Branches and Departments
     protected override void OnInitialized()
     {
@@ -253,4 +269,40 @@
             Log.Error("Error loading appointments for Clinic ID: {ClinicId}. Error: {ErrorMessage}", clinicId, ex.Message);
         }
     }
+    private async Task ConfirmAppointment()
+    {
+        try
+        {
+            // Create the booking input DTO
+            var bookingInput = new BookingInputDTO
+                {
+                    CID = clinicId,
+                    Date = selectedDate,
+                    StartTime = selectedTime
+                };
+
+            Log.Information("Attempting to book appointment for Patient ID: {PatientId}, Clinic ID: {ClinicId}, Date: {Date}, Time: {Time}",
+                            patientId, bookingInput.CID, bookingInput.Date, bookingInput.StartTime);
+
+            // Call the service to book the appointment
+            BookingService.BookAppointment(bookingInput, patientId);
+
+            // Show success message
+            bookingStatusMessage = "Your appointment has been successfully booked!";
+            Log.Information("Appointment successfully booked for Patient ID: {PatientId}", patientId);
+        }
+        catch (InvalidOperationException ex)
+        {
+            // Handle expected errors
+            bookingStatusMessage = $"Booking failed: {ex.Message}";
+            Log.Warning("Booking failed for Patient ID: {PatientId}. Error: {Message}", patientId, ex.Message);
+        }
+        catch (Exception ex)
+        {
+            // Handle unexpected errors
+            bookingStatusMessage = "An unexpected error occurred while booking the appointment. Please try again.";
+            Log.Error("Unexpected error during booking for Patient ID: {PatientId}. Error: {Message}", patientId, ex.Message);
+        }
+    }
+
 }
