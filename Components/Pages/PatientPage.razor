@@ -2,6 +2,7 @@
 @inject IBookingService AppointmentService
 @inject IClinicService ClinicService
 @inject IDepartmentService DepartmentService
+@inject IBranchService branchService
 @inject IPatientService PatientService
 @inject IUserService UserService
 @inject NavigationManager NavigationManager
@@ -34,21 +35,23 @@ else
         @if (BookedAppointments != null && BookedAppointments.Any())
         {
             <MudText Typo="Typo.h4" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">Patient's Booked Appointments</MudText>
-
             <MudTable Items="BookedAppointments" Striped="true" Hover="true">
                 <HeaderContent>
-                    <MudTh>Clinic Name</MudTh>
+                    <MudTh>Clinic </MudTh>
+                    <MudTh>Branch </MudTh>
                     <MudTh>Department</MudTh>
                     <MudTh>Date</MudTh>
                     <MudTh>Time</MudTh>
                 </HeaderContent>
                 <RowTemplate>
                     <MudTd>@context.ClinicName</MudTd>
+                    <MudTd>@context.BranchName</MudTd>
                     <MudTd>@context.DepartmentName</MudTd>
                     <MudTd>@context.Date.ToShortDateString()</MudTd>
                     <MudTd>@(new DateTime(context.Date.Year, context.Date.Month, context.Date.Day, context.StartTime.Hours, context.StartTime.Minutes, 0).ToString("hh:mm tt"))</MudTd>
                 </RowTemplate>
             </MudTable>
+
         }
         else if (BookedAppointments == null)
         {
@@ -92,15 +95,21 @@ else
                 .Where(a => a.Staus == true) // Filter only active appointments
                 .ToList();
 
-            // Enrich data with clinic and department names
-            BookedAppointments = appointments.Select(a => new EnrichedBooking
-                {
-                    CID = a.CID,
-                    Date = a.Date,
-                    StartTime = a.StartTime,
-                    ClinicName = ClinicService.GetClinicName(a.CID),
-                    DepartmentName = DepartmentService.GetDepartmentName(a.CID)
-                }).ToList();
+            // Enrich data with clinic, department, and branch names
+            BookedAppointments = appointments.Select(a =>
+            {
+                var clinic = ClinicService.GetClinicById(a.CID);
+                var branchName = clinic != null ? branchService.GetBranchName(clinic.BID) : "N/A";
+                return new EnrichedBooking
+                    {
+                        CID = a.CID,
+                        Date = a.Date,
+                        StartTime = a.StartTime,
+                        ClinicName = clinic?.ClincName ?? "Unknown",
+                        DepartmentName = DepartmentService.GetDepartmentName(a.CID),
+                        BranchName = branchName
+                    };
+            }).ToList();
         }
         catch (Exception ex)
         {
@@ -127,5 +136,6 @@ else
         public TimeSpan StartTime { get; set; }
         public string ClinicName { get; set; }
         public string DepartmentName { get; set; }
+        public string BranchName { get; set; } // New property for branch name
     }
 }
