@@ -1,4 +1,5 @@
-﻿@page "/AddBranch/{BranchId:int?}"
+﻿@layout StaffLayout
+@page "/AddBranch/{BranchId:int?}"
 @inject IBranchService BranchService
 @inject NavigationManager NavigationManager
 
@@ -8,10 +9,10 @@
     </MudText>
     <MudCard Style="width: 100%;">
         <MudCardContent>
-            <MudForm @ref="branchForm" Valid="isFormValid">
+            <MudForm @ref="branchForm" Valid="@isFormValid">
                 <MudTextField T="string" Label="Branch Name" @bind-Value="branchModel.BranchName" Required="true" />
                 <MudTextField T="string" Label="Location" @bind-Value="branchModel.Location" Required="true" />
-                <MudSwitch T="bool" Label="Active" @bind-Checked="branchModel.BranchStatus" />
+                <MudSwitch T="bool" Label="Active" @bind-Checked="branchModel.BranchStatus" Class="@GetSwitchClass()" />
             </MudForm>
         </MudCardContent>
         <MudCardActions Style="justify-content: flex-end;">
@@ -27,7 +28,7 @@
     private MudForm branchForm;
     private bool isFormValid;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         Log.Information("Navigated to Add/Edit Branch page at {Time}", DateTime.Now);
 
@@ -37,7 +38,6 @@
             {
                 Log.Information("Fetching branch details for Branch ID: {BranchId} at {Time}", BranchId, DateTime.Now);
                 branchModel = BranchService.GetBranchById(BranchId.Value);
-                Log.Information("Successfully fetched branch details for Branch ID: {BranchId} at {Time}", BranchId, DateTime.Now);
             }
             catch (Exception ex)
             {
@@ -47,7 +47,7 @@
         }
     }
 
-    private async Task SaveBranch()
+    private void SaveBranch()
     {
         if (BranchId.HasValue)
         {
@@ -56,31 +56,32 @@
                 Log.Information("Attempting to update branch with ID: {BranchId} at {Time}", BranchId, DateTime.Now);
 
                 // Map BranchDTO to UpdateBranchDTO
-                var updateBranchDTO = new UpdateBranchDTO
+                var updateBranchDto = new UpdateBranchDTO
                     {
                         BranchName = branchModel.BranchName,
                         Location = branchModel.Location
                     };
 
-                BranchService.UpdateBranch(BranchId.Value, updateBranchDTO);
+                BranchService.UpdateBranch(BranchId.Value, updateBranchDto);
                 Log.Information("Successfully updated branch with ID: {BranchId} at {Time}", BranchId, DateTime.Now);
             }
             catch (Exception ex)
             {
-                // Log.Information("Attempting to update branch with ID: {BranchId} at {Time}", BranchId, DateTime.Now);
-                //  BranchService.UpdateBranch(BranchId.Value, branchModel);
-                // Log.Information("Successfully updated branch with ID: {BranchId} at {Time}", BranchId, DateTime.Now);
-            }
-            else
-            {
-                Log.Information("Attempting to add a new branch at {Time}", DateTime.Now);
-                 BranchService.AddBranch(branchModel);
-                Log.Information("Successfully added a new branch at {Time}", DateTime.Now);
+                Log.Error("Error updating branch with ID: {BranchId}. Error: {Error} at {Time}", BranchId, ex.Message, DateTime.Now);
             }
         }
-        catch (Exception ex)
+        else
         {
-            Log.Error("Error saving branch. Error: {Error} at {Time}", ex.Message, DateTime.Now);
+            try
+            {
+                Log.Information("Attempting to add a new branch at {Time}", DateTime.Now);
+                BranchService.AddBranch(branchModel);
+                Log.Information("Successfully added a new branch at {Time}", DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error adding a new branch. Error: {Error} at {Time}", ex.Message, DateTime.Now);
+            }
         }
 
         NavigationManager.NavigateTo("/ManageBranch");
@@ -90,5 +91,10 @@
     {
         Log.Information("Cancelled Add/Edit Branch operation at {Time}", DateTime.Now);
         NavigationManager.NavigateTo("/ManageBranch");
+    }
+
+    private string GetSwitchClass()
+    {
+        return branchModel.BranchStatus ? "active-switch" : "inactive-switch";
     }
 }
