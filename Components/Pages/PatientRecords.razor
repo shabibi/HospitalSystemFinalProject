@@ -51,6 +51,7 @@ else
             <MudTh Style="background-color: #1B7D84; color: white; width: 20%;">Doctor Name</MudTh>
             <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Visit Date</MudTh>
             <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Treatment</MudTh>
+            <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Inspection</MudTh>
             <MudTh Style="background-color: #1B7D84; color: white; width: 10%;">Edit</MudTh>
             <MudTh Style="background-color: #1B7D84; color: white; width: 10%;">Delete</MudTh>
         </HeaderContent>
@@ -60,6 +61,7 @@ else
             <MudTd DataLabel="Doctor Name" Style="width: 20%;">@context.DoctorName</MudTd>
             <MudTd DataLabel="Visit Date" Style="width: 15%;">@context.VisitDate.ToShortDateString()</MudTd>
             <MudTd DataLabel="Treatment" Style="width: 15%;">@context.Treatment</MudTd>
+            <MudTd DataLabel="Inspection" Style="width: 15%;">@context.Inspection</MudTd> <!-- New Column -->
             <MudTd DataLabel="Edit" Style="width: 10%;">
                 <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Warning" OnClick="() => NavigateToEdit(context.RecordId)" />
             </MudTd>
@@ -68,6 +70,7 @@ else
             </MudTd>
         </RowTemplate>
     </MudTable>
+
 }
 
 @code {
