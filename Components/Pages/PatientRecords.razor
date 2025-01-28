@@ -21,8 +21,14 @@
 
     <!-- Add New Patient Record Button -->
     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToAddPatientRecord"
-               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px; width: 100%;">
+               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px; width: 100%; margin-bottom: 20px;">
         Add New Patient Record
+    </MudButton>
+
+    <!-- Select Appointment Button -->
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToSelectAppointment"
+               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px; width: 100%;">
+        Select Appointment
     </MudButton>
 </div>
 
@@ -132,5 +138,11 @@ else
     {
         NavigationManager.NavigateTo($"/AddPatientRecord/{EnteredPatientId}/{DoctorId}");
     }
+    private void NavigateToSelectAppointment()
+    {
+        // Redirect the user to the SelectAppointment page, passing both PatientId and DoctorId as parameters
+        NavigationManager.NavigateTo($"/DoctorSelectAppointment/{EnteredPatientId}/{DoctorId}");
+    }
+
 
 }
