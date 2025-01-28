@@ -1,65 +1,97 @@
-﻿@inject AuthenticationStateProvider AuthStateProvider
+﻿@inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthStateProvider
 
-<div style="background: linear-gradient(to bottom, #1B7D84, #33BEC8); color: white; width: 250px; height: 100vh; padding: 0; display: flex; flex-direction: column; justify-content: space-between;">
-    <!-- Centered Logo Image -->
-    <div style="display: flex; justify-content: center; padding: 1rem;">
-        <img src="/Images/logo.png" alt="Logo" style="max-width: 150px; max-height: 100px; object-fit: contain;" />
-    </div>
+<MudThemeProvider />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
-    <!-- Navigation Menu Items -->
-    <div class="nav-scrollable" style="flex-grow: 1;">
-        <nav class="d-flex flex-column" style="width: 100%; padding: 0;">
-            <!-- Home NavLink -->
-            <div class="nav-item px-3">
-                <NavLink class="nav-link d-flex align-items-center" href="/" Match="NavLinkMatch.All" style="color: white; font-weight: bold; padding: 0.5rem 1rem;">
-                    <span class="bi bi-house-door-fill" aria-hidden="true" style="margin-right: 10px; font-size: 1.2rem; line-height: 1;"></span>
-                    Home
-                </NavLink>
+<div class="page d-flex flex-column" style="min-height: 100vh;">
+
+    <!-- Top Navigation Bar -->
+    <MudAppBar Color="Color.Primary" Fixed="true">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" OnClick="ToggleDrawer" />
+        <MudText Typo="Typo.h6" Style="color: white;">ATA Hospital</MudText>
+        <MudSpacer />
+        <MudButton OnClick="HandleSignInOut" Variant="Variant.Outlined" Style="color: #1B7D84; border-color: #1B7D84;">
+            @SignInOutText
+        </MudButton>
+    </MudAppBar>
+
+    <!-- Side Drawer for Navigation -->
+    <MudDrawer @bind-Open="drawerOpen" Anchor="Anchor.Start" Color="Color.Primary" Style="max-width: 250px; min-height: 100vh; background: linear-gradient(to bottom, #1B7D84, #33BEC8);">
+        <MudDrawerContent>
+            <!-- Logo Image -->
+            <div class="text-center" style="padding: 1rem;">
+                <img src="/Images/logo.png" alt="Logo" style="max-width: 150px; max-height: 100px; object-fit: contain;" />
             </div>
 
-            <!-- Our Doctor NavLink -->
-            <div class="nav-item px-3">
-                <NavLink class="nav-link d-flex align-items-center" href="/our_doctors" style="color: white; font-weight: bold; padding: 0.5rem 1rem;">
-                    <span class="bi bi-person-fill" aria-hidden="true" style="margin-right: 10px; font-size: 1.2rem; line-height: 1;"></span>
-                    Our Doctor
-                </NavLink>
-            </div>
-
-            <!-- Branch NavLink -->
-            <div class="nav-item px-3">
-                <NavLink class="nav-link d-flex align-items-center" href="/BranchPage" style="color: white; font-weight: bold; padding: 0.5rem 1rem;">
-                    <span class="bi bi-building" aria-hidden="true" style="margin-right: 10px; font-size: 1.2rem; line-height: 1;"></span>
-                    Branch
-                </NavLink>
-            </div>
-
-            <!-- Department NavLink -->
-            <div class="nav-item px-3">
-                <NavLink class="nav-link d-flex align-items-center" href="/Department" style="color: white; font-weight: bold; padding: 0.5rem 1rem;">
-                    <span class="bi bi-journal-bookmark-fill" aria-hidden="true" style="margin-right: 10px; font-size: 1.2rem; line-height: 1;"></span>
-                    Department
-                </NavLink>
-            </div>
-
-
-            <!-- Profile NavLink (only for patients) -->
-            @if (IsPatient)
-            {
+            <!-- Navigation Menu Items -->
+            <nav class="d-flex flex-column" style="width: 100%; padding: 0;">
+                <!-- Home NavLink -->
                 <div class="nav-item px-3">
-                    <NavLink class="nav-link d-flex align-items-center" href="@($"/PatientPage/{UserId}")" style="color: white; font-weight: bold; padding: 0.5rem 1rem;">
-                        <span class="bi bi-person-circle" aria-hidden="true" style="margin-right: 10px; font-size: 1.2rem; line-height: 1;"></span>
-                        Profile
+                    <NavLink class="nav-link d-flex align-items-center" href="/" Match="NavLinkMatch.All" style="color: white; font-weight: bold; padding: 0.5rem 1rem;">
+                        <span class="bi bi-house-door-fill" aria-hidden="true" style="margin-right: 10px; font-size: 1.2rem; line-height: 1;"></span>
+                        Home
                     </NavLink>
                 </div>
-            }
-        </nav>
+
+                <!-- Our Doctor NavLink -->
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link d-flex align-items-center" href="/our_doctors" style="color: white; font-weight: bold; padding: 0.5rem 1rem;">
+                        <span class="bi bi-person-fill" aria-hidden="true" style="margin-right: 10px; font-size: 1.2rem; line-height: 1;"></span>
+                        Our Doctor
+                    </NavLink>
+                </div>
+
+                <!-- Branch NavLink -->
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link d-flex align-items-center" href="/BranchPage" style="color: white; font-weight: bold; padding: 0.5rem 1rem;">
+                        <span class="bi bi-building" aria-hidden="true" style="margin-right: 10px; font-size: 1.2rem; line-height: 1;"></span>
+                        Branch
+                    </NavLink>
+                </div>
+
+                <!-- Department NavLink -->
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link d-flex align-items-center" href="/Department" style="color: white; font-weight: bold; padding: 0.5rem 1rem;">
+                        <span class="bi bi-journal-bookmark-fill" aria-hidden="true" style="margin-right: 10px; font-size: 1.2rem; line-height: 1;"></span>
+                        Department
+                    </NavLink>
+                </div>
+
+                <!-- Profile NavLink (only for patients) -->
+                @if (IsPatient)
+                {
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link d-flex align-items-center" href="@($"/PatientPage/{UserId}")" style="color: white; font-weight: bold; padding: 0.5rem 1rem;">
+                            <span class="bi bi-person-circle" aria-hidden="true" style="margin-right: 10px; font-size: 1.2rem; line-height: 1;"></span>
+                            Profile
+                        </NavLink>
+                    </div>
+                }
+            </nav>
+        </MudDrawerContent>
+    </MudDrawer>
+
+    <!-- Main Content Area -->
+    <div class="main-content" style="flex: 1; padding: 1rem;">
+        <!-- Main Article Section -->
+        <main>
+            <article class="content px-4">
+                @Body
+            </article>
+        </main>
     </div>
+
 </div>
 
 @code {
     private bool IsPatient = false;
     private int UserId;
+    private bool drawerOpen = false; // Drawer state for navigation
+    private string SignInOutText = "Sign In";
 
     protected override async Task OnInitializedAsync()
     {
@@ -71,6 +103,32 @@
             IsPatient = user.Claims.Any(c => c.Type == "role" && c.Value == "Patient");
             var idClaim = user.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
             UserId = !string.IsNullOrEmpty(idClaim) ? int.Parse(idClaim) : 0;
+            SignInOutText = "Sign Out";
         }
+    }
+
+    private async Task HandleSignInOut()
+    {
+        if (SignInOutText == "Sign Out")
+        {
+            await Logout();
+            SignInOutText = "Sign In";
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/SignIn");
+        }
+    }
+
+    private async Task Logout()
+    {
+        Console.WriteLine("Logging out...");
+        // Perform token clearing or logout logic here
+        await Task.Delay(500); // Simulating async operation
+    }
+
+    private void ToggleDrawer()
+    {
+        drawerOpen = !drawerOpen;
     }
 }

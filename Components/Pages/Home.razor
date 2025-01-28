@@ -1,72 +1,71 @@
 ﻿@page "/"
 @inject NavigationManager NavigationManager
-@inject IBranchService BranchService
 
 <PageTitle>Home</PageTitle>
 
-<MudText Typo="Typo.h2"
-         Style="color: #33BEC8;
-                text-align: center;
-                font-family: 'Times New Roman', Times, serif;
-                font-weight: bold;
-                font-size: 36px;
-                margin: 20px;">
-    ATA Hospital
-</MudText>
+<style>
+    body {
+        background: url('/Images/theBG.jpg') no-repeat center center fixed;
+        background-size: cover;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Ensure content starts at the top */
+    }
 
-<div>
-    <MudSelect T="string"
-               Label="Find Branch"
-               AnchorOrigin="Origin.CenterLeft"
-               TransformOrigin="Origin.CenterRight"
-               Variant="Variant.Outlined"
-               AdornmentIcon="@Icons.Material.Filled.Search"
-               AdornmentColor="Color.Tertiary"
-               @bind-Value="selectedBranchName"
-               OnSelectedItemChanged="OnBranchSelected">
-        @foreach (var branch in branches)
-        {
-            <MudSelectItem Value="@branch.BranchName">@branch.BranchName</MudSelectItem>
+    /* The content area of the page */
+    .content-container {
+        flex: 1; /* This will make the content take up all available space */
+        padding: 20px;
+    }
+
+    /* Contact section fixed at the bottom */
+    .contact-bar {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        background-color: #1B7D84;
+        z-index: 1000; /* Ensure it is on top */
+    }
+
+        .contact-bar .mud-text {
+            color: #E0F2F1;
         }
-    </MudSelect>
-</div>
-<div class="text-center p-4 rounded shadow-lg" style="background-color: #1B7D84;">
-    <!-- Hospital Logo -->
-    <MudImage Fluid="true"
-              Src="Images/logo.png"
-              Width="300"
-              Height="200"
-              Alt="Hospital Logo"
-              Class="rounded-lg mb-3"
-              Style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);" />
+</style>
 
+<!-- Main Content -->
+<div class="content-container">
+  
     <!-- Welcome Title -->
-    <MudText Typo="Typo.h3" Style="color: #E0F2F1; font-family: 'Times New Roman', Times, serif;">
-        Welcome to ATA Hospital
-    </MudText>
 
-    <!-- Description Section -->
-    <MudText Typo="Typo.body1" Align="Align.Center" Style="color: #E0F2F1; margin-top: 20px; line-height: 1.8;">
-        ATA Hospital is a locally owned and operated medical center, serving the community since 2025. Over the years,
-        we have grown from a single-doctor cardiology practice to a multi-specialty hospital, offering comprehensive
-        healthcare services for the entire family.
-    </MudText>
-    <MudText Typo="Typo.body1" Align="Align.Center" Style="color: #E0F2F1; margin-top: 10px; line-height: 1.8;">
-        From the very beginning, our mission has been to bring the most qualified and accomplished doctors to Oman.
-        Today, we are proud to be home to numerous internationally qualified senior consultants, providing expertise
-        across almost every branch of medicine.
-    </MudText>
-</div>
+    <div style="background-color:#E0F2F1; padding: 50px; width: 50%; height: 70%; margin-left: auto; margin-right: 0;">
+        <!-- Centered Logo Image -->
+        <div style="display: flex; justify-content: center; padding: 1rem;">
+            <img src="/Images/logo.png" alt="Logo" style="width: 200px; height: auto; object-fit: contain;" />
+        </div>
 
-<!-- Contact Section -->
-<div class="container mt-5">
-    <MudPaper Class="rounded p-4 shadow-lg" Style="background-color: #1B7D84;">
-        <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #E0F2F1; margin-bottom: 20px;">
-            Contact Us
+        <MudText Typo="Typo.h3" Style="color:black; font-family: 'Times New Roman', Times, serif;">
+            Welcome to ATA Hospital
         </MudText>
+        <!-- Description Section -->
+        <MudText Typo="Typo.body1" Align="Align.Left" Style="color:black; line-height: 1.8;">
+            ATA Hospital is a locally owned and operated medical center, serving the community since 2025. Over the years,
+            we have grown from a single-doctor cardiology practice to a multi-specialty hospital, offering comprehensive
+            healthcare services for the entire family.
+        </MudText>
+        <MudText Typo="Typo.body1" Align="Align.Left" Style="color:black; margin-top: 10px; line-height: 1.8;">
+            From the very beginning, our mission has been to bring the most qualified and accomplished doctors to Oman.
+            Today, we are proud to be home to numerous internationally qualified senior consultants, providing expertise
+            across almost every branch of medicine.
+        </MudText>
+    </div>
 
-        <!-- Contact Details -->
-        <div class="d-flex justify-content-around flex-wrap">
+    <!-- Contact Section at the bottom -->
+    <MudAppBar Color="Color.Default" Fixed="true" Position="MudAppBarPosition.Bottom"
+               Style="width: 100%; background-color: #1B7D84; padding: 10px 0; display: flex; justify-content: center;margin-top: 560px;  align-items: center;">
+        <div class="d-flex justify-content-center align-items-center" style="width: 80%; gap: 20px;">
             <!-- Email -->
             <div class="text-center">
                 <MudIcon Icon="@Icons.Material.Filled.Email" Color="Color.Tertiary" Size="Size.Large" />
@@ -82,6 +81,7 @@
                     <strong>Location:</strong> Al Khuwair, Muscat, Oman
                 </MudText>
             </div>
+
             <!-- Phone -->
             <div class="text-center">
                 <MudIcon Icon="@Icons.Material.Filled.Phone" Color="Color.Tertiary" Size="Size.Large" />
@@ -89,20 +89,33 @@
                     <strong>Phone:</strong> +968-123-4567
                 </MudText>
             </div>
+
             <!-- GitHub -->
             <div class="text-center">
                 <MudIcon Icon="@Icons.Custom.Brands.GitHub" Color="Color.Tertiary" Size="Size.Large" />
                 <MudText Typo="Typo.body2" Style="color: #E0F2F1; margin-top: 5px;">
                     <strong>GitHub:</strong>
-                    <MudLink Href="https://github.com/shabibi/HospitalSystemFinalProject" Target="_blank"
-                             Style="color: #E0F2F1; text-decoration: none;">
-                        Project Link
-                    </MudLink>
                 </MudText>
+                <MudLink Href="https://github.com/shabibi/HospitalSystemFinalProject" Target="_blank"
+                         Style="color: #E0F2F1; text-decoration: none; display: block; margin-top: 5px;">
+                    Link
+                </MudLink>
             </div>
         </div>
-    </MudPaper>
+    </MudAppBar>
+
+
+
+    <div>
+     
 </div>
+
+</div>
+
+
+
+
+
 
 @code {
     private List<Branch> branches = new();
@@ -113,45 +126,15 @@
     {
         Log.Information("Home page initialized at {Time}", DateTime.Now);
 
-        try
-        {
-            branches = BranchService.GetAllBranches().ToList();
-            Log.Information("Fetched {Count} branches from the service at {Time}", branches.Count, DateTime.Now);
-        }
-        catch (Exception ex)
-        {
-            Log.Error("Error fetching branches: {Error} at {Time}", ex.Message, DateTime.Now);
-        }
-    }
-
-    private void OnBranchSelected(string branchName)
-    {
-        if (string.IsNullOrEmpty(branchName))
-        {
-            Log.Warning("Branch selection was attempted, but branch name is null or empty at {Time}", DateTime.Now);
-            return;
-        }
-
-        try
-        {
-            Log.Information("Fetching details for branch: {BranchName} at {Time}", branchName, DateTime.Now);
-
-            branchDetails = BranchService.GetBranchDetailsByBranchName(branchName);
-
-            if (branchDetails != null)
-            {
-                Log.Information("Successfully fetched details for branch: {BranchName} at {Time}", branchName, DateTime.Now);
-            }
-            else
-            {
-                Log.Warning("No details found for branch: {BranchName} at {Time}", branchName, DateTime.Now);
-            }
-        }
-        catch (KeyNotFoundException ex)
-        {
-            Log.Error("Branch not found: {Error} at {Time}", ex.Message, DateTime.Now);
-            branchDetails = null;
-        }
+        // try
+        // {
+        //     branches = BranchService.GetAllBranches().ToList();
+        //     Log.Information("Fetched {Count} branches from the service at {Time}", branches.Count, DateTime.Now);
+        // }
+        // catch (Exception ex)
+        // {
+        //     Log.Error("Error fetching branches: {Error} at {Time}", ex.Message, DateTime.Now);
+        // }
     }
 
     private void NavigateToGitHub()
