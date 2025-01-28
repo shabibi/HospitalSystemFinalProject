@@ -35,24 +35,34 @@
         <!-- Sidebar -->
         <div style="background: linear-gradient(to bottom, #1B7D84, #33BEC8); color: white; width: 250px; height: calc(100vh - 65px); padding: 1rem;">
             <div class="text-center">
-                <img src="/Images/logo.png" alt="Logo" style="max-width: 150px; object-fit: contain;" />
+                <!-- Wrap the logo in a link to the home page -->
+                <a href="/" style="display: inline-block; text-decoration: none;">
+                    <img src="/Images/logo.png" alt="Logo" style="max-width: 150px; object-fit: contain;" />
+                </a>
             </div>
             <nav>
-                <NavLink class="nav-link d-flex align-items-center" href="/" Match="NavLinkMatch.All" style="color: white; font-weight: bold; font-size: 1.1rem; padding: 0.5rem;">
-                    <span class="bi bi-house-door-fill" aria-hidden="true" style="margin-right: 15px;"></span> Home
-                </NavLink>
-                <NavLink class="nav-link d-flex align-items-center" href="/ManageBranch" style="color: white; font-weight: bold; font-size: 1.1rem; padding: 0.5rem;">
-                    <span class="bi bi-building" aria-hidden="true" style="margin-right: 15px;"></span> Branch
-                </NavLink>
-                <NavLink class="nav-link d-flex align-items-center" href="/DepartmentPage" style="color: white; font-weight: bold; font-size: 1.1rem; padding: 0.5rem;">
-                    <span class="bi bi-journal-bookmark-fill" aria-hidden="true" style="margin-right: 15px;"></span> Department
-                </NavLink>
-                <NavLink class="nav-link d-flex align-items-center" href="/ClinicPage" style="color: white; font-weight: bold; font-size: 1.1rem; padding: 0.5rem;">
-                    <span class="bi bi-hospital-fill" aria-hidden="true" style="margin-right: 15px;"></span> Clinic
-                </NavLink>
-                <NavLink class="nav-link d-flex align-items-center" href="/Staff" style="color: white; font-weight: bold; font-size: 1.1rem; padding: 0.5rem;">
-                    <span class="bi bi-person-lines-fill" aria-hidden="true" style="margin-right: 15px;"></span> Staff
-                </NavLink>
+                @if (GlobalState.IsAuthenticated)
+                {
+                    <NavLink class="nav-link d-flex align-items-center" href="@($"/StaffPage/{GlobalState.UID}")" Match="NavLinkMatch.All" style="color: white; font-weight: bold; font-size: 1.1rem; padding: 0.5rem;">
+                        <span class="bi bi-house-door-fill" aria-hidden="true" style="margin-right: 15px;"></span> Home
+                    </NavLink>
+                    <NavLink class="nav-link d-flex align-items-center" href="/ManageBranch" style="color: white; font-weight: bold; font-size: 1.1rem; padding: 0.5rem;">
+                        <span class="bi bi-building" aria-hidden="true" style="margin-right: 15px;"></span> Branch
+                    </NavLink>
+                    <NavLink class="nav-link d-flex align-items-center" href="/DepartmentPage" style="color: white; font-weight: bold; font-size: 1.1rem; padding: 0.5rem;">
+                        <span class="bi bi-journal-bookmark-fill" aria-hidden="true" style="margin-right: 15px;"></span> Department
+                    </NavLink>
+                    <NavLink class="nav-link d-flex align-items-center" href="/ClinicPage" style="color: white; font-weight: bold; font-size: 1.1rem; padding: 0.5rem;">
+                        <span class="bi bi-hospital-fill" aria-hidden="true" style="margin-right: 15px;"></span> Clinic
+                    </NavLink>
+                    <NavLink class="nav-link d-flex align-items-center" href="/Staff" style="color: white; font-weight: bold; font-size: 1.1rem; padding: 0.5rem;">
+                        <span class="bi bi-person-lines-fill" aria-hidden="true" style="margin-right: 15px;"></span> Staff
+                    </NavLink>
+                }
+                else
+                {
+                    <MudText Typo="Typo.body1" Align="Align.Center" Style="color: gray;">Please log in</MudText>
+                }
             </nav>
         </div>
 
