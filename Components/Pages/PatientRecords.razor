@@ -3,22 +3,34 @@
 @inject NavigationManager NavigationManager
 @inject IPatientRecordService patientRecordService
 
-
 <h3 style="color: #1B7D84;">Patient Records</h3>
-<div class="d-flex justify-end" style="margin-bottom: 30px;">
+
+<div class="d-flex flex-column align-start" style="margin-bottom: 30px; width: 300px;">
+    <!-- Input for Patient ID -->
+    <MudTextField T="int" Label="Enter Patient ID" Variant="Variant.Filled"
+                  Style="width: 100%; margin-bottom: 10px;"
+                  @bind-Value="EnteredPatientId"
+                  Adornment="Adornment.Start"
+                  AdornmentIcon="@Icons.Material.Filled.Person" />
+
+    <!-- Button under the input box -->
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="FetchPatientRecordById"
+               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px; width: 100%; margin-bottom: 20px;">
+        Fetch Patient Record
+    </MudButton>
+
+    <!-- Add New Patient Record Button -->
     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToAddPatientRecord"
-               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px;">
+               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px; width: 100%;">
         Add New Patient Record
     </MudButton>
 </div>
-@if (loading)
-{
-    <div class="text-center" style="margin-top: 50px;">
-        <MudProgressCircular Indeterminate="true" />
-        <p>Loading patient records...</p>
-    </div>
-}
-else if (errorMessage != null)
+
+
+
+
+
+@if (errorMessage != null)
 {
     <div class="alert alert-danger text-center" style="margin-top: 20px;">
         @errorMessage
@@ -27,23 +39,11 @@ else if (errorMessage != null)
 else if (!filteredPatientRecords.Any())
 {
     <div class="alert alert-warning text-center" style="margin-top: 20px;">
-        No records found for the given doctor.
+        No records found.
     </div>
 }
 else
 {
-
-
-    <MudTextField T="string"
-                  Placeholder="Search for Patient Record"
-                  ValueChanged="@OnSearchChanged"
-                  Immediate="true"
-                  Adornment="Adornment.End"
-                  AdornmentIcon="@Icons.Material.Filled.Search"
-                  Class="mb-4"
-                  Variant="Variant.Filled"
-                  Style="margin-bottom: 20px;" />
-
     <MudTable Items="@filteredPatientRecords" Hover="true" SortLabel="Sort By" Style="width: 100%; margin-top: 50px;">
         <HeaderContent>
             <MudTh Style="background-color: #1B7D84; color: white; width: 10%;">Record ID</MudTh>
@@ -55,7 +55,7 @@ else
             <MudTh Style="background-color: #1B7D84; color: white; width: 10%;">Delete</MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="Record ID" Style="background-color: #1B7D84; color: white; width: 10%;">@context.RecordId</MudTd>
+            <MudTd DataLabel="Record ID" Style="width: 10%;">@context.RecordId</MudTd>
             <MudTd DataLabel="Patient Name" Style="width: 20%;">@context.PatientName</MudTd>
             <MudTd DataLabel="Doctor Name" Style="width: 20%;">@context.DoctorName</MudTd>
             <MudTd DataLabel="Visit Date" Style="width: 15%;">@context.VisitDate.ToShortDateString()</MudTd>
@@ -72,54 +72,40 @@ else
 
 @code {
     [Parameter]
-    public int? DoctorId { get; set; }
+    public int DoctorId { get; set; }
 
     private IEnumerable<PatientRecordOutput> patientRecords = new List<PatientRecordOutput>();
     private IEnumerable<PatientRecordOutput> filteredPatientRecords = new List<PatientRecordOutput>();
-    private string searchQuery = string.Empty;
-    private bool loading = true;
+    private int EnteredPatientId { get; set; }
+
     private string errorMessage = null;
 
-    protected override async Task OnParametersSetAsync()
+    private async Task FetchPatientRecordById()
     {
-        if (DoctorId == null)
+        if (EnteredPatientId == null)
         {
-            errorMessage = "Invalid Doctor ID.";
-            loading = false;
+            errorMessage = "Please enter a valid Patient ID.";
             return;
         }
 
+        errorMessage = null;
+
         try
         {
-            // Fetch records based on DoctorId
-            // patientRecords = await Task.Run(() => patientRecordService.GetRecords(null, null, DoctorId.Value, null));
-            // filteredPatientRecords = patientRecords;
+            // Fetch patient-specific records
+            patientRecords = await Task.Run(() => patientRecordService.GetRecords(EnteredPatientId));
+            filteredPatientRecords = patientRecords;
+
+            if (!filteredPatientRecords.Any())
+            {
+                errorMessage = $"No records found for Patient ID: {EnteredPatientId}.";
+            }
         }
         catch (Exception ex)
         {
-            errorMessage = ex.Message;
+            errorMessage = $"Error fetching patient records: {ex.Message}";
         }
-        finally
-        {
-            loading = false;
-        }
-    }
-
-    private void OnSearchChanged(string search)
-    {
-        searchQuery = search;
-
-        if (string.IsNullOrWhiteSpace(searchQuery))
-        {
-            filteredPatientRecords = patientRecords;
-        }
-        else
-        {
-            filteredPatientRecords = patientRecords.Where(r =>
-                r.PatientName.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
-                r.DoctorName.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
-                r.Treatment.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
-        }
+  
     }
 
     private void NavigateToEdit(int recordId)
@@ -132,7 +118,7 @@ else
         var recordToDelete = patientRecords.FirstOrDefault(r => r.RecordId == recordId);
         if (recordToDelete != null)
         {
-            // Call service to delete the record
+            // Simulate deletion
             patientRecords = patientRecords.Where(r => r.RecordId != recordId).ToList();
             filteredPatientRecords = patientRecords;
             StateHasChanged();
@@ -141,6 +127,7 @@ else
 
     private void NavigateToAddPatientRecord()
     {
-        NavigationManager.NavigateTo($"/AddPatientRecord/{DoctorId}");
+        NavigationManager.NavigateTo($"/AddPatientRecord/{EnteredPatientId}/{DoctorId}");
     }
+
 }

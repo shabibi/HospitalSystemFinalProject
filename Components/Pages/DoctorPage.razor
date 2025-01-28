@@ -4,7 +4,6 @@
 @inject IDoctorService DoctorService
 @inject IDepartmentService DepartmentService
 
-<h3 style="color: #1B7D84;">Doctor Page</h3>
 
 @if (loading)
 {
@@ -54,21 +53,15 @@ else if (DoctorDetails != null)
     </MudContainer>
 
     <!-- Buttons Section -->
-    <div>
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
         <!-- Button to view patient records -->
         <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToPatientRecords"
-                   Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px;">
-            View Patient Records
+                   Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 20px;">
+            NEW VISIT
         </MudButton>
     </div>
 
-    <div style="margin-top: 20px;">
-        <!-- Button to add patient record -->
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToAddPatientRecord"
-                   Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px;">
-            Add Patient Record
-        </MudButton>
-    </div>
+
 
 }
 else
@@ -108,12 +101,6 @@ else
     {
         // Navigate to the PatientRecords page with DoctorId
         NavigationManager.NavigateTo($"/PatientRecords/{DoctorId}");
-    }
-
-    private void NavigateToAddPatientRecord()
-    {
-        // Navigate to Add Patient Record page with DoctorId
-        NavigationManager.NavigateTo($"/AddPatientRecord/{DoctorId}");
     }
 
     private string CapitalizeWords(string input)
