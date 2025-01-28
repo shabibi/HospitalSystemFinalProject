@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @namespace HospitalSystemTeamTask.Shared.Layouts
+@inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager NavigationManager
 
 <MudThemeProvider />
 <MudPopoverProvider />
@@ -9,6 +11,9 @@
 <div class="page d-flex flex-column" style="min-height: 100vh;">
     <!-- AppBar Section -->
     <MudAppBar Color="Color.Default" Fixed="true" Style="background-color: #1B7D84;">
+        <MudText Typo="Typo.body1" Align="Align.Left" Style="color: white; margin-left: 15px;">
+            Welcome, @DoctorName!
+        </MudText>
         <MudSpacer />
         <MudMenu>
             <ActivatorContent>
@@ -37,18 +42,16 @@
                 </NavLink>
 
                 <!-- Clinic -->
-                <NavLink class="nav-link d-flex align-items-center" href="" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem;">
+                <NavLink class="nav-link d-flex align-items-center" href="/ClinicPage" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem;">
                     <span class="bi bi-building" aria-hidden="true" style="margin-right: 15px;"></span> Clinic
                 </NavLink>
 
                 <!-- Patient Record -->
-
                 <NavLink class="nav-link d-flex align-items-center"
                          href="@($"/PatientRecords")"
                          style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem;">
                     <span class="bi bi-hospital-fill" aria-hidden="true" style="margin-right: 15px;"></span> Patient Record
                 </NavLink>
-
             </nav>
         </div>
 
@@ -66,22 +69,40 @@
 </div>
 
 @code {
+    private string DoctorName = "Guest";
+
+    protected override async Task OnInitializedAsync()
+    {
+        DoctorName = await GetDoctorName();
+    }
+
+    private async Task<string> GetDoctorName()
+    {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity != null && user.Identity.IsAuthenticated)
+        {
+            var nameClaim = user.Claims.FirstOrDefault(c => c.Type == "name")?.Value;
+            return !string.IsNullOrEmpty(nameClaim) ? nameClaim : "Doctor";
+        }
+
+        return "Guest";
+    }
+
     private void NavigateToProfile()
     {
-        Console.WriteLine("Navigating to profile...");
-        // Add navigation logic
+        NavigationManager.NavigateTo("/Profile");
     }
 
     private void NavigateToSettings()
     {
-        Console.WriteLine("Navigating to settings...");
-        // Add navigation logic
+        NavigationManager.NavigateTo("/Settings");
     }
-   
 
     private void Logout()
     {
-        Console.WriteLine("Logging out...");
-        // Add logout logic
+        DoctorName = "Guest";
+        NavigationManager.NavigateTo("/SignIn");
     }
 }

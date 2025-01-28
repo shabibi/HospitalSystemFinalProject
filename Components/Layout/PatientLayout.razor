@@ -1,0 +1,178 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+@namespace HospitalSystemTeamTask.Shared.Layouts
+@inject AuthenticationStateProvider AuthStateProvider
+
+@* Required *@
+<MudThemeProvider />
+<MudPopoverProvider />
+
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+
+<div class="page d-flex flex-column" style="min-height: 100vh;">
+
+    <!-- Carousel Section -->
+    <div class="carousel-container" style="width: 100%; height: 250px;">
+        <MudCarousel Class="mud-width-full" Style="height: 100%;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
+            <MudCarouselItem Transition="transition" Color="@Color.Primary">
+                <div class="d-flex" style="height: 100%;">
+                    <MudImage Src="/Images/img3.png" Alt="Carousel Image" Style="width: 100%; height: 100%; object-fit: cover; margin: auto;" />
+                </div>
+            </MudCarouselItem>
+            <MudCarouselItem Transition="transition" Color="@Color.Primary">
+                <div class="d-flex" style="height: 100%;">
+                    <MudImage Src="/Images/img4.png" Alt="Carousel Image" Style="width: 100%; height: 100%; object-fit: cover; margin: auto;" />
+                </div>
+            </MudCarouselItem>
+            <MudCarouselItem Transition="transition" Color="@Color.Primary">
+                <div class="d-flex" style="height: 100%;">
+                    <MudImage Src="/Images/img5.png" Alt="Carousel Image" Style="width: 100%; height: 100%; object-fit: cover; margin: auto;" />
+                </div>
+            </MudCarouselItem>
+        </MudCarousel>
+    </div>
+
+    <div class="page">
+        <div class="sidebar">
+            <div style="background: linear-gradient(to bottom, #1B7D84, #33BEC8); color: white; width: 250px; height: 100vh; padding: 0; display: flex; flex-direction: column; justify-content: space-between;">
+
+                <!-- Centered Logo Image -->
+                <div style="display: flex; justify-content: center; padding: 1rem;">
+                    <img src="/Images/logo.png" alt="Logo" style="max-width: 150px; max-height: 100px; object-fit: contain;" />
+                </div>
+
+                <!-- Navigation Menu Items -->
+                <div class="nav-scrollable" style="flex-grow: 1;">
+                    <nav class="d-flex flex-column" style="width: 100%; padding: 0;">
+                        <!-- Home NavLink -->
+                        <div class="nav-item px-3">
+                            <NavLink class="nav-link d-flex align-items-center" href="/" Match="NavLinkMatch.All" style="color: white; font-weight: bold; padding: 0.5rem 1rem;">
+                                <span class="bi bi-house-door-fill" aria-hidden="true" style="margin-right: 10px; font-size: 1.2rem; line-height: 1;"></span>
+                                Home
+                            </NavLink>
+                        </div>
+
+                        <!-- Profile NavLink -->
+                        <div class="nav-item px-3">
+                            <NavLink href="@($"/PatientPage/{UserId}")" class="nav-link">
+    <MudIcon Icon="@Icons.Material.Filled.Person" Style="margin-right: 8px;" />
+    Your Profile
+</NavLink>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content" style="flex: 1; padding: 1rem;">
+            <!-- Right-Aligned User Info -->
+            <div class="user-info" style="float: right; margin: 1rem; display: flex; align-items: center;">
+                @if (SignInOutText == "Sign Out")
+                {
+                    <MudText Typo="Typo.body1" Style="margin-right: 10px; color: #1B7D84;">
+                        Hello, @UserName!
+                    </MudText>
+                }
+                <MudButton OnClick="HandleSignInOut" Variant="Variant.Outlined" Style="border-color: #1B7D84; color: #1B7D84;">
+                    @SignInOutText
+                </MudButton>
+            </div>
+
+            <!-- Main Content Area -->
+            <main>
+                <article class="content px-4">
+                    @Body
+                </article>
+            </main>
+        </div>
+    </div>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+
+@code {
+    private bool arrows = true;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Slide;
+    private int UserId;
+
+    private string SignInOutText = "Sign In";
+    private string UserName = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity != null && user.Identity.IsAuthenticated)
+        {
+            SignInOutText = "Sign Out";
+            UserName = CapitalizeEachWord(GetUserNameFromClaims(user));
+
+            var idClaim = user.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
+            UserId = !string.IsNullOrEmpty(idClaim) ? int.Parse(idClaim) : 0;
+        }
+        else
+        {
+            SignInOutText = "Sign In";
+            UserName = string.Empty;
+        }
+    }
+
+    private async Task HandleSignInOut()
+    {
+        if (SignInOutText == "Sign Out")
+        {
+            await Logout();
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/SignIn");
+        }
+    }
+
+    private async Task Logout()
+    {
+        Console.WriteLine("Logging out...");
+        await ClearTokenAsync();
+        UserName = string.Empty;
+        SignInOutText = "Sign In";
+    }
+
+    private async Task ClearTokenAsync()
+    {
+        // Simulating token reset; replace with actual logic if needed
+        Console.WriteLine("Token cleared.");
+        await Task.CompletedTask;
+    }
+
+    private string GetUserNameFromClaims(System.Security.Claims.ClaimsPrincipal user)
+    {
+        var nameClaim = user.Claims.FirstOrDefault(c => c.Type == "name")?.Value;
+        return !string.IsNullOrEmpty(nameClaim) ? nameClaim : "User";
+    }
+
+    private string CapitalizeEachWord(string input)
+    {
+        if (string.IsNullOrEmpty(input))
+            return input;
+
+        var words = input.Split(' ');
+        for (int i = 0; i < words.Length; i++)
+        {
+            words[i] = char.ToUpper(words[i][0]) + words[i].Substring(1).ToLower();
+        }
+        return string.Join(' ', words);
+    }
+}
