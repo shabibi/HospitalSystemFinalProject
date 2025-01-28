@@ -4,159 +4,34 @@
 
 <PageTitle>Home</PageTitle>
 
-<MudText Typo="Typo.h2"
-         Style="color: #33BEC8;
-                text-align: center;
-                font-family: 'Times New Roman', Times, serif;
-                font-weight: bold;
-                font-size: 36px;
-                margin: 20px;">
-    ATA Hospital
-</MudText>
-
-<div>
-    <MudSelect T="string"
-               Label="Find Branch"
-               AnchorOrigin="Origin.CenterLeft"
-               TransformOrigin="Origin.CenterRight"
-               Variant="Variant.Outlined"
-               AdornmentIcon="@Icons.Material.Filled.Search"
-               AdornmentColor="Color.Tertiary"
-               @bind-Value="selectedBranchName"
-               OnSelectedItemChanged="OnBranchSelected">
-        @foreach (var branch in branches)
-        {
-            <MudSelectItem Value="@branch.BranchName">@branch.BranchName</MudSelectItem>
-        }
-    </MudSelect>
-</div>
-<div class="text-center p-4 rounded shadow-lg" style="background-color: #1B7D84;">
-    <!-- Hospital Logo -->
-    <MudImage Fluid="true"
-              Src="Images/logo.png"
-              Width="300"
-              Height="200"
-              Alt="Hospital Logo"
-              Class="rounded-lg mb-3"
-              Style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);" />
-
-    <!-- Welcome Title -->
-    <MudText Typo="Typo.h3" Style="color: #E0F2F1; font-family: 'Times New Roman', Times, serif;">
-        Welcome to ATA Hospital
-    </MudText>
-
-    <!-- Description Section -->
-    <MudText Typo="Typo.body1" Align="Align.Center" Style="color: #E0F2F1; margin-top: 20px; line-height: 1.8;">
-        ATA Hospital is a locally owned and operated medical center, serving the community since 2025. Over the years,
-        we have grown from a single-doctor cardiology practice to a multi-specialty hospital, offering comprehensive
-        healthcare services for the entire family.
-    </MudText>
-    <MudText Typo="Typo.body1" Align="Align.Center" Style="color: #E0F2F1; margin-top: 10px; line-height: 1.8;">
-        From the very beginning, our mission has been to bring the most qualified and accomplished doctors to Oman.
-        Today, we are proud to be home to numerous internationally qualified senior consultants, providing expertise
-        across almost every branch of medicine.
-    </MudText>
-</div>
-
-<!-- Contact Section -->
-<div class="container mt-5">
-    <MudPaper Class="rounded p-4 shadow-lg" Style="background-color: #1B7D84;">
-        <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #E0F2F1; margin-bottom: 20px;">
-            Contact Us
-        </MudText>
-
-        <!-- Contact Details -->
-        <div class="d-flex justify-content-around flex-wrap">
-            <!-- Email -->
-            <div class="text-center">
-                <MudIcon Icon="@Icons.Material.Filled.Email" Color="Color.Tertiary" Size="Size.Large" />
-                <MudText Typo="Typo.body2" Style="color: #E0F2F1; margin-top: 5px;">
-                    <strong>Email:</strong> contact@ATAhospital.com
-                </MudText>
-            </div>
-
-            <!-- Location -->
-            <div class="text-center">
-                <MudIcon Icon="@Icons.Material.Filled.LocationOn" Color="Color.Tertiary" Size="Size.Large" />
-                <MudText Typo="Typo.body2" Style="color: #E0F2F1; margin-top: 5px;">
-                    <strong>Location:</strong> Al Khuwair, Muscat, Oman
-                </MudText>
-            </div>
-            <!-- Phone -->
-            <div class="text-center">
-                <MudIcon Icon="@Icons.Material.Filled.Phone" Color="Color.Tertiary" Size="Size.Large" />
-                <MudText Typo="Typo.body2" Style="color: #E0F2F1; margin-top: 5px;">
-                    <strong>Phone:</strong> +968-123-4567
-                </MudText>
-            </div>
-            <!-- GitHub -->
-            <div class="text-center">
-                <MudIcon Icon="@Icons.Custom.Brands.GitHub" Color="Color.Tertiary" Size="Size.Large" />
-                <MudText Typo="Typo.body2" Style="color: #E0F2F1; margin-top: 5px;">
-                    <strong>GitHub:</strong>
-                    <MudLink Href="https://github.com/shabibi/HospitalSystemFinalProject" Target="_blank"
-                             Style="color: #E0F2F1; text-decoration: none;">
-                        Project Link
-                    </MudLink>
-                </MudText>
-            </div>
-        </div>
-    </MudPaper>
+<!-- Full-screen background image applied here -->
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <a href="/" style="display: inline-block; text-decoration: none; width: 100%; height: 100%;">
+        <img src="/Images/background.png" alt="Background" class="full-screen-img" />
+    </a>
 </div>
 
 @code {
-    private List<Branch> branches = new();
-    private Branch branchDetails = new();
-    private string selectedBranchName;
+    private string SignInOutText => "Sign In";
 
-    protected override void OnInitialized()
+    // Add any other necessary code related to your app functionality
+    private void HandleSignInOut()
     {
-        Log.Information("Home page initialized at {Time}", DateTime.Now);
-
-        try
-        {
-            branches = BranchService.GetAllBranches().ToList();
-            Log.Information("Fetched {Count} branches from the service at {Time}", branches.Count, DateTime.Now);
-        }
-        catch (Exception ex)
-        {
-            Log.Error("Error fetching branches: {Error} at {Time}", ex.Message, DateTime.Now);
-        }
-    }
-
-    private void OnBranchSelected(string branchName)
-    {
-        if (string.IsNullOrEmpty(branchName))
-        {
-            Log.Warning("Branch selection was attempted, but branch name is null or empty at {Time}", DateTime.Now);
-            return;
-        }
-
-        try
-        {
-            Log.Information("Fetching details for branch: {BranchName} at {Time}", branchName, DateTime.Now);
-
-            branchDetails = BranchService.GetBranchDetailsByBranchName(branchName);
-
-            if (branchDetails != null)
-            {
-                Log.Information("Successfully fetched details for branch: {BranchName} at {Time}", branchName, DateTime.Now);
-            }
-            else
-            {
-                Log.Warning("No details found for branch: {BranchName} at {Time}", branchName, DateTime.Now);
-            }
-        }
-        catch (KeyNotFoundException ex)
-        {
-            Log.Error("Branch not found: {Error} at {Time}", ex.Message, DateTime.Now);
-            branchDetails = null;
-        }
-    }
-
-    private void NavigateToGitHub()
-    {
-        Log.Information("Navigating to GitHub repository at {Time}", DateTime.Now);
-        NavigationManager.NavigateTo("https://github.com/shabibi/HospitalSystemFinalProject", true);
+        // Add your sign-in logic here
     }
 }
+<style>
+    /* Add this to your app.css or a custom CSS file */
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+    }
+
+    .full-screen-img {
+        width: 100%;
+        height: 100%; /* Cover the entire height of the page */
+        object-fit: cover; /* Ensures the image covers the entire screen */
+    }
+
+</style>
