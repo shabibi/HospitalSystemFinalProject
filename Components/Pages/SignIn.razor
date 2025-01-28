@@ -7,8 +7,12 @@
 @inject IAuthService authService
 
 <div class="flex justify-center items-center h-screen">
-    <div class="w-full max-w-sm bg-white p-6 shadow-lg rounded-md">
-        <h3 class="text-center text-2xl font-semibold mb-6">Login</h3>
+    <div class="w-full max-w-md p-8 shadow-lg rounded-lg" style="background-color: #1B7D84;padding: 20px; align-items: center;">
+        <!-- Logo -->
+        <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+            <img src="Images/logo.png" alt="Logo" style="height: 250px; width: 250px; border-block-style: dotted;" />
+        </div>
+        <h3 class="text-center text-2xl font-semibold mb-6" style="color: #B4DBDC;">Login</h3>
 
         <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
             <DataAnnotationsValidator />
@@ -25,15 +29,15 @@
                               InputType="InputType.Password" Variant="Variant.Outlined" FullWidth="true" />
                 <ValidationMessage For="@(() => loginModel.Password)" />
             </div>
-            <div class="flex justify-center mt-4">
+            <div class="flex justify-center mt-6">
                 <MudButton Type="submit" Variant="Variant.Filled" Color="Color.Primary" OnClick="HandleLogin"
-                           Style="font-size: 1rem; padding: 12px;">
+                           Style="font-size: 1rem; background-color: #1B7D84;color: #B4DBDC; padding: 12px;">
                     Login
                 </MudButton>
             </div>
 
             <div class="text-center mt-4">
-                <a href="/signup" class="text-sm text-blue-600 hover:underline">
+                <a href="/signup" class="text-sm text-blue-600 hover:underline" style="color: #B4DBDC;">
                     Not registered? Sign up
                 </a>
             </div>
@@ -87,9 +91,7 @@
                 {
                     Log.Information("Redirecting doctor user: {Email} to /DoctorPage/{DoctorId}.", authenticatedUser.Email);
                     NavigationManager.NavigateTo($"/DoctorPage/{authenticatedUser.UID}");
-                    // NavigationManager.NavigateTo("/DoctorPage");
-                    // Navigating to PatientRecords page with the DoctorId
-                
+                   
 
                 }
                 else
