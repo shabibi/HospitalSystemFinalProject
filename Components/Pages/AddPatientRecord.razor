@@ -6,17 +6,7 @@
 
 <h3 style="color: #1B7D84;">Add New Patient Record</h3>
 
-@* <MudForm @ref="form" Model="@newPatientRecord" OnValidSubmit="HandleValidSubmit">
-    <MudTextField T="int" Label="Patient ID" @bind-Value="newPatientRecord.PtientID" Required="true" />
-    <MudTextField T="string" Label="Treatment" @bind-Value="newPatientRecord.Treatment" Required="true" />
-    <MudTextField T="string" Label="Inspection" @bind-Value="newPatientRecord.Inspection" Required="true" />
 
-    <MudButton Type="Submit" Variant="Variant.Filled" Style="margin-top: 20px; background-color: #1B7D84; border-color: #1B7D84; color: white;">
-        Save Record
-    </MudButton>
-</MudForm>
-
- *@
 <MudForm Model="newPatientRecord" @ref="form" Valid="isFormValid" OnValidSubmit="HandleValidSubmit">
     <MudTextField T="int" Label="Patient ID" @bind-Value="newPatientRecord.PtientID" Required="true" />
     <MudTextField T="string" Label="Treatment" @bind-Value="newPatientRecord.Treatment" Required="true" />
