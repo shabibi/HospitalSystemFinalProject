@@ -3,7 +3,8 @@
 @inject NavigationManager NavigationManager
 @inject IDoctorService DoctorService
 @inject IDepartmentService DepartmentService
-
+@inject IClinicService clinicService
+@inject ISnackbar Snackbar 
 
 @if (loading)
 {
@@ -11,7 +12,6 @@
 }
 else if (DoctorDetails != null)
 {
-    <!-- Doctor Information Section -->
     <MudContainer MaxWidth="MaxWidth.Medium" Class="my-5">
         <MudText Typo="Typo.h3" Align="Align.Center" Style="color: #1B7D84;">@DoctorDetails.UserName</MudText>
         <MudText Typo="Typo.subtitle1" Align="Align.Center" Style="color: #33BEC8;">@DoctorDetails.Level - @CapitalizeWords(DepartmentName)</MudText>
@@ -23,22 +23,19 @@ else if (DoctorDetails != null)
                     <MudItem xs="12" md="4" Class="d-flex justify-center align-center">
                         <div style="width: 100%; max-width: 200px; height: auto; overflow: hidden;">
                             <img src="@($"/Images/Users/Doctors/{DoctorDetails.UID}.webp" ?? "/Images/Users/Doctors/defaultDoctor.png")"
-                                 alt="@DoctorDetails.UserName"
-                                 style="width: 100%; height: auto; border-radius: 4px; border: 1px solid #ccc;" />
+                            alt="@DoctorDetails.UserName"
+                            style="width: 100%; height: auto; border-radius: 4px; border: 1px solid #ccc;" />
                         </div>
                     </MudItem>
 
-                    <!-- Doctor Information -->
                     <MudItem xs="12" md="8">
                         <MudGrid>
-                            <!-- Personal Information -->
                             <MudItem xs="12" md="12">
                                 <MudDivider Class="my-2" />
                                 <MudText Typo="Typo.body1"><b>Email:</b> @DoctorDetails.Email</MudText>
                                 <MudText Typo="Typo.body1"><b>Phone:</b> @DoctorDetails.Phone</MudText>
                             </MudItem>
 
-                            <!-- Professional Information -->
                             <MudItem xs="12" md="12">
                                 <MudDivider Class="my-2" />
                                 <MudText Typo="Typo.body1"><b>Degree:</b> @DoctorDetails.Degree</MudText>
@@ -52,17 +49,15 @@ else if (DoctorDetails != null)
         </MudCard>
     </MudContainer>
 
-    <!-- Buttons Section -->
     <div style="display: flex; justify-content: center; margin-top: 20px;">
-        <!-- Button to view patient records -->
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToPatientRecords"
-                   Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 20px;">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToPatientRecords">
             NEW VISIT
         </MudButton>
+
+        <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="NavigateToClinic">
+            VIEW CLINIC
+        </MudButton>
     </div>
-
-
-
 }
 else
 {
@@ -81,11 +76,11 @@ else
     {
         try
         {
-            DoctorDetails = DoctorService.GetDoctorDetailsById(DoctorId);
+            DoctorDetails =  DoctorService.GetDoctorDetailsById(DoctorId);
 
             if (DoctorDetails != null)
             {
-                DepartmentName = DepartmentService.GetDepartmentName(DoctorDetails.DepId);
+                DepartmentName =  DepartmentService.GetDepartmentName(DoctorDetails.DepId);
             }
 
             loading = false;
@@ -99,9 +94,28 @@ else
 
     private void NavigateToPatientRecords()
     {
-        // Navigate to the PatientRecords page with DoctorId
         NavigationManager.NavigateTo($"/PatientRecords/{DoctorId}");
     }
+
+
+
+    private void NavigateToClinic()
+    {
+        var doctor = DoctorService.GetDoctorById(DoctorId);
+        if (doctor.CID == 0 || doctor.CID == null)
+        {
+            // Display a message when no clinic is assigned
+            Console.WriteLine("No clinic assigned for this doctor.");
+            // Use the Snackbar to show the message
+            Snackbar.Add("No clinic assigned to this doctor.", Severity.Warning);
+        }
+        else
+        {
+            // Proceed with the navigation if a valid clinic is assigned
+            NavigationManager.NavigateTo($"/DoctorClinic/{doctor.CID}");
+        }
+    }
+
 
     private string CapitalizeWords(string input)
     {

@@ -1,0 +1,69 @@
+﻿@page "/DoctorClinic/{clinicId:int}"
+@layout DoctorLayout
+@inject IClinicService clinicService
+@inject NavigationManager NavigationManager
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="my-5">
+    @if (loading)
+    {
+        <MudText Typo="Typo.body1" Align="Align.Center" Style="color: gray;">Loading clinic information...</MudText>
+    }
+    else if (clinic != null)
+    {
+        <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84;">
+            @clinic.ClincName
+        </MudText>
+
+        <MudCard Class="mt-5">
+            <MudCardContent>
+                <MudGrid>
+                    <!-- Clinic Information -->
+                    <MudItem xs="12" md="12">
+                        <MudText Typo="Typo.body1"><b>Clinic ID:</b> @clinic.CID</MudText>
+                        <MudText Typo="Typo.body1"><b>Clinic Name:</b> @clinic.ClincName</MudText>
+                    </MudItem>
+
+                    <MudItem xs="12" md="12" Class="mt-3">
+                        <MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Primary" OnClick="() => NavigateToView(clinic.CID)" />
+                        <MudIconButton Icon="@Icons.Material.Filled.Schedule" Color="Color.Info" OnClick="() => NavigateToSchedule(clinic.CID)" />
+                    </MudItem>
+                </MudGrid>
+            </MudCardContent>
+        </MudCard>
+    }
+    else
+    {
+        <MudText Typo="Typo.body1" Align="Align.Center" Style="color: gray;">No clinic information available.</MudText>
+    }
+</MudContainer>
+
+@code {
+    [Parameter] public int clinicId { get; set; }
+
+    private HospitalSystemTeamTask.Models.Clinic clinic;
+    private bool loading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            clinic =  clinicService.GetClinicById(clinicId);
+            loading = false;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching clinic info: {ex.Message}");
+            loading = false;
+        }
+    }
+
+    private void NavigateToView(int clinicId)
+    {
+        NavigationManager.NavigateTo($"/ViewAllClinicAppointments/{clinicId}");
+    }
+
+    private void NavigateToSchedule(int clinicId)
+    {
+        NavigationManager.NavigateTo($"/SchedulePage/{clinicId}");
+    }
+}
