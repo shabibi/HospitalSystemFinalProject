@@ -102,8 +102,9 @@
 
     private async Task Logout()
     {
-        Console.WriteLine("Logging out...");
-        // Perform token clearing or logout logic here
-        await Task.Delay(500); // Simulating async operation
+        GlobalState.IsAuthenticated = false;
+        GlobalState.UID = 0;
+        GlobalState.Name = null;
+        NavigationManager.NavigateTo("/");
     }
 }
