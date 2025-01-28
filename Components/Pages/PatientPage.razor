@@ -2,9 +2,11 @@
 @inject IBookingService AppointmentService
 @inject IClinicService ClinicService
 @inject IDepartmentService DepartmentService
+@inject IBranchService BranchService
 @inject IPatientService PatientService
 @inject IUserService UserService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
 @if (PatientDetails == null)
 {
@@ -24,7 +26,6 @@ else
                         <MudText Typo="Typo.body1"><b>Phone:</b> @PatientDetails.Phone</MudText>
                         <MudText Typo="Typo.body1"><b>Age:</b> @PatientDetails.Age</MudText>
                         <MudText Typo="Typo.body1"><b>Role:</b> @PatientDetails.Role</MudText>
-                        
                     </MudItem>
                 </MudGrid>
             </MudCardContent>
@@ -34,31 +35,47 @@ else
         @if (BookedAppointments != null && BookedAppointments.Any())
         {
             <MudText Typo="Typo.h4" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">Patient's Booked Appointments</MudText>
-
             <MudTable Items="BookedAppointments" Striped="true" Hover="true">
                 <HeaderContent>
-                    <MudTh>Clinic Name</MudTh>
+                    <MudTh>Clinic</MudTh>
+                    <MudTh>Branch</MudTh>
                     <MudTh>Department</MudTh>
                     <MudTh>Date</MudTh>
                     <MudTh>Time</MudTh>
+                    <MudTh>Actions</MudTh>
                 </HeaderContent>
                 <RowTemplate>
                     <MudTd>@context.ClinicName</MudTd>
+                    <MudTd>@context.BranchName</MudTd>
                     <MudTd>@context.DepartmentName</MudTd>
                     <MudTd>@context.Date.ToShortDateString()</MudTd>
                     <MudTd>@(new DateTime(context.Date.Year, context.Date.Month, context.Date.Day, context.StartTime.Hours, context.StartTime.Minutes, 0).ToString("hh:mm tt"))</MudTd>
+                    <MudTd>
+                        <MudButton Variant="Variant.Filled" Color="Color.Error" OnClick="() => RequestCancelAppointment(context)">
+                            Cancel Appointment
+                        </MudButton>
+                    </MudTd>
                 </RowTemplate>
             </MudTable>
-        }
-        else if (BookedAppointments == null)
-        {
-            <MudText Typo="Typo.body1" Align="Align.Center"></MudText>
-        }
 
-        <!-- Book Appointment Button -->
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" OnClick="NavigateToBooking">
-            Book Appointment
-        </MudButton>
+            <!-- Buttons in same line -->
+            <MudGrid>
+                <MudItem xs="6" sm="6" md="6">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" OnClick="NavigateToBooking">
+                        Book Appointment
+                    </MudButton>
+                </MudItem>
+                <MudItem xs="6" sm="6" md="6" Class="d-flex justify-end">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" OnClick="ViewAppointmentRecords">
+                        View Records
+                    </MudButton>
+                </MudItem>
+            </MudGrid>
+        }
+        else
+        {
+            <MudText Typo="Typo.body1" Align="Align.Center">No appointments booked.</MudText>
+        }
     </MudContainer>
 }
 
@@ -92,15 +109,21 @@ else
                 .Where(a => a.Staus == true) // Filter only active appointments
                 .ToList();
 
-            // Enrich data with clinic and department names
-            BookedAppointments = appointments.Select(a => new EnrichedBooking
-                {
-                    CID = a.CID,
-                    Date = a.Date,
-                    StartTime = a.StartTime,
-                    ClinicName = ClinicService.GetClinicName(a.CID),
-                    DepartmentName = DepartmentService.GetDepartmentName(a.CID)
-                }).ToList();
+            // Enrich data with clinic, department, and branch names
+            BookedAppointments = appointments.Select(a =>
+            {
+                var clinic = ClinicService.GetClinicById(a.CID);
+                var branchName = clinic != null ? BranchService.GetBranchName(clinic.BID) : "N/A";
+                return new EnrichedBooking
+                    {
+                        CID = a.CID,
+                        Date = a.Date,
+                        StartTime = a.StartTime,
+                        ClinicName = clinic?.ClincName ?? "Unknown",
+                        DepartmentName = DepartmentService.GetDepartmentName(a.CID),
+                        BranchName = branchName
+                    };
+            }).ToList();
         }
         catch (Exception ex)
         {
@@ -114,9 +137,55 @@ else
         NavigationManager.NavigateTo($"/BookAppointment/{UserId}");
     }
 
-    private string GetStatusStyle(bool isActive)
+    private async Task RequestCancelAppointment(EnrichedBooking booking)
     {
-        return isActive ? "color: green;" : "color: red;";
+        // Show the native browser confirmation dialog
+        var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", new object[] { $"Are you sure you want to cancel your appointment for {booking.Date.ToShortDateString()} at {booking.StartTime}?" });
+
+        if (confirmed)
+        {
+            // Proceed with cancellation
+            CancelAppointment(booking);
+        }
+        else
+        {
+            // User canceled the action, nothing to do
+            Console.WriteLine("Cancellation was canceled by the user.");
+        }
+    }
+
+    private async Task CancelAppointment(EnrichedBooking booking)
+    {
+        try
+        {
+            // Prepare the input DTO for cancellation
+            var bookingInputDTO = new BookingInputDTO
+                {
+                    CID = booking.CID,
+                    Date = booking.Date,
+                    StartTime = booking.StartTime
+                };
+
+            // Call the cancellation service
+            AppointmentService.CancelAppointment(bookingInputDTO, UserId);
+
+            // Remove the canceled appointment from the list
+            BookedAppointments.Remove(booking);
+
+            // Optionally, show a success message
+            Console.WriteLine($"Appointment for {booking.Date:MMMM dd, yyyy} at {booking.StartTime} has been canceled.");
+        }
+        catch (Exception ex)
+        {
+            // Handle errors, such as unauthorized access or already canceled appointments
+            Console.WriteLine($"Error canceling appointment: {ex.Message}");
+        }
+    }
+
+    private void ViewAppointmentRecords()
+    {
+        // Navigate to the page that displays records of appointments (you can modify this as per your requirements)
+        NavigationManager.NavigateTo($"/ViewPatientRecord/{UserId}");
     }
 
     // Enriched booking model with additional details
@@ -127,5 +196,6 @@ else
         public TimeSpan StartTime { get; set; }
         public string ClinicName { get; set; }
         public string DepartmentName { get; set; }
+        public string BranchName { get; set; } // New property for branch name
     }
 }

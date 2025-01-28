@@ -85,17 +85,11 @@ namespace HospitalSystemTeamTask.Services
         }
 
         //Get records depends on given parameter
-        public IEnumerable<PatientRecordOutput> GetRecords(int? RecordId, int? patientId, int? doctorId, int? branchId)
+        public IEnumerable<PatientRecordOutput> GetRecords( int patientId)
         {
-            if (!patientId.HasValue && !doctorId.HasValue && !branchId.HasValue && !RecordId.HasValue)
-                throw new ArgumentException("At least one filter parameter (PatientId, DoctorId, BranchId, or RecordId) must be provided.");
-
-            // Filter records based on provided parameters
+           
             var filteredRecords = _repository.GetAll().Where(record =>
-                (!patientId.HasValue || record.PID == patientId.Value) &&
-                (!doctorId.HasValue || record.DID == doctorId.Value) &&
-                (!branchId.HasValue || record.BID == branchId.Value) &&
-                (!RecordId.HasValue || record.RID == RecordId.Value)
+                (record.PID == patientId)
             ).ToList();
 
             // Return an empty list if no matching records are found

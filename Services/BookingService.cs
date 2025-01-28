@@ -122,13 +122,19 @@ namespace HospitalSystemTeamTask.Services
                 // Check if the patient already has a booking at the same clinic or time
                 var patientBookings = _bookingRepo.GetBookingsByPatientId(patientId);
 
+                // Iterate through all the bookings for the patient
                 foreach (var booking in patientBookings)
                 {
-                    if ((booking.Date == input.Date && booking.StartTime == input.StartTime) || booking.CID == input.CID)
+                    // Check if the new appointment's date and time are the same as any existing booking
+                    // and if the clinic is the same, or if there is any other overlap in the clinic.
+                    if ((booking.Date == input.Date && booking.StartTime == input.StartTime && booking.CID == input.CID) ||
+                        (booking.Date == input.Date && booking.CID == input.CID))
                     {
+                        // If a conflict is found, throw an exception
                         throw new InvalidOperationException("You already have an appointment at this time or at this clinic.");
                     }
                 }
+
 
                 // Check for time conflicts
                 var conflictingAppointment = bookedAppointments
