@@ -1,0 +1,593 @@
+2025-01-28 18:01:58.703 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-28 18:01:59.007 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-28 18:01:59.085 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-28 18:01:59.136 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-28 18:01:59.137 +04:00 [INF] Hosting environment: Development
+2025-01-28 18:01:59.139 +04:00 [INF] Content root path: C:\Users\azzaA\Source\Repos\HospitalSystemFinalProject
+2025-01-28 18:01:59.495 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-28 18:01:59.634 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-28 18:01:59.705 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-28 18:02:00.046 +04:00 [INF] Home page initialized at "2025-01-28T18:02:00.0462392+04:00"
+2025-01-28 18:02:00.356 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-28 18:02:00.522 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-28 18:02:00.525 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-28 18:02:01.146 +04:00 [INF] Executed DbCommand (34ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:02:01.207 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:02:01.2072831+04:00"
+2025-01-28 18:02:01.430 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-28 18:02:01.437 +04:00 [INF] HTTP GET / responded 200 in 1798.5782 ms
+2025-01-28 18:02:01.457 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-28 18:02:01.472 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-28 18:02:01.479 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-28 18:02:01.481 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-28 18:02:01.484 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 17.7724 ms
+2025-01-28 18:02:01.490 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-28 18:02:01.492 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-28 18:02:01.491 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 2003.4733ms
+2025-01-28 18:02:01.490 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 33.7554ms
+2025-01-28 18:02:01.511 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/app.css - null null
+2025-01-28 18:02:01.504 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 13.625ms
+2025-01-28 18:02:01.525 +04:00 [INF] The file /app.css was not modified
+2025-01-28 18:02:01.527 +04:00 [INF] HTTP GET /app.css responded 304 in 2.8509 ms
+2025-01-28 18:02:01.529 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/app.css - 304 null text/css 18.8571ms
+2025-01-28 18:02:01.532 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 41.4522ms
+2025-01-28 18:02:01.630 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-28 18:02:01.637 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:02:01.641 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:02:01.643 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 8.6980 ms
+2025-01-28 18:02:01.644 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 14.1625ms
+2025-01-28 18:02:01.838 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-28 18:02:01.844 +04:00 [INF] CORS policy execution successful.
+2025-01-28 18:02:01.846 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:02:01.866 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:02:01.867 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 24.1454 ms
+2025-01-28 18:02:01.869 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 30.7002ms
+2025-01-28 18:02:01.976 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=7aPAfZJWw44D339Ngnukzw - null null
+2025-01-28 18:02:01.980 +04:00 [INF] CORS policy execution successful.
+2025-01-28 18:02:01.981 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:02:02.157 +04:00 [INF] Home page initialized at "2025-01-28T18:02:02.1577521+04:00"
+2025-01-28 18:02:02.170 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:02:02.174 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:02:02.1747916+04:00"
+2025-01-28 18:02:20.428 +04:00 [INF] Attempting login for email: yousef.ali@gmail.com
+2025-01-28 18:02:20.829 +04:00 [INF] Executed DbCommand (113ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-28 18:02:20.890 +04:00 [INF] Login successful for user: yousef.ali@gmail.com with role: patient
+2025-01-28 18:02:20.973 +04:00 [INF] Redirecting user: yousef.ali@gmail.com to home page.
+2025-01-28 18:02:21.280 +04:00 [INF] Executed DbCommand (43ms) [Parameters=[@__PID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[PID], [p].[Age], [p].[Gender], [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Patients] AS [p]
+INNER JOIN [Users] AS [u] ON [p].[PID] = [u].[UID]
+WHERE [p].[PID] = @__PID_0
+2025-01-28 18:02:21.380 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-28 18:02:21.415 +04:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BookingID], [b].[BookingDate], [b].[CID], [b].[Date], [b].[EndTime], [b].[PID], [b].[StartTime], [b].[Staus]
+FROM [Bookings] AS [b]
+2025-01-28 18:02:21.511 +04:00 [INF] Fetching clinic with ID 1 at "2025-01-28T18:02:21.5106062+04:00"
+2025-01-28 18:02:21.571 +04:00 [INF] Executed DbCommand (34ms) [Parameters=[@__clinicId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[CID] = @__clinicId_0
+2025-01-28 18:02:21.682 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-28 18:02:21.715 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-28 18:02:21.756 +04:00 [INF] Fetching clinic with ID 2 at "2025-01-28T18:02:21.7564137+04:00"
+2025-01-28 18:02:21.774 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[@__clinicId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[CID] = @__clinicId_0
+2025-01-28 18:02:21.789 +04:00 [INF] Executed DbCommand (5ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-28 18:02:21.804 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-28 18:03:54.090 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-28 18:03:54.425 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-28 18:03:54.510 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-28 18:03:54.577 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-28 18:03:54.579 +04:00 [INF] Hosting environment: Development
+2025-01-28 18:03:54.581 +04:00 [INF] Content root path: C:\Users\azzaA\Source\Repos\HospitalSystemFinalProject
+2025-01-28 18:03:54.724 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-28 18:03:54.898 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-28 18:03:55.002 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-28 18:03:55.422 +04:00 [INF] Home page initialized at "2025-01-28T18:03:55.4219635+04:00"
+2025-01-28 18:03:55.831 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-28 18:03:56.024 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-28 18:03:56.030 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-28 18:03:56.598 +04:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:03:56.659 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:03:56.6595071+04:00"
+2025-01-28 18:03:56.846 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-28 18:03:56.851 +04:00 [INF] HTTP GET / responded 200 in 1949.4886 ms
+2025-01-28 18:03:56.892 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 2177.309ms
+2025-01-28 18:03:56.894 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-28 18:03:56.894 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-28 18:03:56.898 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-28 18:03:56.910 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 16.0121ms
+2025-01-28 18:03:56.917 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-28 18:03:56.930 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-28 18:03:56.935 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-28 18:03:56.935 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 41.3294ms
+2025-01-28 18:03:56.937 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 25.6913 ms
+2025-01-28 18:03:56.947 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 49.2136ms
+2025-01-28 18:03:56.999 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-28 18:03:57.011 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:03:57.014 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:03:57.016 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 7.4992 ms
+2025-01-28 18:03:57.017 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 18.7253ms
+2025-01-28 18:03:57.175 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-28 18:03:57.183 +04:00 [INF] CORS policy execution successful.
+2025-01-28 18:03:57.186 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:03:57.198 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:03:57.202 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 20.0561 ms
+2025-01-28 18:03:57.205 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 29.4111ms
+2025-01-28 18:03:57.318 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=EcSGAlOXOIiq_1_nRqkteA - null null
+2025-01-28 18:03:57.324 +04:00 [INF] CORS policy execution successful.
+2025-01-28 18:03:57.326 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:03:57.523 +04:00 [INF] Home page initialized at "2025-01-28T18:03:57.5232314+04:00"
+2025-01-28 18:03:57.542 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:03:57.548 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:03:57.5488925+04:00"
+2025-01-28 18:06:16.865 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-28 18:06:17.170 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-28 18:06:17.260 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-28 18:06:17.317 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-28 18:06:17.319 +04:00 [INF] Hosting environment: Development
+2025-01-28 18:06:17.320 +04:00 [INF] Content root path: C:\Users\azzaA\Source\Repos\HospitalSystemFinalProject
+2025-01-28 18:06:17.403 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-28 18:06:17.525 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-28 18:06:17.603 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-28 18:06:17.987 +04:00 [INF] Home page initialized at "2025-01-28T18:06:17.9870411+04:00"
+2025-01-28 18:06:18.292 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-28 18:06:18.475 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-28 18:06:18.480 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-28 18:06:19.077 +04:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:06:19.132 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:06:19.1323534+04:00"
+2025-01-28 18:06:19.410 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-28 18:06:19.415 +04:00 [INF] HTTP GET / responded 200 in 1884.6341 ms
+2025-01-28 18:06:19.449 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 2054.6996ms
+2025-01-28 18:06:19.455 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-28 18:06:19.455 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-28 18:06:19.457 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-28 18:06:19.475 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 20.4425ms
+2025-01-28 18:06:19.478 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-28 18:06:19.487 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-28 18:06:19.492 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-28 18:06:19.495 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 18.0345 ms
+2025-01-28 18:06:19.499 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 42.2425ms
+2025-01-28 18:06:19.499 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 44.3482ms
+2025-01-28 18:06:19.615 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-28 18:06:19.626 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:06:19.630 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:06:19.632 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 9.9992 ms
+2025-01-28 18:06:19.634 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 19.4348ms
+2025-01-28 18:06:19.853 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-28 18:06:19.862 +04:00 [INF] CORS policy execution successful.
+2025-01-28 18:06:19.868 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:06:19.885 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:06:19.889 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 29.0147 ms
+2025-01-28 18:06:19.895 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 42.1948ms
+2025-01-28 18:06:20.030 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=aQZyUnBzNgfYYHK2yHaIjQ - null null
+2025-01-28 18:06:20.037 +04:00 [INF] CORS policy execution successful.
+2025-01-28 18:06:20.039 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:06:20.204 +04:00 [INF] Home page initialized at "2025-01-28T18:06:20.2040253+04:00"
+2025-01-28 18:06:20.220 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:06:20.224 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:06:20.2246619+04:00"
+2025-01-28 18:06:34.637 +04:00 [INF] Attempting login for email: yousef.ali@gmail.com
+2025-01-28 18:06:34.983 +04:00 [INF] Executed DbCommand (71ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-28 18:06:35.044 +04:00 [INF] Login successful for user: yousef.ali@gmail.com with role: patient
+2025-01-28 18:06:35.121 +04:00 [INF] Redirecting user: yousef.ali@gmail.com to home page.
+2025-01-28 18:06:35.406 +04:00 [INF] Executed DbCommand (23ms) [Parameters=[@__PID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[PID], [p].[Age], [p].[Gender], [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Patients] AS [p]
+INNER JOIN [Users] AS [u] ON [p].[PID] = [u].[UID]
+WHERE [p].[PID] = @__PID_0
+2025-01-28 18:06:35.494 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-28 18:06:35.530 +04:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BookingID], [b].[BookingDate], [b].[CID], [b].[Date], [b].[EndTime], [b].[PID], [b].[StartTime], [b].[Staus]
+FROM [Bookings] AS [b]
+2025-01-28 18:06:35.618 +04:00 [INF] Fetching clinic with ID 1 at "2025-01-28T18:06:35.6178604+04:00"
+2025-01-28 18:06:35.681 +04:00 [INF] Executed DbCommand (38ms) [Parameters=[@__clinicId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[CID] = @__clinicId_0
+2025-01-28 18:06:35.811 +04:00 [INF] Executed DbCommand (5ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-28 18:06:35.880 +04:00 [INF] Executed DbCommand (38ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-28 18:06:35.924 +04:00 [INF] Fetching clinic with ID 2 at "2025-01-28T18:06:35.9246877+04:00"
+2025-01-28 18:06:35.935 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__clinicId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[CID] = @__clinicId_0
+2025-01-28 18:06:35.944 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-28 18:06:35.951 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-28 18:06:50.972 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryyIGTLdYX5JwwJR4G 359
+2025-01-28 18:06:50.978 +04:00 [INF] CORS policy execution successful.
+2025-01-28 18:06:50.979 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:06:50.992 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:06:50.997 +04:00 [INF] HTTP GET /_blazor responded 101 in 30960.6659 ms
+2025-01-28 18:06:51.001 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor?id=aQZyUnBzNgfYYHK2yHaIjQ - 101 null null 30970.5637ms
+2025-01-28 18:06:51.040 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:06:51.041 +04:00 [INF] HTTP POST /_blazor/disconnect responded 200 in 63.1720 ms
+2025-01-28 18:06:51.045 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - 200 0 null 73.1287ms
+2025-01-28 18:10:13.207 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-28 18:10:13.487 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-28 18:10:13.550 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-28 18:10:13.598 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-28 18:10:13.600 +04:00 [INF] Hosting environment: Development
+2025-01-28 18:10:13.602 +04:00 [INF] Content root path: C:\Users\azzaA\Source\Repos\HospitalSystemFinalProject
+2025-01-28 18:10:13.739 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-28 18:10:13.850 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-28 18:10:13.911 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-28 18:10:14.272 +04:00 [INF] Home page initialized at "2025-01-28T18:10:14.2720332+04:00"
+2025-01-28 18:10:14.595 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-28 18:10:14.776 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-28 18:10:14.781 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-28 18:10:15.360 +04:00 [INF] Executed DbCommand (59ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:10:15.411 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:10:15.4113294+04:00"
+2025-01-28 18:10:15.598 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-28 18:10:15.602 +04:00 [INF] HTTP GET / responded 200 in 1746.6548 ms
+2025-01-28 18:10:15.640 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 1907.695ms
+2025-01-28 18:10:15.654 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-28 18:10:15.665 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-28 18:10:15.676 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-28 18:10:15.676 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-28 18:10:15.686 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 20.6076ms
+2025-01-28 18:10:15.697 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-28 18:10:15.703 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-28 18:10:15.705 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 41.0678 ms
+2025-01-28 18:10:15.707 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 53.9196ms
+2025-01-28 18:10:15.718 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 41.9795ms
+2025-01-28 18:10:15.943 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-28 18:10:15.956 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:10:15.964 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:10:15.967 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 12.5933 ms
+2025-01-28 18:10:15.972 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 28.7838ms
+2025-01-28 18:10:16.405 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-28 18:10:16.415 +04:00 [INF] CORS policy execution successful.
+2025-01-28 18:10:16.418 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:10:16.438 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:10:16.440 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 26.6766 ms
+2025-01-28 18:10:16.442 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 36.8528ms
+2025-01-28 18:10:16.776 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=b59A0DrpX-8zh0-nV0ngwQ - null null
+2025-01-28 18:10:16.780 +04:00 [INF] CORS policy execution successful.
+2025-01-28 18:10:16.781 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:10:16.981 +04:00 [INF] Home page initialized at "2025-01-28T18:10:16.9819023+04:00"
+2025-01-28 18:10:17.002 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:10:17.006 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:10:17.0064742+04:00"
+2025-01-28 18:14:15.065 +04:00 [INF] Attempting login for email: yousef.ali@gmail.com
+2025-01-28 18:14:15.434 +04:00 [INF] Executed DbCommand (114ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-28 18:14:15.492 +04:00 [INF] Login successful for user: yousef.ali@gmail.com with role: patient
+2025-01-28 18:14:15.563 +04:00 [INF] Redirecting user: yousef.ali@gmail.com to home page.
+2025-01-28 18:14:15.822 +04:00 [INF] Executed DbCommand (9ms) [Parameters=[@__PID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[PID], [p].[Age], [p].[Gender], [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Patients] AS [p]
+INNER JOIN [Users] AS [u] ON [p].[PID] = [u].[UID]
+WHERE [p].[PID] = @__PID_0
+2025-01-28 18:14:15.914 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-28 18:14:15.955 +04:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BookingID], [b].[BookingDate], [b].[CID], [b].[Date], [b].[EndTime], [b].[PID], [b].[StartTime], [b].[Staus]
+FROM [Bookings] AS [b]
+2025-01-28 18:14:16.043 +04:00 [INF] Fetching clinic with ID 1 at "2025-01-28T18:14:16.0418960+04:00"
+2025-01-28 18:14:16.073 +04:00 [INF] Executed DbCommand (5ms) [Parameters=[@__clinicId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[CID] = @__clinicId_0
+2025-01-28 18:14:16.180 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-28 18:14:16.243 +04:00 [INF] Executed DbCommand (39ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-28 18:14:16.277 +04:00 [INF] Fetching clinic with ID 2 at "2025-01-28T18:14:16.2772021+04:00"
+2025-01-28 18:14:16.287 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__clinicId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[CID] = @__clinicId_0
+2025-01-28 18:14:16.295 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-28 18:14:16.302 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-28 18:14:27.887 +04:00 [INF] Home page initialized at "2025-01-28T18:14:27.8870804+04:00"
+2025-01-28 18:14:27.898 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:14:27.903 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:14:27.9031400+04:00"
+2025-01-28 18:29:19.860 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-28 18:29:20.157 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-28 18:29:20.229 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-28 18:29:20.269 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-28 18:29:20.271 +04:00 [INF] Hosting environment: Development
+2025-01-28 18:29:20.272 +04:00 [INF] Content root path: C:\Users\azzaA\Source\Repos\HospitalSystemFinalProject
+2025-01-28 18:29:20.954 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-28 18:29:21.090 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-28 18:29:21.151 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-28 18:29:21.698 +04:00 [INF] Home page initialized at "2025-01-28T18:29:21.6973080+04:00"
+2025-01-28 18:29:21.995 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-28 18:29:22.185 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-28 18:29:22.188 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-28 18:29:22.809 +04:00 [INF] Executed DbCommand (32ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:29:22.874 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:29:22.8746404+04:00"
+2025-01-28 18:29:23.126 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-28 18:29:23.130 +04:00 [INF] HTTP GET / responded 200 in 2035.4643 ms
+2025-01-28 18:29:23.181 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 2238.8966ms
+2025-01-28 18:29:23.192 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-28 18:29:23.199 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-28 18:29:23.308 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-28 18:29:23.308 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-28 18:29:23.314 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-28 18:29:23.316 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 7.9203ms
+2025-01-28 18:29:23.319 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-28 18:29:23.320 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 123.5457 ms
+2025-01-28 18:29:23.323 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 131.3005ms
+2025-01-28 18:29:23.364 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-28 18:29:23.367 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 59.2848ms
+2025-01-28 18:29:23.375 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:29:23.378 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:29:23.379 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 6.9071 ms
+2025-01-28 18:29:23.382 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 18.0128ms
+2025-01-28 18:29:23.565 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-28 18:29:23.572 +04:00 [INF] CORS policy execution successful.
+2025-01-28 18:29:23.575 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:29:23.587 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:29:23.589 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 19.6192 ms
+2025-01-28 18:29:23.592 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 26.6917ms
+2025-01-28 18:29:23.715 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=8viG9MouuMqF1i-WtO_NVQ - null null
+2025-01-28 18:29:23.720 +04:00 [INF] CORS policy execution successful.
+2025-01-28 18:29:23.723 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:29:23.916 +04:00 [INF] Home page initialized at "2025-01-28T18:29:23.9161018+04:00"
+2025-01-28 18:29:23.930 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:29:23.934 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:29:23.9341739+04:00"
+2025-01-28 18:32:26.958 +04:00 [INF] Attempting login for email: 
+2025-01-28 18:32:27.267 +04:00 [INF] Executed DbCommand (79ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-28 18:32:27.405 +04:00 [ERR] An error occurred during login for email: . Error: Invalid email
+2025-01-28 18:32:29.222 +04:00 [INF] Attempting login for email: 
+2025-01-28 18:32:29.233 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-28 18:32:29.295 +04:00 [ERR] An error occurred during login for email: . Error: Invalid email
+2025-01-28 18:32:30.637 +04:00 [INF] Attempting login for email: 
+2025-01-28 18:32:30.643 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-28 18:32:30.698 +04:00 [ERR] An error occurred during login for email: . Error: Invalid email
+2025-01-28 18:32:31.239 +04:00 [INF] Attempting login for email: 
+2025-01-28 18:32:31.246 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-28 18:32:31.306 +04:00 [ERR] An error occurred during login for email: . Error: Invalid email
+2025-01-28 18:32:31.597 +04:00 [INF] Attempting login for email: 
+2025-01-28 18:32:31.602 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-28 18:32:31.668 +04:00 [ERR] An error occurred during login for email: . Error: Invalid email
+2025-01-28 18:32:31.902 +04:00 [INF] Attempting login for email: 
+2025-01-28 18:32:31.907 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-28 18:32:31.958 +04:00 [ERR] An error occurred during login for email: . Error: Invalid email
+2025-01-28 18:32:32.165 +04:00 [INF] Attempting login for email: 
+2025-01-28 18:32:32.170 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-28 18:32:32.235 +04:00 [ERR] An error occurred during login for email: . Error: Invalid email
+2025-01-28 18:33:18.877 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-28 18:33:19.223 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-28 18:33:19.291 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-28 18:33:19.342 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-28 18:33:19.345 +04:00 [INF] Hosting environment: Development
+2025-01-28 18:33:19.347 +04:00 [INF] Content root path: C:\Users\azzaA\Source\Repos\HospitalSystemFinalProject
+2025-01-28 18:33:19.462 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-28 18:33:19.569 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-28 18:33:19.634 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-28 18:33:20.064 +04:00 [INF] Home page initialized at "2025-01-28T18:33:20.0642013+04:00"
+2025-01-28 18:33:20.336 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-28 18:33:20.512 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-28 18:33:20.515 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-28 18:33:21.202 +04:00 [INF] Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:33:21.272 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:33:21.2724971+04:00"
+2025-01-28 18:33:21.521 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-28 18:33:21.525 +04:00 [INF] HTTP GET / responded 200 in 1951.8756 ms
+2025-01-28 18:33:21.565 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 2112.1493ms
+2025-01-28 18:33:21.571 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-28 18:33:21.577 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-28 18:33:21.582 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-28 18:33:21.588 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-28 18:33:21.594 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 12.6375ms
+2025-01-28 18:33:21.603 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-28 18:33:21.611 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-28 18:33:21.613 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 37.1210 ms
+2025-01-28 18:33:21.615 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 44.2527ms
+2025-01-28 18:33:21.634 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 46.9658ms
+2025-01-28 18:33:21.729 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-28 18:33:21.742 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:33:21.746 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:33:21.748 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 8.2574 ms
+2025-01-28 18:33:21.751 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 21.9525ms
+2025-01-28 18:33:21.949 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-28 18:33:21.957 +04:00 [INF] CORS policy execution successful.
+2025-01-28 18:33:21.959 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:33:21.969 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:33:21.970 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 14.7414 ms
+2025-01-28 18:33:21.972 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 23.8004ms
+2025-01-28 18:33:22.099 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=Euj8IolrzvNHtOKKlNKwTg - null null
+2025-01-28 18:33:22.112 +04:00 [INF] CORS policy execution successful.
+2025-01-28 18:33:22.115 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-28 18:33:22.267 +04:00 [INF] Home page initialized at "2025-01-28T18:33:22.2679460+04:00"
+2025-01-28 18:33:22.284 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:33:22.290 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:33:22.2902327+04:00"
+2025-01-28 18:33:54.936 +04:00 [INF] Attempting login for email: yousef.ali@gmail.com
+2025-01-28 18:33:55.293 +04:00 [INF] Executed DbCommand (97ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-28 18:33:55.347 +04:00 [INF] Login successful for user: yousef.ali@gmail.com with role: patient
+2025-01-28 18:33:55.422 +04:00 [INF] Redirecting user: yousef.ali@gmail.com to home page.
+2025-01-28 18:33:55.692 +04:00 [INF] Executed DbCommand (17ms) [Parameters=[@__PID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[PID], [p].[Age], [p].[Gender], [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Patients] AS [p]
+INNER JOIN [Users] AS [u] ON [p].[PID] = [u].[UID]
+WHERE [p].[PID] = @__PID_0
+2025-01-28 18:33:55.786 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-28 18:33:55.834 +04:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BookingID], [b].[BookingDate], [b].[CID], [b].[Date], [b].[EndTime], [b].[PID], [b].[StartTime], [b].[Staus]
+FROM [Bookings] AS [b]
+2025-01-28 18:33:55.926 +04:00 [INF] Fetching clinic with ID 1 at "2025-01-28T18:33:55.9258755+04:00"
+2025-01-28 18:33:55.962 +04:00 [INF] Executed DbCommand (5ms) [Parameters=[@__clinicId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[CID] = @__clinicId_0
+2025-01-28 18:33:56.077 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-28 18:33:56.138 +04:00 [INF] Executed DbCommand (37ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-28 18:33:56.203 +04:00 [INF] Fetching clinic with ID 2 at "2025-01-28T18:33:56.2031740+04:00"
+2025-01-28 18:33:56.216 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__clinicId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[CID] = @__clinicId_0
+2025-01-28 18:33:56.227 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-28 18:33:56.235 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-28 18:34:02.850 +04:00 [INF] Home page initialized at "2025-01-28T18:34:02.8499885+04:00"
+2025-01-28 18:34:02.855 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:34:02.860 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:34:02.8607812+04:00"
+2025-01-28 18:34:15.462 +04:00 [INF] Attempting login for email: Dr.Ahsan1565@CodelineHospital.com
+2025-01-28 18:34:15.480 +04:00 [INF] Executed DbCommand (13ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-28 18:34:15.485 +04:00 [INF] Login successful for user: Dr.Ahsan1565@CodelineHospital.com with role: doctor
+2025-01-28 18:34:15.491 +04:00 [INF] Redirecting doctor user: Dr.Ahsan1565@CodelineHospital.com to /DoctorPage/{DoctorId}.
+2025-01-28 18:34:15.547 +04:00 [INF] Executed DbCommand (9ms) [Parameters=[@__Did_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[DID] = @__Did_0
+2025-01-28 18:34:15.616 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-28 18:34:15.628 +04:00 [INF] Executed DbCommand (5ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-28 18:34:22.463 +04:00 [INF] Home page initialized at "2025-01-28T18:34:22.4639469+04:00"
+2025-01-28 18:34:22.471 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:34:22.478 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:34:22.4785391+04:00"
+2025-01-28 18:34:47.509 +04:00 [INF] Attempting login for email: ZahraTaqi8015@CodelineHospital.com
+2025-01-28 18:34:47.515 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-28 18:34:47.529 +04:00 [INF] Login successful for user: ZahraTaqi8015@CodelineHospital.com with role: admin
+2025-01-28 18:34:47.535 +04:00 [INF] Redirecting admin user: ZahraTaqi8015@CodelineHospital.com to /StaffPage.
+2025-01-28 18:34:47.557 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-28 18:34:50.909 +04:00 [INF] Home page initialized at "2025-01-28T18:34:50.9098046+04:00"
+2025-01-28 18:34:50.915 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:34:50.922 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:34:50.9227773+04:00"
+2025-01-28 18:34:53.528 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-28 18:34:55.883 +04:00 [INF] Home page initialized at "2025-01-28T18:34:55.8829074+04:00"
+2025-01-28 18:34:55.887 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-28 18:34:55.889 +04:00 [INF] Fetched 5 branches from the service at "2025-01-28T18:34:55.8899300+04:00"
+2025-01-28 18:34:57.251 +04:00 [INF] Executed DbCommand (35ms) [Parameters=[@__PID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[PID], [p].[Age], [p].[Gender], [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Patients] AS [p]
+INNER JOIN [Users] AS [u] ON [p].[PID] = [u].[UID]
+WHERE [p].[PID] = @__PID_0

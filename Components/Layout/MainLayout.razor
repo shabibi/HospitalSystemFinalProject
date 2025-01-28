@@ -41,19 +41,28 @@
         </div>
 
         <!-- Main Content Area -->
-        <div class="main-content" style="flex: 1; padding: 1rem;">
-            <!-- Right-Aligned Button -->
-            <MudButton OnClick="HandleSignInOut" Variant="Variant.Outlined" Style="float: right; margin: 1rem; border-color: #1B7D84; color: #1B7D84;">
-                @SignInOutText
-            </MudButton>
-
-            <!-- Main Article Section -->
-            <main>
-                <article class="content px-4">
-                    @Body
-                </article>
-            </main>
+       <div class="main-content" style="flex: 1; padding: 1rem;">
+    <!-- Display User Name if Logged In -->
+    @if (GlobalState.IsAuthenticated)
+    {
+        <div class="user-name" style="margin-bottom: 1rem; font-size: 1.2rem; color: #1B7D84;">
+            Welcome, @GlobalState.Name!
         </div>
+    }
+
+    <!-- Right-Aligned Button -->
+    <MudButton OnClick="HandleSignInOut" Variant="Variant.Outlined" Style="float: right; margin: 1rem; border-color: #1B7D84; color: #1B7D84;">
+        @SignInOutText
+    </MudButton>
+
+    <!-- Main Article Section -->
+    <main>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
     </div>
 </div>
 
