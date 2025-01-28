@@ -12,7 +12,7 @@
     <!-- AppBar Section -->
     <MudAppBar Color="Color.Default" Fixed="true" Style="background-color: #1B7D84;">
         <MudText Typo="Typo.body1" Align="Align.Left" Style="color: white; margin-left: 15px;">
-            Welcome, @DoctorName!
+            Welcome, @GlobalState.Name!
         </MudText>
         <MudSpacer />
         <MudMenu>
@@ -90,7 +90,10 @@
 
     private void Logout()
     {
-        DoctorName = "Guest";
-        NavigationManager.NavigateTo("/SignIn");
+        GlobalState.IsAuthenticated = false;
+        GlobalState.UID = 0;
+        GlobalState.Name = null;
+        NavigationManager.NavigateTo("/");
+
     }
 }
