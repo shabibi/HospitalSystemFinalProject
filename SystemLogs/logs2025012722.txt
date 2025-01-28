@@ -1,0 +1,1385 @@
+2025-01-27 22:00:09.267 +04:00 [INF] Attempting login for email: Dr.Ahsan1565@CodelineHospital.com
+2025-01-27 22:00:09.291 +04:00 [INF] Executed DbCommand (16ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-27 22:00:09.298 +04:00 [INF] Login successful for user: Dr.Ahsan1565@CodelineHospital.com with role: doctor
+2025-01-27 22:00:09.303 +04:00 [INF] Redirecting doctor user: Dr.Ahsan1565@CodelineHospital.com to /DoctorPage/{DoctorId}.
+2025-01-27 22:00:19.708 +04:00 [INF] Executed DbCommand (50ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[RID], [p].[BID], [p].[Cost], [p].[DID], [p].[Inspection], [p].[PID], [p].[Treatment], [p].[VisitDate], [p].[VisitTime], [p0].[PID], [p0].[Age], [p0].[Gender], [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear], [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [PatientRecords] AS [p]
+INNER JOIN [Patients] AS [p0] ON [p].[PID] = [p0].[PID]
+INNER JOIN [Doctors] AS [d] ON [p].[DID] = [d].[DID]
+INNER JOIN [Branches] AS [b] ON [p].[BID] = [b].[BID]
+2025-01-27 22:00:33.057 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryDKM4DIYALFPqBOX7 359
+2025-01-27 22:00:33.063 +04:00 [INF] CORS policy execution successful.
+2025-01-27 22:00:33.066 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:00:33.066 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:00:33.069 +04:00 [INF] HTTP GET /_blazor responded 101 in 294556.3544 ms
+2025-01-27 22:00:33.072 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor?id=v_fXv48d-to6XkTmE0LQNg - 101 null null 294561.5459ms
+2025-01-27 22:00:33.118 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:00:33.121 +04:00 [INF] HTTP POST /_blazor/disconnect responded 200 in 58.7114 ms
+2025-01-27 22:00:33.124 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - 200 0 null 66.7023ms
+2025-01-27 22:00:39.987 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-27 22:00:40.355 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-27 22:00:40.614 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-27 22:00:40.646 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-27 22:00:40.714 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-27 22:00:40.716 +04:00 [INF] Hosting environment: Development
+2025-01-27 22:00:40.718 +04:00 [INF] Content root path: C:\Users\azzaA\Source\Repos\HospitalSystemFinalProject
+2025-01-27 22:00:40.784 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-27 22:00:40.843 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-27 22:00:41.235 +04:00 [INF] Home page initialized at "2025-01-27T22:00:41.2348261+04:00"
+2025-01-27 22:00:41.586 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-27 22:00:41.802 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-27 22:00:41.807 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-27 22:00:42.629 +04:00 [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:00:42.711 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T22:00:42.7108604+04:00"
+2025-01-27 22:00:42.949 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-27 22:00:42.954 +04:00 [INF] HTTP GET / responded 200 in 2165.5006 ms
+2025-01-27 22:00:43.001 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 2369.7764ms
+2025-01-27 22:00:43.009 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-27 22:00:43.017 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-27 22:00:43.022 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-27 22:00:43.024 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-27 22:00:43.026 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 11.2755 ms
+2025-01-27 22:00:43.029 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 20.338ms
+2025-01-27 22:00:43.145 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-27 22:00:43.145 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-27 22:00:43.154 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 8.795ms
+2025-01-27 22:00:43.192 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 47.3708ms
+2025-01-27 22:00:43.356 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-27 22:00:43.367 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:00:43.371 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:00:43.373 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 9.7681 ms
+2025-01-27 22:00:43.377 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 21.1013ms
+2025-01-27 22:00:43.961 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-27 22:00:43.972 +04:00 [INF] CORS policy execution successful.
+2025-01-27 22:00:43.984 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:00:44.008 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:00:44.010 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 41.1624 ms
+2025-01-27 22:00:44.016 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 54.8485ms
+2025-01-27 22:00:44.029 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=Wp3Oz9p35o-CWDprrf5maw - null null
+2025-01-27 22:00:44.035 +04:00 [INF] CORS policy execution successful.
+2025-01-27 22:00:44.037 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:00:44.675 +04:00 [INF] Home page initialized at "2025-01-27T22:00:44.6758041+04:00"
+2025-01-27 22:00:44.718 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:00:44.725 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T22:00:44.7250364+04:00"
+2025-01-27 22:00:48.024 +04:00 [INF] Navigated to BranchPage at "2025-01-27T22:00:48.0247003+04:00"
+2025-01-27 22:00:48.026 +04:00 [INF] Fetching all branches at "2025-01-27T22:00:48.0264006+04:00"
+2025-01-27 22:00:48.029 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:00:48.036 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T22:00:48.0365802+04:00"
+2025-01-27 22:00:48.082 +04:00 [INF] Getting branch image for branch: Muscat medical center at "2025-01-27T22:00:48.0814849+04:00"
+2025-01-27 22:00:48.089 +04:00 [INF] Match found for branch image: muscat at "2025-01-27T22:00:48.0897958+04:00"
+2025-01-27 22:00:48.099 +04:00 [INF] Getting branch image for branch: salalah healthcare clinic at "2025-01-27T22:00:48.0996354+04:00"
+2025-01-27 22:00:48.108 +04:00 [INF] Match found for branch image: salalah at "2025-01-27T22:00:48.1085770+04:00"
+2025-01-27 22:00:48.113 +04:00 [INF] Getting branch image for branch: sohar general hospital at "2025-01-27T22:00:48.1139281+04:00"
+2025-01-27 22:00:48.118 +04:00 [INF] Match found for branch image: sohar at "2025-01-27T22:00:48.1182195+04:00"
+2025-01-27 22:00:48.121 +04:00 [INF] Getting branch image for branch: barka medical clinic at "2025-01-27T22:00:48.1215656+04:00"
+2025-01-27 22:00:48.124 +04:00 [INF] Match found for branch image: barka at "2025-01-27T22:00:48.1246468+04:00"
+2025-01-27 22:00:48.127 +04:00 [INF] Getting branch image for branch: ATA ibri at "2025-01-27T22:00:48.1275677+04:00"
+2025-01-27 22:00:48.132 +04:00 [WRN] No match found for branch image. Falling back to default image for branch: ATA ibri at "2025-01-27T22:00:48.1320445+04:00"
+2025-01-27 22:00:56.612 +04:00 [INF] Navigating to BranchDepartmentPage for Branch ID: 2 at "2025-01-27T22:00:56.6127217+04:00"
+2025-01-27 22:00:56.643 +04:00 [INF] Getting branch image for branch: Muscat medical center at "2025-01-27T22:00:56.6438341+04:00"
+2025-01-27 22:00:56.645 +04:00 [INF] Match found for branch image: muscat at "2025-01-27T22:00:56.6458602+04:00"
+2025-01-27 22:00:56.647 +04:00 [INF] Getting branch image for branch: salalah healthcare clinic at "2025-01-27T22:00:56.6472706+04:00"
+2025-01-27 22:00:56.650 +04:00 [INF] Match found for branch image: salalah at "2025-01-27T22:00:56.6504803+04:00"
+2025-01-27 22:00:56.652 +04:00 [INF] Getting branch image for branch: sohar general hospital at "2025-01-27T22:00:56.6520792+04:00"
+2025-01-27 22:00:56.653 +04:00 [INF] Match found for branch image: sohar at "2025-01-27T22:00:56.6535643+04:00"
+2025-01-27 22:00:56.654 +04:00 [INF] Getting branch image for branch: barka medical clinic at "2025-01-27T22:00:56.6549040+04:00"
+2025-01-27 22:00:56.658 +04:00 [INF] Match found for branch image: barka at "2025-01-27T22:00:56.6588230+04:00"
+2025-01-27 22:00:56.662 +04:00 [INF] Getting branch image for branch: ATA ibri at "2025-01-27T22:00:56.6627084+04:00"
+2025-01-27 22:00:56.665 +04:00 [WRN] No match found for branch image. Falling back to default image for branch: ATA ibri at "2025-01-27T22:00:56.6651317+04:00"
+2025-01-27 22:00:56.677 +04:00 [INF] Navigated to BranchDepartmentPage for Branch ID: 2 at "2025-01-27T22:00:56.6773485+04:00"
+2025-01-27 22:00:56.681 +04:00 [INF] Fetching branch details for Branch ID: 2 at "2025-01-27T22:00:56.6812704+04:00"
+2025-01-27 22:00:56.954 +04:00 [INF] Executed DbCommand (64ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:00:56.963 +04:00 [INF] Successfully fetched branch details for Branch ID: 2 at "2025-01-27T22:00:56.9639860+04:00"
+2025-01-27 22:00:56.968 +04:00 [INF] Fetching departments for Branch ID: 2 at "2025-01-27T22:00:56.9680275+04:00"
+2025-01-27 22:00:56.985 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:00:57.174 +04:00 [INF] Executed DbCommand (41ms) [Parameters=[@__BranchID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [branchDepartments] AS [b]
+INNER JOIN [Departments] AS [d] ON [b].[DepID] = [d].[DepID]
+WHERE [b].[BID] = @__BranchID_0
+2025-01-27 22:00:57.217 +04:00 [INF] Successfully fetched 7 departments for Branch ID: 2 at "2025-01-27T22:00:57.2166377+04:00"
+2025-01-27 22:00:57.227 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T22:00:57.2278456+04:00"
+2025-01-27 22:00:57.231 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T22:00:57.2315218+04:00"
+2025-01-27 22:00:57.234 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T22:00:57.2347449+04:00"
+2025-01-27 22:00:57.243 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T22:00:57.2432364+04:00"
+2025-01-27 22:00:57.248 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T22:00:57.2482663+04:00"
+2025-01-27 22:00:57.251 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T22:00:57.2510473+04:00"
+2025-01-27 22:00:57.254 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T22:00:57.2542383+04:00"
+2025-01-27 22:00:57.257 +04:00 [INF] Match found for department image: radiology at "2025-01-27T22:00:57.2575325+04:00"
+2025-01-27 22:00:57.260 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T22:00:57.2600119+04:00"
+2025-01-27 22:00:57.263 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T22:00:57.2635150+04:00"
+2025-01-27 22:00:57.264 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T22:00:57.2643741+04:00"
+2025-01-27 22:00:57.266 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T22:00:57.2662036+04:00"
+2025-01-27 22:00:57.271 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T22:00:57.2714780+04:00"
+2025-01-27 22:00:57.276 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T22:00:57.2763837+04:00"
+2025-01-27 22:00:57.326 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/images/IconDep/dermatology.png - null null
+2025-01-27 22:00:57.326 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/images/IconDep/gynecology.png - null null
+2025-01-27 22:00:57.326 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/images/IconDep/radiology.png - null null
+2025-01-27 22:00:57.329 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/images/IconDep/psychiatry.png - null null
+2025-01-27 22:00:57.335 +04:00 [INF] The file /images/IconDep/dermatology.png was not modified
+2025-01-27 22:00:57.336 +04:00 [INF] The file /images/IconDep/gynecology.png was not modified
+2025-01-27 22:00:57.346 +04:00 [INF] The file /images/IconDep/radiology.png was not modified
+2025-01-27 22:00:57.357 +04:00 [INF] The file /images/IconDep/psychiatry.png was not modified
+2025-01-27 22:00:57.361 +04:00 [INF] HTTP GET /images/IconDep/dermatology.png responded 304 in 27.3010 ms
+2025-01-27 22:00:57.363 +04:00 [INF] HTTP GET /images/IconDep/gynecology.png responded 304 in 27.6230 ms
+2025-01-27 22:00:57.366 +04:00 [INF] HTTP GET /images/IconDep/radiology.png responded 304 in 19.9747 ms
+2025-01-27 22:00:57.370 +04:00 [INF] HTTP GET /images/IconDep/psychiatry.png responded 304 in 12.7258 ms
+2025-01-27 22:00:57.378 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/images/IconDep/dermatology.png - 304 null image/png 52.1386ms
+2025-01-27 22:00:57.382 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/images/IconDep/gynecology.png - 304 null image/png 55.4799ms
+2025-01-27 22:00:57.389 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/images/IconDep/radiology.png - 304 null image/png 63.146ms
+2025-01-27 22:00:57.394 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/images/IconDep/psychiatry.png - 304 null image/png 65.1809ms
+2025-01-27 22:01:04.653 +04:00 [INF] Navigating to find doctor page for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:01:04.6534062+04:00"
+2025-01-27 22:01:04.664 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T22:01:04.6640617+04:00"
+2025-01-27 22:01:04.668 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T22:01:04.6686490+04:00"
+2025-01-27 22:01:04.671 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T22:01:04.6714401+04:00"
+2025-01-27 22:01:04.678 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T22:01:04.6787302+04:00"
+2025-01-27 22:01:04.681 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T22:01:04.6813495+04:00"
+2025-01-27 22:01:04.684 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T22:01:04.6841365+04:00"
+2025-01-27 22:01:04.688 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T22:01:04.6880882+04:00"
+2025-01-27 22:01:04.692 +04:00 [INF] Match found for department image: radiology at "2025-01-27T22:01:04.6925037+04:00"
+2025-01-27 22:01:04.697 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T22:01:04.6972639+04:00"
+2025-01-27 22:01:04.699 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T22:01:04.6992156+04:00"
+2025-01-27 22:01:04.701 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T22:01:04.7014220+04:00"
+2025-01-27 22:01:04.705 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T22:01:04.7054642+04:00"
+2025-01-27 22:01:04.710 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T22:01:04.7106954+04:00"
+2025-01-27 22:01:04.714 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T22:01:04.7147780+04:00"
+2025-01-27 22:01:04.727 +04:00 [INF] Navigated to BranchDepartmentDoctors page for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:01:04.7274910+04:00"
+2025-01-27 22:01:04.732 +04:00 [INF] Fetching doctors for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:01:04.7329414+04:00"
+2025-01-27 22:01:04.779 +04:00 [INF] Executed DbCommand (5ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[CurrentBrunch] = @__bid_0 AND [d].[DepId] = @__depid_1
+2025-01-27 22:01:04.927 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__roleName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Role] = @__roleName_0
+2025-01-27 22:01:04.984 +04:00 [INF] Successfully fetched doctors for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:01:04.9843077+04:00"
+2025-01-27 22:01:04.992 +04:00 [INF] Successfully fetched users with role 'doctor' at "2025-01-27T22:01:04.9928539+04:00"
+2025-01-27 22:01:13.152 +04:00 [INF] Navigated to Department page at "2025-01-27T22:01:13.1523091+04:00"
+2025-01-27 22:01:13.154 +04:00 [INF] Fetching all departments at "2025-01-27T22:01:13.1542294+04:00"
+2025-01-27 22:01:13.172 +04:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-27 22:01:13.179 +04:00 [INF] Successfully fetched and mapped 10 departments at "2025-01-27T22:01:13.1797896+04:00"
+2025-01-27 22:01:13.224 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/Images/IconDep/neurology.png - null null
+2025-01-27 22:01:13.224 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/Images/IconDep/orthopedics.png - null null
+2025-01-27 22:01:13.224 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/Images/IconDep/pediatrics.png - null null
+2025-01-27 22:01:13.224 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/Images/IconDep/cardiology.png - null null
+2025-01-27 22:01:13.239 +04:00 [INF] The file /Images/IconDep/neurology.png was not modified
+2025-01-27 22:01:13.245 +04:00 [INF] The file /Images/IconDep/orthopedics.png was not modified
+2025-01-27 22:01:13.249 +04:00 [INF] The file /Images/IconDep/pediatrics.png was not modified
+2025-01-27 22:01:13.254 +04:00 [INF] The file /Images/IconDep/cardiology.png was not modified
+2025-01-27 22:01:13.256 +04:00 [INF] HTTP GET /Images/IconDep/neurology.png responded 304 in 17.8526 ms
+2025-01-27 22:01:13.258 +04:00 [INF] HTTP GET /Images/IconDep/orthopedics.png responded 304 in 14.1513 ms
+2025-01-27 22:01:13.261 +04:00 [INF] HTTP GET /Images/IconDep/pediatrics.png responded 304 in 12.5782 ms
+2025-01-27 22:01:13.263 +04:00 [INF] HTTP GET /Images/IconDep/cardiology.png responded 304 in 9.4228 ms
+2025-01-27 22:01:13.267 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/Images/IconDep/neurology.png - 304 null image/png 43.8775ms
+2025-01-27 22:01:13.270 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/Images/IconDep/orthopedics.png - 304 null image/png 47.0586ms
+2025-01-27 22:01:13.274 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/Images/IconDep/pediatrics.png - 304 null image/png 50.1235ms
+2025-01-27 22:01:13.278 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/Images/IconDep/cardiology.png - 304 null image/png 53.222ms
+2025-01-27 22:02:29.171 +04:00 [INF] Attempting login for email: 
+2025-01-27 22:02:29.232 +04:00 [INF] Executed DbCommand (39ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-27 22:02:29.338 +04:00 [ERR] An error occurred during login for email: . Error: Invalid email
+2025-01-27 22:03:09.660 +04:00 [INF] Attempting login for email: ZahraTaqi8015@CodelineHospital.com
+2025-01-27 22:03:09.664 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-27 22:03:09.671 +04:00 [INF] Login successful for user: ZahraTaqi8015@CodelineHospital.com with role: admin
+2025-01-27 22:03:09.757 +04:00 [INF] Redirecting admin user: ZahraTaqi8015@CodelineHospital.com to /StaffPage.
+2025-01-27 22:03:09.817 +04:00 [INF] Executed DbCommand (7ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-27 22:03:13.701 +04:00 [INF] ManageBranch page initialized at "2025-01-27T22:03:13.7019406+04:00"
+2025-01-27 22:03:13.708 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:03:13.718 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T22:03:13.7183698+04:00"
+2025-01-27 22:03:18.698 +04:00 [INF] Navigating to AddBranch page at "2025-01-27T22:03:18.6984754+04:00"
+2025-01-27 22:03:18.708 +04:00 [INF] Navigated to Add/Edit Branch page at "2025-01-27T22:03:18.7089773+04:00"
+2025-01-27 22:03:20.879 +04:00 [INF] ManageBranch page initialized at "2025-01-27T22:03:20.8795587+04:00"
+2025-01-27 22:03:20.887 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:03:20.890 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T22:03:20.8900293+04:00"
+2025-01-27 22:03:25.978 +04:00 [INF] Loading all departments at "2025-01-27T22:03:25.9789440+04:00"
+2025-01-27 22:03:25.988 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-27 22:03:25.992 +04:00 [INF] Successfully loaded 10 departments at "2025-01-27T22:03:25.9925100+04:00"
+2025-01-27 22:03:37.239 +04:00 [INF] Navigated to ClinicPage at "2025-01-27T22:03:37.2396260+04:00"
+2025-01-27 22:03:37.242 +04:00 [INF] Fetching all branches at "2025-01-27T22:03:37.2421394+04:00"
+2025-01-27 22:03:37.247 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:03:37.250 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T22:03:37.2502548+04:00"
+2025-01-27 22:03:37.252 +04:00 [INF] Fetching all departments at "2025-01-27T22:03:37.2524183+04:00"
+2025-01-27 22:03:37.257 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-27 22:03:37.260 +04:00 [INF] Successfully fetched 10 departments at "2025-01-27T22:03:37.2606495+04:00"
+2025-01-27 22:03:48.116 +04:00 [INF] Navigating to AllClinicsPage for Branch ID: 1 and Department ID: 2 at "2025-01-27T22:03:48.1166769+04:00"
+2025-01-27 22:03:48.131 +04:00 [INF] Navigated to AllClinicsPage with Branch ID: 1 and Department ID: 2 at "2025-01-27T22:03:48.1317492+04:00"
+2025-01-27 22:03:48.136 +04:00 [INF] Fetching clinics for branch ID 1 and department ID 2 at "2025-01-27T22:03:48.1358940+04:00"
+2025-01-27 22:03:48.143 +04:00 [INF] Successfully fetched clinics for Branch ID: 1 and Department ID: 2 at "2025-01-27T22:03:48.1438826+04:00"
+2025-01-27 22:03:48.200 +04:00 [INF] Executed DbCommand (8ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[BID] = @__bid_0 AND [c].[DepID] = @__depid_1 AND [c].[IsActive] = CAST(1 AS bit)
+2025-01-27 22:03:48.229 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[BID] = @__bid_0 AND [c].[DepID] = @__depid_1 AND [c].[IsActive] = CAST(1 AS bit)
+2025-01-27 22:03:52.969 +04:00 [INF] Navigated to ClinicPage at "2025-01-27T22:03:52.9690433+04:00"
+2025-01-27 22:03:52.970 +04:00 [INF] Fetching all branches at "2025-01-27T22:03:52.9704968+04:00"
+2025-01-27 22:03:52.974 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:03:52.981 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T22:03:52.9813968+04:00"
+2025-01-27 22:03:52.984 +04:00 [INF] Fetching all departments at "2025-01-27T22:03:52.9845932+04:00"
+2025-01-27 22:03:52.989 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-27 22:03:52.993 +04:00 [INF] Successfully fetched 10 departments at "2025-01-27T22:03:52.9939186+04:00"
+2025-01-27 22:04:00.695 +04:00 [INF] Navigating to AllClinicsPage for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:04:00.6950745+04:00"
+2025-01-27 22:04:00.703 +04:00 [INF] Navigated to AllClinicsPage with Branch ID: 2 and Department ID: 2 at "2025-01-27T22:04:00.7030701+04:00"
+2025-01-27 22:04:00.705 +04:00 [INF] Fetching clinics for branch ID 2 and department ID 2 at "2025-01-27T22:04:00.7055682+04:00"
+2025-01-27 22:04:00.709 +04:00 [INF] Successfully fetched clinics for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:04:00.7095781+04:00"
+2025-01-27 22:04:00.718 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[BID] = @__bid_0 AND [c].[DepID] = @__depid_1 AND [c].[IsActive] = CAST(1 AS bit)
+2025-01-27 22:04:00.790 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[BID] = @__bid_0 AND [c].[DepID] = @__depid_1 AND [c].[IsActive] = CAST(1 AS bit)
+2025-01-27 22:04:04.374 +04:00 [INF] Navigating to schedule page for Clinic ID: 2 at "2025-01-27T22:04:04.3747539+04:00"
+2025-01-27 22:04:04.385 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[BID] = @__bid_0 AND [c].[DepID] = @__depid_1 AND [c].[IsActive] = CAST(1 AS bit)
+2025-01-27 22:04:04.401 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[BID] = @__bid_0 AND [c].[DepID] = @__depid_1 AND [c].[IsActive] = CAST(1 AS bit)
+2025-01-27 22:04:12.331 +04:00 [INF] Generating schedule for clinic ID: 2 on date: "2025-01-30T00:00:00.0000000"
+2025-01-27 22:04:12.337 +04:00 [INF] Fetching clinic with ID 2 at "2025-01-27T22:04:12.3378424+04:00"
+2025-01-27 22:04:12.352 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__clinicId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[CID] = @__clinicId_0
+2025-01-27 22:04:12.399 +04:00 [INF] Executed DbCommand (7ms) [Parameters=[@__clinicId_0='?' (DbType = Int32), @__date_Date_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BookingID], [b].[BookingDate], [b].[CID], [b].[Date], [b].[EndTime], [b].[PID], [b].[StartTime], [b].[Staus]
+FROM [Bookings] AS [b]
+WHERE [b].[CID] = @__clinicId_0 AND CONVERT(date, [b].[Date]) = @__date_Date_1
+2025-01-27 22:04:12.801 +04:00 [INF] Executed DbCommand (42ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:12.856 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:12.864 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:12.877 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:12.891 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:12.897 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:12.911 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:12.921 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:12.932 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:12.945 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:12.959 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:12.976 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:12.987 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:12.999 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:13.012 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:13.022 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:13.035 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:13.048 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:13.066 +04:00 [INF] Executed DbCommand (7ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:13.080 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:13.089 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:13.099 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:13.108 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:13.121 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:04:13.135 +04:00 [INF] Appointments generated successfully for clinic ID: 2 on "2025-01-30T00:00:00.0000000"
+2025-01-27 22:04:27.220 +04:00 [INF] Home page initialized at "2025-01-27T22:04:27.2203400+04:00"
+2025-01-27 22:04:27.230 +04:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:04:27.238 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T22:04:27.2381509+04:00"
+2025-01-27 22:04:49.098 +04:00 [INF] Attempting login for email: yousef.ali@gmail.com
+2025-01-27 22:04:49.146 +04:00 [INF] Executed DbCommand (41ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-27 22:04:49.155 +04:00 [INF] Login successful for user: yousef.ali@gmail.com with role: patient
+2025-01-27 22:04:49.163 +04:00 [INF] Redirecting user: yousef.ali@gmail.com to home page.
+2025-01-27 22:04:49.238 +04:00 [INF] Executed DbCommand (7ms) [Parameters=[@__PID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[PID], [p].[Age], [p].[Gender], [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Patients] AS [p]
+INNER JOIN [Users] AS [u] ON [p].[PID] = [u].[UID]
+WHERE [p].[PID] = @__PID_0
+2025-01-27 22:04:49.270 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-27 22:04:49.342 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BookingID], [b].[BookingDate], [b].[CID], [b].[Date], [b].[EndTime], [b].[PID], [b].[StartTime], [b].[Staus]
+FROM [Bookings] AS [b]
+2025-01-27 22:04:49.369 +04:00 [INF] Fetching clinic name for clinic ID 1 at "2025-01-27T22:04:49.3689137+04:00"
+2025-01-27 22:04:49.380 +04:00 [INF] Executed DbCommand (7ms) [Parameters=[@__clinicId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[CID] = @__clinicId_0
+2025-01-27 22:04:49.402 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-27 22:05:11.722 +04:00 [INF] Navigated to BookAppointment page at "2025-01-27T22:05:11.7221980+04:00"
+2025-01-27 22:05:11.724 +04:00 [INF] Fetching all branches at "2025-01-27T22:05:11.7240709+04:00"
+2025-01-27 22:05:11.728 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:05:11.731 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T22:05:11.7315784+04:00"
+2025-01-27 22:05:11.732 +04:00 [INF] Fetching all departments at "2025-01-27T22:05:11.7327324+04:00"
+2025-01-27 22:05:11.736 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-27 22:05:11.739 +04:00 [INF] Successfully fetched 10 departments at "2025-01-27T22:05:11.7396067+04:00"
+2025-01-27 22:05:49.371 +04:00 [INF] Fetching appointments for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:05:49.3716415+04:00"
+2025-01-27 22:05:49.375 +04:00 [INF] Fetching clinics for branch ID 2 and department ID 2 at "2025-01-27T22:05:49.3756532+04:00"
+2025-01-27 22:05:49.386 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[BID] = @__bid_0 AND [c].[DepID] = @__depid_1 AND [c].[IsActive] = CAST(1 AS bit)
+2025-01-27 22:05:49.392 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[BID] = @__bid_0 AND [c].[DepID] = @__depid_1 AND [c].[IsActive] = CAST(1 AS bit)
+2025-01-27 22:05:49.395 +04:00 [INF] Found clinic with ID: 2 and Name: dermatology clinic at "2025-01-27T22:05:49.3953883+04:00"
+2025-01-27 22:05:49.400 +04:00 [INF] Loading appointments for Clinic ID: 2
+2025-01-27 22:05:49.410 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BookingID], [b].[BookingDate], [b].[CID], [b].[Date], [b].[EndTime], [b].[PID], [b].[StartTime], [b].[Staus]
+FROM [Bookings] AS [b]
+2025-01-27 22:05:49.452 +04:00 [INF] Successfully loaded 72 appointments for Clinic ID: 2
+2025-01-27 22:06:20.065 +04:00 [INF] Attempting to book appointment for Patient ID: 13, Clinic ID: 2, Date: "2025-01-30T00:00:00.0000000", Time: "10:00:00"
+2025-01-27 22:06:20.082 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[@__clinicId_0='?' (DbType = Int32), @__date_Date_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BookingID], [b].[BookingDate], [b].[CID], [b].[Date], [b].[EndTime], [b].[PID], [b].[StartTime], [b].[Staus]
+FROM [Bookings] AS [b]
+WHERE [b].[CID] = @__clinicId_0 AND CONVERT(date, [b].[Date]) = @__date_Date_1
+2025-01-27 22:06:20.121 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[@__PatientId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BookingID], [b].[BookingDate], [b].[CID], [b].[Date], [b].[EndTime], [b].[PID], [b].[StartTime], [b].[Staus]
+FROM [Bookings] AS [b]
+WHERE [b].[PID] = @__PatientId_0
+2025-01-27 22:06:20.264 +04:00 [ERR] Unexpected error during booking for Patient ID: 13. Error: An error occurred while booking the appointment.
+2025-01-27 22:09:08.498 +04:00 [INF] User profile is available. Using 'C:\Users\azzaA\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-01-27 22:09:08.757 +04:00 [INF] Now listening on: http://localhost:5233
+2025-01-27 22:09:08.832 +04:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2025-01-27 22:09:08.904 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-01-27 22:09:08.906 +04:00 [INF] Hosting environment: Development
+2025-01-27 22:09:08.907 +04:00 [INF] Content root path: C:\Users\azzaA\Source\Repos\HospitalSystemFinalProject
+2025-01-27 22:09:09.291 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/ - null null
+2025-01-27 22:09:09.416 +04:00 [WRN] Failed to determine the https port for redirect.
+2025-01-27 22:09:09.479 +04:00 [INF] Executing endpoint '/ (/)'
+2025-01-27 22:09:09.855 +04:00 [INF] Home page initialized at "2025-01-27T22:09:09.8544382+04:00"
+2025-01-27 22:09:10.191 +04:00 [WRN] Navigations 'Doctor.Clinic' and 'Clinic.Doctor' were separated into two relationships since the [ForeignKey] attribute was specified on properties 'CID' and 'AssignDoctor' on both sides.
+2025-01-27 22:09:10.411 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'Clinic'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-27 22:09:10.416 +04:00 [WRN] No store type was specified for the decimal property 'Cost' on entity type 'PatientRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-01-27 22:09:10.991 +04:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:09:11.050 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T22:09:11.0505113+04:00"
+2025-01-27 22:09:11.343 +04:00 [INF] Executed endpoint '/ (/)'
+2025-01-27 22:09:11.347 +04:00 [INF] HTTP GET / responded 200 in 1927.4999 ms
+2025-01-27 22:09:11.384 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/ - 200 null text/html; charset=utf-8 2101.5591ms
+2025-01-27 22:09:11.391 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - null null
+2025-01-27 22:09:11.396 +04:00 [INF] Executing endpoint 'Blazor web static files'
+2025-01-27 22:09:11.402 +04:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-01-27 22:09:11.405 +04:00 [INF] Executed endpoint 'Blazor web static files'
+2025-01-27 22:09:11.408 +04:00 [INF] HTTP GET /_framework/blazor.web.js responded 304 in 12.9570 ms
+2025-01-27 22:09:11.410 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/blazor.web.js - 304 null text/javascript 19.7954ms
+2025-01-27 22:09:11.445 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-27 22:09:11.445 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_vs/browserLink - null null
+2025-01-27 22:09:11.453 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 8.6658ms
+2025-01-27 22:09:11.486 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_vs/browserLink - 200 null text/javascript; charset=UTF-8 40.8211ms
+2025-01-27 22:09:11.665 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-27 22:09:11.678 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:09:11.682 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:09:11.685 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 9.5261 ms
+2025-01-27 22:09:11.688 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 23.6287ms
+2025-01-27 22:09:12.166 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-27 22:09:12.175 +04:00 [INF] CORS policy execution successful.
+2025-01-27 22:09:12.178 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:09:12.192 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:09:12.194 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 20.1489 ms
+2025-01-27 22:09:12.197 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 31.4015ms
+2025-01-27 22:09:12.214 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=BF1FjWL1mzp7wTN1rMlBSw - null null
+2025-01-27 22:09:12.224 +04:00 [INF] CORS policy execution successful.
+2025-01-27 22:09:12.227 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:09:12.650 +04:00 [INF] Home page initialized at "2025-01-27T22:09:12.6504292+04:00"
+2025-01-27 22:09:12.666 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:09:12.673 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T22:09:12.6734505+04:00"
+2025-01-27 22:13:42.593 +04:00 [INF] Initializing Our Doctors page at "2025-01-27T22:13:42.5932682+04:00"
+2025-01-27 22:13:42.883 +04:00 [INF] Executed DbCommand (66ms) [Parameters=[@__roleName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Role] = @__roleName_0
+2025-01-27 22:13:42.951 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-27 22:13:43.052 +04:00 [INF] Executed DbCommand (39ms) [Parameters=[@__Did_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[DID] = @__Did_0
+2025-01-27 22:13:43.172 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Did_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[DID] = @__Did_0
+2025-01-27 22:13:43.182 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Did_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[DID] = @__Did_0
+2025-01-27 22:13:43.192 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Did_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[DID] = @__Did_0
+2025-01-27 22:13:43.200 +04:00 [INF] Successfully loaded 4 doctors at "2025-01-27T22:13:43.2001816+04:00"
+2025-01-27 22:13:48.224 +04:00 [INF] Search query updated: f at "2025-01-27T22:13:48.2232849+04:00"
+2025-01-27 22:13:48.234 +04:00 [INF] Filtered results: 0 doctors found for query 'f' at "2025-01-27T22:13:48.2328512+04:00"
+2025-01-27 22:13:49.717 +04:00 [INF] Search query updated:  at "2025-01-27T22:13:49.7178781+04:00"
+2025-01-27 22:13:49.721 +04:00 [INF] Filtered results: 4 doctors found for query '' at "2025-01-27T22:13:49.7219208+04:00"
+2025-01-27 22:13:50.881 +04:00 [INF] Search query updated: a at "2025-01-27T22:13:50.8812752+04:00"
+2025-01-27 22:13:50.885 +04:00 [INF] Filtered results: 4 doctors found for query 'a' at "2025-01-27T22:13:50.8849980+04:00"
+2025-01-27 22:13:51.376 +04:00 [INF] Search query updated: as at "2025-01-27T22:13:51.3763735+04:00"
+2025-01-27 22:13:51.381 +04:00 [INF] Filtered results: 1 doctors found for query 'as' at "2025-01-27T22:13:51.3811181+04:00"
+2025-01-27 22:13:56.371 +04:00 [INF] Navigating to doctor_info page for Doctor ID: 3 at "2025-01-27T22:13:56.3717474+04:00"
+2025-01-27 22:13:56.374 +04:00 [INF] Fetching details for Doctor ID: 3 at "2025-01-27T22:13:56.3741113+04:00"
+2025-01-27 22:13:56.379 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Did_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[DID] = @__Did_0
+2025-01-27 22:13:56.406 +04:00 [INF] Executed DbCommand (5ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-27 22:13:56.416 +04:00 [INF] Successfully fetched details for Doctor ID: 3 at "2025-01-27T22:13:56.4164323+04:00"
+2025-01-27 22:13:56.439 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-27 22:13:56.448 +04:00 [INF] Fetched department name: orthopedics for Department ID: 2 at "2025-01-27T22:13:56.4475449+04:00"
+2025-01-27 22:13:56.460 +04:00 [INF] Capitalizing words for input: orthopedics at "2025-01-27T22:13:56.4608249+04:00"
+2025-01-27 22:13:56.476 +04:00 [INF] Capitalizing words for input: orthopedics at "2025-01-27T22:13:56.4767113+04:00"
+2025-01-27 22:14:00.835 +04:00 [INF] Navigated to BranchPage at "2025-01-27T22:14:00.8352210+04:00"
+2025-01-27 22:14:00.838 +04:00 [INF] Fetching all branches at "2025-01-27T22:14:00.8387791+04:00"
+2025-01-27 22:14:00.843 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:14:00.846 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T22:14:00.8469432+04:00"
+2025-01-27 22:14:00.853 +04:00 [INF] Getting branch image for branch: Muscat medical center at "2025-01-27T22:14:00.8539214+04:00"
+2025-01-27 22:14:00.856 +04:00 [INF] Match found for branch image: muscat at "2025-01-27T22:14:00.8568942+04:00"
+2025-01-27 22:14:00.860 +04:00 [INF] Getting branch image for branch: salalah healthcare clinic at "2025-01-27T22:14:00.8603257+04:00"
+2025-01-27 22:14:00.863 +04:00 [INF] Match found for branch image: salalah at "2025-01-27T22:14:00.8639511+04:00"
+2025-01-27 22:14:00.870 +04:00 [INF] Getting branch image for branch: sohar general hospital at "2025-01-27T22:14:00.8705820+04:00"
+2025-01-27 22:14:00.874 +04:00 [INF] Match found for branch image: sohar at "2025-01-27T22:14:00.8746843+04:00"
+2025-01-27 22:14:00.880 +04:00 [INF] Getting branch image for branch: barka medical clinic at "2025-01-27T22:14:00.8801716+04:00"
+2025-01-27 22:14:00.884 +04:00 [INF] Match found for branch image: barka at "2025-01-27T22:14:00.8842369+04:00"
+2025-01-27 22:14:00.887 +04:00 [INF] Getting branch image for branch: ATA ibri at "2025-01-27T22:14:00.8878049+04:00"
+2025-01-27 22:14:00.892 +04:00 [WRN] No match found for branch image. Falling back to default image for branch: ATA ibri at "2025-01-27T22:14:00.8918391+04:00"
+2025-01-27 22:14:07.406 +04:00 [INF] Navigating to BranchDepartmentPage for Branch ID: 2 at "2025-01-27T22:14:07.4064102+04:00"
+2025-01-27 22:14:07.428 +04:00 [INF] Getting branch image for branch: Muscat medical center at "2025-01-27T22:14:07.4283272+04:00"
+2025-01-27 22:14:07.430 +04:00 [INF] Match found for branch image: muscat at "2025-01-27T22:14:07.4300584+04:00"
+2025-01-27 22:14:07.431 +04:00 [INF] Getting branch image for branch: salalah healthcare clinic at "2025-01-27T22:14:07.4311341+04:00"
+2025-01-27 22:14:07.432 +04:00 [INF] Match found for branch image: salalah at "2025-01-27T22:14:07.4326275+04:00"
+2025-01-27 22:14:07.434 +04:00 [INF] Getting branch image for branch: sohar general hospital at "2025-01-27T22:14:07.4347645+04:00"
+2025-01-27 22:14:07.437 +04:00 [INF] Match found for branch image: sohar at "2025-01-27T22:14:07.4373478+04:00"
+2025-01-27 22:14:07.440 +04:00 [INF] Getting branch image for branch: barka medical clinic at "2025-01-27T22:14:07.4401115+04:00"
+2025-01-27 22:14:07.441 +04:00 [INF] Match found for branch image: barka at "2025-01-27T22:14:07.4418306+04:00"
+2025-01-27 22:14:07.442 +04:00 [INF] Getting branch image for branch: ATA ibri at "2025-01-27T22:14:07.4428433+04:00"
+2025-01-27 22:14:07.444 +04:00 [WRN] No match found for branch image. Falling back to default image for branch: ATA ibri at "2025-01-27T22:14:07.4447294+04:00"
+2025-01-27 22:14:07.452 +04:00 [INF] Navigated to BranchDepartmentPage for Branch ID: 2 at "2025-01-27T22:14:07.4522894+04:00"
+2025-01-27 22:14:07.454 +04:00 [INF] Fetching branch details for Branch ID: 2 at "2025-01-27T22:14:07.4549636+04:00"
+2025-01-27 22:14:07.475 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:14:07.481 +04:00 [INF] Successfully fetched branch details for Branch ID: 2 at "2025-01-27T22:14:07.4816730+04:00"
+2025-01-27 22:14:07.484 +04:00 [INF] Fetching departments for Branch ID: 2 at "2025-01-27T22:14:07.4841690+04:00"
+2025-01-27 22:14:07.488 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:14:07.631 +04:00 [INF] Executed DbCommand (7ms) [Parameters=[@__BranchID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [branchDepartments] AS [b]
+INNER JOIN [Departments] AS [d] ON [b].[DepID] = [d].[DepID]
+WHERE [b].[BID] = @__BranchID_0
+2025-01-27 22:14:07.637 +04:00 [INF] Successfully fetched 7 departments for Branch ID: 2 at "2025-01-27T22:14:07.6365931+04:00"
+2025-01-27 22:14:07.644 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T22:14:07.6449691+04:00"
+2025-01-27 22:14:07.652 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T22:14:07.6528886+04:00"
+2025-01-27 22:14:07.655 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T22:14:07.6550520+04:00"
+2025-01-27 22:14:07.657 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T22:14:07.6577490+04:00"
+2025-01-27 22:14:07.660 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T22:14:07.6604772+04:00"
+2025-01-27 22:14:07.663 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T22:14:07.6637854+04:00"
+2025-01-27 22:14:07.669 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T22:14:07.6689975+04:00"
+2025-01-27 22:14:07.671 +04:00 [INF] Match found for department image: radiology at "2025-01-27T22:14:07.6718317+04:00"
+2025-01-27 22:14:07.674 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T22:14:07.6740654+04:00"
+2025-01-27 22:14:07.677 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T22:14:07.6770784+04:00"
+2025-01-27 22:14:07.679 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T22:14:07.6799434+04:00"
+2025-01-27 22:14:07.682 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T22:14:07.6827283+04:00"
+2025-01-27 22:14:07.685 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T22:14:07.6851882+04:00"
+2025-01-27 22:14:07.688 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T22:14:07.6879956+04:00"
+2025-01-27 22:14:11.055 +04:00 [INF] Navigating to find doctor page for Branch ID: 2 and Department ID: 6 at "2025-01-27T22:14:11.0553290+04:00"
+2025-01-27 22:14:11.061 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T22:14:11.0612813+04:00"
+2025-01-27 22:14:11.065 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T22:14:11.0657087+04:00"
+2025-01-27 22:14:11.067 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T22:14:11.0678778+04:00"
+2025-01-27 22:14:11.070 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T22:14:11.0703475+04:00"
+2025-01-27 22:14:11.073 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T22:14:11.0730808+04:00"
+2025-01-27 22:14:11.075 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T22:14:11.0759202+04:00"
+2025-01-27 22:14:11.077 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T22:14:11.0772140+04:00"
+2025-01-27 22:14:11.079 +04:00 [INF] Match found for department image: radiology at "2025-01-27T22:14:11.0790503+04:00"
+2025-01-27 22:14:11.080 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T22:14:11.0803206+04:00"
+2025-01-27 22:14:11.081 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T22:14:11.0817322+04:00"
+2025-01-27 22:14:11.083 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T22:14:11.0839333+04:00"
+2025-01-27 22:14:11.089 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T22:14:11.0896927+04:00"
+2025-01-27 22:14:11.091 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T22:14:11.0914338+04:00"
+2025-01-27 22:14:11.094 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T22:14:11.0949429+04:00"
+2025-01-27 22:14:11.105 +04:00 [INF] Navigated to BranchDepartmentDoctors page for Branch ID: 2 and Department ID: 6 at "2025-01-27T22:14:11.1059409+04:00"
+2025-01-27 22:14:11.108 +04:00 [INF] Fetching doctors for Branch ID: 2 and Department ID: 6 at "2025-01-27T22:14:11.1086514+04:00"
+2025-01-27 22:14:11.136 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[CurrentBrunch] = @__bid_0 AND [d].[DepId] = @__depid_1
+2025-01-27 22:14:11.143 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__roleName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Role] = @__roleName_0
+2025-01-27 22:14:11.148 +04:00 [INF] Successfully fetched doctors for Branch ID: 2 and Department ID: 6 at "2025-01-27T22:14:11.1485220+04:00"
+2025-01-27 22:14:11.152 +04:00 [INF] Successfully fetched users with role 'doctor' at "2025-01-27T22:14:11.1520451+04:00"
+2025-01-27 22:14:13.706 +04:00 [INF] Navigated to BranchDepartmentPage for Branch ID: 2 at "2025-01-27T22:14:13.7063996+04:00"
+2025-01-27 22:14:13.709 +04:00 [INF] Fetching branch details for Branch ID: 2 at "2025-01-27T22:14:13.7098085+04:00"
+2025-01-27 22:14:13.713 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:14:13.717 +04:00 [INF] Successfully fetched branch details for Branch ID: 2 at "2025-01-27T22:14:13.7177511+04:00"
+2025-01-27 22:14:13.718 +04:00 [INF] Fetching departments for Branch ID: 2 at "2025-01-27T22:14:13.7185495+04:00"
+2025-01-27 22:14:13.720 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:14:13.724 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__BranchID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [branchDepartments] AS [b]
+INNER JOIN [Departments] AS [d] ON [b].[DepID] = [d].[DepID]
+WHERE [b].[BID] = @__BranchID_0
+2025-01-27 22:14:13.730 +04:00 [INF] Successfully fetched 7 departments for Branch ID: 2 at "2025-01-27T22:14:13.7303379+04:00"
+2025-01-27 22:14:13.738 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T22:14:13.7385976+04:00"
+2025-01-27 22:14:13.740 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T22:14:13.7408243+04:00"
+2025-01-27 22:14:13.747 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T22:14:13.7474576+04:00"
+2025-01-27 22:14:13.754 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T22:14:13.7546891+04:00"
+2025-01-27 22:14:13.755 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T22:14:13.7559172+04:00"
+2025-01-27 22:14:13.757 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T22:14:13.7576623+04:00"
+2025-01-27 22:14:13.762 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T22:14:13.7626449+04:00"
+2025-01-27 22:14:13.768 +04:00 [INF] Match found for department image: radiology at "2025-01-27T22:14:13.7685369+04:00"
+2025-01-27 22:14:13.772 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T22:14:13.7720368+04:00"
+2025-01-27 22:14:13.773 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T22:14:13.7735596+04:00"
+2025-01-27 22:14:13.776 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T22:14:13.7764194+04:00"
+2025-01-27 22:14:13.782 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T22:14:13.7821247+04:00"
+2025-01-27 22:14:13.786 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T22:14:13.7865621+04:00"
+2025-01-27 22:14:13.790 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T22:14:13.7906470+04:00"
+2025-01-27 22:14:15.660 +04:00 [INF] Navigating to find doctor page for Branch ID: 2 and Department ID: 1 at "2025-01-27T22:14:15.6607110+04:00"
+2025-01-27 22:14:15.665 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T22:14:15.6659777+04:00"
+2025-01-27 22:14:15.669 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T22:14:15.6696375+04:00"
+2025-01-27 22:14:15.671 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T22:14:15.6718127+04:00"
+2025-01-27 22:14:15.673 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T22:14:15.6730931+04:00"
+2025-01-27 22:14:15.674 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T22:14:15.6740017+04:00"
+2025-01-27 22:14:15.674 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T22:14:15.6749444+04:00"
+2025-01-27 22:14:15.676 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T22:14:15.6766120+04:00"
+2025-01-27 22:14:15.678 +04:00 [INF] Match found for department image: radiology at "2025-01-27T22:14:15.6786790+04:00"
+2025-01-27 22:14:15.680 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T22:14:15.6800383+04:00"
+2025-01-27 22:14:15.680 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T22:14:15.6809376+04:00"
+2025-01-27 22:14:15.682 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T22:14:15.6825693+04:00"
+2025-01-27 22:14:15.685 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T22:14:15.6854957+04:00"
+2025-01-27 22:14:15.688 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T22:14:15.6884306+04:00"
+2025-01-27 22:14:15.691 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T22:14:15.6912491+04:00"
+2025-01-27 22:14:15.698 +04:00 [INF] Navigated to BranchDepartmentDoctors page for Branch ID: 2 and Department ID: 1 at "2025-01-27T22:14:15.6987545+04:00"
+2025-01-27 22:14:15.703 +04:00 [INF] Fetching doctors for Branch ID: 2 and Department ID: 1 at "2025-01-27T22:14:15.7032930+04:00"
+2025-01-27 22:14:15.707 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[CurrentBrunch] = @__bid_0 AND [d].[DepId] = @__depid_1
+2025-01-27 22:14:15.721 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__roleName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Role] = @__roleName_0
+2025-01-27 22:14:15.726 +04:00 [INF] Successfully fetched doctors for Branch ID: 2 and Department ID: 1 at "2025-01-27T22:14:15.7268079+04:00"
+2025-01-27 22:14:15.730 +04:00 [INF] Successfully fetched users with role 'doctor' at "2025-01-27T22:14:15.7305679+04:00"
+2025-01-27 22:14:17.747 +04:00 [INF] Navigated to BranchDepartmentPage for Branch ID: 2 at "2025-01-27T22:14:17.7476137+04:00"
+2025-01-27 22:14:17.750 +04:00 [INF] Fetching branch details for Branch ID: 2 at "2025-01-27T22:14:17.7500100+04:00"
+2025-01-27 22:14:17.754 +04:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:14:17.755 +04:00 [INF] Successfully fetched branch details for Branch ID: 2 at "2025-01-27T22:14:17.7556754+04:00"
+2025-01-27 22:14:17.757 +04:00 [INF] Fetching departments for Branch ID: 2 at "2025-01-27T22:14:17.7571048+04:00"
+2025-01-27 22:14:17.759 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:14:17.764 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__BranchID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [branchDepartments] AS [b]
+INNER JOIN [Departments] AS [d] ON [b].[DepID] = [d].[DepID]
+WHERE [b].[BID] = @__BranchID_0
+2025-01-27 22:14:17.771 +04:00 [INF] Successfully fetched 7 departments for Branch ID: 2 at "2025-01-27T22:14:17.7714788+04:00"
+2025-01-27 22:14:17.772 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T22:14:17.7729061+04:00"
+2025-01-27 22:14:17.774 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T22:14:17.7743606+04:00"
+2025-01-27 22:14:17.777 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T22:14:17.7770703+04:00"
+2025-01-27 22:14:17.779 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T22:14:17.7799940+04:00"
+2025-01-27 22:14:17.783 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T22:14:17.7833033+04:00"
+2025-01-27 22:14:17.788 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T22:14:17.7884546+04:00"
+2025-01-27 22:14:17.791 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T22:14:17.7912915+04:00"
+2025-01-27 22:14:17.795 +04:00 [INF] Match found for department image: radiology at "2025-01-27T22:14:17.7954887+04:00"
+2025-01-27 22:14:17.801 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T22:14:17.8010445+04:00"
+2025-01-27 22:14:17.804 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T22:14:17.8047252+04:00"
+2025-01-27 22:14:17.805 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T22:14:17.8056678+04:00"
+2025-01-27 22:14:17.809 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T22:14:17.8097415+04:00"
+2025-01-27 22:14:17.815 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T22:14:17.8150437+04:00"
+2025-01-27 22:14:17.818 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T22:14:17.8184678+04:00"
+2025-01-27 22:14:21.024 +04:00 [INF] Navigating to find doctor page for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:14:21.0248479+04:00"
+2025-01-27 22:14:21.031 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T22:14:21.0313725+04:00"
+2025-01-27 22:14:21.040 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T22:14:21.0402722+04:00"
+2025-01-27 22:14:21.050 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T22:14:21.0504417+04:00"
+2025-01-27 22:14:21.053 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T22:14:21.0537303+04:00"
+2025-01-27 22:14:21.060 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T22:14:21.0603066+04:00"
+2025-01-27 22:14:21.064 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T22:14:21.0641545+04:00"
+2025-01-27 22:14:21.068 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T22:14:21.0686882+04:00"
+2025-01-27 22:14:21.072 +04:00 [INF] Match found for department image: radiology at "2025-01-27T22:14:21.0728122+04:00"
+2025-01-27 22:14:21.076 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T22:14:21.0767528+04:00"
+2025-01-27 22:14:21.081 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T22:14:21.0818422+04:00"
+2025-01-27 22:14:21.085 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T22:14:21.0854886+04:00"
+2025-01-27 22:14:21.088 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T22:14:21.0884726+04:00"
+2025-01-27 22:14:21.094 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T22:14:21.0944817+04:00"
+2025-01-27 22:14:21.102 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T22:14:21.1023612+04:00"
+2025-01-27 22:14:21.108 +04:00 [INF] Navigated to BranchDepartmentDoctors page for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:14:21.1082085+04:00"
+2025-01-27 22:14:21.112 +04:00 [INF] Fetching doctors for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:14:21.1123414+04:00"
+2025-01-27 22:14:21.124 +04:00 [INF] Executed DbCommand (8ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[CurrentBrunch] = @__bid_0 AND [d].[DepId] = @__depid_1
+2025-01-27 22:14:21.137 +04:00 [INF] Executed DbCommand (5ms) [Parameters=[@__roleName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Role] = @__roleName_0
+2025-01-27 22:14:21.143 +04:00 [INF] Successfully fetched doctors for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:14:21.1431061+04:00"
+2025-01-27 22:14:21.147 +04:00 [INF] Successfully fetched users with role 'doctor' at "2025-01-27T22:14:21.1479016+04:00"
+2025-01-27 22:14:23.562 +04:00 [INF] Navigated to BranchDepartmentPage for Branch ID: 2 at "2025-01-27T22:14:23.5629069+04:00"
+2025-01-27 22:14:23.566 +04:00 [INF] Fetching branch details for Branch ID: 2 at "2025-01-27T22:14:23.5660238+04:00"
+2025-01-27 22:14:23.575 +04:00 [INF] Executed DbCommand (5ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:14:23.577 +04:00 [INF] Successfully fetched branch details for Branch ID: 2 at "2025-01-27T22:14:23.5775577+04:00"
+2025-01-27 22:14:23.579 +04:00 [INF] Fetching departments for Branch ID: 2 at "2025-01-27T22:14:23.5790405+04:00"
+2025-01-27 22:14:23.581 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:14:23.593 +04:00 [INF] Executed DbCommand (7ms) [Parameters=[@__BranchID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [branchDepartments] AS [b]
+INNER JOIN [Departments] AS [d] ON [b].[DepID] = [d].[DepID]
+WHERE [b].[BID] = @__BranchID_0
+2025-01-27 22:14:23.596 +04:00 [INF] Successfully fetched 7 departments for Branch ID: 2 at "2025-01-27T22:14:23.5966381+04:00"
+2025-01-27 22:14:23.600 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T22:14:23.6003713+04:00"
+2025-01-27 22:14:23.604 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T22:14:23.6046894+04:00"
+2025-01-27 22:14:23.606 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T22:14:23.6066345+04:00"
+2025-01-27 22:14:23.611 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T22:14:23.6115566+04:00"
+2025-01-27 22:14:23.616 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T22:14:23.6160318+04:00"
+2025-01-27 22:14:23.620 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T22:14:23.6206111+04:00"
+2025-01-27 22:14:23.622 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T22:14:23.6222800+04:00"
+2025-01-27 22:14:23.626 +04:00 [INF] Match found for department image: radiology at "2025-01-27T22:14:23.6263583+04:00"
+2025-01-27 22:14:23.629 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T22:14:23.6292113+04:00"
+2025-01-27 22:14:23.633 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T22:14:23.6334712+04:00"
+2025-01-27 22:14:23.637 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T22:14:23.6378741+04:00"
+2025-01-27 22:14:23.639 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T22:14:23.6394426+04:00"
+2025-01-27 22:14:23.645 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T22:14:23.6450209+04:00"
+2025-01-27 22:14:23.648 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T22:14:23.6485114+04:00"
+2025-01-27 22:14:53.286 +04:00 [INF] Navigating to find doctor page for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:14:53.2868305+04:00"
+2025-01-27 22:14:53.291 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T22:14:53.2914619+04:00"
+2025-01-27 22:14:53.293 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T22:14:53.2935909+04:00"
+2025-01-27 22:14:53.295 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T22:14:53.2953801+04:00"
+2025-01-27 22:14:53.297 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T22:14:53.2976384+04:00"
+2025-01-27 22:14:53.299 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T22:14:53.2993063+04:00"
+2025-01-27 22:14:53.302 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T22:14:53.3025929+04:00"
+2025-01-27 22:14:53.303 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T22:14:53.3038036+04:00"
+2025-01-27 22:14:53.305 +04:00 [INF] Match found for department image: radiology at "2025-01-27T22:14:53.3057412+04:00"
+2025-01-27 22:14:53.306 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T22:14:53.3069373+04:00"
+2025-01-27 22:14:53.308 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T22:14:53.3086224+04:00"
+2025-01-27 22:14:53.310 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T22:14:53.3103180+04:00"
+2025-01-27 22:14:53.315 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T22:14:53.3151227+04:00"
+2025-01-27 22:14:53.319 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T22:14:53.3192381+04:00"
+2025-01-27 22:14:53.321 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T22:14:53.3217491+04:00"
+2025-01-27 22:14:53.328 +04:00 [INF] Navigated to BranchDepartmentDoctors page for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:14:53.3284458+04:00"
+2025-01-27 22:14:53.335 +04:00 [INF] Fetching doctors for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:14:53.3350029+04:00"
+2025-01-27 22:14:53.347 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[CurrentBrunch] = @__bid_0 AND [d].[DepId] = @__depid_1
+2025-01-27 22:14:53.359 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[@__roleName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Role] = @__roleName_0
+2025-01-27 22:14:53.370 +04:00 [INF] Successfully fetched doctors for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:14:53.3707967+04:00"
+2025-01-27 22:14:53.374 +04:00 [INF] Successfully fetched users with role 'doctor' at "2025-01-27T22:14:53.3741575+04:00"
+2025-01-27 22:14:59.284 +04:00 [INF] Navigated to BranchDepartmentPage for Branch ID: 2 at "2025-01-27T22:14:59.2840087+04:00"
+2025-01-27 22:14:59.285 +04:00 [INF] Fetching branch details for Branch ID: 2 at "2025-01-27T22:14:59.2855233+04:00"
+2025-01-27 22:14:59.288 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:14:59.291 +04:00 [INF] Successfully fetched branch details for Branch ID: 2 at "2025-01-27T22:14:59.2910381+04:00"
+2025-01-27 22:14:59.291 +04:00 [INF] Fetching departments for Branch ID: 2 at "2025-01-27T22:14:59.2919102+04:00"
+2025-01-27 22:14:59.294 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:14:59.298 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__BranchID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [branchDepartments] AS [b]
+INNER JOIN [Departments] AS [d] ON [b].[DepID] = [d].[DepID]
+WHERE [b].[BID] = @__BranchID_0
+2025-01-27 22:14:59.302 +04:00 [INF] Successfully fetched 7 departments for Branch ID: 2 at "2025-01-27T22:14:59.3028526+04:00"
+2025-01-27 22:14:59.307 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T22:14:59.3071914+04:00"
+2025-01-27 22:14:59.312 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T22:14:59.3119992+04:00"
+2025-01-27 22:14:59.315 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T22:14:59.3150250+04:00"
+2025-01-27 22:14:59.318 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T22:14:59.3180320+04:00"
+2025-01-27 22:14:59.320 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T22:14:59.3202858+04:00"
+2025-01-27 22:14:59.324 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T22:14:59.3244300+04:00"
+2025-01-27 22:14:59.330 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T22:14:59.3300207+04:00"
+2025-01-27 22:14:59.335 +04:00 [INF] Match found for department image: radiology at "2025-01-27T22:14:59.3356675+04:00"
+2025-01-27 22:14:59.338 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T22:14:59.3382341+04:00"
+2025-01-27 22:14:59.343 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T22:14:59.3434573+04:00"
+2025-01-27 22:14:59.350 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T22:14:59.3500097+04:00"
+2025-01-27 22:14:59.353 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T22:14:59.3532348+04:00"
+2025-01-27 22:14:59.357 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T22:14:59.3575478+04:00"
+2025-01-27 22:14:59.366 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T22:14:59.3665749+04:00"
+2025-01-27 22:15:01.869 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/DoctorPage - null null
+2025-01-27 22:15:01.891 +04:00 [INF] HTTP GET /DoctorPage responded 404 in 1.0370 ms
+2025-01-27 22:15:01.897 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/DoctorPage - 404 0 null 28.643ms
+2025-01-27 22:15:01.905 +04:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5233/DoctorPage, Response status code: 404
+2025-01-27 22:15:01.926 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryJNPn9PANwkX4llYe 359
+2025-01-27 22:15:01.929 +04:00 [INF] CORS policy execution successful.
+2025-01-27 22:15:01.930 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:15:01.939 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:15:01.943 +04:00 [INF] HTTP GET /_blazor responded 101 in 349719.3653 ms
+2025-01-27 22:15:01.947 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor?id=BF1FjWL1mzp7wTN1rMlBSw - 101 null null 349732.7305ms
+2025-01-27 22:15:01.988 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:15:01.991 +04:00 [INF] HTTP POST /_blazor/disconnect responded 200 in 62.1146 ms
+2025-01-27 22:15:01.995 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/disconnect - 200 0 null 69.2116ms
+2025-01-27 22:15:04.335 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/BranchDepartmentPage/2 - null null
+2025-01-27 22:15:04.344 +04:00 [INF] Executing endpoint '/BranchDepartmentPage/{branchId:int} (/BranchDepartmentPage/{branchId:int})'
+2025-01-27 22:15:04.530 +04:00 [INF] Navigated to BranchDepartmentPage for Branch ID: 2 at "2025-01-27T22:15:04.5301982+04:00"
+2025-01-27 22:15:04.535 +04:00 [INF] Fetching branch details for Branch ID: 2 at "2025-01-27T22:15:04.5350604+04:00"
+2025-01-27 22:15:04.675 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:15:04.685 +04:00 [INF] Successfully fetched branch details for Branch ID: 2 at "2025-01-27T22:15:04.6857635+04:00"
+2025-01-27 22:15:04.686 +04:00 [INF] Fetching departments for Branch ID: 2 at "2025-01-27T22:15:04.6869924+04:00"
+2025-01-27 22:15:04.690 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:15:04.698 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__BranchID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [branchDepartments] AS [b]
+INNER JOIN [Departments] AS [d] ON [b].[DepID] = [d].[DepID]
+WHERE [b].[BID] = @__BranchID_0
+2025-01-27 22:15:04.703 +04:00 [INF] Successfully fetched 7 departments for Branch ID: 2 at "2025-01-27T22:15:04.7039784+04:00"
+2025-01-27 22:15:04.710 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T22:15:04.7104696+04:00"
+2025-01-27 22:15:04.713 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T22:15:04.7131018+04:00"
+2025-01-27 22:15:04.715 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T22:15:04.7152895+04:00"
+2025-01-27 22:15:04.719 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T22:15:04.7198547+04:00"
+2025-01-27 22:15:04.723 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T22:15:04.7232794+04:00"
+2025-01-27 22:15:04.726 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T22:15:04.7262578+04:00"
+2025-01-27 22:15:04.729 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T22:15:04.7295647+04:00"
+2025-01-27 22:15:04.733 +04:00 [INF] Match found for department image: radiology at "2025-01-27T22:15:04.7330006+04:00"
+2025-01-27 22:15:04.735 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T22:15:04.7354564+04:00"
+2025-01-27 22:15:04.737 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T22:15:04.7374179+04:00"
+2025-01-27 22:15:04.740 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T22:15:04.7409628+04:00"
+2025-01-27 22:15:04.748 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T22:15:04.7483570+04:00"
+2025-01-27 22:15:04.751 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T22:15:04.7514588+04:00"
+2025-01-27 22:15:04.754 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T22:15:04.7544739+04:00"
+2025-01-27 22:15:04.765 +04:00 [INF] Executed endpoint '/BranchDepartmentPage/{branchId:int} (/BranchDepartmentPage/{branchId:int})'
+2025-01-27 22:15:04.767 +04:00 [INF] HTTP GET /BranchDepartmentPage/2 responded 200 in 423.2691 ms
+2025-01-27 22:15:04.772 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/BranchDepartmentPage/2 - 200 null text/html; charset=utf-8 437.0715ms
+2025-01-27 22:15:04.814 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - null null
+2025-01-27 22:15:04.819 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_framework/aspnetcore-browser-refresh.js - 200 13780 application/javascript; charset=utf-8 5.6056ms
+2025-01-27 22:15:04.920 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor/initializers - null null
+2025-01-27 22:15:04.925 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:15:04.926 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:15:04.928 +04:00 [INF] HTTP GET /_blazor/initializers responded 200 in 3.0461 ms
+2025-01-27 22:15:04.932 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor/initializers - 200 null application/json; charset=utf-8 11.6237ms
+2025-01-27 22:15:05.149 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-27 22:15:05.154 +04:00 [INF] CORS policy execution successful.
+2025-01-27 22:15:05.156 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:15:05.158 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:15:05.160 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 6.5303 ms
+2025-01-27 22:15:05.163 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 13.7484ms
+2025-01-27 22:15:05.205 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=WOs2H__VqKU11QB-ODBkNw - null null
+2025-01-27 22:15:05.208 +04:00 [INF] CORS policy execution successful.
+2025-01-27 22:15:05.209 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 22:15:05.291 +04:00 [INF] Navigated to BranchDepartmentPage for Branch ID: 2 at "2025-01-27T22:15:05.2912299+04:00"
+2025-01-27 22:15:05.293 +04:00 [INF] Fetching branch details for Branch ID: 2 at "2025-01-27T22:15:05.2937632+04:00"
+2025-01-27 22:15:05.298 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:15:05.303 +04:00 [INF] Successfully fetched branch details for Branch ID: 2 at "2025-01-27T22:15:05.3032769+04:00"
+2025-01-27 22:15:05.305 +04:00 [INF] Fetching departments for Branch ID: 2 at "2025-01-27T22:15:05.3053112+04:00"
+2025-01-27 22:15:05.309 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:15:05.315 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__BranchID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [branchDepartments] AS [b]
+INNER JOIN [Departments] AS [d] ON [b].[DepID] = [d].[DepID]
+WHERE [b].[BID] = @__BranchID_0
+2025-01-27 22:15:05.320 +04:00 [INF] Successfully fetched 7 departments for Branch ID: 2 at "2025-01-27T22:15:05.3200188+04:00"
+2025-01-27 22:15:05.324 +04:00 [INF] Getting department image for department: cardiology at "2025-01-27T22:15:05.3241196+04:00"
+2025-01-27 22:15:05.327 +04:00 [INF] Match found for department image: cardiology at "2025-01-27T22:15:05.3272350+04:00"
+2025-01-27 22:15:05.330 +04:00 [INF] Getting department image for department: orthopedics at "2025-01-27T22:15:05.3300612+04:00"
+2025-01-27 22:15:05.333 +04:00 [INF] Match found for department image: orthopedics at "2025-01-27T22:15:05.3332276+04:00"
+2025-01-27 22:15:05.336 +04:00 [INF] Getting department image for department: dermatology at "2025-01-27T22:15:05.3360064+04:00"
+2025-01-27 22:15:05.338 +04:00 [INF] Match found for department image: dermatology at "2025-01-27T22:15:05.3386681+04:00"
+2025-01-27 22:15:05.341 +04:00 [INF] Getting department image for department: radiology at "2025-01-27T22:15:05.3410786+04:00"
+2025-01-27 22:15:05.343 +04:00 [INF] Match found for department image: radiology at "2025-01-27T22:15:05.3436961+04:00"
+2025-01-27 22:15:05.346 +04:00 [INF] Getting department image for department: gynecology at "2025-01-27T22:15:05.3463283+04:00"
+2025-01-27 22:15:05.348 +04:00 [INF] Match found for department image: gynecology at "2025-01-27T22:15:05.3489929+04:00"
+2025-01-27 22:15:05.351 +04:00 [INF] Getting department image for department: emergency medicine at "2025-01-27T22:15:05.3514950+04:00"
+2025-01-27 22:15:05.354 +04:00 [WRN] Fallback to default image for department: emergency medicine at "2025-01-27T22:15:05.3544654+04:00"
+2025-01-27 22:15:05.356 +04:00 [INF] Getting department image for department: psychiatry at "2025-01-27T22:15:05.3567417+04:00"
+2025-01-27 22:15:05.359 +04:00 [INF] Match found for department image: psychiatry at "2025-01-27T22:15:05.3594209+04:00"
+2025-01-27 22:15:30.796 +04:00 [INF] Attempting login for email: ZahraTaqi8015@CodelineHospital.com
+2025-01-27 22:15:30.826 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-27 22:15:30.834 +04:00 [INF] Login successful for user: ZahraTaqi8015@CodelineHospital.com with role: admin
+2025-01-27 22:15:30.908 +04:00 [INF] Redirecting admin user: ZahraTaqi8015@CodelineHospital.com to /StaffPage.
+2025-01-27 22:15:30.947 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-27 22:15:37.377 +04:00 [INF] ManageBranch page initialized at "2025-01-27T22:15:37.3774459+04:00"
+2025-01-27 22:15:37.383 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:15:37.386 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T22:15:37.3865746+04:00"
+2025-01-27 22:15:45.037 +04:00 [INF] Navigating to AddBranch page for Branch ID: 1 at "2025-01-27T22:15:45.0379284+04:00"
+2025-01-27 22:15:45.051 +04:00 [INF] Navigated to Add/Edit Branch page at "2025-01-27T22:15:45.0513759+04:00"
+2025-01-27 22:15:45.054 +04:00 [INF] Fetching branch details for Branch ID: 1 at "2025-01-27T22:15:45.0536424+04:00"
+2025-01-27 22:15:45.061 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:16:20.639 +04:00 [INF] Loading all departments at "2025-01-27T22:16:20.6390331+04:00"
+2025-01-27 22:16:20.646 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-27 22:16:20.653 +04:00 [INF] Successfully loaded 10 departments at "2025-01-27T22:16:20.6536799+04:00"
+2025-01-27 22:16:45.085 +04:00 [INF] Navigated to ClinicPage at "2025-01-27T22:16:45.0854406+04:00"
+2025-01-27 22:16:45.089 +04:00 [INF] Fetching all branches at "2025-01-27T22:16:45.0893255+04:00"
+2025-01-27 22:16:45.094 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:16:45.095 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T22:16:45.0958999+04:00"
+2025-01-27 22:16:45.099 +04:00 [INF] Fetching all departments at "2025-01-27T22:16:45.0996232+04:00"
+2025-01-27 22:16:45.104 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-27 22:16:45.111 +04:00 [INF] Successfully fetched 10 departments at "2025-01-27T22:16:45.1116703+04:00"
+2025-01-27 22:16:55.648 +04:00 [INF] Navigating to AllClinicsPage for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:16:55.6488849+04:00"
+2025-01-27 22:16:55.656 +04:00 [INF] Navigated to AllClinicsPage with Branch ID: 2 and Department ID: 2 at "2025-01-27T22:16:55.6563429+04:00"
+2025-01-27 22:16:55.658 +04:00 [INF] Fetching clinics for branch ID 2 and department ID 2 at "2025-01-27T22:16:55.6579153+04:00"
+2025-01-27 22:16:55.662 +04:00 [INF] Successfully fetched clinics for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:16:55.6622601+04:00"
+2025-01-27 22:16:55.692 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[BID] = @__bid_0 AND [c].[DepID] = @__depid_1 AND [c].[IsActive] = CAST(1 AS bit)
+2025-01-27 22:16:55.778 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[BID] = @__bid_0 AND [c].[DepID] = @__depid_1 AND [c].[IsActive] = CAST(1 AS bit)
+2025-01-27 22:17:01.170 +04:00 [INF] Navigating to schedule page for Clinic ID: 2 at "2025-01-27T22:17:01.1704612+04:00"
+2025-01-27 22:17:01.181 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[BID] = @__bid_0 AND [c].[DepID] = @__depid_1 AND [c].[IsActive] = CAST(1 AS bit)
+2025-01-27 22:17:01.193 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[BID] = @__bid_0 AND [c].[DepID] = @__depid_1 AND [c].[IsActive] = CAST(1 AS bit)
+2025-01-27 22:17:07.722 +04:00 [INF] Generating schedule for clinic ID: 2 on date: "2025-01-29T00:00:00.0000000"
+2025-01-27 22:17:07.730 +04:00 [INF] Fetching clinic with ID 2 at "2025-01-27T22:17:07.7300046+04:00"
+2025-01-27 22:17:07.754 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__clinicId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[CID] = @__clinicId_0
+2025-01-27 22:17:07.839 +04:00 [INF] Executed DbCommand (39ms) [Parameters=[@__clinicId_0='?' (DbType = Int32), @__date_Date_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BookingID], [b].[BookingDate], [b].[CID], [b].[Date], [b].[EndTime], [b].[PID], [b].[StartTime], [b].[Staus]
+FROM [Bookings] AS [b]
+WHERE [b].[CID] = @__clinicId_0 AND CONVERT(date, [b].[Date]) = @__date_Date_1
+2025-01-27 22:17:08.242 +04:00 [INF] Executed DbCommand (46ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.300 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.316 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.328 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.340 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.351 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.364 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.374 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.389 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.402 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.414 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.426 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.442 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.456 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.465 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.479 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.490 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.504 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.517 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.530 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.540 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.554 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.567 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.580 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Bookings] ([BookingDate], [CID], [Date], [EndTime], [PID], [StartTime], [Staus])
+OUTPUT INSERTED.[BookingID]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2025-01-27 22:17:08.595 +04:00 [INF] Appointments generated successfully for clinic ID: 2 on "2025-01-29T00:00:00.0000000"
+2025-01-27 22:17:12.605 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[@__roleName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Role] = @__roleName_0
+2025-01-27 22:17:12.611 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__roleName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Role] = @__roleName_0
+2025-01-27 22:17:12.615 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__roleName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Role] = @__roleName_0
+2025-01-27 22:17:15.260 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:17:15.268 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-27 22:17:49.530 +04:00 [INF] Home page initialized at "2025-01-27T22:17:49.5305781+04:00"
+2025-01-27 22:17:49.537 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:17:49.545 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T22:17:49.5458886+04:00"
+2025-01-27 22:18:14.503 +04:00 [INF] Attempting login for email: yousef.ali@gmail.com
+2025-01-27 22:18:14.512 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-27 22:18:14.518 +04:00 [INF] Login successful for user: yousef.ali@gmail.com with role: patient
+2025-01-27 22:18:14.524 +04:00 [INF] Redirecting user: yousef.ali@gmail.com to home page.
+2025-01-27 22:18:14.627 +04:00 [INF] Executed DbCommand (38ms) [Parameters=[@__PID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[PID], [p].[Age], [p].[Gender], [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Patients] AS [p]
+INNER JOIN [Users] AS [u] ON [p].[PID] = [u].[UID]
+WHERE [p].[PID] = @__PID_0
+2025-01-27 22:18:14.658 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-27 22:18:14.680 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BookingID], [b].[BookingDate], [b].[CID], [b].[Date], [b].[EndTime], [b].[PID], [b].[StartTime], [b].[Staus]
+FROM [Bookings] AS [b]
+2025-01-27 22:18:14.709 +04:00 [INF] Fetching clinic with ID 1 at "2025-01-27T22:18:14.7094911+04:00"
+2025-01-27 22:18:14.721 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[@__clinicId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[CID] = @__clinicId_0
+2025-01-27 22:18:14.735 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:18:14.745 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-27 22:18:39.494 +04:00 [INF] Navigated to BookAppointment page at "2025-01-27T22:18:39.4944900+04:00"
+2025-01-27 22:18:39.497 +04:00 [INF] Fetching all branches at "2025-01-27T22:18:39.4977582+04:00"
+2025-01-27 22:18:39.500 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:18:39.506 +04:00 [INF] Successfully fetched 5 branches at "2025-01-27T22:18:39.5060805+04:00"
+2025-01-27 22:18:39.513 +04:00 [INF] Fetching all departments at "2025-01-27T22:18:39.5136519+04:00"
+2025-01-27 22:18:39.518 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-27 22:18:39.529 +04:00 [INF] Successfully fetched 10 departments at "2025-01-27T22:18:39.5293417+04:00"
+2025-01-27 22:18:48.739 +04:00 [INF] Fetching appointments for Branch ID: 2 and Department ID: 2 at "2025-01-27T22:18:48.7395179+04:00"
+2025-01-27 22:18:48.743 +04:00 [INF] Fetching clinics for branch ID 2 and department ID 2 at "2025-01-27T22:18:48.7437309+04:00"
+2025-01-27 22:18:48.755 +04:00 [INF] Executed DbCommand (8ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[BID] = @__bid_0 AND [c].[DepID] = @__depid_1 AND [c].[IsActive] = CAST(1 AS bit)
+2025-01-27 22:18:48.763 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__bid_0='?' (DbType = Int32), @__depid_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[BID] = @__bid_0 AND [c].[DepID] = @__depid_1 AND [c].[IsActive] = CAST(1 AS bit)
+2025-01-27 22:18:48.765 +04:00 [INF] Found clinic with ID: 2 and Name: dermatology clinic at "2025-01-27T22:18:48.7655797+04:00"
+2025-01-27 22:18:48.773 +04:00 [INF] Loading appointments for Clinic ID: 2
+2025-01-27 22:18:48.785 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BookingID], [b].[BookingDate], [b].[CID], [b].[Date], [b].[EndTime], [b].[PID], [b].[StartTime], [b].[Staus]
+FROM [Bookings] AS [b]
+2025-01-27 22:18:48.829 +04:00 [INF] Successfully loaded 72 appointments for Clinic ID: 2
+2025-01-27 22:19:16.573 +04:00 [INF] Attempting to book appointment for Patient ID: 13, Clinic ID: 2, Date: "2025-01-29T00:00:00.0000000", Time: "16:00:00"
+2025-01-27 22:19:16.590 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[@__clinicId_0='?' (DbType = Int32), @__date_Date_1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BookingID], [b].[BookingDate], [b].[CID], [b].[Date], [b].[EndTime], [b].[PID], [b].[StartTime], [b].[Staus]
+FROM [Bookings] AS [b]
+WHERE [b].[CID] = @__clinicId_0 AND CONVERT(date, [b].[Date]) = @__date_Date_1
+2025-01-27 22:19:16.626 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[@__PatientId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BookingID], [b].[BookingDate], [b].[CID], [b].[Date], [b].[EndTime], [b].[PID], [b].[StartTime], [b].[Staus]
+FROM [Bookings] AS [b]
+WHERE [b].[PID] = @__PatientId_0
+2025-01-27 22:19:16.706 +04:00 [INF] Executed DbCommand (47ms) [Parameters=[@p7='?' (DbType = Int32), @p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = DateTime2), @p3='?' (DbType = Time), @p4='?' (DbType = Int32), @p5='?' (DbType = Time), @p6='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Bookings] SET [BookingDate] = @p0, [CID] = @p1, [Date] = @p2, [EndTime] = @p3, [PID] = @p4, [StartTime] = @p5, [Staus] = @p6
+OUTPUT 1
+WHERE [BookingID] = @p7;
+2025-01-27 22:19:16.722 +04:00 [INF] Executed DbCommand (6ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-27 22:19:16.729 +04:00 [INF] Fetching clinic name for clinic ID 2 at "2025-01-27T22:19:16.7298259+04:00"
+2025-01-27 22:19:16.736 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__clinicId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[CID] = @__clinicId_0
+2025-01-27 22:19:16.747 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-27 22:19:16.831 +04:00 [INF] Appointment successfully booked for Patient ID: 13
+2025-01-27 22:19:16.844 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__PID_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[PID], [p].[Age], [p].[Gender], [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Patients] AS [p]
+INNER JOIN [Users] AS [u] ON [p].[PID] = [u].[UID]
+WHERE [p].[PID] = @__PID_0
+2025-01-27 22:19:16.849 +04:00 [INF] Executed DbCommand (0ms) [Parameters=[@__uid_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[UID] = @__uid_0
+2025-01-27 22:19:16.852 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BookingID], [b].[BookingDate], [b].[CID], [b].[Date], [b].[EndTime], [b].[PID], [b].[StartTime], [b].[Staus]
+FROM [Bookings] AS [b]
+2025-01-27 22:19:16.854 +04:00 [INF] Fetching clinic with ID 1 at "2025-01-27T22:19:16.8541215+04:00"
+2025-01-27 22:19:16.856 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__clinicId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[CID] = @__clinicId_0
+2025-01-27 22:19:16.864 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:19:16.873 +04:00 [INF] Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-27 22:19:16.878 +04:00 [INF] Fetching clinic with ID 2 at "2025-01-27T22:19:16.8788793+04:00"
+2025-01-27 22:19:16.881 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__clinicId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CID], [c].[AssignDoctor], [c].[BID], [c].[Capacity], [c].[ClincName], [c].[Cost], [c].[DepID], [c].[EndTime], [c].[IsActive], [c].[SlotDuration], [c].[StartTime]
+FROM [Clinics] AS [c]
+WHERE [c].[CID] = @__clinicId_0
+2025-01-27 22:19:16.885 +04:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+WHERE [b].[BID] = @__id_0
+2025-01-27 22:19:16.891 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+WHERE [d].[DepID] = @__id_0
+2025-01-27 22:19:20.704 +04:00 [INF] Email successfully sent to yousef.ali@gmail.com
+2025-01-27 22:19:54.430 +04:00 [INF] Attempting login for email: Dr.Ahsan1565@CodelineHospital.com
+2025-01-27 22:19:54.488 +04:00 [INF] Executed DbCommand (40ms) [Parameters=[@__email_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2025-01-27 22:19:54.494 +04:00 [INF] Login successful for user: Dr.Ahsan1565@CodelineHospital.com with role: doctor
+2025-01-27 22:19:54.500 +04:00 [INF] Redirecting doctor user: Dr.Ahsan1565@CodelineHospital.com to /DoctorPage/{DoctorId}.
+2025-01-27 22:20:04.693 +04:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[RID], [p].[BID], [p].[Cost], [p].[DID], [p].[Inspection], [p].[PID], [p].[Treatment], [p].[VisitDate], [p].[VisitTime], [p0].[PID], [p0].[Age], [p0].[Gender], [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear], [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [PatientRecords] AS [p]
+INNER JOIN [Patients] AS [p0] ON [p].[PID] = [p0].[PID]
+INNER JOIN [Doctors] AS [d] ON [p].[DID] = [d].[DID]
+INNER JOIN [Branches] AS [b] ON [p].[BID] = [b].[BID]
+2025-01-27 22:20:16.859 +04:00 [INF] Home page initialized at "2025-01-27T22:20:16.8592064+04:00"
+2025-01-27 22:20:16.863 +04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 22:20:16.866 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T22:20:16.8660125+04:00"

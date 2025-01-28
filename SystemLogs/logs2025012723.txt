@@ -1,0 +1,12 @@
+2025-01-27 23:55:46.161 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 23:55:46.264 +04:00 [INF] HTTP GET /_blazor responded 101 in 6041055.6924 ms
+2025-01-27 23:55:46.265 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor?id=WOs2H__VqKU11QB-ODBkNw - 101 null null 6041060.4411ms
+2025-01-27 23:55:49.489 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-27 23:55:49.492 +04:00 [INF] CORS policy execution successful.
+2025-01-27 23:55:49.493 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 23:55:49.495 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 23:55:49.496 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 3.4951 ms
+2025-01-27 23:55:49.497 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 7.6249ms
+2025-01-27 23:55:49.499 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=6Ciu6nyLOSsc7LgsHA12Vg - null null
+2025-01-27 23:55:49.502 +04:00 [INF] CORS policy execution successful.
+2025-01-27 23:55:49.503 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'

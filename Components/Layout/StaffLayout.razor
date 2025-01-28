@@ -101,7 +101,9 @@
 
     private void Logout()
     {
-        Console.WriteLine("Logging out...");
-        NavigationManager.NavigateTo("/Logout");
+        GlobalState.IsAuthenticated = false;
+        GlobalState.UID = 0;
+        GlobalState.Name = null;
+        NavigationManager.NavigateTo("/");
     }
 }

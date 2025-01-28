@@ -1,0 +1,75 @@
+2025-01-27 21:55:34.580 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 21:55:35.113 +04:00 [INF] HTTP GET /_blazor responded 101 in 8122507.5909 ms
+2025-01-27 21:55:35.182 +04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5233/_blazor?id=RWCkNvc0pI-1W7DnYlaelw - 101 null null 8122583.4826ms
+2025-01-27 21:55:38.495 +04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-01-27 21:55:38.500 +04:00 [INF] CORS policy execution successful.
+2025-01-27 21:55:38.501 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 21:55:38.502 +04:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 21:55:38.503 +04:00 [INF] HTTP POST /_blazor/negotiate responded 200 in 3.5842 ms
+2025-01-27 21:55:38.505 +04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5233/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 9.94ms
+2025-01-27 21:55:38.511 +04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5233/_blazor?id=v_fXv48d-to6XkTmE0LQNg - null null
+2025-01-27 21:55:38.513 +04:00 [INF] CORS policy execution successful.
+2025-01-27 21:55:38.514 +04:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-01-27 21:56:21.275 +04:00 [INF] Initializing Our Doctors page at "2025-01-27T21:56:21.2750005+04:00"
+2025-01-27 21:56:21.319 +04:00 [INF] Executed DbCommand (21ms) [Parameters=[@__roleName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Role] = @__roleName_0
+2025-01-27 21:56:21.336 +04:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-27 21:56:21.364 +04:00 [INF] Executed DbCommand (7ms) [Parameters=[@__Did_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[DID] = @__Did_0
+2025-01-27 21:56:21.423 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Did_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[DID] = @__Did_0
+2025-01-27 21:56:21.430 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Did_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[DID] = @__Did_0
+2025-01-27 21:56:21.436 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Did_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[DID] = @__Did_0
+2025-01-27 21:56:21.442 +04:00 [INF] Successfully loaded 4 doctors at "2025-01-27T21:56:21.4424113+04:00"
+2025-01-27 21:56:23.406 +04:00 [INF] Home page initialized at "2025-01-27T21:56:23.4060761+04:00"
+2025-01-27 21:56:23.447 +04:00 [INF] Executed DbCommand (38ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[BID], [b].[BranchName], [b].[IsActive], [b].[Location]
+FROM [Branches] AS [b]
+2025-01-27 21:56:23.455 +04:00 [INF] Fetched 5 branches from the service at "2025-01-27T21:56:23.4550288+04:00"
+2025-01-27 21:56:27.805 +04:00 [INF] Initializing Our Doctors page at "2025-01-27T21:56:27.8049988+04:00"
+2025-01-27 21:56:27.809 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__roleName_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[UID], [u].[Email], [u].[IsActive], [u].[Password], [u].[Phone], [u].[Role], [u].[UserName], [u].[image]
+FROM [Users] AS [u]
+WHERE [u].[Role] = @__roleName_0
+2025-01-27 21:56:27.814 +04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[DepID], [d].[DepartmentName], [d].[Description], [d].[IsActive]
+FROM [Departments] AS [d]
+2025-01-27 21:56:27.818 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Did_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[DID] = @__Did_0
+2025-01-27 21:56:27.825 +04:00 [INF] Executed DbCommand (2ms) [Parameters=[@__Did_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[DID] = @__Did_0
+2025-01-27 21:56:27.832 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Did_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[DID] = @__Did_0
+2025-01-27 21:56:27.840 +04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__Did_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [d].[DID], [d].[CID], [d].[CurrentBrunch], [d].[Degree], [d].[DepId], [d].[JoiningDate], [d].[Level], [d].[WorkingYear]
+FROM [Doctors] AS [d]
+WHERE [d].[DID] = @__Did_0
+2025-01-27 21:56:27.847 +04:00 [INF] Successfully loaded 4 doctors at "2025-01-27T21:56:27.8476593+04:00"
+2025-01-27 21:56:34.764 +04:00 [INF] Search query updated: a at "2025-01-27T21:56:34.7635549+04:00"
+2025-01-27 21:56:34.769 +04:00 [INF] Filtered results: 4 doctors found for query 'a' at "2025-01-27T21:56:34.7699512+04:00"
+2025-01-27 21:56:35.153 +04:00 [INF] Search query updated: af at "2025-01-27T21:56:35.1533036+04:00"
+2025-01-27 21:56:35.155 +04:00 [INF] Filtered results: 0 doctors found for query 'af' at "2025-01-27T21:56:35.1558783+04:00"
+2025-01-27 21:59:49.788 +04:00 [INF] Search query updated: a at "2025-01-27T21:59:49.7884887+04:00"
+2025-01-27 21:59:49.794 +04:00 [INF] Filtered results: 4 doctors found for query 'a' at "2025-01-27T21:59:49.7942861+04:00"
+2025-01-27 21:59:49.975 +04:00 [INF] Search query updated:  at "2025-01-27T21:59:49.9755353+04:00"
+2025-01-27 21:59:49.980 +04:00 [INF] Filtered results: 4 doctors found for query '' at "2025-01-27T21:59:49.9800789+04:00"
