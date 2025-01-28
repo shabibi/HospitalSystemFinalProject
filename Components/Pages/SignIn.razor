@@ -20,18 +20,18 @@
 
             <div class="my-4">
                 <MudTextField Label="Email" @bind-Value="loginModel.Email" For="@(() => loginModel.Email)" 
-                              Variant="Variant.Outlined" FullWidth="true" />
+                Variant="Variant.Outlined" FullWidth="true" />
                 <ValidationMessage For="@(() => loginModel.Email)" />
             </div>
 
             <div class="my-4">
                 <MudTextField Label="Password" @bind-Value="loginModel.Password" For="@(() => loginModel.Password)" 
-                              InputType="InputType.Password" Variant="Variant.Outlined" FullWidth="true" />
+                InputType="InputType.Password" Variant="Variant.Outlined" FullWidth="true" />
                 <ValidationMessage For="@(() => loginModel.Password)" />
             </div>
             <div class="flex justify-center mt-6">
                 <MudButton Type="submit" Variant="Variant.Filled" Color="Color.Primary" OnClick="HandleLogin"
-                           Style="font-size: 1rem; background-color: #1B7D84;color: #B4DBDC; padding: 12px;">
+                Style="font-size: 1rem; background-color: #1B7D84;color: #B4DBDC; padding: 12px;">
                     Login
                 </MudButton>
             </div>
@@ -67,6 +67,9 @@
         try
         {
             var authenticatedUser = UserService.AuthenticateUser(loginModel.Email, loginModel.Password);
+            GlobalState.UID = authenticatedUser.UID;
+            GlobalState.Name = authenticatedUser.UserName;
+            GlobalState.IsAuthenticated = true;
 
             if (authenticatedUser == null)
             {
@@ -82,7 +85,7 @@
 
                 authService.GenerateToken(authenticatedUser);
 
-                if (authenticatedUser.Role == "Admin" || authenticatedUser.Role =="admin" || authenticatedUser.Role == "superAdmin")
+                if (authenticatedUser.Role == "Admin" || authenticatedUser.Role == "admin" || authenticatedUser.Role == "superAdmin")
                 {
                     Log.Information("Redirecting admin user: {Email} to /StaffPage.", authenticatedUser.Email);
                     NavigationManager.NavigateTo($"/StaffPage/{authenticatedUser.UID}");
