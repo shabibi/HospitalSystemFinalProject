@@ -33,25 +33,34 @@
         <!-- Sidebar -->
         <div style="background: linear-gradient(to bottom, #1B7D84, #33BEC8); color: white; width: 250px; height: calc(100vh - 65px); padding: 1rem;">
             <div class="text-center">
-                <img src="/Images/logo.png" alt="Logo" style="max-width: 150px; object-fit: contain;" />
+                <!-- Wrap the logo in a link to the home page -->
+                <a href="/" style="display: inline-block; text-decoration: none;">
+                    <img src="/Images/logo.png" alt="Logo" style="max-width: 150px; object-fit: contain;" />
+                </a>
             </div>
             <nav>
                 <!-- Home -->
-                <NavLink class="nav-link d-flex align-items-center" href="DoctorPage" Match="NavLinkMatch.All" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem;">
-                    <span class="bi bi-house-door-fill" aria-hidden="true" style="margin-right: 15px;"></span> Home
-                </NavLink>
+                @if (GlobalState.IsAuthenticated)
+                {
+                    <NavLink class="nav-link d-flex align-items-center" Href="@($"/DoctorPage/{GlobalState.UID}")" Match="NavLinkMatch.All" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem;">
+                        <span class="bi bi-house-door-fill" aria-hidden="true" style="margin-right: 15px;"></span> Home
+                    </NavLink>
 
-                <!-- Clinic -->
-                <NavLink class="nav-link d-flex align-items-center" href="/ClinicPage" style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem;">
-                    <span class="bi bi-building" aria-hidden="true" style="margin-right: 15px;"></span> Clinic
-                </NavLink>
+                    <NavLink class="nav-link d-flex align-items-center"
+                             href="@($"/PatientRecords/{GlobalState.UID}")"
+                             style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem;">
+                        <span class="bi bi-hospital-fill" aria-hidden="true" style="margin-right: 15px;"></span> New Visit
+                    </NavLink>
+                }
+                else
+                {
+                    <MudText Typo="Typo.body1" Align="Align.Center" Style="color: gray;">Please log in</MudText>
+                }
 
-                <!-- Patient Record -->
-                <NavLink class="nav-link d-flex align-items-center"
-                         href="@($"/PatientRecords")"
-                         style="color: white; font-weight: bold; font-size: 1.3rem; padding: 0.5rem;">
-                    <span class="bi bi-hospital-fill" aria-hidden="true" style="margin-right: 15px;"></span> Patient Record
-                </NavLink>
+    
+
+              
+
             </nav>
         </div>
 
@@ -69,27 +78,6 @@
 </div>
 
 @code {
-    private string DoctorName = "Guest";
-
-    protected override async Task OnInitializedAsync()
-    {
-        DoctorName = await GetDoctorName();
-    }
-
-    private async Task<string> GetDoctorName()
-    {
-        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-
-        if (user.Identity != null && user.Identity.IsAuthenticated)
-        {
-            var nameClaim = user.Claims.FirstOrDefault(c => c.Type == "name")?.Value;
-            return !string.IsNullOrEmpty(nameClaim) ? nameClaim : "Doctor";
-        }
-
-        return "Guest";
-    }
-
     private void NavigateToProfile()
     {
         NavigationManager.NavigateTo("/Profile");

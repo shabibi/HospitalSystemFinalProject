@@ -8,11 +8,14 @@
 @inject IPatientService patientService
 @inject ISnackbar Snackbar
 
-<h3>Sign Up</h3>
-<MudGrid>
-    <MudItem xs="12" sm="7">
-        <MudPaper Class="pa-4">
-            <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+
+
+<h3 class="text-2xl font-semibold mb-6" style="color: #B4DBDC;padding:20px">Sign Up</h3>
+
+<MudGrid Style="padding: 20px; align-items: center;justify-content: center;">
+    <MudItem xs="7" sm="7" Style="padding: 20px; align-items: center;justify-content: center;">
+        <MudPaper Class="pa-4" Style="background-color: #1B7D84;padding: 20px; align-items: center; color:#B4DBDC">
+            <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors" Style="background-color: #B4DBDC;color:#1B7D84;padding:7px;">
                 <MudTextField T="string" Label="Username" Required="true" RequiredError="Username is required!"
                               @bind-Value="newUser.UserName" />
                 <MudTextField T="string" Label="Email" Required="true" RequiredError="Email is required!"
@@ -38,7 +41,7 @@
                 </MudRadioGroup>
 
                 <div class="d-flex align-center justify-space-between mt-4">
-                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" OnClick="RegisterUser" Class="ml-auto">
+                    <MudButton Variant="Variant.Filled" Style="background-color: #1B7D84; color: white;" Disabled="@(!success)" OnClick="RegisterUser" Class="ml-auto">
                         Register
                     </MudButton>
                 </div>
