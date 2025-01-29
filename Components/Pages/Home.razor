@@ -4,11 +4,9 @@
 
 <PageTitle>Home</PageTitle>
 
-<!-- Full-screen background image applied here -->
-<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-    <a href="/" style="display: inline-block; text-decoration: none; width: 100%; height: 100%;">
-        <img src="/Images/background.png" alt="Background" class="full-screen-img" />
-    </a>
+<!-- Main Content Wrapper -->
+<div class="main-content">
+    <!-- Add any other content inside if needed -->
 </div>
 
 @code {
@@ -20,18 +18,22 @@
         // Add your sign-in logic here
     }
 }
+
 <style>
-    /* Add this to your app.css or a custom CSS file */
-    body {
+    /* Ensure full-page background */
+    body, html {
         margin: 0;
         padding: 0;
         height: 100vh;
     }
 
-    .full-screen-img {
+    .main-content {
         width: 100%;
-        height: 100%; /* Cover the entire height of the page */
-        object-fit: cover; /* Ensures the image covers the entire screen */
+        height: 100vh;
+        background: url('/Images/backgroundHome.png') no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-
 </style>
