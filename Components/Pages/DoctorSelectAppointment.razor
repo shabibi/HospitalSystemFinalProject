@@ -1,5 +1,5 @@
 ﻿@layout DoctorLayout
-@page "/DoctorSelectAppointment/{patientId:int}/{DoctorId:int}"
+@page "/DoctorSelectAppointment/{patientId:int}/{DoctorId:int}/{clinicId:int}"
 @inject IClinicService ClinicService
 @inject IBranchService BranchService
 @inject IDepartmentService DepartmentService
@@ -11,49 +11,6 @@
     <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84;">
         Clinic Management
     </MudText>
-
-    <MudCard Class="mt-5">
-        <MudCardContent>
-            <MudGrid>
-                <!-- Select Branch -->
-                <MudItem xs="12">
-                    <MudText Typo="Typo.body1" Style="font-weight: bold; color: #1B7D84;">Select Branch</MudText>
-                    <MudSelect T="Branch" @bind-Value="selectedBranch" Variant="Variant.Outlined" Clearable>
-                        @foreach (var branch in branches)
-                        {
-                            <MudSelectItem T="Branch" Value="@branch" Style="font-size: 1rem; font-weight: bold;">
-                                @branch.BranchName
-                            </MudSelectItem>
-                        }
-                    </MudSelect>
-                </MudItem>
-
-                <!-- Select Department -->
-                <MudItem xs="12">
-                    <MudText Typo="Typo.body1" Style="font-weight: bold; color: #1B7D84;">Select Department</MudText>
-                    <MudSelect T="DepDTO" @bind-Value="selectedDepartment" Variant="Variant.Outlined" Clearable @onchange="OnDepartmentChanged">
-                        @foreach (var department in departments)
-                        {
-                            <MudSelectItem T="DepDTO" Value="@department" Style="font-size: 1rem; font-weight: bold;">
-                                @department.DepartmentName
-                            </MudSelectItem>
-                        }
-                    </MudSelect>
-                </MudItem>
-
-                <!-- Find Clinic Button -->
-                <MudItem xs="12">
-                    <div class="d-flex justify-center mt-4">
-                        <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="FindClinic"
-                                   Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 8px 16px;">
-                            Find Clinic
-                        </MudButton>
-                    </div>
-                </MudItem>
-            </MudGrid>
-        </MudCardContent>
-    </MudCard>
-
     <!-- Appointments Section -->
     @if (clinicId != 0)
     {
@@ -146,7 +103,7 @@
             @if (selectedDate != default && selectedTime != default)
             {
                 <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ConfirmAppointment"
-                           Style="margin-top: 20px; background-color: #1B7D84; color: white;">
+                Style="margin-top: 20px; background-color: #1B7D84; color: white;">
                     Confirm Appointment
                 </MudButton>
             }
@@ -163,12 +120,11 @@
 @code {
     [Parameter] public int patientId { get; set; }
     [Parameter] public int DoctorId { get; set; }
+    [Parameter] public int clinicId { get; set; } = 0; 
     private List<Branch> branches = new List<Branch>();
     private List<DepDTO> departments = new List<DepDTO>();
-    private Branch selectedBranch;
-    private DepDTO selectedDepartment;
 
-    private int clinicId = 0; // Clinic ID
+
     private string clinicName = ""; // Clinic name
     private IEnumerable<BookingOutputDTO> appointments = new List<BookingOutputDTO>(); // List of appointments
     private List<TimeSpan> uniqueTimes = new List<TimeSpan>(); // List of unique time slots (columns)
@@ -182,54 +138,20 @@
     {
         Log.Information("Navigated to BookAppointment page at {Time}", DateTime.Now);
 
-        try
+        var clinic = ClinicService.GetClinicById(clinicId);
+        if (clinic != null)
         {
-            Log.Information("Fetching all branches at {Time}", DateTime.Now);
-            branches = BranchService.GetAllBranches().ToList();
-            Log.Information("Successfully fetched {Count} branches at {Time}", branches.Count, DateTime.Now);
 
-            Log.Information("Fetching all departments at {Time}", DateTime.Now);
-            departments = DepartmentService.GetAllDepartments().ToList();
-            Log.Information("Successfully fetched {Count} departments at {Time}", departments.Count, DateTime.Now);
-        }
-        catch (Exception ex)
-        {
-            Log.Error("Error fetching branches or departments. Error: {Error} at {Time}", ex.Message, DateTime.Now);
-        }
-    }
-
-    private void OnDepartmentChanged(ChangeEventArgs e)
-    {
-        Log.Information("Department changed, triggering FindClinic to update appointments at {Time}", DateTime.Now);
-        FindClinic();
-    }
-
-    private void FindClinic()
-    {
-        if (selectedBranch != null && selectedDepartment != null)
-        {
-            Log.Information("Fetching appointments for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", selectedBranch.BID, selectedDepartment.DepId, DateTime.Now);
-
-            var clinics = ClinicService.GetClinicByBranchDep(selectedBranch.BID, selectedDepartment.DepId);
-            if (clinics.Any())
-            {
-                var clinic = clinics.FirstOrDefault(); // Assuming one clinic per branch-department combination.
-                clinicId = clinic.CID;
-                clinicName = clinic.ClincName;
-                Log.Information("Found clinic with ID: {ClinicId} and Name: {ClinicName} at {Time}", clinicId, clinicName, DateTime.Now);
-                LoadAppointments(); // Load appointments
-            }
-            else
-            {
-                statusMessage = "No clinic found for the selected branch and department.";
-                Log.Warning("No clinic found for Branch ID: {BranchId} and Department ID: {DepartmentId} at {Time}", selectedBranch.BID, selectedDepartment.DepId, DateTime.Now);
-            }
+            clinicId = clinic.CID;
+            clinicName = clinic.ClincName;
+            Log.Information("Found clinic with ID: {ClinicId} and Name: {ClinicName} at {Time}", clinicId, clinicName, DateTime.Now);
+            LoadAppointments(); // Load appointments
         }
         else
         {
-            statusMessage = "Please select both branch and department.";
-            Log.Warning("FindClinic action attempted without selecting both Branch and Department at {Time}", DateTime.Now);
+            statusMessage = "No clinic found for the selected branch and department.";
         }
+
     }
 
     private async Task LoadAppointments()

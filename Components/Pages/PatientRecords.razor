@@ -2,32 +2,32 @@
 @layout DoctorLayout
 @inject NavigationManager NavigationManager
 @inject IPatientRecordService patientRecordService
-
+@inject IDoctorService doctrService
 <h3 style="color: #1B7D84;">Patient Records</h3>
 
 <div class="d-flex flex-column align-start" style="margin-bottom: 30px; width: 300px;">
     <!-- Input for Patient ID -->
     <MudTextField T="int" Label="Enter Patient ID" Variant="Variant.Filled"
-                  Style="width: 100%; margin-bottom: 10px;"
-                  @bind-Value="EnteredPatientId"
-                  Adornment="Adornment.Start"
-                  AdornmentIcon="@Icons.Material.Filled.Person" />
+    Style="width: 100%; margin-bottom: 10px;"
+    @bind-Value="EnteredPatientId"
+    Adornment="Adornment.Start"
+    AdornmentIcon="@Icons.Material.Filled.Person" />
 
     <!-- Button under the input box -->
     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="FetchPatientRecordById"
-               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px; width: 100%; margin-bottom: 20px;">
+    Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px; width: 100%; margin-bottom: 20px;">
         Fetch Patient Record
     </MudButton>
 
     <!-- Add New Patient Record Button -->
     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToAddPatientRecord"
-               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px; width: 100%; margin-bottom: 20px;">
+    Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px; width: 100%; margin-bottom: 20px;">
         Add New Patient Record
     </MudButton>
 
     <!-- Select Appointment Button -->
     <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToSelectAppointment"
-               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px; width: 100%;">
+    Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px; width: 100%;">
         Select Appointment
     </MudButton>
 </div>
@@ -114,7 +114,7 @@ else
         {
             errorMessage = $"Error fetching patient records: {ex.Message}";
         }
-  
+
     }
 
     private void NavigateToEdit(int recordId)
@@ -140,8 +140,13 @@ else
     }
     private void NavigateToSelectAppointment()
     {
-        // Redirect the user to the SelectAppointment page, passing both PatientId and DoctorId as parameters
-        NavigationManager.NavigateTo($"/DoctorSelectAppointment/{EnteredPatientId}/{DoctorId}");
+        int ? clinicId = doctrService.GetDoctorById(DoctorId).CID;
+        if(clinicId != 0)
+        {
+
+            // Redirect the user to the SelectAppointment page, passing both PatientId and DoctorId as parameters
+            NavigationManager.NavigateTo($"/DoctorSelectAppointment/{EnteredPatientId}/{DoctorId}/{clinicId}");
+        }
     }
 
 
