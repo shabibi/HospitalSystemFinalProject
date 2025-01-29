@@ -70,6 +70,7 @@
             GlobalState.UID = authenticatedUser.UID;
             GlobalState.Name = authenticatedUser.UserName;
             GlobalState.IsAuthenticated = true;
+            GlobalState.Role = authenticatedUser.Role;
 
             if (authenticatedUser == null)
             {

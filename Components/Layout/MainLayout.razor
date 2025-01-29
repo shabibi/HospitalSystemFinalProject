@@ -13,23 +13,22 @@
 <MudSnackbarProvider />
 
 <div class="page d-flex flex-column" style="min-height: 100vh;">
-
     <!-- Carousel Section -->
-    <div class="carousel-container" style="width: 100%; height: 250px;">
+    <div class="carousel-container" style="width: 100%; height: 379px;">
         <MudCarousel Class="mud-width-full" Style="height: 100%;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object">
             <MudCarouselItem Transition="transition" Color="@Color.Primary">
                 <div class="d-flex" style="height: 100%;">
-                    <MudImage Src="/Images/img3.png" Alt="Carousel Image" Style="width: 100%; height: 100%; object-fit: cover; margin: auto;" />
+                    <MudImage Src="/Images/img3.png" Alt="Carousel Image" Style="width: 2227px; height: 379px; object-fit: cover; margin: auto;" />
                 </div>
             </MudCarouselItem>
             <MudCarouselItem Transition="transition" Color="@Color.Primary">
                 <div class="d-flex" style="height: 100%;">
-                    <MudImage Src="/Images/img4.png" Alt="Carousel Image" Style="width: 100%; height: 100%; object-fit: cover; margin: auto;" />
+                    <MudImage Src="/Images/img4.png" Alt="Carousel Image" Style="width: 2227px; height: 379px; object-fit: cover; margin: auto;" />
                 </div>
             </MudCarouselItem>
             <MudCarouselItem Transition="transition" Color="@Color.Primary">
                 <div class="d-flex" style="height: 100%;">
-                    <MudImage Src="/Images/img5.png" Alt="Carousel Image" Style="width: 100%; height: 100%; object-fit: cover; margin: auto;" />
+                    <MudImage Src="/Images/img5.png" Alt="Carousel Image" Style="width: 2227px; height: 379px; object-fit: cover; margin: auto;" />
                 </div>
             </MudCarouselItem>
         </MudCarousel>
@@ -41,28 +40,20 @@
         </div>
 
         <!-- Main Content Area -->
-       <div class="main-content" style="flex: 1; padding: 1rem;">
-    <!-- Display User Name if Logged In -->
-    @if (GlobalState.IsAuthenticated)
-    {
-        <div class="user-name" style="margin-bottom: 1rem; font-size: 1.2rem; color: #1B7D84;">
-            Welcome, @GlobalState.Name!
+        <div class="main-content" style="flex: 1; padding: 1rem;">
+
+           @*  <!-- Right-Aligned Button -->
+            <MudButton OnClick="HandleSignInOut" Variant="Variant.Outlined" Style="float: right; margin: 1rem; border-color: #1B7D84; color: #1B7D84;">
+                @SignInOutText
+            </MudButton> *@
+
+            <!-- Main Article Section -->
+            <main>
+                <article class="content px-4">
+                    @Body
+                </article>
+            </main>
         </div>
-    }
-
-    <!-- Right-Aligned Button -->
-    <MudButton OnClick="HandleSignInOut" Variant="Variant.Outlined" Style="float: right; margin: 1rem; border-color: #1B7D84; color: #1B7D84;">
-        @SignInOutText
-    </MudButton>
-
-    <!-- Main Article Section -->
-    <main>
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
-
     </div>
 </div>
 
@@ -81,39 +72,70 @@
 
     private string SignInOutText = "Sign In";
 
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+    //     var user = authState.User;
 
-        if (user.Identity != null && user.Identity.IsAuthenticated)
-        {
-            SignInOutText = "Sign Out";
-        }
-        else
-        {
-            SignInOutText = "Sign In";
-        }
-    }
+    //     if (user.Identity != null && user.Identity.IsAuthenticated)
+    //     {
+    //         SignInOutText = "Sign Out";
+    //     }
+    //     else
+    //     {
+    //         SignInOutText = "Sign In";
+    //     }
+    // }
 
-    private async Task HandleSignInOut()
-    {
-        if (SignInOutText == "Sign Out")
-        {
-            await Logout();
-            SignInOutText = "Sign In";
-        }
-        else
-        {
-            NavigationManager.NavigateTo("/SignIn");
-        }
-    }
 
-    private async Task Logout()
-    {
-        GlobalState.IsAuthenticated = false;
-        GlobalState.UID = 0;
-        GlobalState.Name = null;
-        NavigationManager.NavigateTo("/");
-    }
+    // private async Task UpdateAuthState()
+    // {
+    //     var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+    //     var user = authState.User;
+
+    //     if (user.Identity != null && user.Identity.IsAuthenticated)
+    //     {
+    //         GlobalState.IsAuthenticated = true;
+    //         GlobalState.Name = user.FindFirst("name")?.Value;
+    //         GlobalState.UID = int.Parse(user.FindFirst("id")?.Value ?? "0");
+    //         GlobalState.Role = user.FindFirst("role")?.Value;
+    //     }
+    //     else
+    //     {
+    //         GlobalState.IsAuthenticated = false;
+    //         GlobalState.Name = null;
+    //         GlobalState.UID = 0;
+    //         GlobalState.Role = null;
+            
+    //     }
+
+    //     SignInOutText = GlobalState.IsAuthenticated ? "Sign In" : "Sign In";
+    // }
+
+    // private async Task HandleSignInOut()
+    // {
+    //     if (SignInOutText == "Sign Out")
+    //     {
+    //         await Logout();
+    //         SignInOutText = "Sign In";
+    //     }
+    //     else
+    //     {
+    //         NavigationManager.NavigateTo("/SignIn");
+    //     }
+    // }
+
+
+    // private async Task Logout()
+    // {
+    //     GlobalState.IsAuthenticated = false;
+    //     GlobalState.UID = 0;
+    //     GlobalState.Name = null;
+    //     GlobalState.Role = null;
+
+    //     // Perform any additional logout logic (e.g., clearing tokens)
+
+    //     await Task.Delay(100); // Simulate async operation if needed
+    //     NavigationManager.NavigateTo("/"); // Redirect to home page
+    // }
 }
