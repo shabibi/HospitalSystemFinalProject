@@ -1,5 +1,6 @@
-﻿using HospitalSystemTeamTask.Helper;
+﻿using HospitalSystemTeamTask.Data.Models;
 using HospitalSystemTeamTask.Models;
+using HospitalSystemTeamTask.Shared.Helper;
 using System.Collections.Generic;
 using System.Linq;
 

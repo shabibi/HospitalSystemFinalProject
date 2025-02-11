@@ -1,4 +1,5 @@
-﻿using HospitalSystemTeamTask.Models;
+﻿using HospitalSystemTeamTask.Data.Models;
+using HospitalSystemTeamTask.Models;
 using System.Linq;
 
 namespace HospitalSystemTeamTask.Repositories

@@ -1,8 +1,8 @@
 ﻿
 using HospitalSystemTeamTask.Models;
 using HospitalSystemTeamTask.Repositories;
-using HospitalSystemTeamTask;
 using Microsoft.EntityFrameworkCore;
+using HospitalSystemTeamTask.Data.Models;
 
 namespace HospitalSystemTeamTask.Repositories
 {

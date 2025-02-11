@@ -1,4 +1,4 @@
-﻿namespace HospitalSystemTeamTask.Helper
+﻿namespace HospitalSystemTeamTask.Shared.Helper
 {
     public class JwtSettings
     {

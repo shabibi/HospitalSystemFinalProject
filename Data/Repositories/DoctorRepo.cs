@@ -1,7 +1,7 @@
 ﻿using HospitalSystemTeamTask.Models;
-using HospitalSystemTeamTask;
 using HospitalSystemTeamTask.Repositories;
 using Microsoft.EntityFrameworkCore;
+using HospitalSystemTeamTask.Data.Models;
 namespace HospitalSystemTeamTask.Repositories
 {
     public class DoctorRepo : IDoctorRepo

@@ -1,5 +1,5 @@
-﻿using HospitalSystemTeamTask.Helper;
-using HospitalSystemTeamTask.Models;
+﻿using HospitalSystemTeamTask.Models;
+using HospitalSystemTeamTask.Shared.Helper;
 
 namespace HospitalSystemTeamTask.Services
 {

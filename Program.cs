@@ -1,17 +1,16 @@
-using HospitalSystemTeamTask.Components;
-using HospitalSystemTeamTask.Helper;
+using HospitalSystemTeamTask.Shared.Helper;
+using HospitalSystemTeamTask.Data.Models;
 using HospitalSystemTeamTask.Models;
 using HospitalSystemTeamTask.Repositories;
 using HospitalSystemTeamTask.Services;
-using JWTAuthentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.JSInterop;
 using MudBlazor.Services;
 using Serilog;
 using System.Text;
+using HospitalSystemTeamTask.Shared.Components;
 
 namespace HospitalSystemTeamTask
 {

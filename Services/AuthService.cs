@@ -1,6 +1,5 @@
-﻿using HospitalSystemTeamTask.Helper;
-using HospitalSystemTeamTask.Models;
-using JWTAuthentication;
+﻿using HospitalSystemTeamTask.Models;
+using HospitalSystemTeamTask.Shared.Helper;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.JSInterop;

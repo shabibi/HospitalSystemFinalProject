@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text.Json;
 
-namespace JWTAuthentication
+namespace HospitalSystemTeamTask.Shared.Helper
 {
     public class CustomAuthenticationStateProvider : AuthenticationStateProvider
     {

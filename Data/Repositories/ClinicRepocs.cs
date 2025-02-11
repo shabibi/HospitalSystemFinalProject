@@ -1,6 +1,6 @@
 ﻿using HospitalSystemTeamTask.Models;
-using HospitalSystemTeamTask;
 using System.Security.Cryptography;
+using HospitalSystemTeamTask.Data.Models;
 
 namespace HospitalSystemTeamTask.Repositories
 {

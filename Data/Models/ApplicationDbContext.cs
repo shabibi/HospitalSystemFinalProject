@@ -1,7 +1,7 @@
 ﻿using HospitalSystemTeamTask.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HospitalSystemTeamTask
+namespace HospitalSystemTeamTask.Data.Models
 {
     public class ApplicationDbContext : DbContext
     {
@@ -32,8 +32,8 @@ namespace HospitalSystemTeamTask
             modelBuilder.Entity<Branch>()
                        .HasIndex(u => u.BranchName)
                        .IsUnique();
-          
+
         }
-       
+
     }
 }

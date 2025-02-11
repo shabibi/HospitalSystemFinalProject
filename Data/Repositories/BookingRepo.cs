@@ -1,8 +1,8 @@
 ﻿using HospitalSystemTeamTask.Models;
-using HospitalSystemTeamTask;
 using HospitalSystemTeamTask.Repositories;
 using Microsoft.EntityFrameworkCore;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using HospitalSystemTeamTask.Data.Models;
 namespace HospitalSystemTeamTask.Repositories
 {
     public class BookingRepo : IBookingRepo
