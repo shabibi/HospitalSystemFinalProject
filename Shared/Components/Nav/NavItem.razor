@@ -1,0 +1,9 @@
+﻿@code {
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Url { get; set; }
+    [Parameter] public string IconClass { get; set; }
+}
+
+<NavLink class="nav-link d-flex align-items-center" href="@Url" style="color: white; font-weight: bold; font-size: 1.1rem; padding: 0.5rem;">
+    <span class="@IconClass" aria-hidden="true" style="margin-right: 15px;"></span> @Title
+</NavLink>

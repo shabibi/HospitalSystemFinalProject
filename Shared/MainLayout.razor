@@ -1,134 +1,84 @@
 ﻿@inherits LayoutComponentBase
-@inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager NavigationManager
 
 <MudThemeProvider />
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<div class="layout-container">
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<div class="page d-flex flex-column" style="min-height: 100vh;">
+    <!-- Top AppBar Section -->
+    <MudAppBar Color="Color.Default" Fixed="true" Style="background-color: #1B7D84;">
+        <MudText Typo="Typo.h6" Style="color: white; padding-left: 1rem;">
+            @TitleText
+        </MudText>
 
-    <!-- Main Content Area -->
-    <div class="main-content">
-        <main>
-            <article class="content">
-                @Body
-            </article>
-        </main>
+        <MudSpacer /> <!-- Pushes the button to the right -->
+        <!-- Sign In/Out Button in Upper Right -->
+        @if (GlobalState.IsAuthenticated)
+        {
+            <MudButton OnClick="HandleSignOut" Variant="Variant.Outlined" Style="border-color: white; color: white;">
+                Sign Out
+            </MudButton>
+        }
+        else
+        {
+            <MudButton OnClick="NavigateToSignIn" Variant="Variant.Outlined" Style="border-color: white; color: white;">
+                Sign In
+            </MudButton>
+        }
+    </MudAppBar>
+
+    <!-- Sidebar + Main Content -->
+    <div class="d-flex" style="flex: 1; margin-top: 65px;">
+        <NavMenu /> <!-- No need to pass AuthStateChanged anymore -->
+        <!-- Main Content -->
+        <div style="flex: 1; padding: 1rem; overflow-y: auto; height: calc(100vh - 65px);">
+            @Body
+        </div>
     </div>
 </div>
-
-<div id="blazor-error-ui">
-    An unhandled error has occurred.
-    <a href="" class="reload">Reload</a>
-    <a class="dismiss">🗙</a>
-</div>
-
-<style>
-    .layout-container {
-        display: flex;
-        height: 100vh; /* Full height */
-        overflow: hidden;
-    }
-
-    .sidebar {
-        width: 250px; /* Fixed width */
-        background: linear-gradient(to bottom, #1B7D84, #33BEC8);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 0;
-    }
-
-    .main-content {
-        flex-grow: 1; /* Take remaining space */
-        padding: 1rem;
-        overflow-y: auto; /* Allow scrolling */
-    }
-
-    .content {
-        padding: 1rem;
-    }
-</style>
 
 @code {
-    private bool arrows = true;
-    private bool bullets = true;
-    private bool enableSwipeGesture = true;
-    private bool autocycle = true;
-    private Transition transition = Transition.Slide;
+    private string TitleText = "My Application"; // Default title
 
-    private string SignInOutText = "Sign In";
+    protected override async Task OnInitializedAsync()
+    {
+        await UpdateAuthState();
+    }
 
-    // protected override async Task OnInitializedAsync()
-    // {
-    //     var authState = await AuthStateProvider.GetAuthenticationStateAsync();
-    //     var user = authState.User;
+    private async Task UpdateAuthState()
+    {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
 
-    //     if (user.Identity != null && user.Identity.IsAuthenticated)
-    //     {
-    //         SignInOutText = "Sign Out";
-    //     }
-    //     else
-    //     {
-    //         SignInOutText = "Sign In";
-    //     }
-    // }
+        if (user.Identity != null && user.Identity.IsAuthenticated)
+        {
+            GlobalState.IsAuthenticated = true;
+            TitleText = $"Hello, {GlobalState.Name}"; // Dynamic title
+        }
+        else
+        {
+            GlobalState.IsAuthenticated = false;
+            TitleText = ""; // Default title when signed out
+        }
 
+        StateHasChanged();
+    }
 
-    // private async Task UpdateAuthState()
-    // {
-    //     var authState = await AuthStateProvider.GetAuthenticationStateAsync();
-    //     var user = authState.User;
+    private async Task HandleSignOut()
+    {
+        GlobalState.IsAuthenticated = false;
+        GlobalState.Name = null;
+        GlobalState.Role = null;
+        TitleText = ""; // Reset the title after sign-out
+        GlobalState.NotifyAuthStateChanged(); // Trigger nav menu update
+        NavigationManager.NavigateTo("/");
+    }
 
-    //     if (user.Identity != null && user.Identity.IsAuthenticated)
-    //     {
-    //         GlobalState.IsAuthenticated = true;
-    //         GlobalState.Name = user.FindFirst("name")?.Value;
-    //         GlobalState.UID = int.Parse(user.FindFirst("id")?.Value ?? "0");
-    //         GlobalState.Role = user.FindFirst("role")?.Value;
-    //     }
-    //     else
-    //     {
-    //         GlobalState.IsAuthenticated = false;
-    //         GlobalState.Name = null;
-    //         GlobalState.UID = 0;
-    //         GlobalState.Role = null;
-            
-    //     }
-
-    //     SignInOutText = GlobalState.IsAuthenticated ? "Sign In" : "Sign In";
-    // }
-
-    // private async Task HandleSignInOut()
-    // {
-    //     if (SignInOutText == "Sign Out")
-    //     {
-    //         await Logout();
-    //         SignInOutText = "Sign In";
-    //     }
-    //     else
-    //     {
-    //         NavigationManager.NavigateTo("/SignIn");
-    //     }
-    // }
-
-
-    // private async Task Logout()
-    // {
-    //     GlobalState.IsAuthenticated = false;
-    //     GlobalState.UID = 0;
-    //     GlobalState.Name = null;
-    //     GlobalState.Role = null;
-
-    //     // Perform any additional logout logic (e.g., clearing tokens)
-
-    //     await Task.Delay(100); // Simulate async operation if needed
-    //     NavigationManager.NavigateTo("/"); // Redirect to home page
-    // }
+    private void NavigateToSignIn()
+    {
+        NavigationManager.NavigateTo("/SignIn");
+    }
 }

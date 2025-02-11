@@ -1,0 +1,53 @@
+﻿@inject NavigationManager NavigationManager
+
+<!-- Sidebar Container -->
+<div style="background: linear-gradient(to bottom, #1B7D84, #33BEC8); width: 250px; height: 100vh; padding: 0; display: flex; flex-direction: column; justify-content: space-between;">
+    <!-- Logo Section -->
+    <div style="display: flex; justify-content: center; padding: 1rem;">
+        <img src="/Images/logo.png" alt="Logo" style="max-width: 150px; max-height: 100px; object-fit: contain;" />
+    </div>
+
+    <!-- Navigation Menu Items -->
+    <div style="flex-grow: 1; overflow-y: auto;">
+        <nav class="d-flex flex-column" style="width: 100%; padding: 0;">
+            <NavItem Title="Home" Url="/" IconClass="bi bi-house-door-fill" />
+            @if (GlobalState.Role == "admin")
+            {
+                <NavItem Title="Branch" Url="/ManageBranch" IconClass="bi bi-building" />
+                <NavItem Title="Department" Url="/DepartmentPage" IconClass="bi bi-journal-bookmark-fill" />
+                <NavItem Title="Clinic" Url="/ClinicPage" IconClass="bi bi-hospital-fill" />
+                <NavItem Title="Staff" Url="/Staff" IconClass="bi bi-person-lines-fill" />
+            }
+            else if (GlobalState.Role == "doctor")
+            {
+                <NavItem Title="New Visit" Url="@($"/PatientRecords/{GlobalState.UID}")" IconClass="bi bi-hospital-fill" />
+            }
+
+            else
+            {
+                <HomeNav />
+            }
+
+        </nav>
+    </div>
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        // Subscribe to the event so this component updates when authentication state changes
+        GlobalState.OnAuthStateChanged += UpdateNavMenu;
+    }
+
+    private void UpdateNavMenu()
+    {
+        // Request UI to update
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        // Unsubscribe from event when this component is disposed
+        GlobalState.OnAuthStateChanged -= UpdateNavMenu;
+    }
+}
