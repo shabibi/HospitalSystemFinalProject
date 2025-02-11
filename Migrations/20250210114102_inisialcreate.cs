@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace HospitalSystemTeamTask.Migrations
 {
     /// <inheritdoc />
-    public partial class initialCreate : Migration
+    public partial class inisialcreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,11 +16,11 @@ namespace HospitalSystemTeamTask.Migrations
                 name: "Branches",
                 columns: table => new
                 {
-                    BID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BranchName = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    BID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    BranchName = table.Column<string>(type: "text", nullable: false),
+                    Location = table.Column<string>(type: "text", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,11 +31,11 @@ namespace HospitalSystemTeamTask.Migrations
                 name: "Departments",
                 columns: table => new
                 {
-                    DepID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DepartmentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    DepID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DepartmentName = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,15 +46,15 @@ namespace HospitalSystemTeamTask.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    image = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserName = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    Phone = table.Column<string>(type: "text", nullable: false),
+                    Role = table.Column<string>(type: "text", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    image = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -64,9 +65,9 @@ namespace HospitalSystemTeamTask.Migrations
                 name: "branchDepartments",
                 columns: table => new
                 {
-                    BID = table.Column<int>(type: "int", nullable: false),
-                    DepID = table.Column<int>(type: "int", nullable: false),
-                    DepartmentCapacity = table.Column<int>(type: "int", nullable: false)
+                    BID = table.Column<int>(type: "integer", nullable: false),
+                    DepID = table.Column<int>(type: "integer", nullable: false),
+                    DepartmentCapacity = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,9 +90,9 @@ namespace HospitalSystemTeamTask.Migrations
                 name: "Patients",
                 columns: table => new
                 {
-                    PID = table.Column<int>(type: "int", nullable: false),
-                    Age = table.Column<int>(type: "int", nullable: false),
-                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PID = table.Column<int>(type: "integer", nullable: false),
+                    Age = table.Column<int>(type: "integer", nullable: false),
+                    Gender = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -108,15 +109,15 @@ namespace HospitalSystemTeamTask.Migrations
                 name: "Bookings",
                 columns: table => new
                 {
-                    BookingID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CID = table.Column<int>(type: "int", nullable: false),
-                    PID = table.Column<int>(type: "int", nullable: true),
-                    StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    Staus = table.Column<bool>(type: "bit", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BookingDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    BookingID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CID = table.Column<int>(type: "integer", nullable: false),
+                    PID = table.Column<int>(type: "integer", nullable: true),
+                    StartTime = table.Column<TimeSpan>(type: "interval", nullable: false),
+                    EndTime = table.Column<TimeSpan>(type: "interval", nullable: false),
+                    Staus = table.Column<bool>(type: "boolean", nullable: false),
+                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    BookingDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -132,18 +133,18 @@ namespace HospitalSystemTeamTask.Migrations
                 name: "Clinics",
                 columns: table => new
                 {
-                    CID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DepID = table.Column<int>(type: "int", nullable: false),
-                    AssignDoctor = table.Column<int>(type: "int", nullable: true),
-                    BID = table.Column<int>(type: "int", nullable: false),
-                    ClincName = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Capacity = table.Column<int>(type: "int", nullable: false),
-                    StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    SlotDuration = table.Column<int>(type: "int", nullable: false),
-                    Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    CID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DepID = table.Column<int>(type: "integer", nullable: false),
+                    AssignDoctor = table.Column<int>(type: "integer", nullable: true),
+                    BID = table.Column<int>(type: "integer", nullable: false),
+                    ClincName = table.Column<string>(type: "text", nullable: false),
+                    Capacity = table.Column<int>(type: "integer", nullable: false),
+                    StartTime = table.Column<TimeSpan>(type: "interval", nullable: false),
+                    EndTime = table.Column<TimeSpan>(type: "interval", nullable: false),
+                    SlotDuration = table.Column<int>(type: "integer", nullable: false),
+                    Cost = table.Column<decimal>(type: "numeric", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -166,13 +167,13 @@ namespace HospitalSystemTeamTask.Migrations
                 name: "Doctors",
                 columns: table => new
                 {
-                    DID = table.Column<int>(type: "int", nullable: false),
-                    DepId = table.Column<int>(type: "int", nullable: false),
-                    CID = table.Column<int>(type: "int", nullable: true),
-                    CurrentBrunch = table.Column<int>(type: "int", nullable: false),
-                    Level = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Degree = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WorkingYear = table.Column<int>(type: "int", nullable: false),
+                    DID = table.Column<int>(type: "integer", nullable: false),
+                    DepId = table.Column<int>(type: "integer", nullable: false),
+                    CID = table.Column<int>(type: "integer", nullable: true),
+                    CurrentBrunch = table.Column<int>(type: "integer", nullable: false),
+                    Level = table.Column<string>(type: "text", nullable: false),
+                    Degree = table.Column<string>(type: "text", nullable: false),
+                    WorkingYear = table.Column<int>(type: "integer", nullable: false),
                     JoiningDate = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
@@ -207,16 +208,16 @@ namespace HospitalSystemTeamTask.Migrations
                 name: "PatientRecords",
                 columns: table => new
                 {
-                    RID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PID = table.Column<int>(type: "int", nullable: false),
-                    BID = table.Column<int>(type: "int", nullable: false),
-                    DID = table.Column<int>(type: "int", nullable: false),
+                    RID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PID = table.Column<int>(type: "integer", nullable: false),
+                    BID = table.Column<int>(type: "integer", nullable: false),
+                    DID = table.Column<int>(type: "integer", nullable: false),
                     VisitDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    VisitTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    Inspection = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Treatment = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    VisitTime = table.Column<TimeSpan>(type: "interval", nullable: false),
+                    Inspection = table.Column<string>(type: "text", nullable: false),
+                    Treatment = table.Column<string>(type: "text", nullable: false),
+                    Cost = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -226,19 +227,19 @@ namespace HospitalSystemTeamTask.Migrations
                         column: x => x.BID,
                         principalTable: "Branches",
                         principalColumn: "BID",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PatientRecords_Doctors_DID",
                         column: x => x.DID,
                         principalTable: "Doctors",
                         principalColumn: "DID",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PatientRecords_Patients_PID",
                         column: x => x.PID,
                         principalTable: "Patients",
                         principalColumn: "PID",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

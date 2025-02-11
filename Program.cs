@@ -60,8 +60,15 @@ namespace HospitalSystemTeamTask
             builder.Services.AddScoped<ISendEmail, SendEmail>();
 
             // Add database context
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new InvalidOperationException("Database connection string is not set.");
+            }
+
+            // Add DbContext with PostgreSQL
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(connectionString));
 
             builder.Services.AddControllers();
 
