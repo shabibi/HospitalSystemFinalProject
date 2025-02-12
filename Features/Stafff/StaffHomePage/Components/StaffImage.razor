@@ -1,0 +1,23 @@
+﻿
+
+<MudItem xs="12" md="4" Class="d-flex justify-center align-center">
+    <div style="width: 100%; max-width: 150px; height: auto; overflow: hidden;">
+        <img src="@GetProfileImage(UserDetails?.image)"
+        alt="@UserDetails?.UserName"
+        style="width: 100%; height: auto; border-radius: 4px; border: 1px solid #ccc;" />
+    </div>
+</MudItem>
+
+@code {
+    [Parameter]
+    public User UserDetails { get; set; }
+
+    private string GetProfileImage(string imagePath)
+    {
+        if(UserDetails.image != null)
+        {
+            return ($"/Images/Users/{UserDetails.UID}");
+        }
+        return string.IsNullOrEmpty(imagePath) ? "/Images/Users/Admin/admin.png" : $"/Images/{imagePath}";
+    }
+}

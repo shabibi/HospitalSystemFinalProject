@@ -1,0 +1,21 @@
+﻿
+
+<MudItem xs="12" md="8">
+    <MudText Typo="Typo.h6"><b>Name:</b> @UserDetails.UserName</MudText>
+    <MudText Typo="Typo.body1"><b>Email:</b> @UserDetails.Email</MudText>
+    <MudText Typo="Typo.body1"><b>Phone:</b> @UserDetails.Phone</MudText>
+    <MudText Typo="Typo.body1"><b>Role:</b> @UserDetails.Role</MudText>
+    <MudText Typo="Typo.body1" Style="@GetStatusStyle(UserDetails.IsActive)">
+        <b>Status:</b> @(UserDetails.IsActive ? "Active" : "Inactive")
+    </MudText>
+</MudItem>
+
+@code{
+    [Parameter]
+    public User UserDetails { get; set; }
+
+    private string GetStatusStyle(bool isActive)
+    {
+        return isActive ? "color: green;" : "color: red;";
+    }
+}
