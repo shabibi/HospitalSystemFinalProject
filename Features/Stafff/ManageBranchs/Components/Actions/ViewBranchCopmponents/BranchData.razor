@@ -1,0 +1,12 @@
+﻿@code {
+    [Parameter]
+    public BranchDTO Branch { get; set; }
+}
+
+<MudCard Elevation="4" Class="ma-3 pa-4">
+    <MudCardContent>
+        <MudText><b>Branch Name:</b> @Branch.BranchName</MudText>
+        <MudText><b>Location:</b> @Branch.Location</MudText>
+        <MudText><b>Status:</b> @(Branch.BranchStatus ? "Active" : "Inactive")</MudText>
+    </MudCardContent>
+</MudCard>

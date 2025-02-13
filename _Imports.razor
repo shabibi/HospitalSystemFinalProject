@@ -20,6 +20,15 @@
 
 @using HospitalSystemTeamTask.Features.Stafff.StaffHomePage.Components
 @using HospitalSystemTeamTask.Features.Stafff.ManageBranchs.Components
+@using HospitalSystemTeamTask.Features.Stafff.ManageBranchs.Components.Actions
+@using HospitalSystemTeamTask.Features.Stafff.ManageBranchs.Components.Actions.ViewBranchCopmponents
+@using HospitalSystemTeamTask.Features.Stafff.ManageBranchs.Components.Actions.AddBranchComponnents
+
 @inject IUserService userService
 @inject IBranchService BranchService
+@inject IBranchDepartmentService BranchDepartmentService
+@inject IDepartmentService DepartmentService
+@inject IDoctorService DoctorService
+
+@inject ISnackbar Snackbar
 @inject NavigationManager NavigationManager

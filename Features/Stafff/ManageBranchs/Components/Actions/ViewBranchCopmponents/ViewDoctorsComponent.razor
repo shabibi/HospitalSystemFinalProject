@@ -1,0 +1,27 @@
+﻿
+<!-- Doctor List Component -->
+<MudCard Class="pa-2 w-100">
+    <MudCardContent>
+        <MudText Typo="Typo.subtitle1" Class="font-weight-bold">Doctors:</MudText>
+
+        @if (Doctors != null && Doctors.Any())
+        {
+            <div class="d-flex flex-wrap gap-2 mt-2">
+                @foreach (var doctor in Doctors)
+                {
+                    <MudText Color="Color.Primary">@doctor.UserName</MudText>
+                }
+            </div>
+        }
+        else
+        {
+            <MudText Class="text-muted">No doctors assigned.</MudText>
+        }
+
+    </MudCardContent>
+</MudCard>
+
+@code {
+    [Parameter] public List<User> Doctors { get; set; } = new();
+      <!-- List of doctors -->
+}

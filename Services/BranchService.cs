@@ -23,7 +23,7 @@ namespace HospitalSystemTeamTask.Services
             };
             _branchRepository.AddBranch(branch); // Save branch to the database
         }
-        public void UpdateBranch(int branchId, UpdateBranchDTO branchDto)
+        public void UpdateBranch(int branchId, BranchDTO branchDto)
         {
             var branch = _branchRepository.GetBranchById(branchId);
             if (branch == null)
@@ -101,6 +101,7 @@ namespace HospitalSystemTeamTask.Services
             // Map Branch to BranchDTO
             return new BranchDTO
             {
+                BID = branch.BID,
                 BranchName = branch.BranchName,
                 Location = branch.Location,
                 BranchStatus = branch.IsActive

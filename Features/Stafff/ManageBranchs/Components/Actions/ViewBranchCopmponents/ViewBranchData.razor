@@ -1,0 +1,58 @@
+﻿@page "/ViewBranchData/{branchId:int}"
+
+<h3>@(branchName.ToUpper()) - Branch Details</h3>
+
+@if (branch == null)
+{
+    <p>Loading branch details...</p>
+}
+else
+{
+    <BranchData Branch="branch" />
+    <DepartmentData Departments="departments" DoctorAssignments="doctorAssignments" />
+}
+
+@code {
+    [Parameter] public int branchId { get; set; }
+
+    private BranchDTO branch;
+    private List<DepDTO> departments;
+    private Dictionary<int, List<User>> doctorAssignments = new();  // Store doctors per department
+    private string branchName = "Loading...";
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Log.Information("Fetching branch details for Branch ID: {BranchId}", branchId);
+            branch = BranchService.GetBranchById(branchId);
+            branchName = branch?.BranchName ?? "Unknown Branch";
+
+            Log.Information("Fetching departments for Branch ID: {BranchId}", branchId);
+            departments = BranchDepartmentService.GetDepartmentsByBranch(branchId).ToList();
+
+            foreach (var department in departments)
+            {
+                Log.Information("Fetching doctors for Department ID: {DepId}", department.DepId);
+
+                var assignedDoctors = DoctorService.GetAllDoctors()
+                    .Where(d => d.DepId == department.DepId)
+                    .ToList();
+
+                var doctorUsers = assignedDoctors
+                    .Select(d => userService.GetUserById(d.DID))
+                    .Where(u => u != null)  // Ensure no null values
+                    .ToList();
+
+                doctorAssignments[department.DepId] = doctorUsers;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error("Error fetching branch data: {Error}", ex.Message);
+            branchName = "Error Loading Branch";
+            departments = new List<DepDTO>();
+            doctorAssignments.Clear();
+        }
+    }
+}

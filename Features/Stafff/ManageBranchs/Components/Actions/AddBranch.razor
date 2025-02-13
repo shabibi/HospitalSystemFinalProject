@@ -1,43 +1,31 @@
-﻿
-@page "/AddBranch/{BranchId:int?}"
-@inject IBranchService BranchService
-@inject NavigationManager NavigationManager
-@inject ISnackbar Snackbar
+﻿@page "/AddBranch/{BranchId:int?}"
 
 <MudContainer MaxWidth="MaxWidth.Medium" Class="my-5" Style="display: flex; flex-direction: column; align-items: center;">
     <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84; margin-bottom: 20px;">
         @(BranchId.HasValue ? "Edit Branch" : "Add Branch")
     </MudText>
+
     <MudCard Style="width: 100%;">
-        <MudCardContent>
-            <MudForm @ref="branchForm" Model="@branchModel" OnValidSubmit="SaveBranch" @bind-IsValid="isFormValid">
-                <MudTextField T="string" Label="Branch Name" @bind-Value="branchModel.BranchName" Required="true" />
-                <MudTextField T="string" Label="Location" @bind-Value="branchModel.Location" Required="true" />
-                <MudSwitch T="bool" Label="Active" @bind-Checked="branchModel.BranchStatus" Color="Color.Primary" />
-            </MudForm>
-        </MudCardContent>
-        <MudCardActions Style="justify-content: flex-end;">
-            <MudButton Variant="Variant.Text" OnClick="Cancel">Cancel</MudButton>
-            <MudButton Variant="Variant.Filled" Disabled="!isFormValid" OnClick="SaveBranch">Save</MudButton>
-        </MudCardActions>
+            <!-- Pass branchModel, BranchId and methods to the child component -->
+            <AddBranchForm BranchModel="@branchModel"
+                           BranchId="@BranchId"
+                           OnValidSubmit="SaveBranch"
+                           OnCancel="Cancel"
+                           IsFormValid="@isFormValid" />
     </MudCard>
 </MudContainer>
 
 @code {
     [Parameter] public int? BranchId { get; set; }
     private BranchDTO branchModel = new();
-    private MudForm branchForm;
     private bool isFormValid;
 
     protected override async Task OnInitializedAsync()
     {
-        Log.Information("Navigated to Add/Edit Branch page at {Time}", DateTime.Now);
-
         if (BranchId.HasValue)
         {
             try
             {
-                Log.Information("Fetching branch details for Branch ID: {BranchId} at {Time}", BranchId, DateTime.Now);
                 branchModel = BranchService.GetBranchById(BranchId.Value);
             }
             catch (Exception ex)
@@ -48,24 +36,19 @@
         }
     }
 
+    // Logic for saving the branch
     private async Task SaveBranch()
     {
         try
         {
             if (BranchId.HasValue)
             {
-                Log.Information("Attempting to update branch with ID: {BranchId} at {Time}", BranchId, DateTime.Now);
-                BranchService.UpdateBranch(BranchId.Value, new UpdateBranchDTO
-                    {
-                        BranchName = branchModel.BranchName,
-                        Location = branchModel.Location,
-                    });
+                BranchService.UpdateBranch(BranchId.Value, branchModel);
                 Snackbar.Add("Branch updated successfully.", Severity.Success);
                 Log.Information("Successfully updated branch with ID: {BranchId} at {Time}", BranchId, DateTime.Now);
             }
             else
             {
-                Log.Information("Attempting to add a new branch at {Time}", DateTime.Now);
                 BranchService.AddBranch(branchModel);
                 Snackbar.Add("Branch added successfully.", Severity.Success);
                 Log.Information("Successfully added a new branch at {Time}", DateTime.Now);
@@ -80,6 +63,7 @@
         }
     }
 
+    // Logic for cancel
     private void Cancel()
     {
         Log.Information("Cancelled Add/Edit Branch operation at {Time}", DateTime.Now);

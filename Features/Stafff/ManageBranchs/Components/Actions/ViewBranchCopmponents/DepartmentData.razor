@@ -1,0 +1,58 @@
+﻿<h4 class="mb-3">Departments</h4>
+
+@if (Departments == null || !Departments.Any())
+{
+    <MudAlert Severity="Severity.Warning">No departments found.</MudAlert>
+}
+else
+{
+    <MudGrid Spacing="3" Justify="Justify.Center">
+        @foreach (var department in Departments)
+        {
+            <MudItem xs="12" sm="6" md="4">
+                <MudCard Elevation="3" Class="ma-3 pa-3 d-flex flex-column align-items-center text-center" Style="width: 90%;">
+
+                    <!-- Department Image -->
+                    <div style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; margin-top: 1rem; border: 2px solid #ccc;">
+                        <MudCardMedia Image="@GetDepartmentImageSafe(department.DepartmentName)"
+                                      Alt="@department.DepartmentName"
+                                      Style="width: 100%; height: 100%; object-fit: cover;" />
+                    </div>
+
+                    <MudCardContent>
+                        <MudText Typo="Typo.h6">@department.DepartmentName.ToUpper()</MudText>
+                    </MudCardContent>
+
+                    <!-- Doctor List -->
+                    <ViewDoctorsComponent Doctors="DoctorAssignments.GetValueOrDefault(department.DepId, new List<User>())" />
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
+}
+
+@code {
+    [Parameter] public List<DepDTO> Departments { get; set; } = new();
+    [Parameter] public Dictionary<int, List<User>> DoctorAssignments { get; set; } = new();
+
+
+    private string GetDepartmentImageSafe(string departmentName)
+    {
+        if (string.IsNullOrWhiteSpace(departmentName)) return "Images/IconDep/defultDep.png";
+
+        try
+        {
+            string imagesFolder = Path.Combine("wwwroot", "Images", "IconDep");
+
+            string[] availableImages = Directory.GetFiles(imagesFolder, "*.png");
+            var matchedImage = availableImages.FirstOrDefault(img =>
+                departmentName.ToLower().Contains(Path.GetFileNameWithoutExtension(img).ToLower()));
+
+            return matchedImage != null ? $"Images/IconDep/{Path.GetFileName(matchedImage)}" : "Images/IconDep/defultDep.png";
+        }
+        catch
+        {
+            return "Images/IconDep/defultDep.png";
+        }
+    }
+}

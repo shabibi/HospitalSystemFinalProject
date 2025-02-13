@@ -1,0 +1,36 @@
+﻿@page "/ManageBranch"
+
+
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="my-5">
+    <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84;">
+        Branch Management
+    </MudText>
+
+    <MudCard Class="mt-4">
+        <MudCardContent>
+            <AddBranchButton/>
+            <AllBranchsTable  branches="@branches"/>
+        </MudCardContent>
+    </MudCard>
+</MudContainer>
+
+@code {
+    public List<Branch> branches = new List<Branch>();
+
+    protected override void OnInitialized()
+    {
+        Log.Information("ManageBranch page initialized at {Time}", DateTime.Now);
+
+        try
+        {
+            // Load branches on initialization
+            branches = BranchService.GetAllBranches().ToList();
+            Log.Information("Successfully fetched {Count} branches at {Time}", branches.Count, DateTime.Now);
+        }
+        catch (Exception ex)
+        {
+            Log.Error("Error fetching branches: {Error} at {Time}", ex.Message, DateTime.Now);
+        }
+    }
+}

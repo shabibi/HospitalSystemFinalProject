@@ -1,0 +1,17 @@
+﻿
+
+<!-- Add Branch Button -->
+<div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToAddBranch"
+               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 8px 16px;">
+        Add Branch
+    </MudButton>
+</div>
+
+@code {
+    private void NavigateToAddBranch()
+    {
+        Log.Information("Navigating to AddBranch page at {Time}", DateTime.Now);
+        NavigationManager.NavigateTo("/AddBranch");
+    }
+}

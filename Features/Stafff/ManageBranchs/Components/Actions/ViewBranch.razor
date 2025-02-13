@@ -1,0 +1,17 @@
+﻿
+
+<MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Info" OnClick="() => ViewBranchById(branchId)" />
+
+
+@code {
+    [Parameter]
+    public int branchId { set; get; }
+
+
+    private void ViewBranchById(int bid)
+    {
+        Log.Information("Navigating to ViewBranch page for Branch ID: {BranchId} at {Time}", bid, DateTime.Now);
+        // Navigate to the BranchDepartmentPage with the branch ID
+        NavigationManager.NavigateTo($"/ViewBranchData/{bid}");
+    }
+}

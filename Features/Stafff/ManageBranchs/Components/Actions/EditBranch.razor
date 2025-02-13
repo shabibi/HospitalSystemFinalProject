@@ -1,0 +1,11 @@
+﻿<!-- Edit Branch Button Component -->
+<MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="NavigateToEditBranch" />
+
+@code {
+    [Parameter] public int? BranchId { get; set; }
+
+    private void NavigateToEditBranch()
+    {
+        NavigationManager.NavigateTo($"/AddBranch/{BranchId}");
+    }
+}

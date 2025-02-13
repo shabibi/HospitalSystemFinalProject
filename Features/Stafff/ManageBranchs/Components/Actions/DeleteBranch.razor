@@ -1,0 +1,21 @@
+﻿<!-- DeleteBranch.razor Component -->
+<MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="() => DeleteBranchById(BranchId)" />
+
+@code {
+    [Parameter] public int BranchId { get; set; }
+    [Parameter] public EventCallback<int> OnDelete { get; set; } // Event callback to notify the parent component
+
+    private void DeleteBranchById(int branchId)
+    {
+        try
+        {
+            // Call the parent component's OnDelete callback with the BranchId
+            OnDelete.InvokeAsync(branchId);
+        }
+        catch (Exception ex)
+        {
+            // Log error if deletion fails
+            Log.Error("Error deleting Branch ID: {BranchId}. Error: {Error} at {Time}", branchId, ex.Message, DateTime.Now);
+        }
+    }
+}

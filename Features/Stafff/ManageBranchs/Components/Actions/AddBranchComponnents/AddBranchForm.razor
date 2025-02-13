@@ -1,0 +1,41 @@
+﻿
+ <MudCardContent>
+    <MudForm Model="@BranchModel" OnValidSubmit="HandleValidSubmit" @bind-IsValid="IsFormValid">
+        <MudTextField T="string" Label="Branch Name" @bind-Value="BranchModel.BranchName" Required="true" />
+        <MudTextField T="string" Label="Location" @bind-Value="BranchModel.Location" Required="true" />
+        <MudSwitch T="bool" Label="Active" @bind-Checked="BranchModel.BranchStatus" Color="Color.Primary" />
+    </MudForm>
+
+    <MudCardActions Style="justify-content: flex-end;">
+        <MudButton Variant="Variant.Text" OnClick="Cancel">Cancel</MudButton>
+        <MudButton Variant="Variant.Filled" Disabled="!IsFormValid" OnClick="SaveBranch">Save</MudButton>
+    </MudCardActions>
+
+</MudCardContent>
+
+
+@code {
+    [Parameter] public BranchDTO BranchModel { get; set; }
+    [Parameter] public int? BranchId { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public bool IsFormValid { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+
+    private async Task HandleValidSubmit()
+    {
+        // Call the OnValidSubmit method passed from the parent
+        await OnValidSubmit.InvokeAsync();
+    }
+
+    private async Task SaveBranch()
+    {
+        // Call the OnValidSubmit method to save the branch
+        await OnValidSubmit.InvokeAsync();
+    }
+
+    private async Task Cancel()
+    {
+        // Call the OnCancel method to navigate away
+        await OnCancel.InvokeAsync();
+    }
+}

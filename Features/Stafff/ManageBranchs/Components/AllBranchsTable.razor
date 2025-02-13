@@ -1,0 +1,34 @@
+﻿<MudTable Items="branches" T="Branch" Hover="true" Bordered="true" Striped="true" Elevation="2">
+    <HeaderContent>
+        <MudTh>Branch ID</MudTh>
+        <MudTh>Branch Name</MudTh>
+        <MudTh>Location</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.BID</MudTd>
+        <MudTd>@context.BranchName</MudTd>
+        <MudTd>@context.Location</MudTd>
+        <MudTd>
+            <!-- View Button -->
+            <ViewBranch BranchId="@context.BID" />
+
+            <!-- Edit Button (Using EditBranch component) -->
+            <EditBranch BranchId="@context.BID" />
+
+            <!-- Delete Button -->
+            <DeleteBranch BranchId="@context.BID" />
+
+        </MudTd>
+    </RowTemplate>
+    <NoRecordsContent>
+        <MudText Typo="Typo.body1" Align="Align.Center" Style="color: gray;">
+            No branches found.
+        </MudText>
+    </NoRecordsContent>
+</MudTable>
+
+@code {
+    [Parameter]
+    public List<Branch> branches { set; get; }
+}
