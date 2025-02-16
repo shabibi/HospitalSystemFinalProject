@@ -1,0 +1,43 @@
+﻿<MudTable Items="@Departments" Hover="true" Style="width: 100%; font-size: 1.2rem; border-collapse: collapse;">
+    <HeaderContent>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 10%;">ID</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 20%;">Name</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 30%;">Description</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Status</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">View</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Edit</MudTh>
+        <MudTh Style="background-color: #1B7D84; color: white; width: 15%;">Inactivate</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="ID" Style="padding: 16px;">@context.DepId</MudTd>
+        <MudTd DataLabel="Name" Style="padding: 16px;">@context.DepartmentName</MudTd>
+        <MudTd DataLabel="Description" Style="padding: 16px;">@context.Description</MudTd>
+        <MudTd DataLabel="Status" Style="@GetStatusStyle(context.DepartmentStatus)">
+            @(context.DepartmentStatus ? "Active" : "Inactive")
+        </MudTd>
+
+        <MudTd DataLabel="View" Style="width: 15%; text-align: center;">
+            <MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Primary" OnClick="() => OnView.InvokeAsync(context)" Variant="Variant.Text" />
+        </MudTd>
+        <MudTd DataLabel="Edit" Style="width: 15%; text-align: center;">
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Warning" OnClick="() => OnEdit.InvokeAsync(context)" Variant="Variant.Text" />
+        </MudTd>
+        <MudTd DataLabel="Inactivate" Style="width: 15%; text-align: center;">
+            <MudIconButton Icon="@(context.DepartmentStatus ? Icons.Material.Filled.Block : Icons.Material.Filled.CheckCircle)"
+                           Color="@(context.DepartmentStatus ? Color.Error : Color.Success)"
+                           OnClick="() => OnInactivate.InvokeAsync(context)" Variant="Variant.Text" />
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code {
+    [Parameter] public List<DepDTO> Departments { get; set; }
+    [Parameter] public EventCallback<DepDTO> OnView { get; set; }
+    [Parameter] public EventCallback<DepDTO> OnEdit { get; set; }
+    [Parameter] public EventCallback<DepDTO> OnInactivate { get; set; }
+
+    private string GetStatusStyle(bool isActive)
+    {
+        return isActive ? "color: green;" : "color: red;";
+    }
+}

@@ -1,0 +1,33 @@
+﻿@page "/ManageDepartment"
+
+<AddDepartmentButton />
+<DepartmentsTable Departments="@departments" OnView="NavigateToDepartmentBranch" OnEdit="NavigateToEditDepartment" OnInactivate="DeleteDepartment" />
+
+@code {
+    private List<DepDTO> departments = new List<DepDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadDepartmentsAsync();
+    }
+
+    private async Task LoadDepartmentsAsync()
+    {
+        departments = DepartmentService.GetAllDepartments().ToList();
+    }
+
+    private void NavigateToDepartmentBranch(DepDTO department)
+    {
+        NavigationManager.NavigateTo($"/ViewDepartment/{department.DepId}");
+    }
+
+    private void NavigateToEditDepartment(DepDTO department)
+    {
+        NavigationManager.NavigateTo($"/EditDepartment/{department.DepId}");
+    }
+
+    private async Task DeleteDepartment(DepDTO department)
+    {
+        DepartmentService.SetDepartmentActiveStatus(department.DepId, false);
+    }
+}

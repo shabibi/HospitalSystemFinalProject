@@ -1,0 +1,25 @@
+﻿<MudTable Items="Appointments" Dense="true" Hover="true" Class="mt-4">
+    <HeaderContent>
+        <MudTh>Start Time</MudTh>
+        <MudTh>End Time</MudTh>
+        <MudTh>Status</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.StartTime.ToString(@"hh\:mm")</MudTd>
+        <MudTd>@context.EndTime.ToString(@"hh\:mm")</MudTd>
+        <MudTd>
+            @(context.Staus ? "Booked" : "Available")
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@if (Appointments != null && !Appointments.Any())
+{
+    <MudText Typo="Typo.body1" Align="Align.Center" Class="mt-2">
+        No slots available for the selected date.
+    </MudText>
+}
+
+@code {
+    [Parameter] public IEnumerable<Booking> Appointments { get; set; } = new List<Booking>();
+}

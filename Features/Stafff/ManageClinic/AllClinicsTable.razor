@@ -1,0 +1,71 @@
+﻿
+<MudTable Items="Clinics" Hover="true" SortLabel="Sort By" Style="width: 100%; margin-top: 50px;">
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortBy="new Func<Clinic, object>(x => x.CID)">Clinic ID</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Clinic, object>(x => x.ClincName)">Clinic Name</MudTableSortLabel></MudTh>
+        <MudTh>View</MudTh>
+        <MudTh>Schedule</MudTh>
+        <MudTh>Edit</MudTh>
+        <MudTh>Delete</MudTh>
+    </HeaderContent>
+
+    <RowTemplate>
+        <MudTd DataLabel="Clinic ID">@context.CID</MudTd>
+        <MudTd DataLabel="Clinic Name">@context.ClincName</MudTd>
+        <MudTd DataLabel="View">
+            <MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Primary" OnClick="() => NavigateToView(context.CID)" />
+        </MudTd>
+        <MudTd DataLabel="Schedule">
+            <MudIconButton Icon="@Icons.Material.Filled.Schedule" Color="Color.Info" OnClick="() => NavigateToSchedule(context.CID)" />
+        </MudTd>
+        <MudTd DataLabel="Edit">
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Warning" OnClick="() => NavigateToEdit(context.CID)" />
+        </MudTd>
+        <MudTd DataLabel="Delete">
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="() => OpenDeleteClinicDialog(context.CID)" />
+        </MudTd>
+    </RowTemplate>
+
+    <PagerContent>
+        <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100 }" />
+    </PagerContent>
+</MudTable>
+
+@code {
+    [Parameter] public IEnumerable<Clinic> Clinics { get; set; }
+    [Parameter] public EventCallback<int> OnDeleteClinic { get; set; }
+
+    private void NavigateToView(int clinicId) =>
+        NavigationManager.NavigateTo($"/ViewAllClinicAppointments/{clinicId}");
+
+    private void NavigateToSchedule(int clinicId) =>
+        NavigationManager.NavigateTo($"/SchedulePage/{clinicId}");
+
+    private void NavigateToEdit(int clinicId) =>
+        NavigationManager.NavigateTo($"/EditClinic/{clinicId}");
+
+    private void OpenDeleteClinicDialog(int clinicId)
+    {
+        var parameters = new DialogParameters
+        {
+            { "ClinicId", clinicId },
+            { "OnDeleteConfirmed", EventCallback.Factory.Create<int>(this, HandleDeleteConfirmed) },
+            { "OnCancelDelete", EventCallback.Factory.Create(this, CancelDelete) }
+        };
+
+        // Show the DeleteClinic dialog using the DialogService
+        DialogService.Show<DeleteClinic>("Delete Clinic", parameters);
+    }
+
+    // Handle the deletion confirmation
+    private void HandleDeleteConfirmed(int clinicId)
+    {
+        Clinics = Clinics.Where(c => c.CID != clinicId).ToList(); // Remove the clinic with the confirmed ID
+    }
+
+    // Handle cancellation of delete action
+    private void CancelDelete()
+    {
+        // No action needed, just close the dialog
+    }
+}

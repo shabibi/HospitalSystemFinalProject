@@ -1,0 +1,96 @@
+﻿@page "/EditClinic/{clinicId:int}"
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="my-5" Style="align-items:center; margin-top: 100px; padding: 0 10px;">
+    <MudPaper Elevation="4" Class="form-container" Style="width: 100%; max-width: 600px; margin: auto; padding: 20px;">
+
+        <MudForm Model="clinicInput" @ref="form" Valid="isFormValid" OnValidSubmit="SubmitForm" Hover="true" Style="width: 100%;">
+
+            <AddClinicForm ClinicInput="clinicInput" Doctors="doctors" AvailableTimes="availableTimes" Users="users" />
+
+            <ActionButtons OnSubmit="SubmitForm" OnCancel="NavigateBack" FormIsValid="form.IsValid" />
+        </MudForm>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    [Parameter] public int clinicId { get; set; } // Clinic ID from URL parameter
+
+    private ClinicInput clinicInput = new();
+    private MudForm form;
+    private bool isFormValid = false;
+
+    private List<Doctor> doctors = new List<Doctor>();
+    private List<UserOutputDTO> users = new List<UserOutputDTO>();
+    private List<TimeSpan> availableTimes;
+    private Clinic clinic;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var doctorsResult = DoctorService.GetAllDoctors().Where(u => u.CID == null);
+            var userRole = userService.GetUserByRole("Doctor");
+
+            doctors = doctorsResult?.ToList() ?? new List<Doctor>();
+            users = userRole?.ToList() ?? new List<UserOutputDTO>();
+            availableTimes = GenerateAvailableTimes();
+
+            if (clinicId != 0) // If clinicId is not 0, we are editing an existing clinic
+            {
+                // Fetch the existing clinic data to pre-fill the form
+                 clinic = clinicService.GetClinicById(clinicId);
+                clinicInput = new ClinicInput
+                    {
+                        ClincName = clinic.ClincName,
+                        AssignDoctor = clinic.AssignDoctor.Value,
+                        SlotDuration = clinic.SlotDuration,
+                        StartTime = clinic.StartTime,
+                        EndTime = clinic.EndTime,
+                        Cost = clinic.Cost
+                    };
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error loading data: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task SubmitForm()
+    {
+        if (form.IsValid)
+        {
+            try
+            {
+                // Editing an existing clinic
+                clinicService.UpdateClinicDetails(clinicId, clinicInput);
+                Snackbar.Add("Clinic updated successfully!", Severity.Success);
+
+                NavigationManager.NavigateTo($"/AllClinicsPage/{clinic.BID}/{clinic.DepID}");// Navigate to the clinic list page
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"Error saving clinic: {ex.Message}", Severity.Error);
+            }
+        }
+    }
+
+    private void NavigateBack()
+    {
+        NavigationManager.NavigateTo($"/AllClinicsPage/{clinic.BID}/{clinic.DepID}"); // Navigate back to the clinic list
+    }
+
+    private List<TimeSpan> GenerateAvailableTimes()
+    {
+        var times = new List<TimeSpan>();
+        var startTime = new TimeSpan(9, 0, 0);
+        var endTime = new TimeSpan(17, 0, 0);
+        var interval = new TimeSpan(0, 30, 0);
+
+        for (var time = startTime; time < endTime; time = time.Add(interval))
+        {
+            times.Add(time);
+        }
+
+        return times;
+    }
+}

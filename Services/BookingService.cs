@@ -58,6 +58,9 @@ namespace HospitalSystemTeamTask.Services
             if (appointmentDate < DateTime.Today)
                 throw new InvalidOperationException("Cannot schedule appointments for a past date.");
 
+            // Ensure the appointment date is in UTC
+            appointmentDate = appointmentDate.ToUniversalTime();
+
             // Retrieve the clinic from the service
             var clinic = _clinicService.GetClinicById(cid);
 
@@ -83,8 +86,8 @@ namespace HospitalSystemTeamTask.Services
             var appointmentSlots = new List<Booking>();
             for (int i = 0; i < totalMinutes; i += clinic.SlotDuration)
             {
-                var startTime = clinic.StartTime.Add(TimeSpan.FromMinutes(i));
-                var endTime = startTime.Add(TimeSpan.FromMinutes(clinic.SlotDuration));
+                var startTime = clinic.StartTime.Add(TimeSpan.FromMinutes(i)); // Convert to UTC
+                var endTime = startTime.Add(TimeSpan.FromMinutes(clinic.SlotDuration)); // Convert to UTC
 
                 // Create a new appointment slot
                 var appointment = new Booking
@@ -92,7 +95,7 @@ namespace HospitalSystemTeamTask.Services
                     CID = clinic.CID,
                     StartTime = startTime,
                     EndTime = endTime,
-                    Date = appointmentDate,
+                    Date = appointmentDate.ToUniversalTime(),  // Keep the original date (ensure UTC)
                     BookingDate = null, // Default to null for unbooked slots
                     Staus = false,     // Slot is initially unbooked
                     PID = null          // No patient assigned

@@ -14,6 +14,8 @@
 @using MudBlazor.Utilities
 @using HospitalSystemTeamTask.Shared.Layouts
 @using HospitalSystemTeamTask.Shared.Helper
+@using HospitalSystemTeamTask.Shared.Components
+
 @using Serilog
 @using Microsoft.AspNetCore.Components.Authorization
 @using System.Security.Claims
@@ -23,12 +25,26 @@
 @using HospitalSystemTeamTask.Features.Stafff.ManageBranchs.Components.Actions
 @using HospitalSystemTeamTask.Features.Stafff.ManageBranchs.Components.Actions.ViewBranchCopmponents
 @using HospitalSystemTeamTask.Features.Stafff.ManageBranchs.Components.Actions.AddBranchComponnents
+@using HospitalSystemTeamTask.Features.Stafff.ManageDepartments
+@using HospitalSystemTeamTask.Features.Stafff.ManageDepartments.Components
+
+@using HospitalSystemTeamTask.Features.Stafff.ManageClinic.ClinicSelection
+@using HospitalSystemTeamTask.Features.Stafff.ManageClinic.Actions
+@using HospitalSystemTeamTask.Features.Stafff.ManageClinic.Actions.AddClinicAction
+@using HospitalSystemTeamTask.Features.Stafff.ManageClinic.Actions.AddAppointments
+
+@using HospitalSystemTeamTask.Features.Stafff.ManageStaff
+
 
 @inject IUserService userService
 @inject IBranchService BranchService
 @inject IBranchDepartmentService BranchDepartmentService
 @inject IDepartmentService DepartmentService
 @inject IDoctorService DoctorService
+@inject IClinicService clinicService
+@inject IBookingService bookingService
 
 @inject ISnackbar Snackbar
 @inject NavigationManager NavigationManager
+@inject IDialogService DialogService
+@using Microsoft.AspNetCore.Components

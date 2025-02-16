@@ -1,0 +1,61 @@
+﻿@page "/AddDepartment"
+
+<!-- Add New Department Form -->
+<div style="margin: 0 auto; max-width: 600px;">
+    <div style="margin-bottom: 16px;">
+        <MudText Typo="Typo.h5" Style="font-weight: bold; color: #1B7D84; text-align: left;">Department Name</MudText>
+        <MudTextField T="string" @bind-Value="CurrentDepartment.DepartmentName" Variant="Variant.Outlined" Placeholder="Enter department name" />
+    </div>
+
+    <div style="margin-bottom: 16px;">
+        <MudText Typo="Typo.h5" Style="font-weight: bold; color: #1B7D84; text-align: left;">Description</MudText>
+        <MudTextField T="string" @bind-Value="CurrentDepartment.Description" Variant="Variant.Outlined" Placeholder="Enter department description" />
+    </div>
+
+    <div style="margin-bottom: 16px;">
+        <MudText Typo="Typo.h5" Style="font-weight: bold; color: #1B7D84; text-align: left;">Status</MudText>
+        <MudSelect T="bool" @bind-Value="CurrentDepartment.DepartmentStatus" Variant="Variant.Outlined" Clearable>
+            <MudSelectItem T="bool" Value="true">Active</MudSelectItem>
+            <MudSelectItem T="bool" Value="false">Inactive</MudSelectItem>
+        </MudSelect>
+    </div>
+
+    <!-- Save Department Button -->
+    <div class="d-flex justify-end" style="margin-bottom: 30px;">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SaveDepartment"
+                   Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px;">
+            Save Department
+        </MudButton>
+    </div>
+</div>
+
+@code {
+    private DepartmentDTO CurrentDepartment = new DepartmentDTO();
+
+    private async Task SaveDepartment()
+    {
+        if (string.IsNullOrWhiteSpace(CurrentDepartment.DepartmentName))
+        {
+            // Log error if the department name is empty
+            Log.Error("Department name cannot be empty.");
+            return;
+        }
+
+        try
+        {
+            DepartmentService.CreateDepartment(CurrentDepartment);
+
+            Snackbar.Add("Department added successfully!", MudBlazor.Severity.Success);
+
+            Log.Information($"Department '{CurrentDepartment.DepartmentName}' added successfully.");
+
+            NavigationManager.NavigateTo("/ManageDepartment");
+        }
+        catch (Exception ex)
+        {
+           
+            Log.Error(ex, "Error occurred while adding department.");
+            Snackbar.Add("An error occurred while adding the department. Please try again.", MudBlazor.Severity.Error);
+        }
+    }
+}

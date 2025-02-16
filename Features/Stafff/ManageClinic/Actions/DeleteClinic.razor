@@ -1,0 +1,32 @@
+﻿
+
+<MudDialog>
+    <DialogContent>
+        <MudText Typo="Typo.h6" GutterBottom="true">
+            Are you sure you want to delete clinic ID @ClinicId?
+        </MudText>
+        <MudText Typo="Typo.body1" Color="Color.Error">
+            This action is permanent and cannot be undone. Please confirm if you wish to delete the clinic.
+        </MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="ConfirmDelete" Color="Color.Error" Variant="Variant.Filled">Delete</MudButton>
+        <MudButton OnClick="CancelDelete" Color="Color.Default" Variant="Variant.Text">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [Parameter] public int ClinicId { get; set; }
+    [Parameter] public EventCallback<int> OnDeleteConfirmed { get; set; }
+    [Parameter] public EventCallback OnCancelDelete { get; set; }
+
+    private void ConfirmDelete()
+    {
+        OnDeleteConfirmed.InvokeAsync(ClinicId);
+    }
+
+    private void CancelDelete()
+    {
+        OnCancelDelete.InvokeAsync();
+    }
+}

@@ -1,0 +1,15 @@
+﻿
+
+<div class="d-flex justify-end" style="margin-bottom: 30px;">
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="NavigateToAddDepartment"
+               Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 10px 10px;">
+        Add New Department
+    </MudButton>
+</div>
+
+@code {
+    private void NavigateToAddDepartment()
+    {
+        NavigationManager.NavigateTo("/AddDepartment");
+    }
+}

@@ -1,0 +1,20 @@
+﻿<MudDatePicker @bind-Date="SelectedDate" Label="Pick a Date" Required="true" Style="font-size: 1.2rem;" />
+
+<MudButton Variant="Variant.Filled" Style="background-color: #1B7D84; color: white;" OnClick="OnDateSelected" Disabled="!IsDateValid">
+    Generate Schedule
+</MudButton>
+
+@code {
+    [Parameter] public EventCallback<DateTime> OnDateChanged { get; set; }
+
+    private DateTime? SelectedDate;
+    private bool IsDateValid => SelectedDate.HasValue && SelectedDate >= DateTime.Today;
+
+    private async Task OnDateSelected()
+    {
+        if (SelectedDate.HasValue)
+        {
+            await OnDateChanged.InvokeAsync(SelectedDate.Value);
+        }
+    }
+}
