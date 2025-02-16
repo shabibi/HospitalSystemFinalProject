@@ -1,0 +1,39 @@
+﻿@page "/ClinicPage"
+@inject NavigationManager NavigationManager
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="my-5" Style="align-items:center; margin-top: 100px;">
+    <MudText Typo="Typo.h4" Align="Align.Center" Style="color: #1B7D84;">
+        Clinic Management
+    </MudText>
+    
+    <MudCard Class="mt-5">
+        <MudCardContent>
+            <!-- Add Clinic Button -->
+            <AddClinicButton />
+            <ClinicSelectionComponent OnBranchSelected="HandleBranchSelected" OnDepartmentSelected="HandleDepartmentSelected" />
+
+            <!-- Find Clinic Button -->
+            <FindClinicButton SelectedBranch="selectedBranch" SelectedDepartment="selectedDepartment" />
+        </MudCardContent>
+    </MudCard>
+</MudContainer>
+
+@code {
+    private Branch selectedBranch;
+    private DepDTO selectedDepartment;
+
+    private void HandleBranchSelected(Branch branch)
+    {
+        selectedBranch = branch;
+    }
+
+    private void HandleDepartmentSelected(DepDTO department)
+    {
+        selectedDepartment = department;
+    }
+
+    private void AddClinic()
+    {
+        NavigationManager.NavigateTo("/AddClinic");
+    }
+}

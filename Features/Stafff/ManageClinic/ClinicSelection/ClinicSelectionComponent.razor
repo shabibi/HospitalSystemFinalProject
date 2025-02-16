@@ -1,0 +1,11 @@
+﻿
+
+<MudGrid>
+    <FindBranch OnBranchSelected="OnBranchSelected" />
+    <FindDepartment OnDepartmentSelected="OnDepartmentSelected" />
+</MudGrid>
+
+@code {
+    [Parameter] public EventCallback<Branch> OnBranchSelected { get; set; }
+    [Parameter] public EventCallback<DepDTO> OnDepartmentSelected { get; set; }
+}

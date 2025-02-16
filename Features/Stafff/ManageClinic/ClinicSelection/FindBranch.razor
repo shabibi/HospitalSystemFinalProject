@@ -1,0 +1,40 @@
+﻿
+ <MudItem xs="12">
+    <MudText Typo="Typo.body1" Style="font-weight: bold; color: #1B7D84;">Select Branch</MudText>
+    <MudSelect T="Branch" @bind-Value="SelectedBranch" Variant="Variant.Outlined" Clearable>
+        @foreach (var branch in Branches)
+        {
+            <MudSelectItem T="Branch" Value="@branch" Style="font-size: 1rem; font-weight: bold;">
+                @branch.BranchName
+            </MudSelectItem>
+        }
+    </MudSelect>
+</MudItem>
+@code {
+    [Parameter] public EventCallback<Branch> OnBranchSelected { get; set; }
+
+    private List<Branch> Branches = new();
+    private Branch _selectedBranch;
+
+    private Branch SelectedBranch
+    {
+        get => _selectedBranch;
+        set
+        {
+            _selectedBranch = value;
+            OnBranchSelected.InvokeAsync(value);
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            Branches = BranchService.GetAllBranches().ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching branches: {ex.Message}");
+        }
+    }
+}

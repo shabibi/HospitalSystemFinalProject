@@ -1,0 +1,42 @@
+﻿
+<MudItem xs="12">
+    <MudText Typo="Typo.body1" Style="font-weight: bold; color: #1B7D84;">Select Department</MudText>
+    <MudSelect T="DepDTO" @bind-Value="SelectedDepartment" Variant="Variant.Outlined" Clearable>
+        @foreach (var department in Departments)
+        {
+            <MudSelectItem T="DepDTO" Value="@department" Style="font-size: 1rem; font-weight: bold;">
+                @department.DepartmentName
+            </MudSelectItem>
+        }
+    </MudSelect>
+</MudItem>
+
+
+@code {
+    [Parameter] public EventCallback<DepDTO> OnDepartmentSelected { get; set; }
+
+    private List<DepDTO> Departments = new();
+    private DepDTO _selectedDepartment;
+
+    private DepDTO SelectedDepartment
+    {
+        get => _selectedDepartment;
+        set
+        {
+            _selectedDepartment = value;
+            OnDepartmentSelected.InvokeAsync(value);
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            Departments = DepartmentService.GetAllDepartments().ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching departments: {ex.Message}");
+        }
+    }
+}

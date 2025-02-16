@@ -1,0 +1,19 @@
+﻿ <MudItem xs="12">
+    <div class="d-flex justify-end">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="AddClinic"
+                   Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 12px 16px;">
+            Add Clinic
+        </MudButton>
+    </div>
+</MudItem>
+
+
+@code {
+    [Parameter] public Branch SelectedBranch { get; set; }
+    [Parameter] public DepDTO SelectedDepartment { get; set; }
+
+    private void AddClinic()
+    {
+        NavigationManager.NavigateTo("/AddClinic");
+    }
+}

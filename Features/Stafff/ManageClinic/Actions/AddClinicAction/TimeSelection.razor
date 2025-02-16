@@ -1,0 +1,30 @@
+﻿
+<MudItem xs="12" Class="mb-4">
+    <!-- Start Time Dropdown -->
+    <MudSelect T="TimeSpan" Label="Start Time" @bind-Value="ClinicInput.StartTime" Required="true" FullWidth="true">
+        @foreach (var time in AvailableTimes)
+        {
+            <MudSelectItem T="TimeSpan" Value="@time">
+                @time.ToString(@"hh\:mm\:ss")
+            </MudSelectItem>
+        }
+    </MudSelect>
+</MudItem>
+
+<MudItem xs="12" Class="mb-4">
+    <!-- End Time Dropdown -->
+    <MudSelect T="TimeSpan" Label="End Time" @bind-Value="ClinicInput.EndTime" Required="true" FullWidth="true">
+        @foreach (var time in AvailableTimes)
+        {
+            <MudSelectItem T="TimeSpan" Value="@time">
+                @time.ToString(@"hh\:mm\:ss")
+            </MudSelectItem>
+        }
+    </MudSelect>
+</MudItem>
+
+@code {
+    [Parameter] public List<TimeSpan> AvailableTimes { get; set; }
+    [Parameter] public ClinicInput ClinicInput { get; set; }
+}
+

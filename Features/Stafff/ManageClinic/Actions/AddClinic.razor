@@ -1,0 +1,81 @@
+﻿@page "/AddClinic"
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="my-5" Style="align-items:center; margin-top: 100px; padding: 0 10px;">
+    <MudPaper Elevation="4" Class="form-container" Style="width: 100%; max-width: 600px; margin: auto; padding: 20px;">
+        <MudText Typo="Typo.h3" Align="Align.Center" Class="mb-4" Style="color: #1B7D84;">
+            Add Clinic
+        </MudText>
+
+        <MudForm Model="clinicInput" @ref="form" Valid="isFormValid" OnValidSubmit="SubmitForm" Hover="true" SortLabel="Sort By" Style="width: 100%;">
+
+            <AddClinicForm ClinicInput="clinicInput" Doctors="doctors" AvailableTimes="availableTimes" Users="users" />
+
+            <ActionButtons OnSubmit="SubmitForm" OnCancel="NavigateBack" FormIsValid="form.IsValid" />
+        </MudForm>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private ClinicInput clinicInput = new();
+    private MudForm form;
+    private bool isFormValid = false;
+
+    private List<Doctor> doctors = new List<Doctor>();
+    private List<UserOutputDTO> users = new List<UserOutputDTO>();
+    private List<TimeSpan> availableTimes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var doctorsResult = DoctorService.GetAllDoctors().Where(u => u.CID == null);
+            var userRole = userService.GetUserByRole("Doctor");
+
+            doctors = doctorsResult?.ToList() ?? new List<Doctor>();
+            users = userRole?.ToList() ?? new List<UserOutputDTO>();
+            availableTimes = GenerateAvailableTimes();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Error loading data: {ex.Message}", Severity.Error);
+        }
+    }
+
+    private async Task SubmitForm()
+    {
+        if (form.IsValid)
+        {
+            try
+            {
+                clinicService.AddClinic(clinicInput);
+                Snackbar.Add("Clinic added successfully!", Severity.Success);
+                await Task.Delay(2000);
+                NavigationManager.NavigateTo("/AddClinic");
+            }
+            catch (Exception ex)
+            {
+                Snackbar.Add($"Error adding clinic: {ex.Message}", Severity.Error);
+            }
+        }
+    }
+
+    private void NavigateBack()
+    {
+        NavigationManager.NavigateTo("/AddClinic");
+    }
+
+    private List<TimeSpan> GenerateAvailableTimes()
+    {
+        var times = new List<TimeSpan>();
+        var startTime = new TimeSpan(9, 0, 0);
+        var endTime = new TimeSpan(17, 0, 0);
+        var interval = new TimeSpan(0, 30, 0);
+
+        for (var time = startTime; time < endTime; time = time.Add(interval))
+        {
+            times.Add(time);
+        }
+
+        return times;
+    }
+}

@@ -1,0 +1,31 @@
+﻿
+<MudItem xs="12" Class="mb-4">
+    <!-- Clinic Name Input -->
+    <MudTextField Label="Clinic Name" @bind-Value="ClinicInput.ClincName" Required="true" FullWidth="true" />
+</MudItem>
+
+<DoctorSelection ClinicInput="ClinicInput" Doctors="Doctors" Users="Users" />
+
+<MudItem xs="12" Class="mb-4">
+    <!-- Slot Duration Input -->
+    <MudTextField Label="Slot Duration (in minutes)" @bind-Value="ClinicInput.SlotDuration" Required="true" Type="number" FullWidth="true" />
+</MudItem>
+
+<TimeSelection AvailableTimes="AvailableTimes" ClinicInput="ClinicInput" />
+
+<MudItem xs="12" Class="mb-4">
+    <!-- Cost Input -->
+    <MudTextField Label="Cost" @bind-Value="ClinicInput.Cost" Required="true" Type="number"
+                  Validation="(Func<decimal, string>)ValidatePositiveNumber" FullWidth="true" />
+</MudItem>
+
+
+@code {
+    [Parameter] public ClinicInput ClinicInput { get; set; }
+    [Parameter] public List<Doctor> Doctors { get; set; }
+    [Parameter] public List<TimeSpan> AvailableTimes { get; set; }
+    [Parameter] public List<UserOutputDTO> Users { get; set; } // Users parameter for doctor selection
+
+    private string ValidatePositiveNumber(decimal value) =>
+    value > 0 ? null : "Cost must be a positive number.";
+}

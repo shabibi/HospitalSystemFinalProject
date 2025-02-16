@@ -1,0 +1,20 @@
+﻿@code {
+    [Parameter] public ClinicInput ClinicInput { get; set; }
+    [Parameter] public List<Doctor> Doctors { get; set; }
+    [Parameter] public List<UserOutputDTO> Users { get; set; } // This is passed from AddClinicForm
+}
+
+<MudItem xs="12" Class="mb-4">
+    <!-- Assign Doctor Dropdown -->
+    <MudSelect T="int" Label="Assign Doctor" @bind-Value="ClinicInput.AssignDoctor" Required="true" FullWidth="true">
+        @foreach (var doctor in Doctors)
+        {
+            var user = Users.FirstOrDefault(u => u.UID == doctor.DID);
+            var userName = user?.UserName ?? "Unknown User";
+
+            <MudSelectItem T="int" Value="user.UID">
+                @userName
+            </MudSelectItem>
+        }
+    </MudSelect>
+</MudItem>

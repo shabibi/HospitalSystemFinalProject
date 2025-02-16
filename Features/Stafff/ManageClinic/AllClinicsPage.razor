@@ -1,0 +1,119 @@
+﻿
+@page "/AllClinicsPage/{bid:int}/{depId:int}"
+@inject IClinicService clinicService
+@inject NavigationManager NavigationManager
+@inject IDialogService DialogService
+
+<MudTable Items="@clinics" Hover="true" SortLabel="Sort By" Style="width: 100%; margin-top: 50px;">
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortBy="new Func<Clinic, object>(x => x.CID)">Clinic ID</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<Clinic, object>(x => x.ClincName)">Clinic Name</MudTableSortLabel></MudTh>
+        <MudTh>View</MudTh>
+        <MudTh>Schedule</MudTh>
+        <MudTh>Edit</MudTh>
+        <MudTh>Delete</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Clinic ID">@context.CID</MudTd>
+        <MudTd DataLabel="Clinic Name">@context.ClincName</MudTd>
+        <MudTd DataLabel="View">
+            <MudIconButton Icon="@Icons.Material.Filled.Visibility" Color="Color.Primary" OnClick="() => NavigateToView(context.CID)" />
+        </MudTd>
+        <MudTd DataLabel="Schedule">
+            <MudIconButton Icon="@Icons.Material.Filled.Schedule" Color="Color.Info" OnClick="() => NavigateToSchedule(context.CID)" />
+        </MudTd>
+        <MudTd DataLabel="Edit">
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Warning" OnClick="() => NavigateToEdit(context.CID)" />
+        </MudTd>
+        <MudTd DataLabel="Delete">
+            <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="() => ShowDeleteConfirmation(context.CID)" />
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager PageSizeOptions="new int[] { 10, 25, 50, 100 }" />
+    </PagerContent>
+</MudTable>
+<MudDialog @bind-IsVisible="isDeleteDialogVisible" MaxWidth="MaxWidth.Small" CloseOnEscape="true" CloseOnOverlayClick="true">
+    <DialogContent>
+        <MudText Typo="Typo.h6" GutterBottom="true">
+            Are you sure you want to delete clinic ID @clinicToDelete?
+        </MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="ConfirmDelete" Color="Color.Error" Variant="Variant.Filled">Delete</MudButton>
+        <MudButton OnClick="CancelDelete" Color="Color.Default" Variant="Variant.Text">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [Parameter] public int bid { get; set; }
+    [Parameter] public int depId { get; set; }
+    private IEnumerable<Clinic> clinics = new List<Clinic>();
+    private bool isDeleteDialogVisible = false;
+    private int clinicToDelete;
+
+    protected override void OnInitialized()
+    {
+        Log.Information("Navigated to AllClinicsPage with Branch ID: {BranchId} and Department ID: {DepId} at {Time}", bid, depId, DateTime.Now);
+
+        try
+        {
+            clinics = clinicService.GetClinicByBranchDep(bid, depId);
+            Log.Information("Successfully fetched clinics for Branch ID: {BranchId} and Department ID: {DepId} at {Time}", bid, depId, DateTime.Now);
+        }
+        catch (Exception ex)
+        {
+            Log.Error("Error fetching clinics for Branch ID: {BranchId} and Department ID: {DepId}. Error: {Error} at {Time}", bid, depId, ex.Message, DateTime.Now);
+            clinics = new List<Clinic>();
+        }
+    }
+
+    private void NavigateToView(int clinicId)
+    {
+        Log.Information("Navigating to view clinic appointments for Clinic ID: {ClinicId} at {Time}", clinicId, DateTime.Now);
+        NavigationManager.NavigateTo($"/ViewAllClinicAppointments/{clinicId}");
+    }
+
+    private void NavigateToSchedule(int clinicId)
+    {
+        Log.Information("Navigating to schedule page for Clinic ID: {ClinicId} at {Time}", clinicId, DateTime.Now);
+        NavigationManager.NavigateTo($"/SchedulePage/{clinicId}");
+    }
+
+    private void NavigateToEdit(int clinicId)
+    {
+        Log.Information("Navigating to edit page for Clinic ID: {ClinicId} at {Time}", clinicId, DateTime.Now);
+        NavigationManager.NavigateTo($"/EditClinicPage/{clinicId}");
+    }
+
+    private void ShowDeleteConfirmation(int clinicId)
+    {
+        Log.Information("Showing delete confirmation dialog for Clinic ID: {ClinicId} at {Time}", clinicId, DateTime.Now);
+        clinicToDelete = clinicId;
+        isDeleteDialogVisible = true;
+    }
+
+    private void ConfirmDelete()
+    {
+        try
+        {
+            Log.Information("Attempting to delete clinic with ID: {ClinicId} at {Time}", clinicToDelete, DateTime.Now);
+            clinicService.SetClinicStatus(clinicToDelete);
+            clinics = clinics.Where(c => c.CID != clinicToDelete).ToList();
+            Log.Information("Successfully deleted clinic with ID: {ClinicId} at {Time}", clinicToDelete, DateTime.Now);
+        }
+        catch (Exception ex)
+        {
+            Log.Error("Error deleting clinic with ID: {ClinicId}. Error: {Error} at {Time}", clinicToDelete, ex.Message, DateTime.Now);
+        }
+        finally
+        {
+            isDeleteDialogVisible = false;
+        }
+    }
+
+    private void CancelDelete()
+    {
+        Log.Information("Cancelled delete operation for Clinic ID: {ClinicId} at {Time}", clinicToDelete, DateTime.Now);
+        isDeleteDialogVisible = false;
+    }
+}

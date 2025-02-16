@@ -1,0 +1,28 @@
+﻿ 
+
+<MudItem xs="12">
+    <div class="d-flex justify-center mt-4">
+        <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="FindClinic"
+                   Style="background-color: #1B7D84; color: white; font-size: 1rem; padding: 8px 16px;">
+            Find Clinic
+        </MudButton>
+    </div>
+</MudItem>
+
+
+@code {
+    [Parameter] public Branch SelectedBranch { get; set; }
+    [Parameter] public DepDTO SelectedDepartment { get; set; }
+
+    private void FindClinic()
+    {
+        if (SelectedBranch != null && SelectedDepartment != null)
+        {
+            NavigationManager.NavigateTo($"/AllClinicsPage/{SelectedBranch.BID}/{SelectedDepartment.DepId}");
+        }
+        else
+        {
+            Console.WriteLine("Please select both branch and department.");
+        }
+    }
+}
